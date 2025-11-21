@@ -1,109 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Book a Home Cyber-Safety Audit | Cyber Seeds</title>
-
-  <meta name="description" content="Book your Cyber Seeds home cyber-safety audit. Choose a time that works for your family and secure your WiFi, devices, privacy and children’s online lives." />
-  <meta name="keywords" content="book cyber security session, book home cyber audit, online safety appointment, family cyber security booking, Calendly cyber safety" />
-
-  <link rel="canonical" href="https://cyberseeds-uk.github.io/cyberseeds/book/" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Book a Home Cyber-Safety Audit" />
-  <meta property="og:description" content="Reserve your Cyber Seeds session and get a personalised digital-safety MOT for your home." />
-  <meta property="og:image" content="https://cyberseeds-uk.github.io/cyberseeds/logo.png" />
-  <meta property="og:url" content="https://cyberseeds-uk.github.io/cyberseeds/book/" />
-  <meta property="og:type" content="article" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Book a Home Cyber-Safety Audit | Cyber Seeds" />
-  <meta name="twitter:description" content="Quick, friendly booking for UK families who want safer digital lives." />
-  <meta name="twitter:image" content="https://cyberseeds-uk.github.io/cyberseeds/logo.png" />
-
-  <link rel="stylesheet" href="/cyberseeds/style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Session – Cyber Seeds</title>
+<meta name="description" content="Book your Cyber Seeds home cyber-safety audit session." />
+<link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
+
+<!-- NAV + MOBILE MENU (SAME AS ABOVE) -->
 <nav class="navbar">
   <div class="nav-container">
-    <a href="/cyberseeds/" class="nav-logo">
-      <img src="/cyberseeds/logo.png" alt="Cyber Seeds Logo">
-      Cyber Seeds
-    </a>
-
+    <a href="/" class="nav-logo"><img src="/logo.png"> Cyber Seeds</a>
     <ul class="nav-links">
-      <li><a href="/cyberseeds/">Home</a></li>
-      <li><a href="/cyberseeds/about/">About</a></li>
-      <li><a href="/cyberseeds/services/">Services</a></li>
-      <li><a href="/cyberseeds/book/">Book</a></li>
-      <li><a href="/cyberseeds/resources/">Resources</a></li>
-      <li><a href="/cyberseeds/faq/">FAQ</a></li>
-      <li><a href="/cyberseeds/contact/">Contact</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/services/">Services</a></li>
+      <li><a href="/book/">Book</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/contact/">Contact</a></li>
     </ul>
-
-    <button class="nav-toggle" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/cyberseeds/">Home</a>
-  <a href="/cyberseeds/about/">About</a>
-  <a href="/cyberseeds/services/">Services</a>
-  <a href="/cyberseeds/book/">Book</a>
-  <a href="/cyberseeds/resources/">Resources</a>
-  <a href="/cyberseeds/faq/">FAQ</a>
-  <a href="/cyberseeds/contact/">Contact</a>
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/services/">Services</a>
+  <a href="/book/">Book</a>
+  <a href="/resources/">Resources</a>
+  <a href="/faq/">FAQ</a>
+  <a href="/contact/">Contact</a>
 </div>
 
 <header>
-  <h1>Book Your Cyber-Safety Session</h1>
-  <p>Choose a time that works for your family</p>
+  <h1>Book Your Audit</h1>
+  <p>Choose a time that suits your family.</p>
 </header>
 
 <main>
   <section>
-    <h2>How Booking Works</h2>
-    <div class="card">
-      <ol>
-        <li>Pick a date and time that suits your household.</li>
-        <li>Confirm the session via Calendly.</li>
-        <li>Receive a short pre-session checklist by email.</li>
-        <li>Join the session and we’ll guide you step-by-step.</li>
-      </ol>
-      <p>All sessions are run in a calm, supportive way — you don’t need any technical knowledge.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>Book Now</h2>
     <div class="card" style="text-align:center;">
-      <p>Use the button below to book securely via Calendly:</p>
-      <a class="btn" href="https://calendly.com/cyberseeds-uk/30min" target="_blank" rel="noopener">Open Booking Calendar</a>
+      <p>Select a slot below:</p>
+      <a class="btn" href="https://calendly.com/cyberseeds-uk/30min">Book on Calendly</a>
     </div>
   </section>
 </main>
 
-<footer>
-  <p>© 2025 Cyber Seeds — Digital Safety for Families in Manchester & Across the UK</p>
-</footer>
+<footer><p>© 2025 Cyber Seeds</p></footer>
 
 <script>
-  const toggle = document.querySelector('.nav-toggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  toggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-  });
-
-  mobileMenu.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-  });
+  const toggle=document.querySelector('.nav-toggle');
+  const menu=document.getElementById('mobileMenu');
+  toggle.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.addEventListener('click',()=>menu.classList.remove('open'));
 </script>
 
 </body>
