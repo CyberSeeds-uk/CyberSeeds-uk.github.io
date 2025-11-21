@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Book a Session – Cyber Seeds</title>
-<meta name="description" content="Book your Cyber Seeds home cyber-safety audit session." />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+
+<title>Book Your Audit — Cyber Seeds</title>
+<meta name="description" content="Book your Cyber Seeds family cyber-safety audit session directly through our booking system." />
+<link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
 <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
 
-<!-- NAV + MOBILE MENU (SAME AS ABOVE) -->
+<!-- NAV -->
 <nav class="navbar">
   <div class="nav-container">
     <a href="/" class="nav-logo"><img src="/logo.png"> Cyber Seeds</a>
@@ -43,21 +46,21 @@
 </header>
 
 <main>
-  <section>
-    <div class="card" style="text-align:center;">
-      <p>Select a slot below:</p>
-      <a class="btn" href="https://calendly.com/cyberseeds-uk/30min">Book on Calendly</a>
-    </div>
-  </section>
+<section>
+  <div class="card" style="text-align:center;">
+    <p>Select a slot below:</p>
+    <a class="btn" href="https://calendly.com/cyberseeds-uk/30min">Book on Calendly</a>
+  </div>
+</section>
 </main>
 
 <footer><p>© 2025 Cyber Seeds</p></footer>
 
 <script>
-  const toggle=document.querySelector('.nav-toggle');
-  const menu=document.getElementById('mobileMenu');
-  toggle.addEventListener('click',()=>menu.classList.toggle('open'));
-  menu.addEventListener('click',()=>menu.classList.remove('open'));
+const toggle=document.querySelector('.nav-toggle');
+const m=document.getElementById('mobileMenu');
+toggle.addEventListener('click',()=>m.classList.toggle('open'));
+m.addEventListener('click',()=>m.classList.remove('open'));
 </script>
 
 </body>
