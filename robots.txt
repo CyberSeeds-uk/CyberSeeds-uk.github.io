@@ -6,4 +6,4 @@ Disallow: /LICENSE
 Disallow: /CNAME
 Disallow: /*.html$
 
-Sitemap: https://cyberseeds-uk.github.io/cyberseeds/sitemap.xml
+Sitemap: https://cyberseeds-uk.github.io/sitemap.xml
