@@ -1,368 +1,258 @@
-/* ============================
-   Core layout & typography
-   ============================ */
+/* ---------------------------------------
+   CYBER SEEDS – PREMIUM UI REDESIGN (2025)
+   Modern, soft, trustworthy & mobile-first
+---------------------------------------- */
+
+/* THEME VARIABLES */
 :root {
-  --color-primary: #0050b3;
-  --color-primary-soft: #0c66d4;
-  --color-accent: #17b897;
-  --color-accent-soft: #12a382;
-  --color-bg: #f4f6fb;
-  --color-surface: #ffffff;
-  --color-text: #12202f;
-  --color-text-soft: #4c5a6b;
-  --radius-xl: 1.25rem;
-  --radius-lg: 1rem;
-  --radius-pill: 999px;
-  --shadow-soft: 0 16px 40px rgba(15, 35, 90, 0.12);
-  --shadow-light: 0 6px 18px rgba(15, 35, 90, 0.10);
-  --shadow-card: 0 10px 28px rgba(15, 35, 90, 0.08);
-  --max-width: 1080px;
+    --primary: #0D47A1;
+    --primary-light: #1E5CE6;
+    --primary-dark: #052A63;
+
+    --bg: #f4f8fc;
+    --bg-soft: #eaf2fb;
+    --card-bg: #ffffffee;
+
+    --text: #1a1a1a;
+    --muted: #4a4a4a;
+
+    --radius: 22px;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+    --shadow-lg: 0 14px 40px rgba(0,0,0,0.14);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
+/* GLOBAL RESET */
+* {
+    box-sizing: border-box;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, sans-serif;
-  line-height: 1.6;
-  color: var(--color-text);
-  background: radial-gradient(circle at top left, #e4f0ff 0, #f4f6fb 45%, #f9fbff 100%);
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Center content */
-main,
-.nav-container,
-header > * {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding-inline: 1.5rem;
-}
-
-/* ============================
-   Navigation
-   ============================ */
-
+/* -----------------------------------
+   NAVBAR – Modern + Mobile Friendly
+------------------------------------ */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(15, 35, 90, 0.06);
+    background: var(--primary);
+    padding: 14px 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
 }
 
 .nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: 0.65rem;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .nav-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
-  letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
 }
 
 .nav-logo img {
-  height: 32px;
-  width: auto;
+    height: 34px;
+    width: auto;
 }
 
 .nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.75rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-text-soft);
-  position: relative;
-  padding-block: 0.25rem;
-  transition: color 0.18s ease, transform 0.18s ease;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
 }
 
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary-soft));
-  transition: width 0.18s ease;
+.nav-links a:hover {
+    opacity: 0.85;
 }
 
-.nav-links a:hover,
-.nav-links a:focus-visible {
-  color: var(--color-primary-soft);
-  transform: translateY(-1px);
-}
-
-.nav-links a:hover::after,
-.nav-links a:focus-visible::after {
-  width: 100%;
-}
-
+/* Mobile toggle */
 .nav-toggle {
-  display: none;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0.2rem;
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .nav-toggle span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--color-text);
-  margin: 4px 0;
-  transition: transform 0.18s ease, opacity 0.18s ease;
+    width: 26px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    display: block;
+    border-radius: 4px;
 }
 
-/* ============================
-   Mobile menu
-   ============================ */
-
+/* Full screen mobile nav */
 .mobile-menu {
-  display: none;
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 71, 161, 0.97);
+    backdrop-filter: blur(6px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
 }
 
 .mobile-menu.open {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 14px 30px rgba(15, 35, 90, 0.18);
+    display: flex;
 }
 
 .mobile-menu a {
-  text-decoration: none;
-  color: var(--color-text-soft);
-  font-weight: 500;
-  padding: 0.4rem 0;
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* ============================
-   Hero / Page header
-   ============================ */
-
+/* -----------------------------------
+   HEADER – Modern Gradient Hero
+------------------------------------ */
 header {
-  background: radial-gradient(circle at top left, #0b66ff 0, #0046a5 40%, #01306a 80%);
-  color: #ffffff;
-  padding: 4.5rem 0 3rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 18px 40px rgba(12, 45, 110, 0.35);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 70px 20px;
+    text-align: center;
+    color: white;
+    box-shadow: var(--shadow-md);
 }
 
 header h1 {
-  margin: 0 0 0.75rem;
-  font-size: clamp(2.1rem, 3vw + 1.3rem, 2.9rem);
-  letter-spacing: 0.03em;
+    font-size: 42px;
+    margin: 0 0 10px;
+    font-weight: 800;
 }
 
 header p {
-  margin: 0;
-  max-width: 680px;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 1.02rem;
+    font-size: 20px;
+    opacity: 0.95;
 }
 
-/* Home hero subtitle (index only uses h2) */
-.hero-subtitle {
-  margin-top: 0.2rem;
-  font-size: 0.98rem;
-  color: rgba(255, 255, 255, 0.78);
-}
-
-/* ============================
-   Sections & cards
-   ============================ */
-
-main {
-  padding-top: 1rem;
-  padding-bottom: 4rem;
-}
-
+/* -----------------------------------
+   SECTIONS + TYPOGRAPHY
+------------------------------------ */
 section {
-  margin-bottom: 2.25rem;
+    padding: 50px 20px;
+    max-width: 950px;
+    margin: auto;
 }
 
-section h2 {
-  font-size: 1.45rem;
-  margin-top: 0;
-  margin-bottom: 0.6rem;
-  color: var(--color-primary);
+h2 {
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 14px;
+    font-weight: 700;
 }
 
-section h3 {
-  font-size: 1.15rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-text);
-}
-
+/* -----------------------------------
+   CARDS – Glassy, Premium, Soft
+------------------------------------ */
 .card {
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  padding: 1.6rem 1.6rem 1.5rem;
-  box-shadow: var(--shadow-card);
-  border: 1px solid rgba(7, 32, 84, 0.03);
+    background: var(--card-bg);
+    backdrop-filter: blur(6px);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 30px 0;
+    box-shadow: var(--shadow-md);
 }
 
-.card + .card {
-  margin-top: 1.1rem;
+/* CHECKMARK LISTS */
+.price-list li {
+    font-size: 18px;
+    margin-bottom: 12px;
 }
 
-.card ul,
-.card ol {
-  padding-left: 1.2rem;
-  margin: 0.35rem 0 0;
-}
-
-.tagline {
-  font-weight: 500;
-  color: var(--color-text-soft);
-}
-
-/* Simple layout helpers */
-.grid-2 {
-  display: grid;
-  gap: 1.5rem;
-}
-
-@media (min-width: 860px) {
-  .grid-2 {
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-    align-items: flex-start;
-  }
-}
-
-/* ============================
-   Buttons / badges
-   ============================ */
-
+/* -----------------------------------
+   BUTTONS – Soft Premium Buttons
+------------------------------------ */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.7rem 1.7rem;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.98rem;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    display: inline-block;
+    padding: 14px 26px;
+    background: var(--primary-light);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.btn:hover,
-.btn:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 38px rgba(12, 72, 66, 0.45);
-  filter: brightness(1.03);
+.btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(23, 184, 151, 0.10);
-  color: var(--color-accent-soft);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* ============================
-   Lists / pricing bits
-   ============================ */
-
-.pricing-highlight {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--color-primary-soft);
-}
-
-/* ============================
-   Footer
-   ============================ */
-
+/* -----------------------------------
+   FOOTER – Clean, Soft
+------------------------------------ */
 footer {
-  padding: 1.8rem 1.5rem 2.2rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--color-text-soft);
-  border-top: 1px solid rgba(7, 32, 84, 0.08);
-  background: #ffffff;
+    background: var(--primary);
+    padding: 25px 15px;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+    font-size: 15px;
+    box-shadow: var(--shadow-sm);
 }
 
-/* ============================
-   Responsive tweaks
-   ============================ */
+/* -----------------------------------
+   RESPONSIVE MOBILE STYLING
+------------------------------------ */
+@media (max-width: 850px) {
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
+    .nav-links {
+        display: none;
+    }
 
-  .nav-toggle {
-    display: inline-flex;
-  }
+    .nav-toggle {
+        display: block;
+    }
 
-  main,
-  header > * {
-    padding-inline: 1.1rem;
-  }
+    header h1 {
+        font-size: 32px;
+    }
 
-  header {
-    padding-top: 4rem;
-    padding-bottom: 2.4rem;
-  }
+    header p {
+        font-size: 17px;
+    }
 
-  section {
-    margin-bottom: 1.85rem;
-  }
+    section {
+        padding: 40px 16px;
+    }
 
-  .card {
-    border-radius: var(--radius-lg);
-    padding: 1.4rem 1.35rem;
-  }
-}
+    .card {
+        padding: 22px;
+    }
 
-/* Slightly larger screens */
-@media (min-width: 1120px) {
-  header,
-  .navbar {
-    padding-inline: 0;
-  }
+    h2 {
+        font-size: 24px;
+    }
 }
