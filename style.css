@@ -115,12 +115,13 @@ body {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(13, 71, 161, 0.97);
-    backdrop-filter: blur(6px);
+    background: rgba(13, 71, 161, 1); /* full opaque */
+    backdrop-filter: blur(8px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 26px;
+    z-index: 9999; /* ensures it covers EVERYTHING */
 }
 
 .mobile-menu.open {
