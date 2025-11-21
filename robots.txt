@@ -1,9 +1,12 @@
 User-agent: *
 Allow: /
 
+# Block GitHub Pages internals
 Disallow: /README.md
 Disallow: /LICENSE
 Disallow: /CNAME
+
+# Block duplicate .html versions (you’re using clean URLs)
 Disallow: /*.html$
 
 Sitemap: https://cyberseeds-uk.github.io/sitemap.xml
