@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /README.md
+Disallow: /LICENSE
+Disallow: /CNAME
+Disallow: /*.html$
+
+Sitemap: https://cyberseeds-uk.github.io/cyberseeds/sitemap.xml
