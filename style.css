@@ -326,3 +326,25 @@ footer {
 .btn-accent:hover {
   opacity: 0.85;
 }
+
+/* Stripe Buttons Styled Like Calendly Button */
+.stripe-btn {
+  display: inline-block;
+  background: #2563eb; /* Calendly blue */
+  color: white;
+  padding: 14px 30px;
+  border-radius: 999px; /* pill shape */
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  transition: 0.25s;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+.stripe-btn:hover {
+  background: #1d4ed8; /* slightly darker blue */
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.45);
+  transform: translateY(-2px);
+}
