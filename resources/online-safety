@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Children's Online Safety – Cyber Seeds</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo"><img src="/logo.png">Cyber Seeds</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/services/">Services</a></li>
+      <li><a href="/resources/">Resources</a></li>
+      <li><a href="/schedule/">Schedule</a></li>
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header>
+  <h1>Children’s Online Safety</h1>
+  <p>Practical tips to help UK parents protect their children online.</p>
+</header>
+
+<main>
+<section>
+  <div class="card">
+    <h2>1. Set Age-Appropriate Privacy Controls</h2>
+    <p>Limit who can message, friend, and view your child's content on social media.</p>
+
+    <h2>2. Enable SafeSearch & Content Filters</h2>
+    <p>Activate filtering tools on Google, YouTube, TikTok, and gaming consoles.</p>
+
+    <h2>3. Talk About Risks Regularly</h2>
+    <p>Normalize conversations around digital safety, strangers, and online pressure.</p>
+
+    <h2>4. Use Screen Time Boundaries</h2>
+    <p>Balance entertainment with wellbeing through OS-level parental controls.</p>
+
+    <h2>5. Monitor New Apps & Games</h2>
+    <p>Review age ratings, permissions, and community behaviour before allowing new apps.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
+</footer>
+
+</body>
+</html>
