@@ -1,12 +1,70 @@
-<div class="card" style="padding: 25px; text-align:center;">
-  <h2>Choose Your Appointment Time</h2>
-  <p>Thanks for your payment. Select a time that suits you below.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule Your Audit – Cyber Seeds</title>
+<link rel="stylesheet" href="/style.css">
+</head>
 
-  <div class="calendly-inline-widget" 
-       data-url="https://calendly.com/cyberseeds-uk/30min" 
-       style="min-width:320px; height:700px;"></div>
+<body>
 
-  <script type="text/javascript" 
-          src="https://assets.calendly.com/assets/external/widget.js" 
-          async></script>
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <img src="/logo.png" alt="Cyber Seeds Logo">
+      Cyber Seeds
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/services/">Services</a></li>
+
+      <!-- Resources Dropdown -->
+      <li class="dropdown">
+        <a href="/resources/">Resources</a>
+        <ul class="dropdown-menu">
+          <li><a href="/resources/">All Resources</a></li>
+          <li><a href="/children-risk-index/">Children’s Risk Index</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/schedule/">Schedule</a></li>
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+
+    <button class="nav-toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/services/">Services</a>
+  <a href="/resources/">Resources</a>
+  <a href="/children-risk-index/">Children’s Risk Index</a>
+  <a href="/schedule/">Schedule</a>
+  <a href="/faq/">FAQ</a>
+  <a href="/contact/">Contact</a>
 </div>
+
+<main>
+  <section class="card" style="padding: 30px; margin-top:30px;">
+    <h1 style="text-align:center;">Schedule Your Session</h1>
+    <p style="text-align:center;">Thanks for your payment! Select your appointment time below.</p>
+
+    <div class="calendly-inline-widget" 
+         data-url="https://calendly.com/cyberseeds-uk/30min" 
+         style="min-width:320px; height:720px;"></div>
+
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </section>
+</main>
+
+</body>
+</html>
