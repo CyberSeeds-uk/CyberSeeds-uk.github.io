@@ -257,3 +257,72 @@ footer {
         font-size: 24px;
     }
 }
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.price-box {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  transition: 0.3s;
+}
+
+.price-box:hover {
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+
+.price-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 25px;
+}
+
+.price-box ul li {
+  margin: 8px 0;
+  color: #333;
+}
+
+/* Featured (middle) box */
+.featured {
+  background: #e9f7ef; /* soft green */
+  border-color: #8ad1a0;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-accent {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background: #0A7E4A;
+}
+
+.btn-secondary {
+  background: #0C9056;
+}
+
+.btn-accent {
+  background: #34A853;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-accent:hover {
+  opacity: 0.85;
+}
