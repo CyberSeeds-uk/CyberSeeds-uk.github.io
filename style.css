@@ -425,3 +425,54 @@ footer {
   box-shadow: 0 12px 30px rgba(0,0,0,0.12);
   border-color: #2563eb;
 }
+
+/* ------------------------------
+   DROPDOWN MENU (RESOURCES)
+------------------------------ */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: #ffffff;
+    top: 40px;
+    left: 0;
+    min-width: 200px;
+    padding: 10px 0;
+    border-radius: 16px;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+    z-index: 9999;
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 18px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: var(--bg-soft);
+}
+
+/* Show dropdown on hover (desktop) */
+.nav-links .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Make sure dropdown aligns in nav row */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
