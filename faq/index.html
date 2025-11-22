@@ -3,18 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
-<title>FAQ — Cyber Seeds</title>
-<meta name="description" content="Frequently asked questions about the Cyber Seeds home cyber-safety audit." />
-<link rel="canonical" href="https://cyberseeds-uk.github.io/faq/" />
+<title>Cyber Seeds FAQ – Common Questions</title>
+<meta name="description" content="Find answers to common questions about Cyber Seeds, the family-focused home cyber-safety audit service." />
+
 <link rel="stylesheet" href="/style.css" />
+<link rel="canonical" href="https://cyberseeds-uk.github.io/faq/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Cyber Seeds FAQ" />
+<meta property="og:description" content="Common questions about our home cyber-safety audit service." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/faq/" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Cyber Seeds FAQ" />
+<meta name="twitter:description" content="Learn about our family cyber-safety service." />
+<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
+
     <a href="/" class="nav-logo">
       <img src="/logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
@@ -25,7 +39,6 @@
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
 
-      <!-- Resources Dropdown -->
       <li class="dropdown">
         <a href="/resources/">Resources</a>
         <ul class="dropdown-menu">
@@ -42,10 +55,11 @@
     <button class="nav-toggle" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
+
   </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
@@ -58,41 +72,86 @@
 </div>
 
 
+<!-- HERO -->
 <header>
-  <h1>FAQ</h1>
-  <p>Answers to the most common questions.</p>
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you need to know about Cyber Seeds and our family cyber-safety audits.</p>
 </header>
 
+
 <main>
+
 <section>
+  <h2>About the Service</h2>
   <div class="card">
 
-    <h3>What is the Cyber Seeds audit?</h3>
-    <p>A simple 45–60 minute digital-safety MOT designed for families.</p>
+    <h3>What is a Cyber Seeds 5-Point Audit?</h3>
+    <p>The 5-Point Audit is a calm, friendly digital safety check designed for families. We review WiFi security, device hygiene, privacy exposure, scam risks and child digital wellbeing.</p>
 
-    <h3>Do you need access to my devices?</h3>
-    <p>No — we guide you. You stay fully private and in control.</p>
+    <h3>How long does it take?</h3>
+    <p>Most sessions last 45–60 minutes depending on the number of devices.</p>
 
-    <h3>Is this suitable for children?</h3>
-    <p>Yes! We support digital wellbeing for the whole household.</p>
-
-    <h3>Do you offer in-person sessions?</h3>
-    <p>Yes, in selected Greater Manchester areas.</p>
-
-    <h3>Do you offer remote sessions?</h3>
-    <p>Yes — available nationwide across the UK.</p>
+    <h3>Is this service remote?</h3>
+    <p>Yes — the entire audit is delivered remotely via video session for safety and simplicity.</p>
 
   </div>
 </section>
+
+
+<section>
+  <h2>Payment & Scheduling</h2>
+  <div class="card">
+
+    <h3>How do I pay?</h3>
+    <p>You can pay securely using Stripe on our pricing page. After payment, you’ll be automatically redirected to schedule your session.</p>
+
+    <h3>Do I need to book before paying?</h3>
+    <p>No — payment comes first. After payment, you’ll be taken directly to the scheduling calendar.</p>
+
+    <h3>Can I reschedule?</h3>
+    <p>Yes, you can reschedule through your Calendly confirmation email.</p>
+
+  </div>
+</section>
+
+
+<section>
+  <h2>Safety & Privacy</h2>
+  <div class="card">
+
+    <h3>Do you need access to my devices?</h3>
+    <p>No. We guide you through everything step-by-step. You stay in complete control of your devices.</p>
+
+    <h3>What personal data do you store?</h3>
+    <p>Only what is provided voluntarily during the session. We do not access or store passwords, photos, or private content.</p>
+
+    <h3>Is the session suitable for children?</h3>
+    <p>Yes. We support families with children of all ages and provide tailored digital wellbeing guidance.</p>
+
+  </div>
+</section>
+
+
+<section>
+  <h2>Still Have Questions?</h2>
+  <div class="card" style="text-align:center;">
+    <p>We're always happy to help — reach out anytime.</p>
+    <a class="btn" href="/contact/">Contact Us</a>
+  </div>
+</section>
+
 </main>
 
-<footer><p>© 2025 Cyber Seeds</p></footer>
+
+<footer>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
+</footer>
 
 <script>
-const toggle=document.querySelector('.nav-toggle');
-const mm=document.getElementById('mobileMenu');
-toggle.addEventListener('click',()=>mm.classList.toggle('open'));
-mm.addEventListener('click',()=>mm.classList.remove('open'));
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
 </script>
 
 </body>
