@@ -3,18 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
-<title>Resources — Cyber Seeds</title>
-<meta name="description" content="WiFi security guides, scam prevention tips, and digital wellbeing resources for UK families." />
-<link rel="canonical" href="https://cyberseeds-uk.github.io/resources/" />
+<title>Cyber Seeds Resources – Guides for Family Digital Safety</title>
+<meta name="description" content="Free UK family safety resources: WiFi security tips, digital wellbeing advice, scam prevention guidance and the Cyber Seeds Children's Risk Index." />
+
 <link rel="stylesheet" href="/style.css" />
+<link rel="canonical" href="https://cyberseeds-uk.github.io/resources/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Cyber Seeds Resources – Family Safety Guides" />
+<meta property="og:description" content="Free digital safety resources for UK families." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/resources/" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Cyber Seeds – Digital Safety Resources" />
+<meta name="twitter:description" content="Free guides for safe family digital use." />
+<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
+
     <a href="/" class="nav-logo">
       <img src="/logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
@@ -25,7 +39,6 @@
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
 
-      <!-- Resources Dropdown -->
       <li class="dropdown">
         <a href="/resources/">Resources</a>
         <ul class="dropdown-menu">
@@ -42,10 +55,11 @@
     <button class="nav-toggle" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
+
   </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
@@ -58,55 +72,65 @@
 </div>
 
 
+<!-- HERO -->
 <header>
-  <h1>Resources</h1>
-  <p>Helpful tools, guides and safety checklists for families.</p>
+  <h1>Family Digital Safety Resources</h1>
+  <p>Free guides, tools and knowledge to help keep your home safe online.</p>
 </header>
 
+
 <main>
-<section class="card" style="padding: 30px; margin-top: 40px;">
-  <h3 style="margin-bottom: 20px;">Family Safety Resources</h3>
 
-  <div class="resource-grid">
+<section>
+  <h2>Resource Library</h2>
 
-    <a href="/wifi-safety/" class="resource-card">
-      <h4>WiFi Safety Guide</h4>
-      <p>Secure your home router with simple steps.</p>
-    </a>
+  <div class="card">
 
-    <a href="/children-online-safety/" class="resource-card">
-      <h4>Children’s Online Safety</h4>
-      <p>Practical digital wellbeing tips for parents.</p>
-    </a>
+    <div class="resource-grid">
 
-    <a href="/phishing-guide/" class="resource-card">
-      <h4>Phishing & Scam Guide</h4>
-      <p>How to identify and avoid modern scams.</p>
-    </a>
+      <a href="/wifi-safety/" class="resource-card">
+        <h4>WiFi Safety Guide</h4>
+        <p>Simple steps to strengthen your home WiFi and router settings.</p>
+      </a>
 
-    <a href="/device-hygiene/" class="resource-card">
-      <h4>Device Hygiene Checklist</h4>
-      <p>Keep phones, laptops and smart devices secure.</p>
-    </a>
+      <a href="/children-online-safety/" class="resource-card">
+        <h4>Children’s Online Safety</h4>
+        <p>Practical wellbeing advice for UK parents to protect their children online.</p>
+      </a>
 
-    <a href="/children-risk-index/" class="resource-card">
-      <h4>Children’s Risk Index</h4>
-      <p>Understand digital risk levels for your child’s age.</p>
-    </a>
+      <a href="/phishing-guide/" class="resource-card">
+        <h4>Scam & Phishing Guide</h4>
+        <p>How to spot, avoid and block modern online scams.</p>
+      </a>
 
+      <a href="/device-hygiene/" class="resource-card">
+        <h4>Device Hygiene Checklist</h4>
+        <p>Keep phones, tablets and laptops secure with quick checks.</p>
+      </a>
+
+      <a href="/children-risk-index/" class="resource-card">
+        <h4>Children’s Risk Index</h4>
+        <p>Understand digital risk levels based on your child’s age and habits.</p>
+      </a>
+
+    </div>
+
+    <p style="margin-top:30px; text-align:center;">More family resources coming soon.</p>
   </div>
-
-  <p style="margin-top:25px; text-align:center;">More resources coming soon.</p>
 </section>
+
 </main>
 
-<footer><p>© 2025 Cyber Seeds — Digital Safety for Families</p></footer>
+
+<footer>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
+</footer>
 
 <script>
-const t=document.querySelector('.nav-toggle');
-const mm=document.getElementById('mobileMenu');
-t.addEventListener('click',()=>mm.classList.toggle('open'));
-mm.addEventListener('click',()=>mm.classList.remove('open'));
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
 </script>
 
 </body>
