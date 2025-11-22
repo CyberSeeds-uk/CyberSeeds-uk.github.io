@@ -3,18 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
-<title>About Cyber Seeds</title>
-<meta name="description" content="Learn why Cyber Seeds was created and how we help families stay safe and confident online." />
-<link rel="canonical" href="https://cyberseeds-uk.github.io/about/" />
+<title>About Cyber Seeds – Family Cyber-Safety & Digital Resilience</title>
+<meta name="description" content="Learn about Cyber Seeds, a UK-first family-focused home cyber-safety service helping parents protect their digital lives with simple, clear guidance." />
+
 <link rel="stylesheet" href="/style.css" />
+<link rel="canonical" href="https://cyberseeds-uk.github.io/about/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="About Cyber Seeds – Family Cyber Safety Service" />
+<meta property="og:description" content="Learn about Cyber Seeds and our mission to help UK families stay safe online." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/about/" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="About Cyber Seeds – Family Cyber Safety" />
+<meta name="twitter:description" content="Friendly UK-based digital safety service for families." />
+<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
+
     <a href="/" class="nav-logo">
       <img src="/logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
@@ -25,7 +39,6 @@
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
 
-      <!-- Resources Dropdown -->
       <li class="dropdown">
         <a href="/resources/">Resources</a>
         <ul class="dropdown-menu">
@@ -42,10 +55,11 @@
     <button class="nav-toggle" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
+
   </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
@@ -56,30 +70,95 @@
   <a href="/faq/">FAQ</a>
   <a href="/contact/">Contact</a>
 </div>
-  
+
+
+<!-- HERO SECTION -->
 <header>
   <h1>About Cyber Seeds</h1>
-  <p>Helping families stay safe, confident and protected online.</p>
+  <p>Supporting Families Across the UK With Calm, Clear Cyber-Safety Guidance</p>
 </header>
 
 <main>
+
 <section>
+  <h2>Our Mission</h2>
   <div class="card">
-    <p>Cyber Seeds was created to give families across the UK the support they deserve when navigating today’s digital world.</p>
-    <p>We make cybersecurity simple, friendly and human — no jargon, no fear tactics. Just calm, practical guidance that keeps homes safer.</p>
+    <p>Cyber Seeds was created to help families navigate the digital world safely — without technical jargon, fear, or confusion.</p>
+
+    <p>Most cybersecurity advice is built for professionals, not parents. Cyber Seeds translates complex security concepts into simple, everyday steps anyone can follow.</p>
+
+    <p>Our mission is to build a safer digital environment for households across the UK by focusing on:</p>
+
+    <ul class="price-list">
+      <li>✔ Clear, human explanations</li>
+      <li>✔ Practical, real-world fixes</li>
+      <li>✔ Protecting children online</li>
+      <li>✔ Reducing scams, fraud & exposure</li>
+      <li>✔ Strengthening home WiFi & device security</li>
+      <li>✔ Supporting parents with confidence</li>
+    </ul>
   </div>
 </section>
+
+
+<section>
+  <h2>Why Cyber Seeds Exists</h2>
+  <div class="card">
+    <p>The digital world is a powerful place for learning, connection, and entertainment — but it also brings risks.</p>
+
+    <p>Parents often feel overwhelmed by technology. They want their homes to be safe, but:</p>
+
+    <ul class="price-list">
+      <li>• Devices have hidden privacy settings</li>
+      <li>• WiFi routers ship with weak defaults</li>
+      <li>• Scammers target families more than ever</li>
+      <li>• Children access online spaces parents cannot see</li>
+    </ul>
+
+    <p>Cyber Seeds bridges the gap — offering a calm, friendly audit that empowers families, strengthens routines, and brings peace of mind.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2>Our Approach</h2>
+  <div class="card">
+    <p>The Cyber Seeds approach is designed with families in mind:</p>
+
+    <ul class="price-list">
+      <li>🌱 Calm, supportive sessions</li>
+      <li>🛠 Hands-on fixes — not lectures</li>
+      <li>🔍 Real cyber hygiene checks</li>
+      <li>👨‍👩‍👧 Focus on child wellbeing & safety</li>
+      <li>📦 Clear aftercare plan</li>
+    </ul>
+
+    <p>Everything is explained in plain English, making you feel confident — not overwhelmed.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2>Start Your Family’s Digital Safety Journey</h2>
+  <div class="card" style="text-align:center;">
+    <p>Review our simple pricing and make a secure payment to begin:</p>
+    <a class="btn" href="/book/">View Pricing</a>
+  </div>
+</section>
+
 </main>
 
+
+<!-- FOOTER -->
 <footer>
-  <p>© 2025 Cyber Seeds — Digital Safety for Families</p>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
 
 <script>
-const toggle=document.querySelector('.nav-toggle');
-const m=document.getElementById('mobileMenu');
-toggle.addEventListener('click',()=>m.classList.toggle('open'));
-m.addEventListener('click',()=>m.classList.remove('open'));
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
 </script>
 
 </body>
