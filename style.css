@@ -327,24 +327,67 @@ footer {
   opacity: 0.85;
 }
 
-/* Stripe Buttons Styled Like Calendly Button */
+/* Stripe Buttons styled like Calendly */
 .stripe-btn {
   display: inline-block;
-  background: #2563eb; /* Calendly blue */
+  background: #2563eb; /* Calendly Blue */
   color: white;
-  padding: 14px 30px;
-  border-radius: 999px; /* pill shape */
+  padding: 14px 32px;
+  border-radius: 999px; /* Pill Style */
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
-  transition: 0.25s;
-  margin-top: 15px;
-  display: inline-block;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+  transition: 0.25s ease;
+  margin-top: 18px;
 }
 
 .stripe-btn:hover {
-  background: #1d4ed8; /* slightly darker blue */
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.45);
+  background: #1d4ed8; /* Slightly darker hover */
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.42);
   transform: translateY(-2px);
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.price-box {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  transition: 0.3s;
+}
+
+.price-box:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+
+.price-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 25px;
+}
+
+.price-box ul li {
+  margin: 10px 0;
+  color: #333;
+}
+
+.featured {
+  background: #e9f7ef; /* soft-green highlight */
+  border-color: #8ad1a0;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
