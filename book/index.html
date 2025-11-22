@@ -3,19 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 
-<title>Book Your Audit — Cyber Seeds</title>
-<meta name="description" content="Book your Cyber Seeds family cyber-safety audit session directly through our booking system." />
-<link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
+<title>Cyber Seeds Pricing – Secure Payment</title>
+<meta name="description" content="Choose your Cyber Seeds family cyber-safety audit package and make a secure Stripe payment." />
+
 <link rel="stylesheet" href="/style.css" />
+<link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Cyber Seeds Pricing" />
+<meta property="og:description" content="Simple, transparent pricing for your family's home cyber-safety audit." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/book/" />
+
 </head>
 
 <body>
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
+
     <a href="/" class="nav-logo">
       <img src="/logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
@@ -26,7 +34,6 @@
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
 
-      <!-- Resources Dropdown -->
       <li class="dropdown">
         <a href="/resources/">Resources</a>
         <ul class="dropdown-menu">
@@ -46,7 +53,7 @@
   </div>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
@@ -59,73 +66,94 @@
 </div>
 
 
+<!-- HERO -->
 <header>
-  <h1>Book Your Audit</h1>
-  <p>Choose a time that suits your family.</p>
+  <h1>Pricing</h1>
+  <p>Choose your family’s Cyber Seeds package and pay securely.</p>
 </header>
 
-  <section id="pricing">
-  <h2>Pricing</h2>
 
-  <div class="card" style="padding: 30px; border-radius: 22px;">
-    <p style="text-align:center; margin-bottom:35px; font-size:18px;">
-      Simple, transparent pricing. Pay securely via Stripe, then you'll be redirected to book your session.
-    </p>
+<main>
+
+<section>
+  <h2>Secure Payment</h2>
+  <div class="card" style="text-align:center;">
+    <p>After payment, you’ll be automatically redirected to our scheduling page to choose your session time.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2>Choose Your Package</h2>
+  <div class="card">
 
     <div class="pricing-grid">
 
-      <!-- £75 – 5-Point Audit -->
+      <!-- PACKAGE 1 -->
       <div class="price-box">
         <h3>5-Point Audit</h3>
         <p class="price">£75</p>
         <ul>
-          <li>Full Cyber Seeds 5-Point Home Audit</li>
-          <li>WiFi & Device Security Review</li>
-          <li>Privacy & Exposure Scan</li>
-          <li>Child Digital Wellbeing Check</li>
-          <li>Scam & Fraud Risk Coaching</li>
+          <li>WiFi & Router Security Check</li>
+          <li>Device Hygiene Review</li>
+          <li>Privacy Exposure Scan</li>
+          <li>Fraud & Scam Coaching</li>
+          <li>Child Digital Wellbeing Overview</li>
         </ul>
         <a href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00" class="stripe-btn">Pay £75</a>
       </div>
 
-      <!-- £97 – Audit + Follow-Up -->
+      <!-- PACKAGE 2 -->
       <div class="price-box featured">
         <h3>Audit + Follow-Up</h3>
         <p class="price">£97</p>
         <ul>
           <li>Everything in the 5-Point Audit</li>
           <li>+ Personalised 7-Day Action Plan</li>
-          <li>+ Follow-Up Support for One Week</li>
-          <li>+ Priority Guidance if Issues Appear</li>
+          <li>+ Priority Support for One Week</li>
         </ul>
         <a href="https://buy.stripe.com/dRm00l9g89J11ndgzN4gg01" class="stripe-btn">Pay £97</a>
       </div>
 
-      <!-- £25 – Extra Device Add-On -->
+      <!-- PACKAGE 3 -->
       <div class="price-box">
         <h3>Extra Device Add-On</h3>
         <p class="price">£25</p>
         <ul>
-          <li>Great for PCs, consoles, tablets & smart devices</li>
-          <li>Device hygiene & update check</li>
-          <li>Privacy optimisation</li>
-          <li>Included in your audit session</li>
+          <li>For Consoles, Tablets, Laptops & Smart Devices</li>
+          <li>Privacy & Hygiene Check</li>
+          <li>Included During Your Audit Session</li>
         </ul>
         <a href="https://buy.stripe.com/cNi5kFcsk8FE9T3JN14gg02" class="stripe-btn">Add £25 Device</a>
       </div>
 
     </div>
+
   </div>
 </section>
 
-  
-<footer><p>© 2025 Cyber Seeds</p></footer>
+
+<section>
+  <h2>Next Step After Payment</h2>
+  <div class="card" style="text-align:center;">
+    <p>Once your payment is complete, you will be automatically redirected to:</p>
+    <p><strong>cyberseeds-uk.github.io/schedule/</strong></p>
+    <p>There you can choose a convenient time for your family.</p>
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
+</footer>
 
 <script>
-const toggle=document.querySelector('.nav-toggle');
-const m=document.getElementById('mobileMenu');
-toggle.addEventListener('click',()=>m.classList.toggle('open'));
-m.addEventListener('click',()=>m.classList.remove('open'));
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
 </script>
 
 </body>
