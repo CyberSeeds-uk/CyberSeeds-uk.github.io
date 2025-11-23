@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Device Hygiene Checklist – Cyber Seeds</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Device Hygiene Guide – Cyber Seeds</title>
+<meta name="description" content="A simple guide for keeping your family's devices secure, updated, and protected from threats." />
+
+<link rel="canonical" href="https://cyberseeds-uk.github.io/resources/device-hygiene/" />
 <link rel="stylesheet" href="/style.css" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Device Hygiene Guide" />
+<meta property="og:description" content="Keep your devices secure, updated and protected." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/resources/device-hygiene/" />
+
 </head>
 
 <body>
@@ -22,7 +33,6 @@
       <li><a href="/">Home</a></li>
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
-
       <li class="dropdown">
         <a href="/resources/">Resources</a>
         <ul class="dropdown-menu">
@@ -30,16 +40,14 @@
           <li><a href="/children-risk-index/">Children’s Risk Index</a></li>
         </ul>
       </li>
-
       <li><a href="/schedule/">Schedule</a></li>
       <li><a href="/faq/">FAQ</a></li>
       <li><a href="/contact/">Contact</a></li>
     </ul>
 
-    <button class="nav-toggle" aria-label="Open menu">
+    <button class="nav-toggle">
       <span></span><span></span><span></span>
     </button>
-
   </div>
 </nav>
 
@@ -55,36 +63,89 @@
   <a href="/contact/">Contact</a>
 </div>
 
-
+<!-- HEADER -->
 <header>
-  <h1>Device Hygiene Checklist</h1>
-  <p>Keep phones, tablets and laptops safe with quick, regular checks.</p>
+  <h1>Device Hygiene Guide</h1>
+  <p>Keep your phones, tablets, laptops and smart devices safe</p>
 </header>
 
 <main>
+
 <section>
+  <h2>Why Device Hygiene Matters</h2>
   <div class="card">
-    <h2>1. Update Your Devices Weekly</h2>
-    <p>Updates patch security holes and protect against malware.</p>
+    <p>Most cyber-attacks begin with an insecure or outdated device. Good device hygiene protects your family from:</p>
 
-    <h2>2. Remove Unused Apps</h2>
-    <p>Old apps can have vulnerabilities or risky permissions.</p>
+    <ul class="price-list">
+      <li>✔ Malware & viruses</li>
+      <li>✔ Phishing & account takeovers</li>
+      <li>✔ Data theft</li>
+      <li>✔ Privacy exposure</li>
+      <li>✔ Unwanted tracking</li>
+    </ul>
 
-    <h2>3. Use Strong, Unique Passwords</h2>
-    <p>Combine a password manager with biometric unlock where possible.</p>
-
-    <h2>4. Enable Automatic Backups</h2>
-    <p>Protect photos, messages and data from loss or device damage.</p>
-
-    <h2>5. Check App Permissions</h2>
-    <p>Disable microphone, camera, or location access if not required.</p>
+    <p>Updating settings only takes a few minutes — and makes a massive difference.</p>
   </div>
 </section>
+
+
+<section>
+  <h2>Essential Safety Checks</h2>
+  <div class="card">
+    <ul class="price-list">
+      <li>✔ Keep devices updated (software & apps)</li>
+      <li>✔ Remove unused apps regularly</li>
+      <li>✔ Enable automatic updates</li>
+      <li>✔ Turn on device encryption</li>
+      <li>✔ Use strong PINs & biometric locks</li>
+      <li>✔ Avoid third-party app stores</li>
+    </ul>
+  </div>
+</section>
+
+
+<section>
+  <h2>Protect Your Accounts</h2>
+  <div class="card">
+    <ul class="price-list">
+      <li>✔ Turn on 2FA (Two-Factor Authentication)</li>
+      <li>✔ Use unique passwords per device/app</li>
+      <li>✔ Avoid using Facebook/Google login where possible</li>
+      <li>✔ Check for password leaks using a trusted tool</li>
+    </ul>
+  </div>
+</section>
+
+
+<section>
+  <h2>Get Personalised Support</h2>
+  <div class="card" style="text-align:center;">
+    <p>Need help checking your family’s devices?</p>
+    <a class="btn" href="/book/">Book Your Digital MOT</a>
+  </div>
+</section>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
+
+<script>
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
+</script>
 
 </body>
 </html>
