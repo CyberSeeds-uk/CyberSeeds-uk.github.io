@@ -476,3 +476,38 @@ footer {
     align-items: center;
     gap: 28px;
 }
+
+/* MOBILE MENU FIX */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;  
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999 !important;  
+    padding: 2rem;
+    display: none;              /* or block when active */
+    overflow-y: auto;
+}
+
+/* When menu is open */
+.mobile-menu.active {
+    display: block;
+}
+
+/* Ensure header stays BELOW menu */
+header, .navbar, .nav-container {
+    z-index: 1000; 
+}
+
+/* Hide background scroll when menu open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Hamburger alignment fix */
+.hamburger {
+    z-index: 10001 !important;
+    position: relative;
+}
