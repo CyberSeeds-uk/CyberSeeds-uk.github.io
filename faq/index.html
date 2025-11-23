@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Cyber Seeds FAQ – Common Questions</title>
-<meta name="description" content="Find answers to common questions about Cyber Seeds, the family-focused home cyber-safety audit service." />
+<title>FAQ – Cyber Seeds Digital Safety for Families</title>
+<meta name="description" content="Frequently asked questions about Cyber Seeds, how the Digital MOT works, and what families can expect." />
 
-<link rel="stylesheet" href="/style.css" />
 <link rel="canonical" href="https://cyberseeds-uk.github.io/faq/" />
+<link rel="stylesheet" href="/style.css" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="Cyber Seeds FAQ" />
-<meta property="og:description" content="Common questions about our home cyber-safety audit service." />
+<meta property="og:description" content="Frequently asked questions about our home cyber-safety audits." />
 <meta property="og:image" content="/logo.png" />
 <meta property="og:url" content="https://cyberseeds-uk.github.io/faq/" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Cyber Seeds FAQ" />
-<meta name="twitter:description" content="Learn about our family cyber-safety service." />
-<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
@@ -72,77 +67,69 @@
 </div>
 
 
-<!-- HERO -->
+<!-- HEADER -->
 <header>
   <h1>Frequently Asked Questions</h1>
-  <p>Everything you need to know about Cyber Seeds and our family cyber-safety audits.</p>
+  <p>Everything you need to know about your Digital MOT</p>
 </header>
 
 
 <main>
 
 <section>
-  <h2>About the Service</h2>
+  <h2>General Questions</h2>
+
   <div class="card">
+    <h3>What is the Digital MOT?</h3>
+    <p>It’s a 45–60 minute online session where we assess your home’s cyber-safety, check key risks, and fix issues live during the call.</p>
 
-    <h3>What is a Cyber Seeds 5-Point Audit?</h3>
-    <p>The 5-Point Audit is a calm, friendly digital safety check designed for families. We review WiFi security, device hygiene, privacy exposure, scam risks and child digital wellbeing.</p>
+    <h3>Who is Cyber Seeds for?</h3>
+    <p>Families, parents, grandparents, and households wanting clearer guidance on staying safe online.</p>
 
-    <h3>How long does it take?</h3>
-    <p>Most sessions last 45–60 minutes depending on the number of devices.</p>
-
-    <h3>Is this service remote?</h3>
-    <p>Yes — the entire audit is delivered remotely via video session for safety and simplicity.</p>
-
+    <h3>Do I need technical knowledge?</h3>
+    <p>No! We explain everything clearly and simply — no jargon.</p>
   </div>
 </section>
 
 
 <section>
-  <h2>Payment & Scheduling</h2>
+  <h2>During the Session</h2>
+
   <div class="card">
+    <h3>How does the session take place?</h3>
+    <p>We use Zoom or Google Meet. You’ll receive a link after payment.</p>
 
-    <h3>How do I pay?</h3>
-    <p>You can pay securely using Stripe on our pricing page. After payment, you’ll be automatically redirected to schedule your session.</p>
+    <h3>What do you check?</h3>
+    <ul class="price-list">
+      <li>✔ WiFi & router security</li>
+      <li>✔ Device hygiene & updates</li>
+      <li>✔ Password & login safety</li>
+      <li>✔ Exposure scan & leak check</li>
+      <li>✔ Scam & fraud awareness</li>
+      <li>✔ Child online safety review</li>
+    </ul>
 
-    <h3>Do I need to book before paying?</h3>
-    <p>No — payment comes first. After payment, you’ll be taken directly to the scheduling calendar.</p>
-
-    <h3>Can I reschedule?</h3>
-    <p>Yes, you can reschedule through your Calendly confirmation email.</p>
-
+    <h3>Do you fix issues during the call?</h3>
+    <p>Yes — most fixes happen live during the session.</p>
   </div>
 </section>
 
 
 <section>
-  <h2>Safety & Privacy</h2>
+  <h2>After the Session</h2>
+
   <div class="card">
+    <h3>Do I get a report?</h3>
+    <p>Yes, you receive a personalised Family Safety Plan summarising findings and improvements.</p>
 
-    <h3>Do you need access to my devices?</h3>
-    <p>No. We guide you through everything step-by-step. You stay in complete control of your devices.</p>
-
-    <h3>What personal data do you store?</h3>
-    <p>Only what is provided voluntarily during the session. We do not access or store passwords, photos, or private content.</p>
-
-    <h3>Is the session suitable for children?</h3>
-    <p>Yes. We support families with children of all ages and provide tailored digital wellbeing guidance.</p>
-
-  </div>
-</section>
-
-
-<section>
-  <h2>Still Have Questions?</h2>
-  <div class="card" style="text-align:center;">
-    <p>We're always happy to help — reach out anytime.</p>
-    <a class="btn" href="/contact/">Contact Us</a>
+    <h3>Can I ask questions afterwards?</h3>
+    <p>Absolutely. You can reach out anytime through the contact page.</p>
   </div>
 </section>
 
 </main>
 
-
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
@@ -150,8 +137,16 @@
 <script>
 const toggle = document.querySelector('.nav-toggle');
 const mobileMenu = document.getElementById('mobileMenu');
-toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
 </script>
 
 </body>
