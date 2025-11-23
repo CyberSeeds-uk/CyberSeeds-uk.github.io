@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Children’s Risk Index – Cyber Seeds</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Understanding Child Digital Risk Levels – Cyber Seeds</title>
+<meta name="description" content="A breakdown of the different child digital risk levels used in the Cyber Seeds assessment model." />
+
+<link rel="canonical" href="https://cyberseeds-uk.github.io/resources/childrens-risk-index/" />
 <link rel="stylesheet" href="/style.css" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Understanding Child Digital Risk Levels" />
+<meta property="og:description" content="Learn what each digital risk category means for your child’s safety." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/resources/childrens-risk-index/" />
+
 </head>
 
 <body>
@@ -54,38 +65,80 @@
   <a href="/faq/">FAQ</a>
   <a href="/contact/">Contact</a>
 </div>
-  
+
+
+<!-- HEADER -->
 <header>
-  <h1>Children’s Risk Index</h1>
-  <p>Understand digital risk levels based on age, habits & online behaviour.</p>
+  <h1>Understanding Digital Risk Levels</h1>
+  <p>A breakdown of the Cyber Seeds child safety scoring model</p>
 </header>
 
+
 <main>
+
 <section>
+  <h2>What the Levels Mean</h2>
   <div class="card">
-    <h2>Ages 5–9</h2>
-    <p>High risk from exposure to inappropriate content, unsafe ads, and unmoderated games.</p>
+    <p>Our Children’s Digital Risk Index uses a colour-coded system designed to help families quickly see where improvements are needed.</p>
 
-    <h2>Ages 10–13</h2>
-    <p>Increased risk from social media pressure, online bullying and stranger interactions.</p>
-
-    <h2>Ages 14–16</h2>
-    <p>Risk transitions to privacy leaks, identity exposure and online persuasion.</p>
-
-    <h2>Key Protective Steps</h2>
-    <ul>
-      <li>Use device-level parental controls</li>
-      <li>Review privacy settings together</li>
-      <li>Discuss boundaries around strangers online</li>
-      <li>Monitor new apps and messages</li>
+    <ul class="price-list">
+      <li>🟢 <strong>Low Risk</strong> — Safe devices, age-appropriate apps, active supervision</li>
+      <li>🟡 <strong>Moderate Risk</strong> — Some potential issues, solvable with guidance</li>
+      <li>🟠 <strong>High Risk</strong> — Exposure to risky content or apps</li>
+      <li>🔴 <strong>Critical Risk</strong> — Urgent safety actions required</li>
     </ul>
   </div>
 </section>
+
+
+<section>
+  <h2>Common Factors</h2>
+  <div class="card">
+    <p>Risk levels are influenced by several categories:</p>
+
+    <ul class="price-list">
+      <li>✔ Devices & safety settings</li>
+      <li>✔ Apps & social platforms used</li>
+      <li>✔ Online behaviour</li>
+      <li>✔ Messaging, chats & unknown contacts</li>
+      <li>✔ Privacy awareness</li>
+      <li>✔ Parental controls</li>
+    </ul>
+
+    <p>This supports the full Children’s Risk Index assessment in your Digital MOT.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2>Get a Full Risk Report</h2>
+  <div class="card" style="text-align:center;">
+    <p>Your Digital MOT includes a personalised breakdown of all risk categories.</p>
+    <a href="/book/" class="btn">Book a Family Audit</a>
+  </div>
+</section>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
+
+<script>
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
+</script>
 
 </body>
 </html>
