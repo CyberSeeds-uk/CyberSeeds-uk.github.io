@@ -4,15 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Book Your Cyber Seeds Audit – Pricing & Secure Payment</title>
-<meta name="description" content="View Cyber Seeds' pricing options and securely book your family’s Digital Safety Audit today." />
+<title>Cyber Seeds Pricing – Secure Your Digital MOT</title>
+<meta name="description" content="Secure your Cyber Seeds home cyber-safety audit. Choose the right Digital MOT session for your family." />
 
 <link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
 <link rel="stylesheet" href="/style.css" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="Book Your Cyber Seeds Audit" />
-<meta property="og:description" content="Secure your Digital MOT session and choose a plan that fits your family." />
+<meta property="og:title" content="Cyber Seeds Pricing" />
+<meta property="og:description" content="Choose your Digital MOT session and pay securely online." />
 <meta property="og:image" content="/logo.png" />
 <meta property="og:url" content="https://cyberseeds-uk.github.io/book/" />
 
@@ -47,7 +47,7 @@
       <li><a href="/contact/">Contact</a></li>
     </ul>
 
-    <button class="nav-toggle" aria-label="Open menu">
+    <button class="nav-toggle">
       <span></span><span></span><span></span>
     </button>
 
@@ -55,7 +55,7 @@
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div id="mobileMenu" class="mobile-menu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
   <a href="/services/">Services</a>
@@ -66,99 +66,87 @@
   <a href="/contact/">Contact</a>
 </div>
 
-
 <!-- HEADER -->
 <header>
-  <h1>Book Your Audit</h1>
-  <p>Select your package and secure your Digital MOT session</p>
+  <h1>Pricing Options</h1>
+  <p>Secure your Family Digital MOT with a safe, simple online payment</p>
 </header>
-
 
 <main>
 
 <section>
-  <h2>Pricing Options</h2>
-
   <div class="pricing-grid">
 
+    <!-- Standard Audit -->
     <div class="price-box">
       <h3>Standard Audit</h3>
       <p class="price">£75</p>
+
       <ul>
         <li>Full 45–60 minute Digital MOT</li>
         <li>WiFi & device security fixes</li>
         <li>Privacy & leak scan</li>
         <li>Basic child-safety guidance</li>
       </ul>
-      <a href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00" class="stripe-btn">Pay £75 Securely</a>
+
+      <a class="stripe-btn" href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00">Pay £75 Securely</a>
     </div>
 
+    <!-- Full Family Audit -->
     <div class="price-box featured">
       <h3>Full Family Audit</h3>
       <p class="price">£97</p>
+
       <ul>
         <li>Everything in Standard</li>
         <li>Advanced child online safety review</li>
         <li>Extra device support</li>
         <li>Advanced privacy recommendations</li>
       </ul>
-      <a href="https://buy.stripe.com/dRm00l9g89JI1ndgzN4gg01" class="stripe-btn">Pay £97 Securely</a>
+
+      <a class="stripe-btn" href="https://buy.stripe.com/dRm00l9g89JI1ndgzN4gg01">Pay £97 Securely</a>
     </div>
 
+    <!-- Follow-Up -->
     <div class="price-box">
       <h3>Follow-Up Session</h3>
       <p class="price">£25</p>
+
       <ul>
-        <li>Check fixes after your Digital MOT</li>
-        <li>Review new devices & accounts</li>
+        <li>Check fixes after your MOT</li>
+        <li>Review new devices</li>
         <li>Update your safety plan</li>
       </ul>
-      <a href="https://buy.stripe.com/cNi5kFcsk8FE9TJ3N14gg02" class="stripe-btn">Pay £25 Securely</a>
+
+      <a class="stripe-btn" href="https://buy.stripe.com/cNi5kFcsk8FE9TJ3N14gg02">Pay £25 Securely</a>
     </div>
 
   </div>
 </section>
 
-
 <section>
-  <h2>What Happens After Payment?</h2>
-  <div class="card">
-    <ul class="price-list">
-      <li>✔ You receive an instant confirmation email</li>
-      <li>✔ A second email gives you the Calendly booking link</li>
-      <li>✔ Choose any available time slot</li>
-      <li>✔ The Digital MOT session takes place on Zoom or Google Meet</li>
-      <li>✔ You get a full personalised Family Safety Plan afterwards</li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <h2>Need Help?</h2>
-  <div class="card">
-    <p>Have a question before booking? Reach out below:</p>
-    <a href="/contact/" class="btn">Contact Us</a>
+  <div class="card" style="text-align:center;">
+    <p>After payment you receive your **Calendly link instantly** to choose a time that suits your family.</p>
   </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
 
 <script>
 const toggle = document.querySelector('.nav-toggle');
-const mobileMenu = document.getElementById('mobileMenu');
+const menu = document.getElementById('mobileMenu');
 
 toggle.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
+  menu.classList.toggle('open');
   document.body.classList.toggle('menu-open');
 });
 
-mobileMenu.addEventListener('click', () => {
-  mobileMenu.classList.remove('open');
+menu.addEventListener('click', () => {
+  menu.classList.remove('open');
   document.body.classList.remove('menu-open');
 });
 </script>
