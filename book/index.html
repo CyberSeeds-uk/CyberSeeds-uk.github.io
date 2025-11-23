@@ -4,151 +4,224 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Cyber Seeds Pricing – Secure Your Digital MOT</title>
-<meta name="description" content="Secure your Cyber Seeds home cyber-safety audit. Choose the right Digital MOT session for your family." />
+<title>Book Your Cyber Seeds Audit – Secure Booking & Payment</title>
+<meta name="description" content="Book your Cyber Seeds Digital MOT. Secure payment and instant scheduling for your family’s cyber-safety audit." />
 
-<link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
 <link rel="stylesheet" href="/style.css" />
 
-<!-- Open Graph -->
-<meta property="og:title" content="Cyber Seeds Pricing" />
-<meta property="og:description" content="Choose your Digital MOT session and pay securely online." />
-<meta property="og:image" content="/logo.png" />
-<meta property="og:url" content="https://cyberseeds-uk.github.io/book/" />
+<style>
+/* ------------------------------------------------
+   CYBER SEEDS – PREMIUM BLUE BOOKING PAGE (2025)
+--------------------------------------------------- */
+
+/* THEME */
+:root {
+    --primary: #0D47A1;
+    --primary-light: #1E5CE6;
+    --primary-dark: #052A63;
+
+    --bg: #f4f8fc;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --muted: #4a4a4a;
+
+    --radius: 22px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    max-width: 880px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+.page-header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.page-header h1 {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.page-header p {
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+/* STEP CARDS */
+.step-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.step-title {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* BUTTONS */
+.button-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.button {
+    padding: 16px;
+    text-align: center;
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.pay-btn {
+    background: var(--primary);
+    color: #fff;
+}
+
+.pay-btn:hover {
+    background: var(--primary-light);
+}
+
+.book-btn {
+    background: #e3ecfa;
+    color: var(--primary-dark);
+}
+
+.book-btn:hover {
+    background: #d6e4f8;
+}
+
+/* CALENDLY */
+.calendly-container {
+    width: 100%;
+    min-height: 700px;
+    margin-top: 10px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* PAID BANNER */
+.paid-banner {
+    background: #c8e6c9;
+    border-left: 6px solid #2e7d32;
+    padding: 15px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 25px;
+    display: none;
+}
+
+.paid-banner.show {
+    display: block;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    h1 { font-size: 1.9rem; }
+    .step-title { font-size: 1.25rem; }
+    .button { font-size: 1rem; padding: 14px; }
+}
+</style>
 
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-container">
+<div class="container">
 
-    <a href="/" class="nav-logo">
-      <img src="/logo.png" alt="Cyber Seeds Logo">
-      Cyber Seeds
-    </a>
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>Book Your Cyber Seeds Audit</h1>
+        <p>Secure payment. Instant booking. A smooth, professional experience.</p>
+    </div>
 
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/services/">Services</a></li>
+    <!-- PAID BANNER (activated by ?paid=true) -->
+    <div id="paidBanner" class="paid-banner">
+        <strong>Payment received!</strong> Thank you — please now select a time for your session below.
+    </div>
 
-      <li class="dropdown">
-        <a href="/resources/">Resources</a>
-        <ul class="dropdown-menu">
-          <li><a href="/resources/">All Resources</a></li>
-          <li><a href="/children-risk-index/">Children’s Risk Index</a></li>
+    <!-- STEP 1 -->
+    <div id="paymentSection" class="step-card">
+        <div class="step-title">Step 1 — Choose Your Payment Method</div>
+
+        <div class="button-row">
+
+            <!-- PAY NOW BUTTON (Stripe link required) -->
+            <a href="YOUR_STRIPE_LINK_HERE" class="button pay-btn">
+                Pay Now (£75) – Secure Stripe Payment
+            </a>
+
+            <!-- BOOK FIRST -->
+            <a href="#bookSection" class="button book-btn">
+                Book First – Pay After Choosing Time
+            </a>
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="bookSection" class="step-card">
+        <div class="step-title">Step 2 — Book Your Appointment</div>
+
+        <!-- CALENDLY EMBED -->
+        <div class="calendly-container">
+            <iframe
+                src="https://calendly.com/YOUR_CALENDLY_LINK?hide_event_type_details=1&hide_gdpr_banner=1"
+                width="100%"
+                height="700"
+                frameborder="0">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-card">
+        <div class="step-title">Step 3 — Confirmation</div>
+        <p>
+            You’ll instantly receive:
+        </p>
+        <ul>
+            <li>Your booking confirmation</li>
+            <li>Your pre-session checklist</li>
+            <li>Reminder emails before your session</li>
         </ul>
-      </li>
+    </div>
 
-      <li><a href="/schedule/">Schedule</a></li>
-      <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/contact/">Contact</a></li>
-    </ul>
-
-    <button class="nav-toggle">
-      <span></span><span></span><span></span>
-    </button>
-
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div id="mobileMenu" class="mobile-menu">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/services/">Services</a>
-  <a href="/resources/">All Resources</a>
-  <a href="/children-risk-index/">Children’s Risk Index</a>
-  <a href="/schedule/">Schedule</a>
-  <a href="/faq/">FAQ</a>
-  <a href="/contact/">Contact</a>
 </div>
 
-<!-- HEADER -->
-<header>
-  <h1>Pricing Options</h1>
-  <p>Secure your Family Digital MOT with a safe, simple online payment</p>
-</header>
-
-<main>
-
-<section>
-  <div class="pricing-grid">
-
-    <!-- Standard Audit -->
-    <div class="price-box">
-      <h3>Standard Audit</h3>
-      <p class="price">£75</p>
-
-      <ul>
-        <li>Full 45–60 minute Digital MOT</li>
-        <li>WiFi & device security fixes</li>
-        <li>Privacy & leak scan</li>
-        <li>Basic child-safety guidance</li>
-      </ul>
-
-      <a class="stripe-btn" href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00">Pay £75 Securely</a>
-    </div>
-
-    <!-- Full Family Audit -->
-    <div class="price-box featured">
-      <h3>Full Family Audit</h3>
-      <p class="price">£97</p>
-
-      <ul>
-        <li>Everything in Standard</li>
-        <li>Advanced child online safety review</li>
-        <li>Extra device support</li>
-        <li>Advanced privacy recommendations</li>
-      </ul>
-
-      <a class="stripe-btn" href="https://buy.stripe.com/dRm00l9g89JI1ndgzN4gg01">Pay £97 Securely</a>
-    </div>
-
-    <!-- Follow-Up -->
-    <div class="price-box">
-      <h3>Follow-Up Session</h3>
-      <p class="price">£25</p>
-
-      <ul>
-        <li>Check fixes after your MOT</li>
-        <li>Review new devices</li>
-        <li>Update your safety plan</li>
-      </ul>
-
-      <a class="stripe-btn" href="https://buy.stripe.com/cNi5kFcsk8FE9TJ3N14gg02">Pay £25 Securely</a>
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <div class="card" style="text-align:center;">
-    <p>After payment you receive your **Calendly link instantly** to choose a time that suits your family.</p>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
-</footer>
-
 <script>
-const toggle = document.querySelector('.nav-toggle');
-const menu = document.getElementById('mobileMenu');
+// Detect ?paid=true and update UI
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("paid") === "true") {
+    document.getElementById("paidBanner").classList.add("show");
 
-toggle.addEventListener('click', () => {
-  menu.classList.toggle('open');
-  document.body.classList.toggle('menu-open');
-});
+    // Hide payment section to reduce friction
+    document.getElementById("paymentSection").style.display = "none";
 
-menu.addEventListener('click', () => {
-  menu.classList.remove('open');
-  document.body.classList.remove('menu-open');
-});
+    // Auto-scroll to booking
+    setTimeout(() => {
+        document.getElementById("bookSection").scrollIntoView({ behavior: "smooth" });
+    }, 400);
+}
 </script>
 
 </body>
