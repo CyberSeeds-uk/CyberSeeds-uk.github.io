@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Scam & Phishing Guide – Cyber Seeds</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Phishing & Scam Protection – Cyber Seeds</title>
+<meta name="description" content="Learn how to identify phishing scams, fake links, dangerous messages and online fraud attempts targeted at families." />
+
+<link rel="canonical" href="https://cyberseeds-uk.github.io/resources/phishing/" />
 <link rel="stylesheet" href="/style.css" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Phishing & Scam Protection" />
+<meta property="og:description" content="Spot fake links, scam messages and fraud attempts." />
+<meta property="og:image" content="/logo.png" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/resources/phishing/" />
+
 </head>
 
 <body>
@@ -13,7 +24,7 @@
 <nav class="navbar">
   <div class="nav-container">
 
-    <a href="/" class="nav-logo">
+    <a class="nav-logo" href="/">
       <img src="/logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
     </a>
@@ -39,12 +50,11 @@
     <button class="nav-toggle" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
-
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div id="mobileMenu" class="mobile-menu">
   <a href="/">Home</a>
   <a href="/about/">About</a>
   <a href="/services/">Services</a>
@@ -54,36 +64,104 @@
   <a href="/faq/">FAQ</a>
   <a href="/contact/">Contact</a>
 </div>
-  
+
+<!-- HEADER -->
 <header>
-  <h1>Scam & Phishing Guide</h1>
-  <p>How to spot, avoid and block modern online scams.</p>
+  <h1>Phishing & Scam Protection</h1>
+  <p>Spot fake links, dangerous messages and online fraud attempts</p>
 </header>
 
 <main>
+
 <section>
+  <h2>What Is Phishing?</h2>
   <div class="card">
-    <h2>1. Check the Sender</h2>
-    <p>Scammers often impersonate banks, HMRC, Royal Mail, NHS or Amazon.</p>
+    <p>Phishing is when scammers try to trick you into giving away personal details, passwords, bank information or control of your accounts.</p>
 
-    <h2>2. Never Click Suspicious Links</h2>
-    <p>Look for misspellings, strange domains, or urgent scare tactics.</p>
+    <p>They often pretend to be:</p>
 
-    <h2>3. Verify Before Paying</h2>
-    <p>Call the company using an official number — never the one sent in the message.</p>
-
-    <h2>4. Use Multi-Factor Authentication</h2>
-    <p>Even if your password leaks, MFA blocks attackers.</p>
-
-    <h2>5. Report Scams Quickly</h2>
-    <p>Forward texts to 7726, report emails to report@phishing.gov.uk.</p>
+    <ul class="price-list">
+      <li>✔ Banks, delivery companies, HMRC</li>
+      <li>✔ PayPal, Amazon, Apple, Netflix</li>
+      <li>✔ Schools or gaming platforms</li>
+      <li>✔ “Support teams” offering help</li>
+    </ul>
   </div>
 </section>
+
+<section>
+  <h2>Common Scam Signs</h2>
+  <div class="card">
+    <ul class="price-list">
+      <li>✔ Urgent messages (“Your account will be closed!”)</li>
+      <li>✔ Unknown numbers texting delivery updates</li>
+      <li>✔ Emails asking you to “confirm your login”</li>
+      <li>✔ Fake links (with misspellings or odd endings)</li>
+      <li>✔ Unexpected password reset emails</li>
+      <li>✔ Someone claiming your child has done something online</li>
+    </ul>
+
+    <p>If a message makes you panic, it’s almost always a scam.</p>
+  </div>
+</section>
+
+<section>
+  <h2>How to Stay Safe</h2>
+  <div class="card">
+    <ul class="price-list">
+      <li>✔ Never click links in texts/emails you weren’t expecting</li>
+      <li>✔ Type the website address manually</li>
+      <li>✔ Don’t respond to unknown numbers</li>
+      <li>✔ Don’t share codes sent to your phone</li>
+      <li>✔ Use 2FA (Two-Factor Authentication)</li>
+      <li>✔ Keep banking details private</li>
+      <li>✔ Teach children not to trust messages from strangers</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>If You Think You’ve Been Scammed</h2>
+  <div class="card">
+    <ul class="price-list">
+      <li>✔ Change your passwords immediately</li>
+      <li>✔ Check for unknown devices logged in</li>
+      <li>✔ Enable 2FA on important accounts</li>
+      <li>✔ Contact your bank if money was involved</li>
+      <li>✔ Secure your email (often the main target)</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Need Personalised Support?</h2>
+  <div class="card" style="text-align:center;">
+    <p>Your Digital MOT includes phishing protection, scam awareness and live fixes.</p>
+    <a class="btn" href="/book/">Book Your Family Audit</a>
+  </div>
+</section>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
+
+<script>
+const toggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
+</script>
 
 </body>
 </html>
