@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Cyber Seeds Resources – Guides for Family Digital Safety</title>
-<meta name="description" content="Free UK family safety resources: WiFi security tips, digital wellbeing advice, scam prevention guidance and the Cyber Seeds Children's Risk Index." />
+<title>Cyber Seeds Resources – Family Digital-Safety Guides</title>
+<meta name="description" content="Free digital-safety resources for UK families: WiFi security, device hygiene, phishing protection, children's online safety, and more." />
 
-<link rel="stylesheet" href="/style.css" />
 <link rel="canonical" href="https://cyberseeds-uk.github.io/resources/" />
+<link rel="stylesheet" href="/style.css" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="Cyber Seeds Resources – Family Safety Guides" />
-<meta property="og:description" content="Free digital safety resources for UK families." />
+<meta property="og:title" content="Cyber Seeds Resources" />
+<meta property="og:description" content="Digital-safety resources for families." />
 <meta property="og:image" content="/logo.png" />
 <meta property="og:url" content="https://cyberseeds-uk.github.io/resources/" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Cyber Seeds – Digital Safety Resources" />
-<meta name="twitter:description" content="Free guides for safe family digital use." />
-<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
@@ -72,43 +67,48 @@
 </div>
 
 
-<!-- HERO -->
+<!-- HEADER -->
 <header>
-  <h1>Family Digital Safety Resources</h1>
-  <p>Free guides, tools and knowledge to help keep your home safe online.</p>
+  <h1>Resources</h1>
+  <p>Simple guides to help your family stay safe online</p>
 </header>
 
 
 <main>
 
 <section>
-  <h2>Resource Library</h2>
+  <h2>Digital Safety Guides</h2>
 
   <div class="resource-grid">
 
     <a href="/resources/wifi/" class="resource-card">
-      <h4>WiFi Safety Guide</h4>
-      <p>Simple steps to strengthen your home WiFi and router settings.</p>
-    </a>
-
-    <a href="/resources/online-safety/" class="resource-card">
-      <h4>Children’s Online Safety</h4>
-      <p>Practical wellbeing advice for UK parents to protect their children online.</p>
-    </a>
-
-    <a href="/resources/phishing/" class="resource-card">
-      <h4>Scam & Phishing Guide</h4>
-      <p>How to spot, avoid and block modern online scams.</p>
+      <h4>WiFi & Router Security</h4>
+      <p>Protect your home network and strengthen your router settings.</p>
     </a>
 
     <a href="/resources/device-hygiene/" class="resource-card">
-      <h4>Device Hygiene Checklist</h4>
-      <p>Keep phones, tablets and laptops secure with quick checks.</p>
+      <h4>Device Hygiene</h4>
+      <p>Keep phones, laptops and tablets secure and up to date.</p>
+    </a>
+
+    <a href="/resources/phishing/" class="resource-card">
+      <h4>Scam & Phishing Protection</h4>
+      <p>Spot scam messages, fake links and dangerous online traps.</p>
+    </a>
+
+    <a href="/resources/online-safety/" class="resource-card">
+      <h4>Online Safety for Kids</h4>
+      <p>Understand the risks children face and how to protect them.</p>
     </a>
 
     <a href="/children-risk-index/" class="resource-card">
-      <h4>Children’s Risk Index</h4>
-      <p>Understand digital risk levels based on your child’s age and habits.</p>
+      <h4>Children’s Digital Risk Index</h4>
+      <p>Assess your child's risk level across apps, consoles and devices.</p>
+    </a>
+
+    <a href="/resources/childrens-risk-index/" class="resource-card">
+      <h4>Understanding Risk Levels</h4>
+      <p>Breakdown of each risk category and what it means for families.</p>
     </a>
 
   </div>
@@ -117,15 +117,25 @@
 </main>
 
 
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
 
+
 <script>
 const toggle = document.querySelector('.nav-toggle');
 const mobileMenu = document.getElementById('mobileMenu');
-toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
 </script>
 
 </body>
