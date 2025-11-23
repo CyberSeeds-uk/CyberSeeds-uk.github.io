@@ -511,3 +511,45 @@ body.menu-open {
     z-index: 10001 !important;
     position: relative;
 }
+
+/* FORCE MOBILE MENU TO COVER EVERYTHING */
+.mobile-menu,
+.mobile-menu.active {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(255,255,255,0.98) !important;
+    z-index: 999999 !important;
+    display: block;
+}
+
+/* TEMP: When menu is closed, hide it */
+.mobile-menu:not(.active) {
+    display: none !important;
+}
+
+/* MAKE SURE NOTHING SITS ABOVE THE MENU */
+header,
+nav,
+.navbar,
+.nav-container,
+.site-header,
+.topbar,
+.logo,
+.menu-icon {
+    z-index: 100 !important; /* lower than 999999 */
+}
+
+/* HAMBURGER ALWAYS ABOVE BACKGROUND BUT BELOW MENU */
+.hamburger {
+    position: relative !important;
+    z-index: 999998 !important;
+}
+
+/* DISABLE PAGE SCROLL WHEN OPEN */
+body.menu-open {
+    overflow: hidden !important;
+}
+
