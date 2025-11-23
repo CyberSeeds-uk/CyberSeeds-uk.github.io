@@ -147,10 +147,12 @@ const mobileMenu = document.getElementById('mobileMenu');
 
 toggle.addEventListener('click', () => {
   mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
 });
 
 mobileMenu.addEventListener('click', () => {
   mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
 });
 </script>
 
