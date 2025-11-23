@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Cyber Seeds Pricing – Secure Payment</title>
-<meta name="description" content="Choose your Cyber Seeds family cyber-safety audit package and make a secure Stripe payment." />
+<title>Schedule Your Cyber Seeds Session</title>
+<meta name="description" content="Schedule your Digital MOT with Cyber Seeds and choose a time that works for your family." />
 
+<link rel="canonical" href="https://cyberseeds-uk.github.io/schedule/" />
 <link rel="stylesheet" href="/style.css" />
-<link rel="canonical" href="https://cyberseeds-uk.github.io/book/" />
 
 <!-- Open Graph -->
-<meta property="og:title" content="Cyber Seeds Pricing" />
-<meta property="og:description" content="Simple, transparent pricing for your family's home cyber-safety audit." />
+<meta property="og:title" content="Schedule Your Cyber Seeds Session" />
+<meta property="og:description" content="Choose your appointment time and book your Digital MOT." />
 <meta property="og:image" content="/logo.png" />
-<meta property="og:url" content="https://cyberseeds-uk.github.io/book/" />
+<meta property="og:url" content="https://cyberseeds-uk.github.io/schedule/" />
 
 </head>
 
@@ -67,86 +67,40 @@
 </div>
 
 
-
-<!-- HERO -->
+<!-- HEADER -->
 <header>
-  <h1>Pricing</h1>
-  <p>Choose your family’s Cyber Seeds package and pay securely.</p>
+  <h1>Schedule Your Session</h1>
+  <p>Choose a time that fits your family’s routine</p>
 </header>
 
 
 <main>
 
 <section>
-  <h2>Secure Payment</h2>
-  <div class="card" style="text-align:center;">
-    <p>After payment, you’ll be automatically redirected to our scheduling page to choose your session time.</p>
-  </div>
-</section>
-
-
-<section>
-  <h2>Choose Your Package</h2>
+  <h2>How Scheduling Works</h2>
   <div class="card">
-
-    <div class="pricing-grid">
-
-      <!-- PACKAGE 1 -->
-      <div class="price-box">
-        <h3>5-Point Audit</h3>
-        <p class="price">£75</p>
-        <ul>
-          <li>WiFi & Router Security Check</li>
-          <li>Device Hygiene Review</li>
-          <li>Privacy Exposure Scan</li>
-          <li>Fraud & Scam Coaching</li>
-          <li>Child Digital Wellbeing Overview</li>
-        </ul>
-        <a href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00" class="stripe-btn">Pay £75</a>
-      </div>
-
-      <!-- PACKAGE 2 -->
-      <div class="price-box featured">
-        <h3>Audit + Follow-Up</h3>
-        <p class="price">£97</p>
-        <ul>
-          <li>Everything in the 5-Point Audit</li>
-          <li>+ Personalised 7-Day Action Plan</li>
-          <li>+ Priority Support for One Week</li>
-        </ul>
-        <a href="https://buy.stripe.com/dRm00l9g89J11ndgzN4gg01" class="stripe-btn">Pay £97</a>
-      </div>
-
-      <!-- PACKAGE 3 -->
-      <div class="price-box">
-        <h3>Extra Device Add-On</h3>
-        <p class="price">£25</p>
-        <ul>
-          <li>For Consoles, Tablets, Laptops & Smart Devices</li>
-          <li>Privacy & Hygiene Check</li>
-          <li>Included During Your Audit Session</li>
-        </ul>
-        <a href="https://buy.stripe.com/cNi5kFcsk8FE9T3JN14gg02" class="stripe-btn">Add £25 Device</a>
-      </div>
-
-    </div>
-
+    <ul class="price-list">
+      <li>✔ Make your secure payment through the <a href="/book/">pricing page</a></li>
+      <li>✔ After payment, you receive a link to our Calendly scheduler</li>
+      <li>✔ Choose any available time slot</li>
+      <li>✔ You’ll receive a confirmation email instantly</li>
+      <li>✔ The Digital MOT takes place on Zoom or Google Meet</li>
+    </ul>
   </div>
 </section>
 
 
 <section>
-  <h2>Next Step After Payment</h2>
+  <h2>Ready to Get Started?</h2>
   <div class="card" style="text-align:center;">
-    <p>Once your payment is complete, you will be automatically redirected to:</p>
-    <p><strong>cyberseeds-uk.github.io/schedule/</strong></p>
-    <p>There you can choose a convenient time for your family.</p>
+    <p>Start by choosing the right plan for your family:</p>
+    <a class="btn" href="/book/">View Pricing & Secure Payment</a>
   </div>
 </section>
 
 </main>
 
-
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
@@ -154,8 +108,16 @@
 <script>
 const toggle = document.querySelector('.nav-toggle');
 const mobileMenu = document.getElementById('mobileMenu');
-toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
 </script>
 
 </body>
