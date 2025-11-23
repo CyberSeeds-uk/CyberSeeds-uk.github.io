@@ -2,25 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Contact Cyber Seeds – Get Support</title>
-<meta name="description" content="Contact Cyber Seeds for help with family cyber-safety, booking questions, digital wellbeing support or general enquiries." />
+<title>Contact Cyber Seeds – Get Support or Ask a Question</title>
+<meta name="description" content="Contact Cyber Seeds with any questions about your Digital MOT, booking, pricing or family cyber-safety concerns." />
 
-<link rel="stylesheet" href="/style.css" />
 <link rel="canonical" href="https://cyberseeds-uk.github.io/contact/" />
+<link rel="stylesheet" href="/style.css" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="Contact Cyber Seeds" />
-<meta property="og:description" content="Get in touch for help with your family’s digital safety." />
+<meta property="og:description" content="Reach out with any digital-safety questions." />
 <meta property="og:image" content="/logo.png" />
 <meta property="og:url" content="https://cyberseeds-uk.github.io/contact/" />
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Contact Cyber Seeds" />
-<meta name="twitter:description" content="Reach out for digital safety support." />
-<meta name="twitter:image" content="/logo.png" />
 </head>
 
 <body>
@@ -72,55 +67,52 @@
 </div>
 
 
-<!-- HERO -->
+<!-- HEADER -->
 <header>
   <h1>Contact Us</h1>
-  <p>We're here to help your family stay safe online.</p>
+  <p>We're here to help with any digital-safety questions</p>
 </header>
 
 
 <main>
 
 <section>
-  <h2>Get In Touch</h2>
+  <h2>Get in Touch</h2>
   <div class="card">
-    <p>If you have questions about your session, payments, family digital safety, or anything else — we’re here to help.</p>
+    <p>If you have any questions about the Digital MOT, the booking process, pricing, or your family’s digital-safety needs, feel free to reach out.</p>
 
-    <p><strong>Email:</strong> cyberseeds.uk@gmail.com</p>
-    <p><strong>Location:</strong> Greater Manchester, UK</p>
+    <p><strong>Email:</strong> <a href="mailto:cyberseeds.uk@gmail.com">cyberseeds.uk@gmail.com</a></p>
 
-    <p>You’ll usually receive a reply within 24 hours.</p>
+    <p>We aim to respond within 24 hours.</p>
   </div>
 </section>
 
 
 <section>
-  <h2>Common Enquiries</h2>
+  <h2>How Can We Help?</h2>
   <div class="card">
-
     <ul class="price-list">
-      <li>✔ Questions about scheduling</li>
-      <li>✔ Help with online safety or child wellbeing</li>
-      <li>✔ Technical questions about devices or apps</li>
-      <li>✔ Scam or suspicious message concerns</li>
-      <li>✔ Payment or invoice questions</li>
+      <li>✔ Questions before booking</li>
+      <li>✔ Concerns about your Digital MOT</li>
+      <li>✔ Advice on family cyber-safety</li>
+      <li>✔ Support with privacy, WiFi or devices</li>
+      <li>✔ Follow-up after your audit</li>
     </ul>
-
   </div>
 </section>
 
 
 <section>
-  <h2>Need Help Right Now?</h2>
+  <h2>Prefer to Book Directly?</h2>
   <div class="card" style="text-align:center;">
-    <p>If you’re not sure where to start, view our pricing and begin your Cyber Seeds session:</p>
-    <a class="btn" href="/book/">View Pricing</a>
+    <p>You can go straight to pricing and secure payment below:</p>
+    <a href="/book/" class="btn">View Pricing</a>
   </div>
 </section>
 
 </main>
 
-
+<!-- FOOTER -->
 <footer>
   <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
 </footer>
@@ -128,8 +120,16 @@
 <script>
 const toggle = document.querySelector('.nav-toggle');
 const mobileMenu = document.getElementById('mobileMenu');
-toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-mobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+toggle.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+});
+
+mobileMenu.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+});
 </script>
 
 </body>
