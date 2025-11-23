@@ -1,6 +1,6 @@
 /* ---------------------------------------
-   CYBER SEEDS – PREMIUM UI REDESIGN (2025)
-   MOBILE-FIRST, CLEAN, FULLY RESPONSIVE
+   CYBER SEEDS — FINAL PREMIUM UI (2025)
+   Mobile-First · Clean · Fast · Responsive
 ---------------------------------------- */
 
 /* THEME VARIABLES */
@@ -17,15 +17,15 @@
     --muted: #4a4a4a;
 
     --radius: 22px;
-    --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
-    --shadow-lg: 0 14px 40px rgba(0,0,0,0.14);
+    --shadow-sm: 0 3px 10px rgba(0,0,0,0.06);
+    --shadow-md: 0 6px 20px rgba(0,0,0,0.10);
+    --shadow-lg: 0 14px 38px rgba(0,0,0,0.14);
 }
 
 /* RESET */
 * {
     box-sizing: border-box;
-    max-width: 100% !important;   /* 🔥 STOP CONTENT SHRINK BUG */
+    max-width: 100%;
 }
 
 body {
@@ -33,16 +33,21 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
 }
 
 /* -----------------------------------
-   NAVBAR – MOBILE FIXED
+   NAVBAR — FIXED & RESPONSIVE
 ------------------------------------ */
 .navbar {
     background: var(--primary);
+    color: #fff;
     padding: 14px 20px;
-    color: white;
     position: sticky;
     top: 0;
     width: 100%;
@@ -59,29 +64,41 @@ body {
     width: 100%;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+}
+
 .nav-logo img {
     height: 34px;
 }
 
+/* MENU LINKS (desktop) */
 .nav-links {
-    list-style: none;
     display: flex;
+    list-style: none;
     gap: 28px;
     margin: 0;
     padding: 0;
 }
 
 .nav-links a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     font-size: 16px;
+    font-weight: 500;
 }
 
 /* HAMBURGER */
 .nav-toggle {
-    display: none;
     background: none;
     border: none;
+    display: none;
     cursor: pointer;
 }
 
@@ -90,36 +107,33 @@ body {
     height: 3px;
     background: white;
     margin: 5px 0;
-    display: block;
     border-radius: 4px;
+    display: block;
 }
 
 /* -----------------------------------
-   MOBILE MENU — FIXED
+   MOBILE FULLSCREEN MENU
 ------------------------------------ */
 .mobile-menu {
-    display: none; 
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(13, 71, 161, 0.98);
-    z-index: 99999;
+    inset: 0;
+    background: rgba(13,71,161,0.97);
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 28px;
+    z-index: 99999;
     padding: 40px;
 }
 
-.mobile-menu.active {
+.mobile-menu.open {
     display: flex;
 }
 
 .mobile-menu a {
-    font-size: 22px;
     color: white;
+    font-size: 22px;
     text-decoration: none;
     font-weight: 600;
 }
@@ -129,65 +143,209 @@ body.menu-open {
 }
 
 /* -----------------------------------
-   HEADER
+   DROPDOWN (desktop)
+------------------------------------ */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    top: 40px;
+    left: 0;
+    min-width: 200px;
+    border-radius: 16px;
+    padding: 8px 0;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+    z-index: 999;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* -----------------------------------
+   HEADER / HERO
 ------------------------------------ */
 header {
     background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    padding: 70px 20px;
     text-align: center;
+    padding: 70px 20px;
     color: white;
     box-shadow: var(--shadow-md);
 }
 
 header h1 {
-    font-size: 36px;
+    font-size: 38px;
     margin-bottom: 10px;
 }
 
 header p {
     font-size: 18px;
+    opacity: 0.95;
 }
 
 /* -----------------------------------
-   GENERAL LAYOUT
+   SECTIONS
 ------------------------------------ */
 section {
-    padding: 50px 20px;
     max-width: 950px;
     margin: auto;
-    width: 100%;
+    padding: 50px 20px;
 }
 
 h2 {
     font-size: 28px;
     color: var(--primary);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+    font-weight: 700;
 }
 
 /* -----------------------------------
-   CARD
+   CARD COMPONENT
 ------------------------------------ */
 .card {
     background: var(--card-bg);
     padding: 28px;
     border-radius: var(--radius);
-    margin: 30px 0;
     box-shadow: var(--shadow-md);
-    width: 100%;
+    backdrop-filter: blur(6px);
+    margin: 28px 0;
+}
+
+.price-list li {
+    font-size: 17px;
+    margin-bottom: 10px;
 }
 
 /* -----------------------------------
-   RESPONSIVE FIXES
+   BUTTONS
+------------------------------------ */
+.btn,
+.stripe-btn,
+.btn-primary,
+.btn-secondary,
+.btn-accent {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 17px;
+    transition: 0.2s;
+    color: white;
+}
+
+.btn {
+    background: var(--primary-light);
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-primary { background: #0A7E4A; }
+.btn-secondary { background: #0C9056; }
+.btn-accent { background: #34A853; }
+
+/* STRIPE BUTTON */
+.stripe-btn {
+    background: #2563eb;
+    box-shadow: 0 6px 16px rgba(37,99,235,0.28);
+}
+.stripe-btn:hover {
+    background: #1d4ed8;
+    box-shadow: 0 8px 20px rgba(37,99,235,0.42);
+    transform: translateY(-2px);
+}
+
+/* -----------------------------------
+   RESOURCE GRID
+------------------------------------ */
+.resource-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.resource-card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 18px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    border: 1px solid #e6e6e6;
+    transition: 0.25s;
+}
+
+.resource-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* -----------------------------------
+   PRICING GRID
+------------------------------------ */
+.pricing-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.price-box {
+    background: #fff;
+    padding: 26px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border: 1px solid #e6e6e6;
+    transition: 0.25s;
+}
+
+.price-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+.featured {
+    background: #e9f7ef;
+    border-color: #8ad1a0;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* -----------------------------------
+   FOOTER
+------------------------------------ */
+footer {
+    background: var(--primary);
+    text-align: center;
+    color: white;
+    padding: 25px 15px;
+    margin-top: 50px;
+    font-size: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* -----------------------------------
+   MOBILE FIXES
 ------------------------------------ */
 @media (max-width: 850px) {
-
-    header h1 {
-        font-size: 30px;
-    }
-
-    header p {
-        font-size: 16px;
-    }
 
     .nav-links {
         display: none;
@@ -196,6 +354,10 @@ h2 {
     .nav-toggle {
         display: block;
         z-index: 999999;
+    }
+
+    header h1 {
+        font-size: 32px;
     }
 
     section {
@@ -209,41 +371,4 @@ h2 {
     h2 {
         font-size: 24px;
     }
-}
-
-/* -----------------------------------
-   PRICING GRID
------------------------------------- */
-.pricing-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    width: 100%;
-}
-
-.price-box {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border: 1px solid #e6e6e6;
-    transition: 0.2s;
-}
-
-/* FEATURED */
-.featured {
-    background: #e9f7ef;
-    border-color: #8ad1a0;
-}
-
-/* -----------------------------------
-   FOOTER
------------------------------------- */
-footer {
-    background: var(--primary);
-    padding: 25px 15px;
-    text-align: center;
-    color: white;
-    margin-top: 50px;
-    font-size: 15px;
 }
