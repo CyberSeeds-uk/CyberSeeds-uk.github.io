@@ -364,3 +364,98 @@ footer {
         font-size: 1.05rem;
     }
 }
+
+/* ---------------------------------------
+   HOMEPAGE FRIENDLY SPACING + MINIMAL DESIGN IMPROVEMENTS
+   (2025 Update)
+---------------------------------------- */
+
+/* Softer section spacing */
+section {
+    margin-bottom: 35px;
+}
+
+/* Reduce card size + make them lighter */
+.simple-card {
+    padding: 20px 22px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* Make text width smaller (MUCH easier to read) */
+.simple-card p,
+.simple-card ul {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Gentle spacing between paragraphs */
+.simple-card p {
+    margin-bottom: 12px;
+}
+
+/* Bullet spacing */
+.bullet-simple li {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+/* Homepage headings: more breathing room */
+section h2 {
+    margin-bottom: 12px;
+    margin-top: 10px;
+}
+
+/* HERO improvements */
+header {
+    padding: 45px 20px 40px;
+    background: linear-gradient(
+        180deg,
+        var(--bg-soft) 0%,
+        var(--bg) 100%
+    );
+}
+
+/* Reduce hero title weight on desktop */
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 650;
+}
+
+/* MOBILE improvements */
+@media (max-width: 600px) {
+
+    /* Smaller safe column width */
+    .simple-card p,
+    .simple-card ul {
+        max-width: 90%;
+    }
+
+    /* Space between homepage sections */
+    section {
+        margin-bottom: 28px;
+    }
+
+    /* Friendlier heading size */
+    section h2 {
+        font-size: 1.45rem;
+        margin-top: 5px;
+    }
+
+    /* Softer cards */
+    .simple-card {
+        padding: 18px 18px;
+        border-radius: 18px;
+    }
+
+    /* Slightly smaller hero */
+    header h1 {
+        font-size: 2rem;
+        font-weight: 650;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+}
