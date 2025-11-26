@@ -177,7 +177,11 @@ body {
 header {
     text-align: center;
     padding: 60px 20px 50px;
-    background: var(--bg-soft);
+    background: linear-gradient(
+        180deg,
+        var(--bg-soft) 0%,
+        var(--bg) 100%
+    );
 }
 
 header h1 {
@@ -265,7 +269,10 @@ footer {
     font-size: 0.95rem;
 }
 
-/* RESPONSIVE */
+/* ---------------------------------------
+   RESPONSIVE (TABLET)
+---------------------------------------- */
+
 @media (max-width: 900px) {
     .nav-links {
         display: none;
@@ -275,5 +282,85 @@ footer {
     }
     header h1 {
         font-size: 2.2rem;
+    }
+}
+
+/* ---------------------------------------
+   MOBILE REFINEMENTS (iPhone + Android)
+---------------------------------------- */
+
+@media (max-width: 600px) {
+
+    /* Reduce heading sizes */
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+
+    header p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    header {
+        padding: 40px 20px 35px;
+    }
+
+    /* Logo + navbar tweaks */
+    .nav-logo {
+        font-size: 1.15rem;
+        gap: 8px;
+    }
+
+    .nav-logo img {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Section titles */
+    section h2 {
+        font-size: 1.5rem;
+        padding: 0 8px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 22px;
+        border-radius: 18px;
+        margin: 0 6px;
+    }
+
+    .card p,
+    .card li {
+        font-size: 0.98rem;
+        line-height: 1.55;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    /* Section spacing */
+    section {
+        margin-bottom: 35px;
+    }
+
+    /* Better mobile button */
+    .btn {
+        padding: 12px 22px;
+        font-size: 1rem;
+        width: 100%;
+        border-radius: 18px;
+    }
+
+    /* Burger menu icon */
+    .nav-toggle span {
+        width: 24px;
+        height: 3px;
+    }
+
+    .mobile-menu a {
+        padding: 12px 0;
+        font-size: 1.05rem;
     }
 }
