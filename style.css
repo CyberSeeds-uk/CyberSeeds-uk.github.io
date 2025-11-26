@@ -5,39 +5,39 @@
 
 /* THEME VARIABLES */
 :root {
-    --primary: #4CAF50;            /* Soft leaf green */
-    --primary-light: #A8E6A3;      /* Pastel leaf */
-    --primary-dark: #2E7D32;       /* Gentle dark green */
+  --primary: #4CAF50;
+  --primary-light: #A8E6A3;
+  --primary-dark: #2E7D32;
 
-    --bg: #FAFFF8;                 /* Soft mint-white */
-    --bg-soft: #F2FFF4;            /* Light mint wash */
-    --card-bg: #FFFFFF;            /* Clean white */
+  --bg: #FAFFF8;
+  --bg-soft: #F2FFF4;
+  --card-bg: #FFFFFF;
 
-    --accent-peach: #FFCCB5;
-    --accent-blue: #D6EEFF;
-    --accent-lavender: #EDE7FF;
+  --accent-peach: #FFCCB5;
+  --accent-blue: #D6EEFF;
+  --accent-lavender: #EDE7FF;
 
-    --text: #1a1a1a;
-    --muted: #4a4a4a;
+  --text: #1a1a1a;
+  --muted: #4a4a4a;
 
-    --radius: 22px;
-    --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 22px;
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
 }
 
 /* RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
 }
 
 /* ---------------------------------------
@@ -45,129 +45,129 @@ body {
 ---------------------------------------- */
 
 .navbar {
-    background: #ffffffee;
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    box-shadow: var(--shadow-sm);
+  background: #ffffffee;
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: var(--shadow-sm);
 }
 
 .nav-container {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
 }
 
 .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-dark);
 }
 
 .nav-logo img {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
 }
 
 .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 22px;
+  display: flex;
+  list-style: none;
+  gap: 22px;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    transition: 0.2s ease;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: 0.2s ease;
 }
 
 .nav-links a:hover {
-    color: var(--primary-dark);
+  color: var(--primary-dark);
 }
 
 /* DROPDOWN */
 .dropdown {
-    position: relative;
+  position: relative;
 }
 
 .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 32px;
-    left: 0;
-    min-width: 180px;
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
-    padding: 12px 0;
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  min-width: 180px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 12px 0;
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block;
+  display: block;
 }
 
 .dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
-    color: var(--text);
+  display: block;
+  padding: 10px 20px;
+  color: var(--text);
 }
 
 .dropdown-menu a:hover {
-    background: var(--accent-blue);
+  background: var(--accent-blue);
 }
 
 /* MOBILE NAV */
 .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
 }
 
 .nav-toggle span {
-    width: 26px;
-    height: 3px;
-    background: var(--text);
+  width: 26px;
+  height: 3px;
+  background: var(--text);
 }
 
 .mobile-menu {
-    display: none;
-    flex-direction: column;
-    background: #ffffffee;
-    padding: 20px;
-    position: fixed;
-    top: 65px;
-    left: 0;
-    width: 100%;
-    box-shadow: var(--shadow-md);
-    z-index: 998;
+  display: none;
+  flex-direction: column;
+  background: #ffffffee;
+  padding: 20px;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  z-index: 998;
 }
 
 .mobile-menu.open {
-    display: flex;
+  display: flex;
 }
 
 .mobile-menu a {
-    padding: 14px 0;
-    border-bottom: 1px solid #d7dfe9;
-    text-decoration: none;
-    font-weight: 500;
-    color: var(--text);
+  padding: 14px 0;
+  border-bottom: 1px solid #d7dfe9;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--text);
 }
 
 .mobile-menu a:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* ---------------------------------------
@@ -175,25 +175,21 @@ body {
 ---------------------------------------- */
 
 header {
-    text-align: center;
-    padding: 60px 20px 50px;
-    background: linear-gradient(
-        180deg,
-        var(--bg-soft) 0%,
-        var(--bg) 100%
-    );
+  text-align: center;
+  padding: 45px 20px 40px;
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
 }
 
 header h1 {
-    font-size: 2.6rem;
-    font-weight: 700;
-    color: var(--primary-dark);
+  font-size: 2.5rem;
+  font-weight: 650;
+  color: var(--primary-dark);
 }
 
 header p {
-    font-size: 1.15rem;
-    margin-top: 10px;
-    color: var(--muted);
+  font-size: 1.15rem;
+  margin-top: 10px;
+  color: var(--muted);
 }
 
 /* ---------------------------------------
@@ -201,37 +197,68 @@ header p {
 ---------------------------------------- */
 
 main {
-    max-width: 1100px;
-    margin: auto;
-    padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
 section {
-    margin-bottom: 45px;
+  margin-bottom: 35px;
 }
 
 section h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: var(--primary-dark);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  margin-top: 20px;
+  color: var(--primary-dark);
 }
 
-/* CARDS */
+/* ---------------------------------------
+   CARDS
+---------------------------------------- */
+
 .card {
-    background: var(--card-bg);
-    padding: 28px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
+  background: var(--card-bg);
+  padding: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+/* HOMEPAGE-SPECIFIC: lighter card style */
+.simple-card {
+  padding: 20px 22px;
+  border-radius: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  background: var(--card-bg);
+}
+
+.simple-card p,
+.simple-card ul {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simple-card p {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.bullet-simple li {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 /* LISTS */
 ul {
-    padding-left: 18px;
+  padding-left: 18px;
 }
 
 ul li {
-    margin-bottom: 14px;
+  margin-bottom: 14px;
 }
 
 /* ---------------------------------------
@@ -239,21 +266,21 @@ ul li {
 ---------------------------------------- */
 
 .btn {
-    display: inline-block;
-    padding: 14px 28px;
-    background: var(--primary);
-    color: #fff !important;
-    text-decoration: none;
-    border-radius: var(--radius);
-    font-weight: 600;
-    transition: 0.25s ease;
-    box-shadow: var(--shadow-sm);
+  display: inline-block;
+  padding: 14px 28px;
+  background: var(--primary);
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: 0.25s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn:hover {
-    background: var(--primary-dark);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 /* ---------------------------------------
@@ -261,201 +288,89 @@ ul li {
 ---------------------------------------- */
 
 footer {
-    margin-top: 40px;
-    padding: 40px 20px;
-    text-align: center;
-    background: var(--bg-soft);
-    color: var(--muted);
-    font-size: 0.95rem;
+  margin-top: 40px;
+  padding: 40px 20px;
+  text-align: center;
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 /* ---------------------------------------
-   RESPONSIVE (TABLET)
+   TABLET (max-width: 900px)
 ---------------------------------------- */
 
 @media (max-width: 900px) {
-    .nav-links {
-        display: none;
-    }
-    .nav-toggle {
-        display: flex;
-    }
-    header h1 {
-        font-size: 2.2rem;
-    }
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+  }
 }
 
 /* ---------------------------------------
-   MOBILE REFINEMENTS (iPhone + Android)
+   MOBILE (max-width: 600px)
 ---------------------------------------- */
 
 @media (max-width: 600px) {
-
-    /* Reduce heading sizes */
-    header h1 {
-        font-size: 2rem;
-        margin-bottom: 5px;
-    }
-
-    header p {
-        font-size: 1rem;
-        padding: 0 10px;
-    }
-
-    header {
-        padding: 40px 20px 35px;
-    }
-
-    /* Logo + navbar tweaks */
-    .nav-logo {
-        font-size: 1.15rem;
-        gap: 8px;
-    }
-
-    .nav-logo img {
-        width: 36px;
-        height: 36px;
-    }
-
-    /* Section titles */
-    section h2 {
-        font-size: 1.5rem;
-        padding: 0 8px;
-    }
-
-    /* Cards */
-    .card {
-        padding: 22px;
-        border-radius: 18px;
-        margin: 0 6px;
-    }
-
-    .card p,
-    .card li {
-        font-size: 0.98rem;
-        line-height: 1.55;
-    }
-
-    ul li {
-        margin-bottom: 10px;
-    }
-
-    /* Section spacing */
-    section {
-        margin-bottom: 35px;
-    }
-
-    /* Better mobile button */
-    .btn {
-        padding: 12px 22px;
-        font-size: 1rem;
-        width: 100%;
-        border-radius: 18px;
-    }
-
-    /* Burger menu icon */
-    .nav-toggle span {
-        width: 24px;
-        height: 3px;
-    }
-
-    .mobile-menu a {
-        padding: 12px 0;
-        font-size: 1.05rem;
-    }
-}
-
-/* ---------------------------------------
-   HOMEPAGE FRIENDLY SPACING + MINIMAL DESIGN IMPROVEMENTS
-   (2025 Update)
----------------------------------------- */
-
-/* Softer section spacing */
-section {
-    margin-bottom: 35px;
-}
-
-/* Reduce card size + make them lighter */
-.simple-card {
-    padding: 20px 22px;
-    border-radius: 20px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-}
-
-/* Make text width smaller (MUCH easier to read) */
-.simple-card p,
-.simple-card ul {
-    max-width: 680px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Gentle spacing between paragraphs */
-.simple-card p {
-    margin-bottom: 12px;
-}
-
-/* Bullet spacing */
-.bullet-simple li {
-    margin-bottom: 8px;
-    font-size: 1.05rem;
-}
-
-/* Homepage headings: more breathing room */
-section h2 {
-    margin-bottom: 12px;
-    margin-top: 10px;
-}
-
-/* HERO improvements */
-header {
-    padding: 45px 20px 40px;
-    background: linear-gradient(
-        180deg,
-        var(--bg-soft) 0%,
-        var(--bg) 100%
-    );
-}
-
-/* Reduce hero title weight on desktop */
-header h1 {
-    font-size: 2.5rem;
+  header h1 {
+    font-size: 2rem;
     font-weight: 650;
-}
+  }
 
-/* MOBILE improvements */
-@media (max-width: 600px) {
+  header p {
+    font-size: 1rem;
+  }
 
-    /* Smaller safe column width */
-    .simple-card p,
-    .simple-card ul {
-        max-width: 90%;
-    }
+  .nav-logo {
+    font-size: 1.15rem;
+    gap: 8px;
+  }
 
-    /* Space between homepage sections */
-    section {
-        margin-bottom: 28px;
-    }
+  .nav-logo img {
+    width: 36px;
+    height: 36px;
+  }
 
-    /* Friendlier heading size */
-    section h2 {
-        font-size: 1.45rem;
-        margin-top: 5px;
-    }
+  .simple-card {
+    padding: 18px 18px;
+    border-radius: 18px;
+  }
 
-    /* Softer cards */
-    .simple-card {
-        padding: 18px 18px;
-        border-radius: 18px;
-    }
+  .simple-card p,
+  .simple-card ul {
+    max-width: 92%;
+  }
 
-    /* Slightly smaller hero */
-    header h1 {
-        font-size: 2rem;
-        font-weight: 650;
-    }
+  section {
+    margin-bottom: 28px;
+  }
 
-    header p {
-        font-size: 1rem;
-    }
+  section h2 {
+    font-size: 1.45rem;
+    margin-top: 10px;
+  }
+
+  .btn {
+    padding: 12px 22px;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .nav-toggle span {
+    width: 24px;
+    height: 3px;
+  }
+
+  .mobile-menu a {
+    padding: 12px 0;
+    font-size: 1.05rem;
+  }
 }
