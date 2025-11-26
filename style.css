@@ -1,25 +1,29 @@
 /* ---------------------------------------
-   CYBER SEEDS – FRIENDLY GREEN THEME (2025)
-   Calm • Safe • Family-Friendly • Trustworthy
+   CYBER SEEDS – FRIENDLY FAMILY THEME (2025)
+   Soft • Calm • Warm • Child-Safe
 ---------------------------------------- */
 
 /* THEME VARIABLES */
 :root {
-    --primary: #2E7D32;            /* Main green */
-    --primary-light: #5AAF67;      /* Friendly soft green */
-    --primary-dark: #1B5E20;       /* Strong deep green */
+    --primary: #4CAF50;            /* Soft leaf green */
+    --primary-light: #A8E6A3;      /* Pastel leaf */
+    --primary-dark: #2E7D32;       /* Gentle dark green */
 
-    --bg: #F3F8F4;                 /* Soft green-tinted background */
-    --bg-soft: #E5F2E7;            /* Light green wash */
-    --card-bg: #FFFFFFEE;          /* Soft white card */
+    --bg: #FAFFF8;                 /* Soft mint-white */
+    --bg-soft: #F2FFF4;            /* Light mint wash */
+    --card-bg: #FFFFFF;            /* Clean white */
+
+    --accent-peach: #FFCCB5;
+    --accent-blue: #D6EEFF;
+    --accent-lavender: #EDE7FF;
 
     --text: #1a1a1a;
     --muted: #4a4a4a;
 
-    --radius: 20px;
-    --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
-    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
-    --shadow-lg: 0 12px 40px rgba(0,0,0,0.14);
+    --radius: 22px;
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
 }
 
 /* RESET */
@@ -41,7 +45,7 @@ body {
 ---------------------------------------- */
 
 .navbar {
-    background: #ffffffdd;
+    background: #ffffffee;
     backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
@@ -71,7 +75,7 @@ body {
 .nav-logo img {
     width: 42px;
     height: 42px;
-    border-radius: var(--radius);
+    border-radius: 12px;
 }
 
 .nav-links {
@@ -112,10 +116,6 @@ body {
     display: block;
 }
 
-.dropdown-menu li {
-    list-style: none;
-}
-
 .dropdown-menu a {
     display: block;
     padding: 10px 20px;
@@ -123,7 +123,7 @@ body {
 }
 
 .dropdown-menu a:hover {
-    background: var(--bg-soft);
+    background: var(--accent-blue);
 }
 
 /* MOBILE NAV */
@@ -145,7 +145,6 @@ body {
     display: none;
     flex-direction: column;
     background: #ffffffee;
-    backdrop-filter: blur(10px);
     padding: 20px;
     position: fixed;
     top: 65px;
@@ -178,6 +177,7 @@ body {
 header {
     text-align: center;
     padding: 60px 20px 50px;
+    background: var(--bg-soft);
 }
 
 header h1 {
@@ -219,10 +219,6 @@ section h2 {
     padding: 28px;
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
-}
-
-.card p + p {
-    margin-top: 10px;
 }
 
 /* LISTS */
@@ -269,10 +265,7 @@ footer {
     font-size: 0.95rem;
 }
 
-/* ---------------------------------------
-   RESPONSIVE
----------------------------------------- */
-
+/* RESPONSIVE */
 @media (max-width: 900px) {
     .nav-links {
         display: none;
