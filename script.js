@@ -68,7 +68,7 @@ document.getElementById("retake-btn").addEventListener("click", () => {
 nextQ();
 
 /* ============================
-   BUBBLE SIMULATION
+   BUBBLE SIMULATION (SLOWED)
 ============================ */
 const bubbleCanvas = document.getElementById("bubbleCanvas");
 const ctx = bubbleCanvas.getContext("2d");
@@ -85,33 +85,34 @@ window.addEventListener("resize", resizeSim);
 let bubbles = [];
 let infectInterval;
 
-// Narration messages
+// Slower, clearer narration
 const narration = [
   "Each bubble is a device in your home.",
   "This one device becomes vulnerable…",
   "The risk quietly spreads to others.",
-  "Outdated apps, weak passwords make it worse.",
+  "Weak passwords & outdated apps make it worse.",
   "Security applied…",
   "Everything becomes safe again ✔"
 ];
 
-// Show floating narration
+// Narration lasts longer (3.5s)
 function say(text) {
   narrator.innerText = text;
   narrator.style.opacity = 1;
 
   setTimeout(() => {
     narrator.style.opacity = 0;
-  }, 2200);
+  }, 3500);
 }
 
-// Start narration timeline
+// Slowed narration timeline
 function startNarration() {
-  const timings = [0, 900, 2600, 4300, 6000, 7200];
-  timings.forEach((t, i) => setTimeout(() => say(narration[i]), t));
+  const timings = [0, 3500, 7000, 10500, 14000, 17500];
+  timings.forEach((t, i) =>
+    setTimeout(() => say(narration[i]), t)
+  );
 }
 
-// Create new bubble array
 function initBubbles() {
   bubbles = [];
   for (let i = 0; i < 22; i++) {
@@ -119,33 +120,39 @@ function initBubbles() {
       x: Math.random() * bubbleCanvas.width,
       y: Math.random() * bubbleCanvas.height,
       r: 10 + Math.random() * 6,
-      dx: (Math.random() - 0.5) * 0.4,
-      dy: (Math.random() - 0.5) * 0.4,
+      dx: (Math.random() - 0.5) * 0.35,
+      dy: (Math.random() - 0.5) * 0.35,
       infected: false,
       safe: false
     });
   }
-  bubbles[0].infected = true; // patient zero
+  bubbles[0].infected = true;
 }
 
-// Infection spread
+// Slowed infection spread
 function spread() {
   bubbles.forEach((b1, i) => {
     if (!b1.infected) return;
+
     bubbles.forEach((b2, j) => {
       if (i === j) return;
       const d = Math.hypot(b1.x - b2.x, b1.y - b2.y);
-      if (d < 80 && Math.random() < 0.1) b2.infected = true;
+
+      if (d < 80 && Math.random() < 0.08) {
+        b2.infected = true;
+      }
     });
   });
 }
 
-// Heal all devices
+// Healing happens later now (slow mode)
 function heal() {
-  bubbles.forEach(b => { b.infected = false; b.safe = true; });
+  bubbles.forEach(b => {
+    b.infected = false;
+    b.safe = true;
+  });
 }
 
-// Draw animation
 function animate() {
   ctx.clearRect(0, 0, bubbleCanvas.width, bubbleCanvas.height);
 
@@ -171,25 +178,25 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-// RUN SIMULATION
 function startSimulation() {
+  narrator.style.opacity = 0;
+
   initBubbles();
   startNarration();
 
   clearInterval(infectInterval);
-  infectInterval = setInterval(spread, 400);
+  infectInterval = setInterval(spread, 650); // slowed
 
+  // Heal all after full narration (~18 seconds)
   setTimeout(() => {
     clearInterval(infectInterval);
     heal();
-  }, 6500);
+  }, 18000);
 }
 
 animate();
 startSimulation();
 
-// Replay button
 replayBtn.addEventListener("click", () => {
-  narrator.style.opacity = 0;
   startSimulation();
 });
