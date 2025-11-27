@@ -88,13 +88,42 @@
     </div>
   </section>
 
-  <div id="map" style="height:300px;"></div>
+<!-- LIVE DIGITAL RISK MAP WIDGET -->
+<div class="risk-map-widget">
+  <div class="risk-map-title">Live Digital Risk Map: UK Hotspots</div>
+  <div id="map" style="height: 340px; border-radius: 20px; box-shadow: 0 4px 24px rgba(55,187,111,0.10); margin: 16px 0;"></div>
+  <div class="risk-map-note">
+    See how families near you are reducing risks every day.<br>
+    <b>Try the demo above and help make your area safer!</b>
+  </div>
+</div>
+
+<!-- LEAFLET.JS CDN LIBRARIES (put once at bottom of your HTML before </body>) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-  const map = L.map('map').setView([54.5, -3.5], 5);  // centre ~ UK
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-  // Later: add markers based on your data
+  document.addEventListener("DOMContentLoaded", function() {
+    var map = L.map('map', {
+      scrollWheelZoom: false,
+      attributionControl: false,
+      zoomControl: false
+    }).setView([54.5, -3.5], 5); // Centre UK
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example demo "risk" markers (replace with real data later)
+    L.circle([51.5074, -0.1278], {
+      color:'#f44336', fillColor:'#f44336', fillOpacity:0.18, radius:14000
+    }).addTo(map).bindPopup('London: <b>High Risk</b> (Demo)');
+    L.circle([53.4808, -2.2426], {
+      color:'#ffc233', fillColor:'#ffc233', fillOpacity:0.15, radius:11000
+    }).addTo(map).bindPopup('Manchester: <b>Medium Risk</b> (Demo)');
+    L.circle([55.9533, -3.1883], {
+      color:'#31c96e', fillColor:'#31c96e', fillOpacity:0.13, radius:9000
+    }).addTo(map).bindPopup('Edinburgh: <b>Low Risk</b> (Demo)');
+  });
 </script>
 
 
