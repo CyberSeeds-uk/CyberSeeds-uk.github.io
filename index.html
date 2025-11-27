@@ -88,6 +88,21 @@
     </div>
   </section>
 
+  <div id="map" style="height:300px;"></div>
+<script>
+  const map = L.map('map').setView([54.5, -3.5], 5);  // centre ~ UK
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  // Later: add markers based on your data
+</script>
+
+
+  <div class="edu-banner">
+  🚦 <b>Did you know?</b> 1 in 3 UK children will encounter an online scam or cyberbully this year.  
+  <br><span style="font-size:1rem;font-weight:400">Cyber Seeds makes it easy for parents to take back control, step-by-step.</span>
+</div>
+
   <!-- WHAT IS CYBER SEEDS -->
   <section class="section-padded">
     <div class="card simple-card">
