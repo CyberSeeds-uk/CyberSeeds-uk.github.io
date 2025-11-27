@@ -365,3 +365,45 @@ h1, h2 {
 footer {
   padding: 24px;
 }
+
+/* WHY FAMILIES CHOOSE CYBER SEEDS */
+#why-cyberseeds h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.reasons-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px;
+}
+
+.reason-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.reason-item .icon {
+  font-size: 1.9rem;
+  flex-shrink: 0;
+}
+
+.reason-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+}
+
+.reason-desc {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Nice subtle hover effect */
+.reason-item:hover {
+  transform: translateX(3px);
+  transition: 0.2s ease;
+}
