@@ -170,21 +170,6 @@
     </div>
   </section>
 
-  <!-- CINEMATIC NETWORK SIMULATION -->
-  <section class="infection-sim tight-section">
-    <h2>🦠 How Fast One Weak Device Can Expose Your Entire Home</h2>
-
-    <div class="network-sim-upgraded">
-      <canvas id="networkCanvas"></canvas>
-      <div class="network-overlay" id="networkOverlay">Breaching…</div>
-    </div>
-
-    <p class="sim-caption">
-      One unsafe console. One outdated phone. One weak password.<br>
-      Watch how fast threats spread — and how quickly protection stops it.
-    </p>
-  </section>
-
   <!-- CTA -->
   <section class="tight-section">
     <div class="cta-banner compact-cta">
@@ -311,123 +296,107 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- ===========================
-     CINEMATIC NETWORK SIMULATION
-     =========================== -->
 <script>
-const canvasU = document.getElementById("networkCanvas");
-const ctxU = canvasU.getContext("2d");
+const bubbleCanvas = document.getElementById("bubbleCanvas");
+const bctx = bubbleCanvas.getContext("2d");
 
-canvasU.width = canvasU.offsetWidth;
-canvasU.height = canvasU.offsetHeight;
+function resizeBubbleCanvas() {
+  bubbleCanvas.width = bubbleCanvas.offsetWidth;
+  bubbleCanvas.height = bubbleCanvas.offsetHeight;
+}
 
-let nodesU = [];
-let edgesU = [];
-let simulationRunning = true;
+resizeBubbleCanvas();
+window.addEventListener("resize", resizeBubbleCanvas);
 
-function createNodes() {
-  for (let i = 0; i < 14; i++) {
-    nodesU.push({
-      x: Math.random() * canvasU.width,
-      y: Math.random() * canvasU.height,
-      dx: (Math.random() - 0.5) * 0.4,
-      dy: (Math.random() - 0.5) * 0.4,
-      infected: false,
-      safe: false
-    });
-  }
+let bubbles = [];
+let infectionStarted = false;
+let allSecured = false;
 
-  for (let i = 0; i < nodesU.length; i++) {
-    for (let j = i + 1; j < nodesU.length; j++) {
-      if (Math.random() < 0.18) {
-        edgesU.push([i, j]);
+// Create floating bubbles
+for (let i = 0; i < 22; i++) {
+  bubbles.push({
+    x: Math.random() * bubbleCanvas.width,
+    y: Math.random() * bubbleCanvas.height,
+    r: 10 + Math.random() * 6,
+    dx: (Math.random() - 0.5) * 0.4,
+    dy: (Math.random() - 0.5) * 0.4,
+    infected: false,
+    safe: false
+  });
+}
+
+// Infect one bubble at start
+bubbles[0].infected = true;
+
+// Spread infection
+function infectSpread() {
+  bubbles.forEach((b1, i) => {
+    if (!b1.infected) return;
+
+    bubbles.forEach((b2, j) => {
+      if (i === j) return;
+
+      let dist = Math.hypot(b1.x - b2.x, b1.y - b2.y);
+      if (dist < 80 && Math.random() < 0.1) {
+        b2.infected = true;
       }
-    }
-  }
-
-  nodesU[0].infected = true;
-}
-
-function drawNetwork() {
-  ctxU.clearRect(0, 0, canvasU.width, canvasU.height);
-
-  edgesU.forEach(([a,b]) => {
-    ctxU.beginPath();
-    ctxU.strokeStyle = "rgba(0,0,0,0.12)";
-    ctxU.lineWidth = 1.4;
-    ctxU.moveTo(nodesU[a].x, nodesU[a].y);
-    ctxU.lineTo(nodesU[b].x, nodesU[b].y);
-    ctxU.stroke();
-  });
-
-  nodesU.forEach(n => {
-    ctxU.beginPath();
-    ctxU.arc(n.x, n.y, 11, 0, Math.PI * 2);
-
-    if (n.safe) ctxU.fillStyle = "#31c96e";
-    else if (n.infected) ctxU.fillStyle = "#ff4d4d";
-    else ctxU.fillStyle = "#1675d1";
-
-    ctxU.fill();
-  });
-}
-
-function moveNodes() {
-  nodesU.forEach(n => {
-    n.x += n.dx;
-    n.y += n.dy;
-
-    if (n.x < 10 || n.x > canvasU.width - 10) n.dx *= -1;
-    if (n.y < 10 || n.y > canvasU.height - 10) n.dy *= -1;
-  });
-}
-
-function spread() {
-  nodesU.forEach((n, i) => {
-    if (!n.infected) return;
-
-    edgesU.forEach(([a,b]) => {
-      if (a === i && Math.random() < 0.08) nodesU[b].infected = true;
-      if (b === i && Math.random() < 0.08) nodesU[a].infected = true;
     });
   });
-
-  canvasU.classList.add("network-danger-flash");
-  setTimeout(()=> canvasU.classList.remove("network-danger-flash"), 200);
 }
 
-function healNetwork() {
-  nodesU.forEach(n => {
-    n.infected = false;
-    n.safe = true;
+// Healing phase
+function healAll() {
+  bubbles.forEach(b => {
+    b.infected = false;
+    b.safe = true;
   });
 
-  document.getElementById("networkOverlay").innerText = "Secured ✔";
-  document.getElementById("networkOverlay").style.color = "#31c96e";
-  document.getElementById("networkOverlay").style.opacity = 1;
+  const overlay = document.getElementById("bubbleOverlay");
+  overlay.innerText = "Secured ✔";
+  overlay.style.color = "#22bb55";
+  overlay.style.opacity = 1;
 }
 
-createNodes();
+function animateBubbles() {
+  bctx.clearRect(0, 0, bubbleCanvas.width, bubbleCanvas.height);
 
-function animate() {
-  if (!simulationRunning) return;
+  // Move bubbles
+  bubbles.forEach(b => {
+    b.x += b.dx;
+    b.y += b.dy;
 
-  moveNodes();
-  drawNetwork();
-  requestAnimationFrame(animate);
+    if (b.x < b.r || b.x > bubbleCanvas.width - b.r) b.dx *= -1;
+    if (b.y < b.r || b.y > bubbleCanvas.height - b.r) b.dy *= -1;
+  });
+
+  // Draw bubbles
+  bubbles.forEach(b => {
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
+
+    if (b.safe) bctx.fillStyle = "#32d47e";       // final green
+    else if (b.infected) bctx.fillStyle = "#ff4d4d"; // red
+    else bctx.fillStyle = "#1377d6";              // blue normal
+
+    bctx.globalAlpha = 0.85;
+    bctx.fill();
+    bctx.globalAlpha = 1;
+  });
+
+  requestAnimationFrame(animateBubbles);
 }
 
-animate();
+animateBubbles();
 
-let infectionInterval = setInterval(spread, 450);
+// Spread for 6 seconds
+let infInterval = setInterval(infectSpread, 400);
 
+// Heal at 7 seconds
 setTimeout(() => {
-  simulationRunning = false;
-  clearInterval(infectionInterval);
-  healNetwork();
-  drawNetwork();
+  clearInterval(infInterval);
+  healAll();
 }, 7000);
 </script>
-
+  
 </body>
 </html>
