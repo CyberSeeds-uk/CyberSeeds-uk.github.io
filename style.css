@@ -507,3 +507,25 @@ footer a:hover { text-decoration: underline; }
   .about-hero-content h1 { font-size: 2rem; }
   .card.founder-card, .card.about-card { margin-bottom: 22px; }
 }
+
+.service-cta-row {
+  margin: 22px 0 6px 0;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.card.about-card {
+  margin-bottom: 38px;
+  background: #f7fbff;
+  border-left: 6px solid #37bb6f;
+}
+.card.about-card h2 { color: #21884b; margin-bottom: 12px; }
+.card.about-card .small-mute {
+  color: #5e7072;
+  font-size: 0.96rem;
+  margin-top: 4px;
+}
+@media (max-width: 900px) {
+  .service-cta-row { flex-direction: column; gap: 10px; }
+}
