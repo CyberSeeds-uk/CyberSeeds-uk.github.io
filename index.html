@@ -5,398 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cyber Seeds – Digital MOT for UK Families</title>
 
-  <meta name="description" content="Is your family truly safe online? Take the free Cyber Seeds Digital MOT Demo – the UK service designed to reveal hidden digital risks for your home, devices, and children." />
+  <meta name="description" content="A friendly, family-focused Digital MOT that helps UK homes stay safer online. Simple guidance for WiFi safety, devices, privacy, scams and children’s digital wellbeing." />
   <link rel="canonical" href="https://cyberseeds-uk.github.io/" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" type="image/png" href="/cyber_seeds_logo.png" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Cyber Seeds – Digital MOT for UK Families" />
-  <meta property="og:description" content="Wake up to digital risk. Take the Cyber Seeds Digital MOT Demo and get your safety score in 60 seconds." />
+  <meta property="og:title" content="Cyber Seeds – Digital MOT for Families" />
+  <meta property="og:description" content="Simple, friendly online-safety guidance for UK households." />
   <meta property="og:image" content="/cyber_seeds_logo.png" />
   <meta property="og:url" content="https://cyberseeds-uk.github.io/" />
-
-  <!-- Leaflet Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
+
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar compact-nav">
+<nav class="navbar">
   <div class="nav-container">
     <a href="/" class="nav-logo">
       <img src="/cyber_seeds_logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
     </a>
-    <ul class="nav-links">
+
+    <button class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
-      <li class="dropdown">
-        <a href="/resources/">Resources</a>
-        <ul class="dropdown-menu">
-          <li><a href="/resources/">All Resources</a></li>
-          <li><a href="/children-risk-index/">Children’s Risk Index</a></li>
-        </ul>
-      </li>
+      <li><a href="/resources/">Resources</a></li>
       <li><a href="/schedule/">Schedule</a></li>
       <li><a href="/faq/">FAQ</a></li>
       <li><a href="/contact/">Contact</a></li>
     </ul>
-    <button class="nav-toggle">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/services/">Services</a>
-  <a href="/resources/">Resources</a>
-  <a href="/children-risk-index/">Children’s Risk Index</a>
-  <a href="/schedule/">Schedule</a>
-  <a href="/faq/">FAQ</a>
-  <a href="/contact/">Contact</a>
-</div>
-
 <!-- HERO -->
-<header class="hero-urgency tight-hero">
-  <div class="hero-content">
-    <h1>🚨 Is Your Family <span class="highlight-green">*Really*</span> Safe Online?</h1>
-    <p class="hero-lead">
-      Most UK homes have hidden digital risks — find out your danger score in 60 seconds.<br>
-      <span class="hero-tagline">🌱 Growing Safer Digital Homes, One Family at a Time</span>
-    </p>
-    <a class="btn btn-large btn-primary" href="#mot-demo">Take Free Digital MOT Demo</a>
-    <p class="hero-trust">Trusted by families. Powered by real experts.</p>
-  </div>
+<header class="hero">
+  <h1>Is Your Family <span class="green">Really</span> Safe Online?</h1>
+  <p class="hero-sub">
+    A simple, friendly Digital MOT designed to help UK families feel safer in today’s fast-changing online world.
+  </p>
+  <a class="btn btn-primary" href="#mot-demo">Try Free Digital MOT Demo</a>
 </header>
 
-<!-- EDU BANNER -->
-<div class="edu-banner compact-banner">
-  <strong>Why It Matters:</strong> Digital threats change fast. Just one weak password or unchecked device can put your home and children at risk.
-</div>
-
-<!-- WHY EVERY FAMILY NEEDS -->
-<section class="why-section tight-section">
-  <div class="why-card tight-card">
-    <h2>🌱 Why Every Family Needs Cyber Seeds</h2>
-    <p>
-      The digital world changes fast, and most families are left behind. We make digital safety as simple as checking your car’s MOT — because you’d never risk your children’s physical safety. Why risk their digital safety?
-    </p>
-    <ul class="tight-list">
-      <li>🔓 65% of UK homes still use default WiFi passwords.</li>
-      <li>📱 Kids’ apps change faster than parents can track.</li>
-      <li>💰 £2.6B lost to scams last year alone.</li>
-      <li>🕵️ Your data is likely already leaked online.</li>
+<!-- WHY SECTION -->
+<section class="section">
+  <h2>Why Families Choose Cyber Seeds</h2>
+  <div class="card">
+    <ul>
+      <li>🔒 65% of UK homes use weak or default WiFi passwords</li>
+      <li>📱 Apps change constantly — parents can’t keep up</li>
+      <li>💳 Over £2.6B lost to scams last year in the UK</li>
+      <li>🧒 Children face hidden risks every day online</li>
     </ul>
-    <p class="alert-callout small-space">Your MOT Demo score above might surprise you…</p>
   </div>
 </section>
 
-<!-- MAIN -->
-<main class="compact-main">
+<!-- DIGITAL MOT DEMO -->
+<section class="section" id="mot-demo">
+  <h2>Digital MOT Demo</h2>
 
-  <!-- DIGITAL MOT DEMO -->
-  <section class="mot-demo-section tight-section" id="mot-demo">
-    <div class="card mot-demo-card tight-card">
-      <h2>🎯 Digital MOT Demo<br><span class="mot-sub">How Safe Is Your Home… Really?</span></h2>
-      <div id="demo-quiz"></div>
+  <div class="card">
+    <div id="demo-quiz"></div>
 
-      <div id="demo-result" style="display:none;">
-        <h3>Your Risk Score:</h3>
-        <div id="risk-meter" class="slide-in"></div>
-        <p id="risk-feedback"></p>
+    <div id="demo-result" style="display:none;">
+      <h3>Your Safety Score</h3>
+      <div id="risk-meter"></div>
+      <p id="risk-feedback"></p>
 
-        <a class="btn btn-cta" href="/start/">Book Your Full Digital MOT</a>
-        <button id="retake-btn" class="btn retake-btn">🔁 Retake Demo</button>
-
-        <p class="small-mute small-space">
-          No spam. No tech jargon — just clear, family-friendly digital safety.
-        </p>
-      </div>
+      <a class="btn btn-green" href="/start/">Book Your Full Digital MOT</a>
+      <button class="btn btn-outline" id="retake-btn">Retake Demo</button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WHAT IS CYBER SEEDS -->
-  <section class="tight-section">
-    <h2>🌱 What Is Cyber Seeds?</h2>
+<!-- WHAT IS CYBER SEEDS -->
+<section class="section">
+  <h2>What Is Cyber Seeds?</h2>
+  <div class="card">
+    <p><strong>Cyber Seeds</strong> is a calm, friendly, expert-led Digital MOT for families.  
+    We check your digital home the same way a car MOT checks road safety — simple, practical, and free from technical jargon.</p>
 
-    <div class="card simple-card tight-card">
-      <p><strong>Cyber Seeds</strong> is a calm, friendly, expert-led <span class="highlight">Digital MOT</span> designed to help real UK families feel safer online.</p>
+    <p>In just one hour, we help you strengthen your WiFi, secure your devices, protect your data, avoid scams, and keep your children safer online.</p>
+  </div>
+</section>
 
-      <p>We check your digital home the same way a car MOT checks road safety — simple, practical and focused on protecting the people you care about the most.</p>
+<!-- WHAT'S INCLUDED -->
+<section class="section">
+  <h2>What’s Included?</h2>
 
-      <p>No overwhelm. No technical language. Just clear steps to make your home safer, your devices stronger, and your children better protected online.</p>
-    </div>
-  </section>
+  <div class="card">
+    <ul>
+      <li>✔ WiFi & Router Safety Check</li>
+      <li>✔ Device Security Review (phones, tablets, consoles)</li>
+      <li>✔ Data Leak Scan (email & password exposure)</li>
+      <li>✔ Scam & Fraud Prevention</li>
+      <li>✔ Children’s Wellbeing & Online Confidence Support</li>
+    </ul>
+  </div>
+</section>
 
-  <!-- WHAT’S INCLUDED -->
-  <section class="tight-section">
-    <h2>🛡️ What’s Included?</h2>
+<!-- BUBBLE SPREAD SIMULATION -->
+<section class="section">
+  <h2>How Fast One Weak Device Can Affect Everything</h2>
 
-    <div class="card simple-card tight-card">
-      <ul class="bullet-simple tight-list">
+  <div class="bubble-sim">
+    <canvas id="bubbleCanvas"></canvas>
+    <div id="bubbleOverlay" class="bubble-overlay">Breaching…</div>
+  </div>
 
-        <li>
-          ✔ <strong>WiFi & Router Security Check</strong><br>
-          <span class="small-mute">We ensure your WiFi settings, passwords and security modes protect your home from unwanted access.</span>
-        </li>
+  <p class="sim-caption">
+    One unsafe console. One outdated phone. One weak password.  
+    Watch how invisible risks spread — and how quickly good security stops them.
+  </p>
+</section>
 
-        <li>
-          ✔ <strong>Device Safety Review</strong><br>
-          <span class="small-mute">We check the tablets, phones, laptops and game consoles your family uses every day for safety gaps.</span>
-        </li>
-
-        <li>
-          ✔ <strong>Data Leak Scan</strong><br>
-          <span class="small-mute">We find out if your email addresses or passwords have been leaked online without your knowledge.</span>
-        </li>
-
-        <li>
-          ✔ <strong>Scam Prevention</strong><br>
-          <span class="small-mute">We show you the latest UK scams and how to avoid them — from fake delivery texts to bank impersonation calls.</span>
-        </li>
-
-        <li>
-          ✔ <strong>Child Wellbeing Guidance</strong><br>
-          <span class="small-mute">Support for keeping your children confident and safe online without strict rules or overwhelming control.</span>
-        </li>
-
-      </ul>
-
-      <p class="small-space"><strong>All completed in just 1 hour — simple, friendly, and designed for real families.</strong></p>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="tight-section">
-    <div class="cta-banner compact-cta">
-      <h2>Ready to Secure Your Digital Home?</h2>
-      <a class="btn btn-large btn-cta" href="/start/">Book Your Session</a>
-    </div>
-  </section>
-
-</main>
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>Ready to Secure Your Digital Home?</h2>
+  <a class="btn btn-green btn-large" href="/start/">Book Your Session</a>
+</section>
 
 <!-- FOOTER -->
-<footer class="compact-footer">
-  <p>© 2025 Cyber Seeds — Digital Safety for Families<br>
-    <a href="/privacy/">Privacy</a> · <a href="/faq/">FAQ</a> · <a href="/contact/">Contact</a>
-  </p>
+<footer>
+  <p>© 2025 Cyber Seeds — Digital Safety for Families  
+  <br><a href="/privacy/">Privacy</a> · <a href="/faq/">FAQ</a> · <a href="/contact/">Contact</a></p>
 </footer>
 
-<!-- ======================
-     DIGITAL MOT DEMO SCRIPT
-     ====================== -->
-<script>
-const questions = [
-  {
-    q: "How old is your WiFi router?",
-    icons: ["📶", "📡", "❓"],
-    a: ["Less than 2 years", "2+ years", "I don’t know"],
-    r: [0, 1, 1]
-  },
-  {
-    q: "Do your kids have private social media profiles?",
-    icons: ["🔐", "🌍"],
-    a: ["Yes", "No / Not sure"],
-    r: [0, 1]
-  },
-  {
-    q: "Have you changed your WiFi password?",
-    icons: ["🔑", "❌"],
-    a: ["Yes", "No / I don’t know"],
-    r: [0, 1]
-  },
-  {
-    q: "Are all devices set to auto-update?",
-    icons: ["🔄", "⚠️"],
-    a: ["Yes", "No / I don’t know"],
-    r: [0, 1]
-  },
-  {
-    q: "Have you ever checked your email for leaks?",
-    icons: ["🧪", "🕵️"],
-    a: ["Yes", "No / I don’t know"],
-    r: [0, 1]
-  }
-];
-
-let qIndex = 0;
-let risk = 0;
-
-function nextQ() {
-  const quizBox = document.getElementById("demo-quiz");
-
-  if (qIndex < questions.length) {
-    let q = questions[qIndex];
-    let html = `<h4>${q.q}</h4>`;
-    q.a.forEach((ans, i) => {
-      html += `
-        <button class="demo-btn" onclick="answerQ(${q.r[i]})">
-          ${q.icons[i]} ${ans}
-        </button>
-      `;
-    });
-    quizBox.innerHTML = html;
-  } else {
-    showResult();
-  }
-}
-
-function answerQ(add) {
-  risk += add;
-  qIndex++;
-  nextQ();
-}
-
-function showResult() {
-  document.getElementById("demo-quiz").style.display = "none";
-  document.getElementById("demo-result").style.display = "block";
-
-  const meter = document.getElementById("risk-meter");
-  const feedback = document.getElementById("risk-feedback");
-
-  if (risk <= 1) {
-    meter.innerText = "🟢 LOW RISK";
-    feedback.innerText = "You're ahead — but hidden threats may still exist.";
-    meter.className = "risk-low slide-in glow";
-  } else if (risk <= 3) {
-    meter.innerText = "🟡 MEDIUM RISK";
-    feedback.innerText = "Your home has moderate digital risk — action advised.";
-    meter.className = "risk-mid slide-in glow";
-  } else {
-    meter.innerText = "🔴 HIGH RISK";
-    feedback.innerText = "Your home is at HIGH RISK — most families don’t realise this.";
-    meter.className = "risk-high slide-in glow";
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  nextQ();
-
-  document.getElementById("retake-btn").addEventListener("click", () => {
-    qIndex = 0;
-    risk = 0;
-
-    document.getElementById("demo-result").style.display = "none";
-    document.getElementById("demo-quiz").style.display = "block";
-
-    nextQ();
-  });
-
-  const toggle = document.querySelector(".nav-toggle");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  toggle.addEventListener("click", () => {
-    mobileMenu.classList.toggle("open");
-  });
-});
-</script>
-
-<script>
-const bubbleCanvas = document.getElementById("bubbleCanvas");
-const bctx = bubbleCanvas.getContext("2d");
-
-function resizeBubbleCanvas() {
-  bubbleCanvas.width = bubbleCanvas.offsetWidth;
-  bubbleCanvas.height = bubbleCanvas.offsetHeight;
-}
-
-resizeBubbleCanvas();
-window.addEventListener("resize", resizeBubbleCanvas);
-
-let bubbles = [];
-let infectionStarted = false;
-let allSecured = false;
-
-// Create floating bubbles
-for (let i = 0; i < 22; i++) {
-  bubbles.push({
-    x: Math.random() * bubbleCanvas.width,
-    y: Math.random() * bubbleCanvas.height,
-    r: 10 + Math.random() * 6,
-    dx: (Math.random() - 0.5) * 0.4,
-    dy: (Math.random() - 0.5) * 0.4,
-    infected: false,
-    safe: false
-  });
-}
-
-// Infect one bubble at start
-bubbles[0].infected = true;
-
-// Spread infection
-function infectSpread() {
-  bubbles.forEach((b1, i) => {
-    if (!b1.infected) return;
-
-    bubbles.forEach((b2, j) => {
-      if (i === j) return;
-
-      let dist = Math.hypot(b1.x - b2.x, b1.y - b2.y);
-      if (dist < 80 && Math.random() < 0.1) {
-        b2.infected = true;
-      }
-    });
-  });
-}
-
-// Healing phase
-function healAll() {
-  bubbles.forEach(b => {
-    b.infected = false;
-    b.safe = true;
-  });
-
-  const overlay = document.getElementById("bubbleOverlay");
-  overlay.innerText = "Secured ✔";
-  overlay.style.color = "#22bb55";
-  overlay.style.opacity = 1;
-}
-
-function animateBubbles() {
-  bctx.clearRect(0, 0, bubbleCanvas.width, bubbleCanvas.height);
-
-  // Move bubbles
-  bubbles.forEach(b => {
-    b.x += b.dx;
-    b.y += b.dy;
-
-    if (b.x < b.r || b.x > bubbleCanvas.width - b.r) b.dx *= -1;
-    if (b.y < b.r || b.y > bubbleCanvas.height - b.r) b.dy *= -1;
-  });
-
-  // Draw bubbles
-  bubbles.forEach(b => {
-    bctx.beginPath();
-    bctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
-
-    if (b.safe) bctx.fillStyle = "#32d47e";       // final green
-    else if (b.infected) bctx.fillStyle = "#ff4d4d"; // red
-    else bctx.fillStyle = "#1377d6";              // blue normal
-
-    bctx.globalAlpha = 0.85;
-    bctx.fill();
-    bctx.globalAlpha = 1;
-  });
-
-  requestAnimationFrame(animateBubbles);
-}
-
-animateBubbles();
-
-// Spread for 6 seconds
-let infInterval = setInterval(infectSpread, 400);
-
-// Heal at 7 seconds
-setTimeout(() => {
-  clearInterval(infInterval);
-  healAll();
-}, 7000);
-</script>
-  
+<script src="/script.js"></script>
 </body>
 </html>
