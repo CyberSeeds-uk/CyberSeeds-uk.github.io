@@ -529,3 +529,52 @@ footer a:hover { text-decoration: underline; }
 @media (max-width: 900px) {
   .service-cta-row { flex-direction: column; gap: 10px; }
 }
+
+/* ---------- TIGHTEN LAYOUT (Desktop only) ---------- */
+@media (min-width: 900px) {
+  
+  .tight-hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .compact-nav .nav-container {
+    padding: 0.4rem 2rem;
+  }
+
+  .tight-section {
+    margin: 2.5rem auto;
+    max-width: 900px;
+  }
+
+  .tight-card {
+    padding: 1.5rem 2rem;
+  }
+
+  .tight-list li {
+    margin: 0.3rem 0;
+    line-height: 1.4;
+  }
+
+  .small-space {
+    margin-top: 0.6rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .compact-banner {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .compact-main {
+    margin-top: 1rem;
+  }
+
+  .compact-cta {
+    padding: 1.8rem 1.5rem;
+  }
+
+  .compact-footer p {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+}
