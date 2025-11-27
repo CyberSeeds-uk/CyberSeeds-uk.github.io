@@ -89,84 +89,30 @@
   </section>
 
 <div class="risk-map-widget">
-  <div class="risk-map-title">Live Digital Risk Map: UK Hotspots</div>
-  
-  <!-- Postcode Input -->
-  <div class="postcode-check">
-    <label for="postcode-input"><b>Enter your postcode:</b></label>
-    <input id="postcode-input" type="text" maxlength="8" placeholder="e.g. M4 1HQ" />
-    <button id="postcode-btn" class="btn btn-small" style="margin-top:0;">See Local Risk</button>
+  <div class="risk-map-header">
+    <img src="/cyber_seeds_logo.png" alt="Map Icon" class="risk-map-icon">
+    <div>
+      <div class="risk-map-title">Live Digital Risk Map</div>
+      <div class="risk-map-desc">Enter your postcode to check your local digital risk level.</div>
+    </div>
   </div>
 
-  <div id="postcode-result" class="postcode-result" style="display:none;"></div>
-  
-  <div id="map" style="height: 320px; border-radius: 18px; box-shadow: 0 4px 24px rgba(55,187,111,0.10); margin: 16px 0;"></div>
-  
-  <div class="risk-map-note">
-    See how families near you are reducing risks every day.<br>
-    <b>Try the demo above and help make your area safer!</b>
+  <div class="risk-map-inner">
+    <div class="postcode-row">
+      <input id="postcode-input" type="text" maxlength="8" placeholder="Enter postcode e.g. M4 1HQ" />
+      <button id="postcode-btn" class="btn btn-small">See Local Risk</button>
+    </div>
+    <div id="postcode-result" class="postcode-result"></div>
+    <div id="map" class="risk-map-leaflet"></div>
+  </div>
+  <div class="risk-map-footer">
+    <span class="risk-map-footer-note">
+      <b>See how families near you are reducing risks every day.<br>
+      <span style="color:var(--primary-dark)">Try the demo above and help make your area safer!</span></b>
+    </span>
   </div>
 </div>
-
-<!-- LEAFLET.JS CDN LIBRARIES (put once at bottom of your HTML before </body>) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-// Simple UK city risk lookup for demo (postcode prefix to city + risk)
-const cityRisk = {
-  'M':  { name: 'Manchester', coords: [53.4808, -2.2426], risk: 'Medium', color: '#ffc233' },
-  'E':  { name: 'London (East)', coords: [51.5074, -0.1278], risk: 'High', color: '#f44336' },
-  'N':  { name: 'London (North)', coords: [51.5074, -0.1278], risk: 'High', color: '#f44336' },
-  'SE': { name: 'London (SE)', coords: [51.5074, -0.1278], risk: 'High', color: '#f44336' },
-  'SW': { name: 'London (SW)', coords: [51.5074, -0.1278], risk: 'High', color: '#f44336' },
-  'W':  { name: 'London (West)', coords: [51.5074, -0.1278], risk: 'High', color: '#f44336' },
-  'LS': { name: 'Leeds', coords: [53.8008, -1.5491], risk: 'Medium', color: '#ffc233' },
-  'G':  { name: 'Glasgow', coords: [55.8642, -4.2518], risk: 'Medium', color: '#ffc233' },
-  'B':  { name: 'Birmingham', coords: [52.4862, -1.8904], risk: 'Medium', color: '#ffc233' },
-  'L':  { name: 'Liverpool', coords: [53.4084, -2.9916], risk: 'Medium', color: '#ffc233' },
-  'CF': { name: 'Cardiff', coords: [51.4816, -3.1791], risk: 'Low', color: '#31c96e' },
-  'EH': { name: 'Edinburgh', coords: [55.9533, -3.1883], risk: 'Low', color: '#31c96e' },
-  'BT': { name: 'Belfast', coords: [54.5973, -5.9301], risk: 'Low', color: '#31c96e' },
-  // Add more as needed
-};
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Map setup
-  var map = L.map('map', {
-    scrollWheelZoom: false,
-    attributionControl: false,
-    zoomControl: false
-  }).setView([54.5, -3.5], 5); // Centre UK
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Demo markers
-  L.circle([51.5074, -0.1278], { color:'#f44336', fillColor:'#f44336', fillOpacity:0.15, radius:14000 }).addTo(map).bindPopup('London: <b>High Risk</b> (Demo)');
-  L.circle([53.4808, -2.2426], { color:'#ffc233', fillColor:'#ffc233', fillOpacity:0.14, radius:11000 }).addTo(map).bindPopup('Manchester: <b>Medium Risk</b> (Demo)');
-  L.circle([55.9533, -3.1883], { color:'#31c96e', fillColor:'#31c96e', fillOpacity:0.13, radius:9000 }).addTo(map).bindPopup('Edinburgh: <b>Low Risk</b> (Demo)');
-
-  // Postcode risk check
-  document.getElementById('postcode-btn').onclick = function() {
-    var val = document.getElementById('postcode-input').value.trim().toUpperCase();
-    var area = val.match(/^[A-Z]{1,2}/) ? val.match(/^[A-Z]{1,2}/)[0] : '';
-    var match = cityRisk[area];
-    var resultDiv = document.getElementById('postcode-result');
-    if (match) {
-      map.setView(match.coords, 11, { animate: true });
-      resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<b>${match.name}:</b> <span style="color:${match.color};font-weight:700">${match.risk} Digital Risk</span>`;
-      setTimeout(() => { resultDiv.style.display = "none"; }, 4200);
-    } else {
-      resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<span style="color:#a00">Sorry, we couldn't find data for your area yet.</span>`;
-      setTimeout(() => { resultDiv.style.display = "none"; }, 3200);
-    }
-  };
-});
-</script>
-
+  
   <div class="edu-banner">
   🚦 <b>Did you know?</b> 1 in 3 UK children will encounter an online scam or cyberbully this year.  
   <br><span style="font-size:1rem;font-weight:400">Cyber Seeds makes it easy for parents to take back control, step-by-step.</span>
