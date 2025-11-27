@@ -1,69 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WiFi Safety Guide – Cyber Seeds</title>
-<link rel="stylesheet" href="/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>WiFi & Router Safety – Cyber Seeds</title>
+  <meta name="description" content="A simple guide to securing your home WiFi, router settings and passwords. Friendly steps for UK families." />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/png" href="/cyber_seeds_logo.png" />
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
     <a href="/" class="nav-logo">
-      <img src="/logo.png" alt="Cyber Seeds Logo">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds">
       Cyber Seeds
     </a>
-    <ul class="nav-links">
+
+    <button class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
       <li><a href="/resources/">Resources</a></li>
-      <li><a href="/schedule/">Schedule</a></li>
-      <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/contact/">Contact</a></li>
     </ul>
-    <button class="nav-toggle"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<header>
-  <h1>WiFi Safety Guide</h1>
-  <p>Simple steps to secure your home router & WiFi network.</p>
-</header>
-
-<main>
-<section>
-  <div class="card">
-    <h2>1. Change Your Default Router Password</h2>
-    <p>Most routers ship with weak default admin passwords. Log in and set a strong, unique password immediately.</p>
-
-    <h2>2. Update Your Router Firmware</h2>
-    <p>Keeping your router updated protects against known vulnerabilities used by attackers.</p>
-
-    <h2>3. Use WPA3 or WPA2 Encryption</h2>
-    <p>Open networks or outdated protocols can expose your family to attackers nearby.</p>
-
-    <h2>4. Hide or Rename Your Network</h2>
-    <p>Use a neutral network name — avoid personal information like family names or house numbers.</p>
-
-    <h2>5. Turn Off WPS</h2>
-    <p>WPS is convenient but insecure. Disable it in settings to prevent brute-force attacks.</p>
-
-    <h2>6. Separate Guest WiFi</h2>
-    <p>Keep guests away from your main network. Use a dedicated guest network.</p>
-  </div>
+<!-- HERO -->
+<section class="hero" style="padding:60px 20px;">
+  <h1>WiFi & Router Security</h1>
+  <p class="hero-sub">
+    Your home WiFi is the “front door” to your digital world.  
+    Here’s how to make sure only the right people can get in.
+  </p>
 </section>
-</main>
+
+<section class="section">
+
+  <div class="card">
+    <h2>🔒 Why Your WiFi Security Matters</h2>
+    <p>
+      If someone gets into your WiFi, they can see your devices, slow your internet,
+      and in some cases access sensitive data.  
+      Most UK homes still run weak defaults — but fixing them takes only minutes.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>1️⃣ Change Your WiFi Password</h2>
+    <p>Use a strong password nobody can guess. Avoid names, pets, birthdays.</p>
+    <ul>
+      <li>Use 12+ characters</li>
+      <li>Mix letters, numbers and symbols</li>
+      <li>Don’t reuse passwords from anywhere else</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2️⃣ Update to WPA3 (If Available)</h2>
+    <p>WPA3 is the newest and safest WiFi security mode.  
+       If your router doesn’t support it, choose WPA2-AES.</p>
+  </div>
+
+  <div class="card">
+    <h2>3️⃣ Rename Your WiFi Network</h2>
+    <p>
+      Avoid using your surname, house number or anything that identifies your home.  
+      Something neutral like <strong>“GreenGardenWiFi”</strong> works perfectly.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>4️⃣ Turn Off WPS</h2>
+    <p>WPS (the button on the router) can be abused. Turn it off unless you need it.</p>
+  </div>
+
+  <div class="card">
+    <h2>5️⃣ Restart Your Router Monthly</h2>
+    <p>This clears old connections and keeps things running smoothly.</p>
+  </div>
+
+</section>
+
+<section class="cta-banner">
+  <h2>Need Help Securing Your WiFi?</h2>
+  <a class="btn btn-green btn-large" href="/schedule/">Book Your Digital MOT</a>
+</section>
 
 <footer>
-  <p>© 2025 Cyber Seeds — Digital Safety for Families in the UK</p>
+  <p>© 2025 Cyber Seeds</p>
 </footer>
 
 <script>
-document.querySelector('.nav-toggle').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.toggle('open');
+document.getElementById("navToggle").addEventListener("click", () => {
+  document.getElementById("navLinks").classList.toggle("open");
 });
 </script>
 
