@@ -325,3 +325,43 @@ footer {
   gap: 16px;
   flex-wrap: wrap;
 }
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 48px 20px 40px; /* reduced from 70px+ */
+}
+
+/* SECTION WRAPPER */
+.section {
+  max-width: 900px;
+  margin: 40px auto; /* was 60px */
+  text-align: center;
+  padding: 0 15px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 22px 22px; /* was 30px 25px */
+  box-shadow: var(--shadow);
+  text-align: left;
+  margin-top: 16px; /* was 20px */
+}
+
+/* BUBBLE SIMULATION SECTION */
+.infection-sim {
+  margin-top: 50px; /* was larger visually */
+  margin-bottom: 40px;
+}
+
+/* MAIN HEADERS (H1, H2) – tighten spacing */
+h1, h2 {
+  margin-top: 0;
+  margin-bottom: 18px; /* tighter, more balanced */
+}
+
+/* FOOTER */
+footer {
+  padding: 24px;
+}
