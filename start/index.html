@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Your Digital MOT | Cyber Seeds</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/png" href="/cyber_seeds_logo.png" />
+  <meta name="description" content="Book your Cyber Seeds Digital MOT session. One seamless journey: pay, book, complete intake and get confirmation — all in minutes." />
+</head>
+<body>
+  <!-- NAVBAR (reuse from main site) -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/cyber_seeds_logo.png" alt="Cyber Seeds Logo"> Cyber Seeds
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/resources/">Resources</a></li>
+        <li><a href="/schedule/">Schedule</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+      <button class="nav-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="seamless-journey-section">
+      <h1>🚀 Start Your Cyber Seeds Digital MOT</h1>
+      <div class="journey-steps">
+        <div class="journey-step active"><span>1</span> Pay</div>
+        <div class="journey-step"><span>2</span> Book</div>
+        <div class="journey-step"><span>3</span> Intake</div>
+        <div class="journey-step"><span>4</span> Confirmation</div>
+      </div>
+      <div class="journey-card">
+        <!-- STEP 1: PAY -->
+        <section id="pay">
+          <h2>Step 1: Secure Your Session</h2>
+          <p>Your Digital MOT covers WiFi & device safety, child wellbeing, scam/fraud check, and more.</p>
+          <a href="YOUR_STRIPE_PAYMENT_LINK" target="_blank" class="btn btn-large btn-cta stripe-btn">
+            Pay Securely £75 — Stripe Checkout
+          </a>
+          <div class="pay-note">
+            <span>🔒</span> 100% secure payment via Stripe. No card details ever touch our servers.
+          </div>
+          <p class="small-mute">After payment, you'll be auto-redirected here to book your slot.</p>
+        </section>
+        <!-- STEP 2: BOOK (Calendly embed) -->
+        <section id="book">
+          <h2>Step 2: Book Your Appointment</h2>
+          <div class="calendar-widget">
+            <iframe
+              src="https://calendly.com/cyberseeds-uk/30min?hide_gdpr_banner=1"
+              width="100%"
+              height="700"
+              frameborder="0"
+              style="border-radius:18px; box-shadow:0 2px 20px #e9e9e9">
+            </iframe>
+          </div>
+        </section>
+        <!-- STEP 3: INTAKE (Google Form embed) -->
+        <section id="intake">
+          <h2>Step 3: Help Us Help You (2 min)</h2>
+          <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform?embedded=true" 
+            width="100%" height="900" frameborder="0" style="border-radius:18px; background:#fff; margin-bottom:12px;">
+            Loading…
+          </iframe>
+        </section>
+        <section class="confirm-cta">
+          <h3>All set? You’ll get a confirmation email and text — we do the rest!</h3>
+          <div class="cta-banner">
+            <a class="btn btn-large btn-primary" href="/">← Back to Home</a>
+          </div>
+        </section>
+      </div>
+      <div class="journey-tip">
+        💡 Need help? <a href="/contact/">Contact Cyber Seeds</a> or use live chat below.
+      </div>
+    </section>
+  </main>
+
+  <!-- Optional: Add Live Chat widget or analytics script here -->
+  <!-- Example (Tawk.to): -->
+  <!--
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/YOUR_ID/1abcde';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+  -->
+
+  <!-- Responsive mobile nav -->
+  <script>
+    const toggle = document.querySelector(".nav-toggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (toggle && mobileMenu) {
+      toggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+      });
+    }
+  </script>
+</body>
+</html>
