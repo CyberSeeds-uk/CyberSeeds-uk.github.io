@@ -119,7 +119,7 @@
     </div>
   </section>
 
-  <!-- UPDATED: WHAT IS CYBER SEEDS -->
+  <!-- WHAT IS CYBER SEEDS -->
   <section class="tight-section">
     <h2>🌱 What Is Cyber Seeds?</h2>
 
@@ -132,9 +132,7 @@
     </div>
   </section>
 
-
-  
-  <!-- UPDATED: WHAT’S INCLUDED -->
+  <!-- WHAT’S INCLUDED -->
   <section class="tight-section">
     <h2>🛡️ What’s Included?</h2>
 
@@ -172,19 +170,21 @@
     </div>
   </section>
 
-<section class="infection-sim tight-section">
-  <h2>🦠 How Fast an Unprotected Home Network Can Be Breached</h2>
+  <!-- CINEMATIC NETWORK SIMULATION -->
+  <section class="infection-sim tight-section">
+    <h2>🦠 How Fast One Weak Device Can Expose Your Entire Home</h2>
 
-  <div class="network-sim">
-    <canvas id="networkCanvas"></canvas>
-  </div>
+    <div class="network-sim-upgraded">
+      <canvas id="networkCanvas"></canvas>
+      <div class="network-overlay" id="networkOverlay">Breaching…</div>
+    </div>
 
-  <p class="sim-caption">
-    This simulation shows how one weak device can infect a full home network — and how good security stops the spread.
-  </p>
-</section>
+    <p class="sim-caption">
+      One unsafe console. One outdated phone. One weak password.<br>
+      Watch how fast threats spread — and how quickly protection stops it.
+    </p>
+  </section>
 
-  
   <!-- CTA -->
   <section class="tight-section">
     <div class="cta-banner compact-cta">
@@ -202,7 +202,9 @@
   </p>
 </footer>
 
-<!-- MOT DEMO QUIZ SCRIPT -->
+<!-- ======================
+     DIGITAL MOT DEMO SCRIPT
+     ====================== -->
 <script>
 const questions = [
   {
@@ -225,7 +227,7 @@ const questions = [
   },
   {
     q: "Are all devices set to auto-update?",
-    icons: ["🔄", ⚠️"],
+    icons: ["🔄", "⚠️"],
     a: ["Yes", "No / I don’t know"],
     r: [0, 1]
   },
@@ -309,19 +311,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<section class="infection-sim tight-section">
-  <h2>🦠 How Fast One Weak Device Can Expose Your Entire Home</h2>
-
-  <div class="network-sim-upgraded">
-    <canvas id="networkCanvas"></canvas>
-    <div class="network-overlay" id="networkOverlay">Breaching…</div>
-  </div>
-
-  <p class="sim-caption">
-    One unsafe console. One outdated phone. One weak password.  
-    Watch how fast threats spread — and how quickly protection stops it.
-  </p>
-</section>
+<!-- ===========================
+     CINEMATIC NETWORK SIMULATION
+     =========================== -->
 <script>
 const canvasU = document.getElementById("networkCanvas");
 const ctxU = canvasU.getContext("2d");
@@ -331,10 +323,8 @@ canvasU.height = canvasU.offsetHeight;
 
 let nodesU = [];
 let edgesU = [];
-let infectedU = false;
 let simulationRunning = true;
 
-// Create smooth node positions
 function createNodes() {
   for (let i = 0; i < 14; i++) {
     nodesU.push({
@@ -347,7 +337,6 @@ function createNodes() {
     });
   }
 
-  // Connect nodes randomly but aesthetically
   for (let i = 0; i < nodesU.length; i++) {
     for (let j = i + 1; j < nodesU.length; j++) {
       if (Math.random() < 0.18) {
@@ -356,14 +345,12 @@ function createNodes() {
     }
   }
 
-  // Infect one random node
   nodesU[0].infected = true;
 }
 
 function drawNetwork() {
   ctxU.clearRect(0, 0, canvasU.width, canvasU.height);
 
-  // Draw lines
   edgesU.forEach(([a,b]) => {
     ctxU.beginPath();
     ctxU.strokeStyle = "rgba(0,0,0,0.12)";
@@ -373,14 +360,13 @@ function drawNetwork() {
     ctxU.stroke();
   });
 
-  // Draw nodes
   nodesU.forEach(n => {
     ctxU.beginPath();
     ctxU.arc(n.x, n.y, 11, 0, Math.PI * 2);
 
-    if (n.safe) ctxU.fillStyle = "#31c96e";         // green safe
-    else if (n.infected) ctxU.fillStyle = "#ff4d4d"; // infected red
-    else ctxU.fillStyle = "#1675d1";               // normal blue
+    if (n.safe) ctxU.fillStyle = "#31c96e";
+    else if (n.infected) ctxU.fillStyle = "#ff4d4d";
+    else ctxU.fillStyle = "#1675d1";
 
     ctxU.fill();
   });
@@ -391,7 +377,6 @@ function moveNodes() {
     n.x += n.dx;
     n.y += n.dy;
 
-    // bounce off edges
     if (n.x < 10 || n.x > canvasU.width - 10) n.dx *= -1;
     if (n.y < 10 || n.y > canvasU.height - 10) n.dy *= -1;
   });
@@ -407,7 +392,6 @@ function spread() {
     });
   });
 
-  // Flash canvas red when spreading
   canvasU.classList.add("network-danger-flash");
   setTimeout(()=> canvasU.classList.remove("network-danger-flash"), 200);
 }
@@ -435,10 +419,8 @@ function animate() {
 
 animate();
 
-// Spread infection for 6 seconds
 let infectionInterval = setInterval(spread, 450);
 
-// At 7 seconds → heal
 setTimeout(() => {
   simulationRunning = false;
   clearInterval(infectionInterval);
@@ -447,6 +429,5 @@ setTimeout(() => {
 }, 7000);
 </script>
 
-  
 </body>
 </html>
