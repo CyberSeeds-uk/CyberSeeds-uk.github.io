@@ -1,6 +1,6 @@
-/* CYBER SEEDS 2.0 – PREMIUM UPGRADED THEME */
-/* Fonts, Colors, Shadows, Layout — All refined */
+/* Cyber Seeds 2.0 – Premium Upgraded Theme */
 
+/* THEME VARIABLES */
 :root {
   --primary: #37bb6f;
   --primary-dark: #21884b;
@@ -18,13 +18,14 @@
   --shadow-sm: 0 2px 10px rgba(0,0,0,0.06);
   --shadow-md: 0 8px 20px rgba(0,0,0,0.10);
 
-  --transition: 0.2s ease;
+  --transition: 0.25s ease;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg);
   margin: 0;
+  color: #1a1a1a;
 }
 
 /* NAVBAR -------------------------------------------------- */
@@ -37,8 +38,132 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ... NAVBAR styles stay same ... */
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
 
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--primary-dark);
+}
+
+.nav-logo img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-dark);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  min-width: 180px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 12px 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+}
+
+.dropdown-menu a:hover {
+  background: var(--primary-light);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+}
+
+.nav-toggle span {
+  width: 26px;
+  height: 3px;
+  background: #1a1a1a;
+}
+
+/* MOBILE NAV */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #ffffffee;
+  padding: 20px;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  z-index: 998;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  padding: 14px 0;
+  border-bottom: 1px solid #d7dfe9;
+  text-decoration: none;
+  font-weight: 500;
+  color: #222;
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
 
 /* HERO ---------------------------------------------------- */
 .hero-urgency {
@@ -48,25 +173,98 @@ body {
 }
 
 .hero-urgency h1 {
-  font-size: 2.3rem;
+  font-size: 2.4rem;
   color: var(--primary-dark);
+  margin-bottom: 14px;
+}
+
+.hero-lead {
+  font-size: 1.2rem;
+  color: #3e3e3e;
+  margin-bottom: 18px;
+}
+
+.hero-tagline {
+  display: block;
+  font-size: 1.15rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.hero-trust {
+  margin-top: 18px;
+  color: #2c6e4f;
+  font-size: 1.07rem;
+}
+
+/* WHY EVERY FAMILY ---------------------------------------- */
+.why-section {
+  background: var(--bg-soft);
+  padding: 40px 0;
+}
+
+.why-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 34px 26px;
+}
+
+.why-card h2 {
+  margin-bottom: 10px;
+  color: var(--primary-dark);
+}
+
+.why-card ul {
+  margin-top: 16px;
+  padding-left: 22px;
+}
+
+.why-card li {
+  font-size: 1.08rem;
+  margin-bottom: 8px;
+}
+
+.alert-callout {
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--danger);
 }
 
 /* BUTTONS ------------------------------------------------- */
 .btn {
   background: var(--primary);
-  color: #fff;
+  color: #fff !important;
   padding: 15px 30px;
   border-radius: var(--radius);
   text-decoration: none;
   display: inline-block;
   font-weight: 600;
   transition: var(--transition);
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .btn:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);
+}
+
+.btn-large {
+  font-size: 1.22rem;
+  padding: 19px 38px;
+}
+
+.btn-cta {
+  background: #40c895;
+}
+
+.btn-cta:hover {
+  background: #21884b;
 }
 
 /* MOT DEMO ------------------------------------------------ */
@@ -75,6 +273,8 @@ body {
   padding: 30px 25px;
   border-radius: 25px;
   box-shadow: var(--shadow-md);
+  max-width: 600px;
+  margin: 0 auto 38px auto;
 }
 
 .demo-btn {
@@ -122,7 +322,6 @@ body {
   100% { box-shadow: 0 0 0px rgba(0,0,0,0); }
 }
 
-/* Risk Colours ------------------------------------------- */
 .risk-low {
   background: #ddffe7;
   color: #1f8b4a;
@@ -150,4 +349,38 @@ body {
   background: #c9efff;
 }
 
-/* CARDS, CTA, LAYOUT components stay similar to previous */
+/* CTA BANNER --------------------------------------------- */
+.cta-banner {
+  background: var(--primary-dark);
+  color: #fff;
+  text-align: center;
+  padding: 45px 20px;
+  border-radius: var(--radius);
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: var(--shadow-md);
+}
+
+.cta-banner h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* FOOTER -------------------------------------------------- */
+footer {
+  background: var(--bg-soft);
+  text-align: center;
+  padding: 35px 20px;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+footer a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
