@@ -183,35 +183,54 @@ body {
   padding-left: 20px;
 }
 
-/* BUBBLE SIM */
+/* ================================
+   BUBBLE SPREAD SIM + Narration
+   ================================ */
 
 .bubble-sim {
   position: relative;
   width: 100%;
   max-width: 760px;
-  height: 360px;
+  height: 380px;
   margin: 0 auto;
   border-radius: 30px;
   background: linear-gradient(135deg, #ecfff4, #dff3ff);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.07);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.07);
   overflow: hidden;
 }
 
-.bubble-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ff4d4d;
-  opacity: 0;
-  transition: 0.4s ease;
+.bubble-sim canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
+.bubble-narrator {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  max-width: 260px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  color: #1b6143;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+}
+
+/* Mobile-friendly */
 @media (max-width: 650px) {
-  .bubble-sim { height: 260px; }
-  .bubble-overlay { font-size: 1.2rem; }
+  .bubble-sim {
+    height: 260px;
+  }
+  .bubble-narrator {
+    max-width: 200px;
+    font-size: 0.78rem;
+  }
 }
 
 /* CTA */
