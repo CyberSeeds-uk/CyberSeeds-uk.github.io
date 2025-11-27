@@ -67,19 +67,30 @@
 
 <!-- DIGITAL MOT DEMO -->
 <section class="section" id="mot-demo">
-  <h2>Digital MOT Demo</h2>
+  <h2>Try the Digital MOT Demo</h2>
+  <p class="demo-intro">
+    Answer a few simple questions to see how safe your digital home might be.
+    No jargon. No pressure. Just friendly guidance.
+  </p>
 
-  <div class="card">
-    <div id="demo-quiz"></div>
+  <div class="card demo-card">
 
-    <div id="demo-result" style="display:none;">
+    <!-- Question Box -->
+    <div id="demo-quiz" class="demo-quiz-box"></div>
+
+    <!-- Result Box -->
+    <div id="demo-result" class="demo-result" style="display:none;">
       <h3>Your Safety Score</h3>
-      <div id="risk-meter"></div>
+
+      <div id="risk-meter" class="risk-meter"></div>
       <p id="risk-feedback"></p>
 
-      <a class="btn btn-green" href="/start/">Book Your Full Digital MOT</a>
-      <button class="btn btn-outline" id="retake-btn">Retake Demo</button>
+      <div class="demo-buttons">
+        <a class="btn btn-green" href="/schedule/">Book Your Full Digital MOT</a>
+        <button class="btn btn-outline" id="retake-btn">Retake Demo</button>
+      </div>
     </div>
+
   </div>
 </section>
 
