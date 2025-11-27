@@ -1,423 +1,51 @@
-/* ---------------------------------------
-   CYBER SEEDS — FULL PREMIUM UI REDESIGN
-   Soft • Trustworthy • Family-Safe (2025)
----------------------------------------- */
+/* ================================
+   NETWORK SIMULATION (FULLY FIXED)
+   ================================ */
 
-/* THEME VARIABLES */
-:root {
-  --primary: #37bb6f;
-  --primary-dark: #21884b;
-  --primary-light: #d9fbe5;
-
-  --blue: #1675d1;
-
-  --danger: #ff4d4d;
-  --warning: #ffc233;
-  --safe: #31c96e;
-
-  --bg: #f8fffb;
-  --bg-soft: #effff4;
-  --card-bg: #fff;
-
-  --radius: 22px;
-
-  --shadow-sm: 0 3px 12px rgba(0,0,0,0.06);
-  --shadow-md: 0 10px 22px rgba(0,0,0,0.10);
-  --shadow-lg: 0 14px 40px rgba(0,0,0,0.12);
-
-  --transition: 0.25s ease;
-}
-
-/* GLOBAL RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  background: var(--bg);
-  color: #1a1a1a;
-  line-height: 1.55;
-  overflow-x: hidden;
-}
-
-/* ---------------------------------------
-   NAVBAR
----------------------------------------- */
-
-.navbar {
-  background: #ffffffcc;
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  box-shadow: var(--shadow-sm);
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--primary-dark);
-  text-decoration: none;
-}
-
-.nav-logo img {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 24px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #222;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.nav-links a:hover {
-  color: var(--primary-dark);
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 36px;
-  left: 0;
-  min-width: 180px;
-  padding: 12px 0;
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.dropdown-menu a {
-  padding: 10px 20px;
-  display: block;
-  color: #222;
-}
-
-.dropdown-menu a:hover {
-  background: var(--primary-light);
-}
-
-/* Mobile nav toggle */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-}
-
-.nav-toggle span {
-  width: 26px;
-  height: 3px;
-  background: #111;
-}
-
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  background: #ffffffee;
-  padding: 20px;
-  position: fixed;
-  top: 62px;
-  left: 0;
-  width: 100%;
-  z-index: 998;
-  box-shadow: var(--shadow-md);
-}
-
-.mobile-menu.open {
-  display: flex;
-}
-
-.mobile-menu a {
-  padding: 14px 0;
-  border-bottom: 1px solid #e8e8e8;
-  font-weight: 500;
-  color: #222;
-  text-decoration: none;
-}
-
-/* ---------------------------------------
-   HERO
----------------------------------------- */
-
-.hero-urgency {
-  padding: 70px 20px 50px;
-  text-align: center;
-  background: linear-gradient(90deg, var(--primary-light), #c9f7ff);
-}
-
-.hero-urgency h1 {
-  font-size: 2.5rem;
-  color: var(--primary-dark);
-}
-
-.hero-lead {
-  margin-top: 10px;
-  font-size: 1.2rem;
-  color: #3e3e3e;
-}
-
-.hero-tagline {
-  display: block;
-  font-size: 1.15rem;
-  color: var(--primary-dark);
-  margin-top: 5px;
-  font-weight: 600;
-}
-
-.hero-trust {
-  margin-top: 18px;
-  color: #237c45;
-  font-size: 1.05rem;
-}
-
-/* ---------------------------------------
-   BANNER
----------------------------------------- */
-
-.edu-banner {
-  background: linear-gradient(90deg, #f1ffe7, #e0f6fa);
-  color: #237c45;
-  text-align: center;
-  padding: 15px;
-  box-shadow: var(--shadow-sm);
-  font-weight: 600;
-}
-
-/* ---------------------------------------
-   WHY SECTION
----------------------------------------- */
-
-.why-section {
-  padding: 50px 20px;
-  background: var(--bg-soft);
-}
-
-.why-card {
-  max-width: 850px;
-  margin: auto;
-  background: #fff;
-  padding: 35px 26px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-}
-
-.why-card h2 {
-  color: var(--primary-dark);
-  margin-bottom: 8px;
-}
-
-.why-card ul {
-  margin-top: 16px;
-  padding-left: 20px;
-}
-
-.why-card li {
-  margin-bottom: 8px;
-  font-size: 1.08rem;
-}
-
-.alert-callout {
-  margin-top: 16px;
-  font-weight: 600;
-  color: var(--danger);
-}
-
-/* ---------------------------------------
-   BUTTONS
----------------------------------------- */
-
-.btn {
-  background: var(--primary);
-  color: #fff !important;
-  padding: 15px 30px;
-  border-radius: var(--radius);
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: var(--transition);
-}
-
-.btn:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-.btn-cta {
-  background: #40c895;
-}
-
-.btn-cta:hover {
-  background: #1f8251;
-}
-
-/* ---------------------------------------
-   DIGITAL MOT DEMO CARD
----------------------------------------- */
-
-.mot-demo-card {
-  background: #f6fff8;
-  padding: 30px 26px;
-  border-radius: 25px;
-  box-shadow: var(--shadow-md);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.demo-btn {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border-radius: 14px;
-  border: 2px solid var(--primary-light);
-  background: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.demo-btn:hover {
-  background: var(--primary-light);
-  color: var(--primary-dark);
-}
-
-#risk-meter {
-  margin-top: 20px;
-  font-size: 2rem;
-  padding: 15px;
-  border-radius: 15px;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.8s ease;
-}
-
-.slide-in {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.glow {
-  animation: glowPulse 2s infinite ease-in-out;
-}
-
-@keyframes glowPulse {
-  50% { box-shadow: 0 0 20px rgba(0,0,0,0.15); }
-}
-
-.risk-low { background: #ddffe7; color: #1c7a41; }
-.risk-mid { background: #fff3bf; color: #8a6c00; }
-.risk-high { background: #ffdada; color: #b30000; }
-
-/* ---------------------------------------
-   WHAT IS / WHAT'S INCLUDED / CARDS
----------------------------------------- */
-
-.card {
-  max-width: 650px;
-  margin: 28px auto;
-  background: #fff;
-  padding: 28px 26px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-}
-
-.bullet-simple li {
-  margin-bottom: 9px;
-  font-size: 1.08rem;
-}
-
-/* ---------------------------------------
-   CTA SECTION
----------------------------------------- */
-
-.cta-banner {
-  background: var(--primary-dark);
-  color: #fff;
-  text-align: center;
-  padding: 40px 26px;
-  border-radius: var(--radius);
+.infection-sim {
   max-width: 900px;
-  margin: 50px auto;
-  box-shadow: var(--shadow-md);
-}
-
-/* ---------------------------------------
-   FOOTER
----------------------------------------- */
-
-footer {
+  margin: 3rem auto;
+  padding: 0 1rem;
   text-align: center;
-  padding: 35px 20px;
-  background: var(--bg-soft);
-  font-size: 0.95rem;
 }
 
-footer a {
-  color: var(--primary-dark);
-  text-decoration: none;
-  font-weight: 600;
+.infection-sim h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-wrap: balance;
 }
 
-/* ---------------------------------------
-   CINEMATIC NETWORK SIMULATION
----------------------------------------- */
+/* Fix emoji pushing alignment */
+.infection-sim h2::before {
+  content: "";
+}
 
+/* Main container */
 .network-sim-upgraded {
   position: relative;
   width: 100%;
-  max-width: 750px;
+  max-width: 760px;
   height: 420px;
-  margin: 35px auto;
-  border-radius: 25px;
-  background: linear-gradient(145deg, #e9fff2, #d8f6ff);
-  box-shadow: 0 0 40px rgba(55, 187, 111, 0.25);
+  margin: 0 auto;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #e8fff0, #daf4ff);
+  box-shadow: 0 20px 35px rgba(40, 140, 90, 0.18);
   overflow: hidden;
 }
 
+/* Canvas fits container perfectly */
 .network-sim-upgraded canvas {
   width: 100% !important;
   height: 100% !important;
   display: block;
-  border-radius: 25px;
+  border-radius: 28px;
 }
 
-/* Overlay text */
+/* Overlay (Breaching / Secured) */
 .network-overlay {
   position: absolute;
   top: 50%;
@@ -425,54 +53,73 @@ footer a {
   transform: translate(-50%, -50%);
   font-size: 1.55rem;
   font-weight: 700;
-  color: var(--danger);
+  color: #ff4d4d;
   opacity: 0;
-  letter-spacing: 1px;
-  text-shadow: 0 3px 12px rgba(0,0,0,0.25);
   transition: 0.4s ease;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.25);
   pointer-events: none;
 }
 
-/* Danger flash */
+/* Infection flash animation */
 @keyframes dangerFlash {
-  0%   { background-color: rgba(255,0,0,0); }
-  50%  { background-color: rgba(255,0,0,0.25); }
-  100% { background-color: rgba(255,0,0,0); }
+  0% { background: rgba(255,0,0,0); }
+  50% { background: rgba(255,60,60,0.22); }
+  100% { background: rgba(255,0,0,0); }
 }
 
 .network-danger-flash {
-  animation: dangerFlash 0.35s ease-out;
+  animation: dangerFlash 0.4s ease-out;
 }
 
-/* ---------------------------------------
-   RESPONSIVE (MOBILE)
----------------------------------------- */
+/* Description under simulation */
+.sim-caption {
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+  color: #333;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+
+/* ================================
+   RESPONSIVE FIXES
+   ================================ */
 
 @media (max-width: 900px) {
-  .nav-links { display: none; }
-  .nav-toggle { display: flex; }
-
-  .card,
-  .mot-demo-card,
-  .why-card {
-    max-width: 95%;
-    padding: 20px 16px;
-  }
-
-  .hero-urgency {
-    padding: 45px 10px;
-  }
-
-  .hero-urgency h1 {
-    font-size: 2rem;
-  }
-
   .network-sim-upgraded {
-    height: 300px;
-    border-radius: 20px;
+    max-width: 100%;
+    height: 340px;
+    border-radius: 22px;
+  }
+
+  .network-sim-upgraded canvas {
+    border-radius: 22px;
   }
 
   .network-overlay {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .infection-sim h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .network-sim-upgraded {
+    height: 260px;
+  }
+
+  .network-overlay {
+    font-size: 1.1rem;
+  }
+
+  .sim-caption {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
   }
 }
