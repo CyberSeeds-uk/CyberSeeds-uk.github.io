@@ -4,21 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cyber Seeds – Digital MOT for UK Families</title>
+
   <meta name="description" content="Is your family truly safe online? Take the free Cyber Seeds Digital MOT Demo – the UK service designed to reveal hidden digital risks for your home, devices, and children." />
   <link rel="canonical" href="https://cyberseeds-uk.github.io/" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" type="image/png" href="/cyber_seeds_logo.png" />
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Cyber Seeds – Digital MOT for UK Families" />
   <meta property="og:description" content="Wake up to digital risk. Take the Cyber Seeds Digital MOT Demo and get your safety score in 60 seconds." />
   <meta property="og:image" content="/cyber_seeds_logo.png" />
   <meta property="og:url" content="https://cyberseeds-uk.github.io/" />
-  <!-- Leaflet Map CSS -->
+
+  <!-- Leaflet Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<!-- ░░ NAVBAR ░░ -->
+<nav class="navbar compact-nav">
   <div class="nav-container">
     <a href="/" class="nav-logo">
       <img src="/cyber_seeds_logo.png" alt="Cyber Seeds Logo">
@@ -56,8 +60,8 @@
   <a href="/contact/">Contact</a>
 </div>
 
-<!-- HERO -->
-<header class="hero-urgency">
+<!-- ░░ HERO ░░ -->
+<header class="hero-urgency tight-hero">
   <div class="hero-content">
     <h1>🚨 Is Your Family <span class="highlight-green">*Really*</span> Safe Online?</h1>
     <p class="hero-lead">
@@ -69,82 +73,88 @@
   </div>
 </header>
 
-<!-- EDUCATIONAL BANNER -->
-<div class="edu-banner">
+<!-- ░░ EDUCATIONAL BANNER ░░ -->
+<div class="edu-banner compact-banner">
   <strong>Why It Matters:</strong> Digital threats change fast. Just one weak password or unchecked device can put your home and children at risk.
 </div>
 
-<!-- WHY EVERY FAMILY NEEDS CYBER SEEDS -->
-<section class="why-section">
-  <div class="why-card">
+<!-- ░░ WHY EVERY FAMILY NEEDS US ░░ -->
+<section class="why-section tight-section">
+  <div class="why-card tight-card">
     <h2>🌱 Why Every Family Needs Cyber Seeds</h2>
     <p>
-      The digital world changes fast, and most families are left behind. We make digital safety as easy as checking your car’s MOT—because you’d never risk your children’s physical safety. Why risk their digital safety?
+      The digital world changes fast, and most families are left behind. We make digital safety as simple as checking your car’s MOT — because you’d never risk your children’s physical safety. Why risk their digital safety?
     </p>
-    <ul>
+    <ul class="tight-list">
       <li>🔓 65% of UK homes still use default WiFi passwords.</li>
       <li>📱 Kids’ apps change faster than parents can track.</li>
       <li>💰 £2.6B lost to scams last year alone.</li>
       <li>🕵️ Your data is likely already leaked online.</li>
     </ul>
-    <p class="alert-callout">Your MOT Demo score above might surprise you…</p>
+    <p class="alert-callout small-space">Your MOT Demo score above might surprise you…</p>
   </div>
 </section>
 
-<main>
+<!-- ░░ MAIN CONTENT ░░ -->
+<main class="compact-main">
+
   <!-- DIGITAL MOT DEMO -->
-  <section class="mot-demo-section" id="mot-demo">
-    <div class="card mot-demo-card">
+  <section class="mot-demo-section tight-section" id="mot-demo">
+    <div class="card mot-demo-card tight-card">
       <h2>🎯 Digital MOT Demo<br><span class="mot-sub">How Safe Is Your Home… Really?</span></h2>
       <div id="demo-quiz"></div>
+
       <div id="demo-result" style="display:none;">
         <h3>Your Risk Score:</h3>
         <div id="risk-meter" class="slide-in"></div>
         <p id="risk-feedback"></p>
+
         <a class="btn btn-cta" href="/start/">Book Your Full Digital MOT</a>
         <button id="retake-btn" class="btn retake-btn">🔁 Retake Demo</button>
-        <p class="small-mute">
+
+        <p class="small-mute small-space">
           No spam. No tech jargon — just clear, family-friendly digital safety.
         </p>
       </div>
     </div>
   </section>
 
-
   <!-- WHAT IS CYBER SEEDS -->
-  <section>
+  <section class="tight-section">
     <h2>🌱 What Is Cyber Seeds?</h2>
-    <div class="card simple-card">
-      <p><strong>Cyber Seeds</strong> is a friendly, expert-led <span class="highlight">Digital MOT</span> designed for real UK families.</p>
+    <div class="card simple-card tight-card">
+      <p><strong>Cyber Seeds</strong> is a friendly, expert-led <span class="highlight">Digital MOT</span> for real UK families.</p>
       <p>No overwhelm. No jargon. Just calm, practical guidance.</p>
     </div>
   </section>
 
   <!-- WHAT'S INCLUDED -->
-  <section>
+  <section class="tight-section">
     <h2>🛡️ What’s Included?</h2>
-    <div class="card simple-card">
-      <ul class="bullet-simple">
+    <div class="card simple-card tight-card">
+      <ul class="bullet-simple tight-list">
         <li>✔ WiFi & Router Security Check</li>
         <li>✔ Device Safety Review</li>
         <li>✔ Data Leak Scan</li>
         <li>✔ Scam Prevention</li>
         <li>✔ Child Wellbeing Guidance</li>
       </ul>
-      <p><strong>All in 1 hour — simple and friendly.</strong></p>
+      <p class="small-space"><strong>All in 1 hour — simple and friendly.</strong></p>
     </div>
   </section>
 
   <!-- CTA -->
-  <section>
-    <div class="cta-banner">
+  <section class="tight-section">
+    <div class="cta-banner compact-cta">
       <h2>Ready to Secure Your Digital Home?</h2>
       <a class="btn btn-large btn-cta" href="/start/">Book Your Session</a>
     </div>
   </section>
+
 </main>
 
-<footer>
+<!-- FOOTER -->
+<footer class="compact-footer">
   <p>© 2025 Cyber Seeds — Digital Safety for Families<br>
     <a href="/privacy/">Privacy</a> · <a href="/faq/">FAQ</a> · <a href="/contact/">Contact</a>
   </p>
@@ -157,31 +167,31 @@ const questions = [
     q: "How old is your WiFi router?",
     icons: ["📶", "📡", "❓"],
     a: ["Less than 2 years", "2+ years", "I don’t know"],
-    r: [0,1,1]
+    r: [0, 1, 1]
   },
   {
     q: "Do your kids have private social media profiles?",
     icons: ["🔐", "🌍"],
     a: ["Yes", "No / Not sure"],
-    r: [0,1]
+    r: [0, 1]
   },
   {
     q: "Have you changed your WiFi password?",
     icons: ["🔑", "❌"],
     a: ["Yes", "No / I don’t know"],
-    r: [0,1]
+    r: [0, 1]
   },
   {
     q: "Are all devices set to auto-update?",
     icons: ["🔄", "⚠️"],
     a: ["Yes", "No / I don’t know"],
-    r: [0,1]
+    r: [0, 1]
   },
   {
     q: "Have you ever checked your email for leaks?",
     icons: ["🧪", "🕵️"],
     a: ["Yes", "No / I don’t know"],
-    r: [0,1]
+    r: [0, 1]
   }
 ];
 
@@ -237,21 +247,25 @@ function showResult() {
 
 document.addEventListener("DOMContentLoaded", () => {
   nextQ();
+
   document.getElementById("retake-btn").addEventListener("click", () => {
     qIndex = 0;
     risk = 0;
+
     document.getElementById("demo-result").style.display = "none";
     document.getElementById("demo-quiz").style.display = "block";
+
     nextQ();
   });
-  // Navbar mobile toggle
+
   const toggle = document.querySelector(".nav-toggle");
   const mobileMenu = document.getElementById("mobileMenu");
+
   toggle.addEventListener("click", () => {
     mobileMenu.classList.toggle("open");
   });
 });
 </script>
-</script>
+
 </body>
 </html>
