@@ -660,3 +660,13 @@ footer a:hover { text-decoration: underline; }
   font-size: 1rem;
   font-weight: 500;
 }
+.network-sim {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--bg-soft);
+}
