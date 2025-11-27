@@ -308,102 +308,145 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
+<section class="infection-sim tight-section">
+  <h2>🦠 How Fast One Weak Device Can Expose Your Entire Home</h2>
+
+  <div class="network-sim-upgraded">
+    <canvas id="networkCanvas"></canvas>
+    <div class="network-overlay" id="networkOverlay">Breaching…</div>
+  </div>
+
+  <p class="sim-caption">
+    One unsafe console. One outdated phone. One weak password.  
+    Watch how fast threats spread — and how quickly protection stops it.
+  </p>
+</section>
 <script>
-// Network Infection Simulation
-const canvas = document.getElementById("networkCanvas");
-const ctx = canvas.getContext("2d");
+const canvasU = document.getElementById("networkCanvas");
+const ctxU = canvasU.getContext("2d");
 
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+canvasU.width = canvasU.offsetWidth;
+canvasU.height = canvasU.offsetHeight;
 
-let nodes = [];
-let infected = [];
-let connections = [];
-let running = true;
+let nodesU = [];
+let edgesU = [];
+let infectedU = false;
+let simulationRunning = true;
 
-function createNetwork() {
+// Create smooth node positions
+function createNodes() {
   for (let i = 0; i < 14; i++) {
-    nodes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+    nodesU.push({
+      x: Math.random() * canvasU.width,
+      y: Math.random() * canvasU.height,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
       infected: false,
       safe: false
     });
   }
 
-  // random connections
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = 0; j < nodes.length; j++) {
-      if (i !== j && Math.random() < 0.12) {
-        connections.push([i, j]);
+  // Connect nodes randomly but aesthetically
+  for (let i = 0; i < nodesU.length; i++) {
+    for (let j = i + 1; j < nodesU.length; j++) {
+      if (Math.random() < 0.18) {
+        edgesU.push([i, j]);
       }
     }
   }
 
-  // infect ONE weak device
-  nodes[0].infected = true;
+  // Infect one random node
+  nodesU[0].infected = true;
 }
 
 function drawNetwork() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctxU.clearRect(0, 0, canvasU.width, canvasU.height);
 
-  // draw lines
-  connections.forEach(([a, b]) => {
-    ctx.strokeStyle = "rgba(150,150,150,0.4)";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(nodes[a].x, nodes[a].y);
-    ctx.lineTo(nodes[b].x, nodes[b].y);
-    ctx.stroke();
+  // Draw lines
+  edgesU.forEach(([a,b]) => {
+    ctxU.beginPath();
+    ctxU.strokeStyle = "rgba(0,0,0,0.12)";
+    ctxU.lineWidth = 1.4;
+    ctxU.moveTo(nodesU[a].x, nodesU[a].y);
+    ctxU.lineTo(nodesU[b].x, nodesU[b].y);
+    ctxU.stroke();
   });
 
-  // draw nodes
-  nodes.forEach(node => {
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+  // Draw nodes
+  nodesU.forEach(n => {
+    ctxU.beginPath();
+    ctxU.arc(n.x, n.y, 11, 0, Math.PI * 2);
 
-    if (node.infected) ctx.fillStyle = "#ff4d4d";
-    else if (node.safe) ctx.fillStyle = "#66c27c";
-    else ctx.fillStyle = "#0D47A1";
+    if (n.safe) ctxU.fillStyle = "#31c96e";         // green safe
+    else if (n.infected) ctxU.fillStyle = "#ff4d4d"; // infected red
+    else ctxU.fillStyle = "#1675d1";               // normal blue
 
-    ctx.fill();
+    ctxU.fill();
   });
 }
 
-function spreadInfection() {
-  nodes.forEach((node, i) => {
-    if (node.infected) {
-      connections.forEach(([a, b]) => {
-        if (a === i && Math.random() < 0.02) nodes[b].infected = true;
-        if (b === i && Math.random() < 0.02) nodes[a].infected = true;
-      });
-    }
+function moveNodes() {
+  nodesU.forEach(n => {
+    n.x += n.dx;
+    n.y += n.dy;
+
+    // bounce off edges
+    if (n.x < 10 || n.x > canvasU.width - 10) n.dx *= -1;
+    if (n.y < 10 || n.y > canvasU.height - 10) n.dy *= -1;
   });
+}
+
+function spread() {
+  nodesU.forEach((n, i) => {
+    if (!n.infected) return;
+
+    edgesU.forEach(([a,b]) => {
+      if (a === i && Math.random() < 0.08) nodesU[b].infected = true;
+      if (b === i && Math.random() < 0.08) nodesU[a].infected = true;
+    });
+  });
+
+  // Flash canvas red when spreading
+  canvasU.classList.add("network-danger-flash");
+  setTimeout(()=> canvasU.classList.remove("network-danger-flash"), 200);
 }
 
 function healNetwork() {
-  nodes.forEach(n => {
+  nodesU.forEach(n => {
     n.infected = false;
     n.safe = true;
   });
+
+  document.getElementById("networkOverlay").innerText = "Secured ✔";
+  document.getElementById("networkOverlay").style.color = "#31c96e";
+  document.getElementById("networkOverlay").style.opacity = 1;
 }
 
-createNetwork();
+createNodes();
 
-setInterval(() => {
-  if (!running) return;
+function animate() {
+  if (!simulationRunning) return;
 
-  spreadInfection();   // infection grows
-  drawNetwork();       // redraw sim
-}, 120);
+  moveNodes();
+  drawNetwork();
+  requestAnimationFrame(animate);
+}
 
-// After 6 seconds → show secured network
+animate();
+
+// Spread infection for 6 seconds
+let infectionInterval = setInterval(spread, 450);
+
+// At 7 seconds → heal
 setTimeout(() => {
-  running = false;
+  simulationRunning = false;
+  clearInterval(infectionInterval);
   healNetwork();
   drawNetwork();
-}, 6000);
+}, 7000);
 </script>
 
+  
 </body>
 </html>
