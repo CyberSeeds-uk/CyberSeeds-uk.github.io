@@ -308,6 +308,102 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+<script>
+// Network Infection Simulation
+const canvas = document.getElementById("networkCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
+let nodes = [];
+let infected = [];
+let connections = [];
+let running = true;
+
+function createNetwork() {
+  for (let i = 0; i < 14; i++) {
+    nodes.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      infected: false,
+      safe: false
+    });
+  }
+
+  // random connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = 0; j < nodes.length; j++) {
+      if (i !== j && Math.random() < 0.12) {
+        connections.push([i, j]);
+      }
+    }
+  }
+
+  // infect ONE weak device
+  nodes[0].infected = true;
+}
+
+function drawNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // draw lines
+  connections.forEach(([a, b]) => {
+    ctx.strokeStyle = "rgba(150,150,150,0.4)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(nodes[a].x, nodes[a].y);
+    ctx.lineTo(nodes[b].x, nodes[b].y);
+    ctx.stroke();
+  });
+
+  // draw nodes
+  nodes.forEach(node => {
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+
+    if (node.infected) ctx.fillStyle = "#ff4d4d";
+    else if (node.safe) ctx.fillStyle = "#66c27c";
+    else ctx.fillStyle = "#0D47A1";
+
+    ctx.fill();
+  });
+}
+
+function spreadInfection() {
+  nodes.forEach((node, i) => {
+    if (node.infected) {
+      connections.forEach(([a, b]) => {
+        if (a === i && Math.random() < 0.02) nodes[b].infected = true;
+        if (b === i && Math.random() < 0.02) nodes[a].infected = true;
+      });
+    }
+  });
+}
+
+function healNetwork() {
+  nodes.forEach(n => {
+    n.infected = false;
+    n.safe = true;
+  });
+}
+
+createNetwork();
+
+setInterval(() => {
+  if (!running) return;
+
+  spreadInfection();   // infection grows
+  drawNetwork();       // redraw sim
+}, 120);
+
+// After 6 seconds → show secured network
+setTimeout(() => {
+  running = false;
+  healNetwork();
+  drawNetwork();
+}, 6000);
+</script>
 
 </body>
 </html>
