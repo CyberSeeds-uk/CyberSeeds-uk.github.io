@@ -110,15 +110,17 @@
 </section>
 
 <!-- BUBBLE SPREAD SIMULATION -->
-<section class="section">
-  <h2>How Fast One Weak Device Can Affect Everything</h2>
+<section class="infection-sim tight-section">
+  <h2>🦠 How Fast One Weak Device Can Affect Everything</h2>
 
   <div class="bubble-sim">
     <canvas id="bubbleCanvas"></canvas>
-    <div id="bubbleOverlay" class="bubble-overlay">Breaching…</div>
+
+    <!-- Friendly narration bubble -->
+    <div class="bubble-narrator" id="bubbleNarrator"></div>
   </div>
 
-  <p class="sim-caption">
+  <p class="sim-caption" id="simCaption">
     One unsafe console. One outdated phone. One weak password.  
     Watch how invisible risks spread — and how quickly good security stops them.
   </p>
