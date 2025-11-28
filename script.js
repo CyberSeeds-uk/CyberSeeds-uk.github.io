@@ -1,107 +1,159 @@
-/*
-  Cyber Seeds – Risk Checker
-  Simple client‑side quiz to gauge a family’s digital safety. Accumulates a risk
-  score based on responses and displays a result. Extend or replace with real
-  diagnostics as the platform evolves.
-*/
+/* ====================================================
+   CYBER SEEDS – SCRIPT.JS
+   Family Safety Check / Mobile Menu / UX Enhancements
+==================================================== */
 
-// Define questions for the quiz. Each question has a text (q), an array of
-// answers (a) and an array of risk values (r) corresponding to each answer.
+/* --------------------------
+   MOBILE NAV MENU
+--------------------------- */
+const navToggle = document.getElementById("nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if (navToggle) {
+  navToggle.addEventListener("change", () => {
+    navLinks.style.display = navToggle.checked ? "flex" : "none";
+  });
+}
+
+/* --------------------------
+   SAFETY CHECK QUIZ
+--------------------------- */
+
+const quizContainer = document.getElementById("quiz-container");
+const resultContainer = document.getElementById("result-container");
+const scoreMeter = document.getElementById("score-meter");
+const scoreFeedback = document.getElementById("score-feedback");
+const retryBtn = document.getElementById("retry-btn");
+
+let currentQuestion = 0;
+let totalRisk = 0;
+
+/* QUESTIONS */
 const questions = [
   {
-    q: "How often do you change your Wi‑Fi router password?",
-    a: ["At least every year", "Only when it's installed", "Never / I don't know"],
-    r: [0, 1, 2]
+    q: "How often do you change your Wi-Fi router password?",
+    answers: [
+      { text: "At least every year", risk: 0 },
+      { text: "Only when it's installed", risk: 1 },
+      { text: "Never / I don't know", risk: 2 }
+    ]
   },
   {
-    q: "Are your devices set to install security updates automatically?",
-    a: ["Yes", "Some are", "No / Not sure"],
-    r: [0, 1, 2]
+    q: "Do all your devices update automatically?",
+    answers: [
+      { text: "Yes, everything auto-updates", risk: 0 },
+      { text: "Some do, some don't", risk: 1 },
+      { text: "No / I’m not sure", risk: 2 }
+    ]
   },
   {
-    q: "Do you use unique passwords for each account?",
-    a: ["Always", "Sometimes", "No / I reuse passwords"],
-    r: [0, 1, 2]
+    q: "Do you use the same password across multiple accounts?",
+    answers: [
+      { text: "No, all passwords are unique", risk: 0 },
+      { text: "A few are reused", risk: 1 },
+      { text: "I use the same password for most things", risk: 2 }
+    ]
   },
   {
-    q: "Have you ever checked if your email or phone appears in a data breach?",
-    a: ["Yes", "No / I don't know"],
-    r: [0, 2]
-  },
-  {
-    q: "Do your children play on platforms like Roblox or Discord without supervision?",
-    a: ["No, we monitor their activity", "Sometimes", "Yes, often"],
-    r: [0, 1, 2]
-  },
-  {
-    q: "Have you received scam texts or emails in the last 6 months?",
-    a: ["No", "Yes, but I ignored them", "Yes and I clicked / replied"],
-    r: [0, 1, 2]
+    q: "Do you check your email for breaches/leaks?",
+    answers: [
+      { text: "Yes, I check regularly", risk: 0 },
+      { text: "I’ve checked once or twice", risk: 1 },
+      { text: "Never / Not sure how", risk: 2 }
+    ]
   }
 ];
 
-let current = 0;
-let risk = 0;
+/* --------------------------
+   RENDER QUESTION
+--------------------------- */
 
-// Initialize the quiz on page load
-document.addEventListener('DOMContentLoaded', () => {
-  renderQuestion();
-});
+function loadQuestion() {
+  const question = questions[currentQuestion];
 
-// Render the current question
-function renderQuestion() {
-  const container = document.getElementById('quiz-container');
-  const resultContainer = document.getElementById('result-container');
-  resultContainer.style.display = 'none';
-  if (current < questions.length) {
-    const q = questions[current];
-    let html = `<h4>${q.q}</h4><div class="quiz-options">`;
-    q.a.forEach((ans, i) => {
-      html += `<button onclick="answer(${q.r[i]})">${ans}</button>`;
-    });
-    html += `</div>`;
-    container.innerHTML = html;
-  }
+  quizContainer.innerHTML = `
+    <h3>${question.q}</h3>
+    <div class="quiz-buttons"></div>
+  `;
+
+  const btnWrapper = quizContainer.querySelector(".quiz-buttons");
+
+  question.answers.forEach(answer => {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-outline";
+    btn.textContent = answer.text;
+
+    btn.addEventListener("click", () => handleAnswer(answer.risk));
+    btnWrapper.appendChild(btn);
+  });
+
+  quizContainer.style.display = "block";
+  resultContainer.style.display = "none";
 }
 
-// Handle answer selection
-function answer(val) {
-  risk += val;
-  current++;
-  if (current < questions.length) {
-    renderQuestion();
+function handleAnswer(riskValue) {
+  totalRisk += riskValue;
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    quizFade(loadQuestion);
   } else {
-    showResult();
+    quizFade(showResult);
   }
 }
 
-// Display the result based on accumulated risk
+/* --------------------------
+   SHOW RESULT
+--------------------------- */
+
 function showResult() {
-  const quizContainer = document.getElementById('quiz-container');
-  const resultContainer = document.getElementById('result-container');
-  quizContainer.innerHTML = '';
-  resultContainer.style.display = 'block';
-  const meter = document.getElementById('score-meter');
-  const feedback = document.getElementById('score-feedback');
-  if (risk <= 3) {
-    meter.innerText = '🟢 Low Risk';
-    feedback.innerText = 'Great work! Your digital habits are strong. Keep them up and consider a full audit for peace of mind.';
-  } else if (risk <= 7) {
-    meter.innerText = '🟡 Medium Risk';
-    feedback.innerText = 'Some gaps detected. A few simple changes could dramatically improve your safety. A full audit is recommended.';
+  quizContainer.style.display = "none";
+  resultContainer.style.display = "block";
+
+  let scoreText = "";
+  let scoreSummary = "";
+
+  if (totalRisk <= 2) {
+    scoreText = "🟢 Low Risk";
+    scoreSummary = "Your digital home is fairly well protected. Some small improvements can still make a big difference.";
+  } else if (totalRisk <= 5) {
+    scoreText = "🟡 Medium Risk";
+    scoreSummary = "Your home has several areas that need attention. A full audit will quickly strengthen your online safety.";
   } else {
-    meter.innerText = '🔴 High Risk';
-    feedback.innerText = 'Your home is at significant risk. Book a full audit to identify vulnerabilities and protect your family.';
+    scoreText = "🔴 High Risk";
+    scoreSummary = "Your home is at high risk of cyber issues. Fixing a few key problems will dramatically improve your safety.";
   }
+
+  scoreMeter.textContent = scoreText;
+  scoreFeedback.textContent = scoreSummary;
 }
 
-// Retake functionality
-const retryBtn = document.getElementById('retry-btn');
+/* --------------------------
+   RETAKE QUIZ
+--------------------------- */
+
 if (retryBtn) {
-  retryBtn.addEventListener('click', () => {
-    current = 0;
-    risk = 0;
-    document.getElementById('result-container').style.display = 'none';
-    renderQuestion();
+  retryBtn.addEventListener("click", () => {
+    currentQuestion = 0;
+    totalRisk = 0;
+    quizFade(loadQuestion);
   });
 }
+
+/* --------------------------
+   SMOOTH FADE UTILITY
+--------------------------- */
+
+function quizFade(callback) {
+  quizContainer.style.opacity = 0;
+
+  setTimeout(() => {
+    callback();
+    quizContainer.style.opacity = 1;
+  }, 300);
+}
+
+/* --------------------------
+   INITIALISE
+--------------------------- */
+if (quizContainer) loadQuestion();
