@@ -281,27 +281,17 @@ body {
 }
 
 /* ---------- FOOTER ---------- */
-.footer {
-  background: #ffffff;
-  padding: 35px 0;
-  text-align: center;
-}
-
-.footer-links {
-  margin-top: 10px;
+.footer-brand {
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.footer-links a {
-  color: #1a2a33;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: #0a5cff;
+.footer-brand img {
+  width: 42px;
+  height: 42px;
+  opacity: 0.9;
 }
 
 /* ---------- PAGE HERO (RESOURCE PAGES) ---------- */
@@ -351,4 +341,37 @@ body {
   .hero h1 {
     font-size: 32px;
   }
+}
+
+/* WHY FAMILIES CHOOSE US */
+.why-section {
+  padding: 80px 0;
+  background: #f3fbf7;
+}
+
+.stats-grid {
+  max-width: 1100px;
+  margin: 50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+.stat-icon {
+  width: 48px;
+  margin-bottom: 16px;
+  opacity: 0.9;
 }
