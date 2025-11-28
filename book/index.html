@@ -1,230 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>Book Your Cyber Seeds Audit – Secure Booking & Payment</title>
-<meta name="description" content="Book your Cyber Seeds Digital MOT. Secure payment and instant scheduling for your family’s cyber-safety audit." />
-
-<link rel="stylesheet" href="/style.css" />
-
-<style>
-/* ------------------------------------------------
-   CYBER SEEDS – PREMIUM BLUE BOOKING PAGE (2025)
---------------------------------------------------- */
-
-/* THEME */
-:root {
-    --primary: #0D47A1;
-    --primary-light: #1E5CE6;
-    --primary-dark: #052A63;
-
-    --bg: #f4f8fc;
-    --card-bg: #ffffff;
-    --text: #1a1a1a;
-    --muted: #4a4a4a;
-
-    --radius: 22px;
-    --shadow: 0 10px 30px rgba(0,0,0,0.12);
-}
-
-/* GLOBAL */
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-.container {
-    max-width: 880px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* HEADER */
-.page-header {
-    text-align: center;
-    padding: 20px 20px 30px;
-    background: linear-gradient(to bottom, #eaf2fb, transparent);
-    border-radius: 0 0 30px 30px;
-}
-
-.page-header h1 {
-    font-size: 2.4rem;
-    margin-bottom: 10px;
-    color: var(--primary-dark);
-}
-
-.page-header p {
-    color: var(--muted);
-    font-size: 1.1rem;
-}
-
-/* STEP CARDS */
-.step-card {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 30px;
-}
-
-.step-title {
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: var(--primary);
-    font-weight: 700;
-}
-
-/* BUTTONS */
-.button-row {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.button {
-    padding: 16px;
-    text-align: center;
-    border-radius: var(--radius);
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: 0.3s ease;
-}
-
-.pay-btn {
-    background: var(--primary);
-    color: #fff;
-}
-
-.pay-btn:hover {
-    background: var(--primary-light);
-}
-
-.book-btn {
-    background: #e3ecfa;
-    color: var(--primary-dark);
-}
-
-.book-btn:hover {
-    background: #d6e4f8;
-}
-
-/* CALENDLY */
-.calendly-container {
-    width: 100%;
-    min-height: 700px;
-    margin-top: 10px;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-}
-
-/* PAID BANNER */
-.paid-banner {
-    background: #c8e6c9;
-    border-left: 6px solid #2e7d32;
-    padding: 15px 20px;
-    border-radius: var(--radius);
-    margin-bottom: 25px;
-    display: none;
-}
-
-.paid-banner.show {
-    display: block;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    h1 { font-size: 1.9rem; }
-    .step-title { font-size: 1.25rem; }
-    .button { font-size: 1rem; padding: 14px; }
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Your Audit – Cyber Seeds</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
-<div class="container">
+<div class="container" style="padding: 80px 0;">
+  <h1>Book Your Home Cyber Audit</h1>
 
-    <!-- PAGE HEADER -->
-    <div class="page-header">
-        <h1>Book Your Cyber Seeds Audit</h1>
-        <p>Secure payment. Instant booking. A smooth, professional experience.</p>
-    </div>
+  <p style="max-width: 760px; margin-top: 20px;">
+    Schedule a one-on-one session with your dedicated cyber-defence consultant. During the audit we’ll check your Wi-Fi, devices, privacy settings, scam exposure and children’s digital wellbeing — then build a personalised plan for your family.
+  </p>
 
-    <!-- PAID BANNER (activated by ?paid=true) -->
-    <div id="paidBanner" class="paid-banner">
-        <strong>Payment received!</strong> Thank you — please now select a time for your session below.
-    </div>
-
-    <!-- STEP 1 -->
-    <div id="paymentSection" class="step-card">
-        <div class="step-title">Step 1 — Choose Your Payment Method</div>
-
-        <div class="button-row">
-
-            <!-- PAY NOW BUTTON (Stripe link required) -->
-            <a href="https://buy.stripe.com/9B6eVf63W8FE1ndcjx4gg00" class="button pay-btn">
-                Pay Now (£75) – Secure Stripe Payment
-            </a>
-
-            <!-- BOOK FIRST -->
-            <a href="#bookSection" class="button book-btn">
-                Book First – Pay After Choosing Time
-            </a>
-        </div>
-    </div>
-
-    <!-- STEP 2 -->
-    <div id="bookSection" class="step-card">
-        <div class="step-title">Step 2 — Book Your Appointment</div>
-
-        <!-- CALENDLY EMBED -->
-        <div class="calendly-container">
-            <iframe
-                src="https://calendly.com/cyberseeds-uk/30min"
-                width="100%"
-                height="700"
-                frameborder="0">
-            </iframe>
-        </div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div class="step-card">
-        <div class="step-title">Step 3 — Confirmation</div>
-        <p>
-            You’ll instantly receive:
-        </p>
-        <ul>
-            <li>Your booking confirmation</li>
-            <li>Your pre-session checklist</li>
-            <li>Reminder emails before your session</li>
-        </ul>
-    </div>
-
+  <a href="mailto:cyberseeds.uk@gmail.com" class="btn btn-primary" style="margin-top: 30px; display: inline-block;">
+    Email to Schedule
+  </a>
 </div>
-
-<script>
-// Detect ?paid=true and update UI
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("paid") === "true") {
-    document.getElementById("paidBanner").classList.add("show");
-
-    // Hide payment section to reduce friction
-    document.getElementById("paymentSection").style.display = "none";
-
-    // Auto-scroll to booking
-    setTimeout(() => {
-        document.getElementById("bookSection").scrollIntoView({ behavior: "smooth" });
-    }, 400);
-}
-</script>
 
 </body>
 </html>
