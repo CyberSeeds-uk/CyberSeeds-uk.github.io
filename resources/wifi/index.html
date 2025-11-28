@@ -1,47 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wi-Fi Safety – Cyber Seeds</title>
-  <link rel="stylesheet" href="../../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    .page-hero { background:#e9f5f1; padding:50px 20px; text-align:center; }
-    .page-hero h1 { font-size:2.4rem; color:var(--primary); font-weight:700; }
-    .content-card {
-      background:white; padding:40px; margin:40px auto;
-      max-width:860px; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,0.06);
-    }
-    .back-btn {
-      display:inline-block; padding:12px 22px; border:2px solid var(--primary);
-      color:var(--primary); border-radius:12px; margin-top:30px; text-decoration:none;
-      transition:0.25s;
-    }
-    .back-btn:hover { background:var(--primary); color:white; }
-  </style>
+  <title>Wi-Fi Safety Guide – Cyber Seeds</title>
+  <meta name="description" content="Protect your home Wi-Fi from intruders, weak passwords, hidden risks and unsecured devices. A simple guide for UK families.">
+
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
 
-<div class="page-hero">
-  <h1>Wi-Fi & Router Safety</h1>
-  <p>The entry point to your digital home — properly secured.</p>
-</div>
+  <!-- HERO -->
+  <header class="page-hero">
+    <img src="/images/wifi-icon.png" class="page-icon" alt="">
+    <h1>Wi-Fi Safety</h1>
+    <p style="max-width:720px;margin:0 auto;color:#4a5b63;">
+      Your router is the digital front door to your home. If it’s weak, outdated or misconfigured, anyone nearby can attempt to get in.
+    </p>
+  </header>
 
-<div class="content-card">
+  <!-- CONTENT -->
+  <section class="section">
+    <div class="container">
 
-  <h2>Recommended Steps</h2>
-  <ul>
-    <li>Change your default Wi-Fi password</li>
-    <li>Update router firmware</li>
-    <li>Disable WPS</li>
-    <li>Use WPA3 if available</li>
-    <li>Rename your network (remove personal info)</li>
-  </ul>
+      <div class="content-card">
 
-  <a href="/resources/" class="back-btn">← Back to Resources</a>
+        <h2>Why Wi-Fi Security Matters</h2>
+        <p>
+          Every device in your home connects through your router — phones, tablets, consoles, TVs, smart speakers, cameras and more.
+          If someone gains access to your Wi-Fi, they can see or target everything connected to it.
+        </p>
 
-</div>
+        <div style="background:#ffeceb;border-left:5px solid #d9534f;padding:18px 20px;border-radius:10px;margin:25px 0;">
+          <strong>What You Should Know:</strong>
+          <ul style="margin-top:10px;padding-left:20px;line-height:1.6;">
+            <li>Many routers still use weak default passwords.</li>
+            <li>Old routers often contain unpatched vulnerabilities.</li>
+            <li>Anyone within range — even neighbours — can attempt to access unsecured Wi-Fi.</li>
+            <li>Unprotected Wi-Fi can expose devices, chats, files and private information.</li>
+          </ul>
+        </div>
+
+        <h2>How to Protect Your Wi-Fi</h2>
+
+        <h3>1. Change Your Router Password</h3>
+        <p>
+          Your router password should be long, unique and not shared with anyone outside your household.
+        </p>
+
+        <h3>2. Update Your Router Firmware</h3>
+        <p>
+          Most people never update their router. Firmware updates fix serious security flaws — check your provider’s app or login page.
+        </p>
+
+        <h3>3. Turn Off WPS (Wi-Fi Protected Setup)</h3>
+        <p>
+          WPS is a known vulnerability. If your router allows it, disable WPS for stronger security.
+        </p>
+
+        <h3>4. Use WPA2 or WPA3 Encryption</h3>
+        <p>
+          Older security modes like WEP are extremely weak. Set your router to WPA2 or WPA3 only.
+        </p>
+
+        <h3>5. Separate Your Guest Network</h3>
+        <p>
+          If visitors connect to your Wi-Fi, use a guest network. This protects your main devices from exposure.
+        </p>
+
+        <h3>6. Reboot Your Router Monthly</h3>
+        <p>
+          Restarting your router helps clear temporary vulnerabilities and keeps performance stable.
+        </p>
+
+        <a href="/resources/" class="back-btn">← Back to Resources</a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2025 Cyber Seeds. Digital Safety for Families.</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#audit">Audit</a>
+        <a href="/#resources-preview">Resources</a>
+        <a href="/#contact">Book</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+
 </body>
 </html>
