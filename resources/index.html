@@ -5,45 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resources – Cyber Seeds</title>
   <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .page-hero {
+      background: #e9f5f1;
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 1px solid #d8ebe5;
+    }
+
+    .page-hero h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .resource-card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .resource-card h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .resource-card .btn-primary {
+      margin-top: 12px;
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container" style="padding: 80px 0;">
-  <h1 style="text-align:center;">Free Resources</h1>
-  <p style="text-align:center; max-width:700px; margin:10px auto;">
-    Simple, trusted digital safety guides for UK families — built to protect your Wi-Fi, devices, privacy, and children online.
-  </p>
+<div class="page-hero">
+  <h1>Free Digital Safety Resources</h1>
+  <p>Simple, trusted Cyber Seeds guides for real UK families.</p>
+</div>
 
-  <div class="services-grid" style="margin-top:40px;">
+<div class="container" style="padding:50px 0;">
+  <div class="resource-grid">
 
-    <div class="service-card">
+    <div class="resource-card">
       <h3>Wi-Fi Safety</h3>
-      <p>Secure your router & home network.</p>
+      <p>Secure your home network.</p>
       <a href="/resources/wifi/" class="btn btn-primary">Open Guide</a>
     </div>
 
-    <div class="service-card">
+    <div class="resource-card">
       <h3>Device Hygiene</h3>
-      <p>Keep devices healthy & secure.</p>
+      <p>Keep your devices protected.</p>
       <a href="/resources/device-hygiene/" class="btn btn-primary">Open Guide</a>
     </div>
 
-    <div class="service-card">
+    <div class="resource-card">
       <h3>Online Safety</h3>
-      <p>Protect privacy & reduce exposure.</p>
+      <p>Reduce your digital exposure.</p>
       <a href="/resources/online-safety/" class="btn btn-primary">Open Guide</a>
     </div>
 
-    <div class="service-card">
+    <div class="resource-card">
       <h3>Phishing & Scams</h3>
-      <p>Avoid common UK digital threats.</p>
+      <p>Avoid common UK scams.</p>
       <a href="/resources/phishing/" class="btn btn-primary">Open Guide</a>
     </div>
 
-    <div class="service-card">
+    <div class="resource-card">
       <h3>Children’s Risk Index</h3>
-      <p>Understand risks in games & apps.</p>
+      <p>Understand unseen risks in games & apps.</p>
       <a href="/resources/childrens-risk-index/" class="btn btn-primary">Open Guide</a>
     </div>
 
