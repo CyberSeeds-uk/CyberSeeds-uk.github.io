@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources – Cyber Seeds</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    .page-hero {
-      background: #e9f5f1;
-      padding: 50px 20px;
-      text-align: center;
-      border-bottom: 1px solid #d8ebe5;
-    }
+  <title>Cyber Seeds Resources – Free Guides for UK Families</title>
+  <meta name="description" content="Free digital safety resources for UK families. Wi-Fi protection, device hygiene, scam prevention, and children's digital wellbeing.">
 
-    .page-hero h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-
-    .resource-card {
-      background: white;
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      text-align: center;
-    }
-
-    .resource-card h3 {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .resource-card .btn-primary {
-      margin-top: 12px;
-      display: inline-block;
-    }
-  </style>
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
 
-<div class="page-hero">
-  <h1>Free Digital Safety Resources</h1>
-  <p>Simple, trusted Cyber Seeds guides for real UK families.</p>
-</div>
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <img src="/images/resource-icon.png" class="page-icon" alt="">
+    <h1>Free Digital Safety Resources</h1>
+    <p style="max-width:720px;margin:0 auto;color:#4a5b63;">
+      Simple, trusted, family-friendly guides created to help you protect your home, your devices and your children online.
+    </p>
+  </header>
 
-<div class="container" style="padding:50px 0;">
-  <div class="resource-grid">
+  <!-- RESOURCE GRID -->
+  <section class="section">
+    <div class="container">
 
-    <div class="resource-card">
-      <h3>Wi-Fi Safety</h3>
-      <p>Secure your home network.</p>
-      <a href="/resources/wifi/" class="btn btn-primary">Open Guide</a>
+      <div class="resources-grid">
+
+        <!-- Wi-Fi Safety -->
+        <div class="resource-card">
+          <h3>Wi-Fi Safety</h3>
+          <p class="fact">Your router is the front door to your digital home. Weak settings make it easy to break in.</p>
+          <a href="/resources/wifi/" class="btn btn-green-sm">Open Guide</a>
+        </div>
+
+        <!-- Device Hygiene -->
+        <div class="resource-card">
+          <h3>Device Hygiene</h3>
+          <p class="fact">Old devices and outdated apps create silent vulnerabilities attackers rely on.</p>
+          <a href="/resources/device-hygiene/" class="btn btn-green-sm">Open Guide</a>
+        </div>
+
+        <!-- Children's Digital Risk Index -->
+        <div class="resource-card">
+          <h3>Children’s Digital Risk Index</h3>
+          <p class="fact">Gaming chats and apps often expose children to strangers without parents realising.</p>
+          <a href="/resources/childrens-risk-index/" class="btn btn-green-sm">Open Guide</a>
+        </div>
+
+        <!-- Online Safety Basics -->
+        <div class="resource-card">
+          <h3>Online Safety Basics</h3>
+          <p class="fact">Simple habits protect your identity, bank account and privacy every single day.</p>
+          <a href="/resources/online-safety/" class="btn btn-green-sm">Open Guide</a>
+        </div>
+
+        <!-- Phishing & Scam Defence -->
+        <div class="resource-card">
+          <h3>Phishing & Scam Defence</h3>
+          <p class="fact">Modern scams are polished, convincing and increasingly AI-generated.</p>
+          <a href="/resources/phishing/" class="btn btn-green-sm">Open Guide</a>
+        </div>
+
+      </div>
+
+      <!-- Back Button -->
+      <div style="text-align:center;margin-top:40px;">
+        <a href="/" class="back-btn">← Back to Home</a>
+      </div>
+
     </div>
+  </section>
 
-    <div class="resource-card">
-      <h3>Device Hygiene</h3>
-      <p>Keep your devices protected.</p>
-      <a href="/resources/device-hygiene/" class="btn btn-primary">Open Guide</a>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2025 Cyber Seeds. Digital Safety for Families.</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#audit">Audit</a>
+        <a href="/#resources-preview">Resources</a>
+        <a href="/#contact">Book</a>
+      </div>
     </div>
+  </footer>
 
-    <div class="resource-card">
-      <h3>Online Safety</h3>
-      <p>Reduce your digital exposure.</p>
-      <a href="/resources/online-safety/" class="btn btn-primary">Open Guide</a>
-    </div>
-
-    <div class="resource-card">
-      <h3>Phishing & Scams</h3>
-      <p>Avoid common UK scams.</p>
-      <a href="/resources/phishing/" class="btn btn-primary">Open Guide</a>
-    </div>
-
-    <div class="resource-card">
-      <h3>Children’s Risk Index</h3>
-      <p>Understand unseen risks in games & apps.</p>
-      <a href="/resources/childrens-risk-index/" class="btn btn-primary">Open Guide</a>
-    </div>
-
-  </div>
-</div>
+  <script src="/script.js"></script>
 
 </body>
 </html>
