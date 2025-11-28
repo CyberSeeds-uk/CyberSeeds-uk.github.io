@@ -5,28 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Device Hygiene – Cyber Seeds</title>
   <link rel="stylesheet" href="../../style.css">
+
+  <style>
+    .page-hero { background:#e9f5f1; padding:50px 20px; text-align:center; }
+    .page-hero h1 { font-size:2.4rem; color:var(--primary); font-weight:700; }
+    .content-card {
+      background:white; padding:40px; margin:40px auto;
+      max-width:860px; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,0.06);
+    }
+    .back-btn {
+      display:inline-block; padding:12px 22px; border:2px solid var(--primary);
+      color:var(--primary); border-radius:12px; margin-top:30px;
+      text-decoration:none; transition:0.25s;
+    }
+    .back-btn:hover { background:var(--primary); color:white; }
+  </style>
 </head>
 
 <body>
 
-<div class="container" style="padding:80px 0;">
+<div class="page-hero">
+  <h1>Device Hygiene</h1>
+  <p>Keep phones, tablets, laptops and smart devices protected.</p>
+</div>
 
-  <div class="card" style="padding:40px; max-width:820px; margin:auto;">
-    <h1>Device Hygiene</h1>
+<div class="content-card">
 
-    <p>Keeping your phones, tablets, laptops and smart devices healthy protects your privacy, data and online identity.</p>
+  <h2>Checklist</h2>
+  <ul>
+    <li>Enable automatic updates</li>
+    <li>Use unique passwords</li>
+    <li>Enable biometrics (FaceID / fingerprint)</li>
+    <li>Review app permissions regularly</li>
+    <li>Remove unused apps</li>
+  </ul>
 
-    <h3 style="margin-top:30px;">Checklist</h3>
-    <ul>
-      <li>Enable automatic updates</li>
-      <li>Use unique passwords for all accounts</li>
-      <li>Enable FaceID / fingerprint unlock</li>
-      <li>Review app permissions regularly</li>
-      <li>Remove apps you no longer use</li>
-    </ul>
-
-    <a href="/resources/" class="btn btn-outline" style="margin-top:30px;">← Back to Resources</a>
-  </div>
+  <a href="/resources/" class="back-btn">← Back to Resources</a>
 
 </div>
 
