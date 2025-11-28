@@ -49,9 +49,17 @@ body {
 }
 
 .logo {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.45rem;
   font-weight: 700;
-  color: #0a2953;
+  color: var(--navy);
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
 }
 
 .nav-links {
