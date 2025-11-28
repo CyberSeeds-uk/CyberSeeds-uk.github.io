@@ -1,138 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Seeds – Home Cyber Defence for UK Families</title>
 
-    <title>Cyber Seeds – Home Cyber Defence & Digital Safety for UK Families</title>
-    <meta name="description" content="Cyber Seeds provides expert Home Cyber Defence, digital risk protection, privacy hardening, and children's online safety guidance for families across the UK.">
+  <meta name="description" content="Premium home cyber defence and digital hygiene consultancy for UK families. Protect your Wi-Fi, devices, privacy and children with professional support." />
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Cyber Seeds – Home Cyber Defence">
-    <meta property="og:description" content="Professional digital safety, privacy hardening, and home network protection for UK families.">
-    <meta property="og:image" content="logo.png">
-    <meta property="og:url" content="https://cyberseeds-uk.github.io/">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="/" class="nav-logo">
-            <img src="logo.png" alt="Cyber Seeds Logo">
-            Cyber Seeds
-        </a>
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container nav-wrapper">
 
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="audit.html">5-Layer Audit</a></li>
-            <li><a href="packages.html">Packages</a></li>
-            <li><a href="schedule.html">Book</a></li>
-        </ul>
+      <a href="#" class="logo">Cyber Seeds</a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="hamburger">
+        <span></span><span></span><span></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#audit">5-Layer Audit</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#contact">Book</a></li>
+      </ul>
+
     </div>
-</nav>
+  </nav>
 
-<!-- HERO SECTION -->
-<header class="hero">
-    <h1>Home Cyber Defence for Real UK Families</h1>
-    <p>Protecting your home like a small business. Guiding your family like a trusted advisor.</p>
 
-    <a href="schedule.html" class="cta-button">Book Your Audit</a>
-</header>
+  <!-- HERO SECTION -->
+  <header id="home" class="hero">
+    <div class="hero-overlay"></div>
 
-<!-- INTRO -->
-<section class="section">
-    <h2>Why Your Home Needs Cyber Defence</h2>
-    <p>
-        Modern homes have more devices, more accounts, more online exposure, and more risk than most small businesses.
-        Cyber Seeds helps UK families secure their WiFi, harden devices, protect privacy, prevent scams, and keep children safe online — calmly, clearly, and professionally.
-    </p>
-</section>
+    <div class="container hero-content">
+      <h1>Home Cyber Defence for Real UK Families</h1>
+      <p class="hero-sub">Practical digital protection for your Wi-Fi, devices, privacy and children — delivered like a trusted advisor, not a tech lecture.</p>
 
-<!-- 5-LAYER AUDIT -->
-<section class="section highlight">
-    <h2>The 5-Layer Home Cyber Defence Audit</h2>
-
-    <div class="audit-item">
-        <h3>1. Home Network Attack Surface Analysis</h3>
-        <p>We check passwords, encryption, firmware, open ports, DNS security, IoT isolation, device fingerprinting and more — reducing your home’s hackability by up to 90%.</p>
+      <div class="hero-actions">
+        <a href="#audit" class="btn btn-primary">Explore the Audit</a>
+        <a href="#contact" class="btn btn-outline">Book Your Audit</a>
+      </div>
     </div>
+  </header>
 
-    <div class="audit-item">
-        <h3>2. Endpoint & Device Hardening</h3>
-        <p>We secure phones, laptops, tablets, consoles and smart devices with malware checks, permission audits, encryption validation, browser privacy, MFA optimisation, and lockscreen policy improvements.</p>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <h2>Why Your Home Needs Cyber Defence</h2>
+      <p>
+        Modern homes have more devices, more accounts, more online exposure and more risk than most small businesses. Cyber Seeds helps UK families secure their Wi-Fi, harden devices, protect privacy, prevent scams and keep children safe on platforms like Roblox, TikTok and gaming communities.
+      </p>
+      <p>
+        Our approach is simple: no judgement, no jargon — just clear steps that strengthen your entire household. You don’t need to understand cybersecurity. You just need the right guidance.
+      </p>
     </div>
+  </section>
 
-    <div class="audit-item">
-        <h3>3. Identity & Data Leak OSINT</h3>
-        <p>We map your exposure in breaches, leaks, social media, dark web mentions, and impersonation pathways — closing off the most common real-world attacks.</p>
+
+  <!-- SERVICES / AUDIT -->
+  <section id="audit" class="section services-section">
+    <div class="container">
+      <h2>Our 5-Layer Home Cyber Audit</h2>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 8.82a16 16 0 0 1 20 0" />
+              <path d="M5 12.18a12 12 0 0 1 14 0" />
+              <path d="M8.5 15.55a8 8 0 0 1 7 0" />
+              <circle cx="12" cy="18" r="1" />
+            </svg>
+          </div>
+          <h3>Wi-Fi & Router Security</h3>
+          <p>Your router is the front door to your digital home. We lock it down properly.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3>Device Health & Updates</h3>
+          <p>We scan phones, tablets, laptops and smart devices for vulnerabilities.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <path d="M3 10h7v4H3z"></path>
+            </svg>
+          </div>
+          <h3>Data Exposure Scan</h3>
+          <p>We check whether your email or passwords have leaked online.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+            </svg>
+          </div>
+          <h3>Scam Defence & Awareness</h3>
+          <p>We teach you to spot and prevent the scams most homes fall victim to.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 21v-4" />
+              <path d="M9 17h6" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <h3>Children’s Digital Wellbeing</h3>
+          <p>We review games, chats, privacy and hidden risks — especially on Roblox.</p>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <div class="audit-item">
-        <h3>4. Children’s Digital Space Risk Model</h3>
-        <p>We assess privacy leaks, risky app features, messaging settings, Roblox/Discord/Snapchat exposure, grooming vectors, and toxicity signals — giving children resilience, not fear.</p>
+
+  <!-- PACKAGES SECTION -->
+  <section id="packages" class="section">
+    <div class="container">
+      <h2>Packages</h2>
+      <p>Coming soon — family, advanced and full-home packages with follow-ups.</p>
     </div>
+  </section>
 
-    <div class="audit-item">
-        <h3>5. Scam Resistance & Behavioural Safety</h3>
-        <p>We strengthen the human layer with phishing recognition, impersonation defence, scam-proof settings, and tailored daily safety routines for your household.</p>
+
+  <!-- CONTACT / BOOKING -->
+  <section id="contact" class="section cta-section">
+    <div class="container cta-content">
+      <h2>Ready to Protect Your Home?</h2>
+      <p>Book a one-on-one session and receive a personalised action plan for your family.</p>
+      <a href="mailto:contact@cyberseeds.co.uk" class="btn btn-large btn-primary">Schedule Your Audit</a>
     </div>
-</section>
+  </section>
 
-<!-- DELIVERABLES -->
-<section class="section">
-    <h2>What You Receive</h2>
-    <ul class="deliverables">
-        <li>Professional-grade PDF report</li>
-        <li>Traffic-light risk scoring system</li>
-        <li>Full OSINT data exposure summary</li>
-        <li>Network & device hardening blueprint</li>
-        <li>Children’s digital safety strategy</li>
-        <li>Attacker’s-eye OSINT snapshot</li>
-        <li>Clear, calm, step-by-step guidance</li>
-        <li>Follow-up support window</li>
-    </ul>
-</section>
 
-<!-- PACKAGES PREVIEW -->
-<section class="section highlight">
-    <h2>Packages</h2>
-
-    <div class="package-box">
-        <h3>🌱 Standard Home MOT — £85</h3>
-        <p>A modernised safety check for families wanting clarity and quick wins.</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2025 Cyber Seeds. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#audit">Audit</a>
+        <a href="#contact">Book</a>
+      </div>
     </div>
+  </footer>
 
-    <div class="package-box">
-        <h3>🔵 Home Cyber Defence Audit — £185</h3>
-        <p>Our most popular service: full 5-layer audit, OSINT, and device hardening.</p>
-    </div>
-
-    <div class="package-box">
-        <h3>🛡️ Elite Home Pentest — £295–£495</h3>
-        <p>For high-risk households, influencers, business owners, or families with complex digital setups.</p>
-    </div>
-
-    <a href="packages.html" class="cta-button">View Full Packages</a>
-</section>
-
-<!-- CTA -->
-<section class="section cta-section">
-    <h2>Ready to Secure Your Home?</h2>
-    <p>Start with a calm, friendly conversation — no judgement, no jargon.</p>
-    <a href="schedule.html" class="cta-button">Book Your Audit</a>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-    <p>© 2025 Cyber Seeds — Home Cyber Defence for UK Families</p>
-    <p><a href="about.html">About</a> • <a href="contact.html">Contact</a></p>
-</footer>
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
 
 </body>
 </html>
