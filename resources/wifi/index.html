@@ -5,30 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wi-Fi Safety – Cyber Seeds</title>
   <link rel="stylesheet" href="../../style.css">
+
+  <style>
+    .page-hero { background:#e9f5f1; padding:50px 20px; text-align:center; }
+    .page-hero h1 { font-size:2.4rem; color:var(--primary); font-weight:700; }
+    .content-card {
+      background:white; padding:40px; margin:40px auto;
+      max-width:860px; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,0.06);
+    }
+    .back-btn {
+      display:inline-block; padding:12px 22px; border:2px solid var(--primary);
+      color:var(--primary); border-radius:12px; margin-top:30px; text-decoration:none;
+      transition:0.25s;
+    }
+    .back-btn:hover { background:var(--primary); color:white; }
+  </style>
 </head>
 
 <body>
 
-<div class="container" style="padding:80px 0;">
-
-  <div class="card" style="padding:40px; max-width:820px; margin:auto;">
-    <h1>Wi-Fi & Router Safety</h1>
-
-    <p>Your router is the entry point to your entire digital home. Securing it prevents hacking, snooping, and device compromise.</p>
-
-    <h3 style="margin-top:30px;">Recommended Steps</h3>
-    <ul>
-      <li>Change the default Wi-Fi password</li>
-      <li>Update router firmware</li>
-      <li>Disable WPS</li>
-      <li>Use WPA3 encryption if available</li>
-      <li>Rename your Wi-Fi network</li>
-    </ul>
-
-    <a href="/resources/" class="btn btn-outline" style="margin-top:30px;">← Back to Resources</a>
-  </div>
-
+<div class="page-hero">
+  <h1>Wi-Fi & Router Safety</h1>
+  <p>The entry point to your digital home — properly secured.</p>
 </div>
 
+<div class="content-card">
+
+  <h2>Recommended Steps</h2>
+  <ul>
+    <li>Change your default Wi-Fi password</li>
+    <li>Update router firmware</li>
+    <li>Disable WPS</li>
+    <li>Use WPA3 if available</li>
+    <li>Rename your network (remove personal info)</li>
+  </ul>
+
+  <a href="/resources/" class="back-btn">← Back to Resources</a>
+
+</div>
 </body>
 </html>
