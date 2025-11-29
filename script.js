@@ -46,3 +46,38 @@ window.addEventListener("scroll", () => {
     navbar.classList.remove("nav-scrolled");
   }
 });
+
+/* -------------------------------------------
+   SLIDING DRAWER MENU JS (2025)
+------------------------------------------- */
+
+const hamburger = document.getElementById("hamburger");
+const drawer = document.getElementById("drawer");
+const overlay = document.getElementById("drawer-overlay");
+
+function openDrawer() {
+  drawer.classList.add("open");
+  overlay.classList.add("active");
+  hamburger.classList.add("active");
+}
+
+function closeDrawer() {
+  drawer.classList.remove("open");
+  overlay.classList.remove("active");
+  hamburger.classList.remove("active");
+}
+
+hamburger.addEventListener("click", () => {
+  if (drawer.classList.contains("open")) {
+    closeDrawer();
+  } else {
+    openDrawer();
+  }
+});
+
+overlay.addEventListener("click", closeDrawer);
+
+/* Close drawer when clicking a menu link */
+document.querySelectorAll(".drawer a").forEach(link => {
+  link.addEventListener("click", closeDrawer);
+});
