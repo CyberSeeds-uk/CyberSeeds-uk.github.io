@@ -71,19 +71,33 @@ body {
 .nav-links {
   display: flex;
   gap: 30px;
+  align-items: center;
 }
 
-.nav-links a {
+.nav-links a,
+.drawer ul li a {
   color: #1a2a33;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 8px;
+  padding: 8px 16px;
 }
 
-.nav-links a:hover {
+.nav-links .nav-link-partners,
+.drawer .nav-link-partners {
+  background: #e6f9f4;
   color: #0a5cff;
+  font-weight: 700;
+  border: 1.5px solid #0a5cff;
+  margin-left: 6px;
 }
 
+.nav-links .nav-link-partners:hover,
+.drawer .nav-link-partners:hover {
+  background: #0a5cff;
+  color: #fff;
+}
 /* ======================================================
    SLIDING DRAWER NAV (Mobile)
 ====================================================== */
