@@ -13,80 +13,95 @@
 
 <body>
 
-  <!-- PAGE HERO -->
-  <header class="page-hero resources-hero">
-    <h1>Free Digital Safety Resources</h1>
-    <p class="page-subtitle">
-      Trusted, family-friendly guides designed to help protect your home, your devices and your children online.
-    </p>
-  </header>
+<!-- HERO -->
+<header class="page-hero resources-hero" style="
+  background: linear-gradient(135deg, #e7f5ff 0%, #f7fff1 100%);
+  padding: 80px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eef2f5;
+">
+  <h1 style="font-size: 2.8rem; margin-bottom: 10px;">Free Digital Safety Resources</h1>
+  <p class="page-subtitle" style="max-width: 760px; margin: 0 auto;">
+    Trusted, family-friendly guides designed to help protect your home, devices, and children online — without fear, panic or overwhelm.
+  </p>
+</header>
 
-  <!-- RESOURCE GRID -->
-  <section class="section">
-    <div class="container">
+<section class="section">
+  <div class="container">
 
-      <div class="resources-grid">
+    <!-- RESOURCE GRID -->
+    <div class="resources-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    ">
 
-        <!-- Wi-Fi Safety -->
-        <div class="resource-card">
-          <h3>Wi-Fi Safety</h3>
-          <p>Your router is the digital front door to your home. Weak settings make it easy to break in.</p>
-          <a href="/resources/wifi/" class="btn btn-green-sm">Open Guide</a>
-        </div>
-
-        <!-- Device Hygiene -->
-        <div class="resource-card">
-          <h3>Device Hygiene</h3>
-          <p>Old devices and outdated apps create silent vulnerabilities attackers rely on.</p>
-          <a href="/resources/device-hygiene/" class="btn btn-green-sm">Open Guide</a>
-        </div>
-
-        <!-- Children's Digital Risk Index -->
-        <div class="resource-card">
-          <h3>Children’s Digital Risk Index</h3>
-          <p>Gaming chats and social apps often expose children to strangers without parents realising.</p>
-          <a href="/resources/childrens-risk-index/" class="btn btn-green-sm">Open Guide</a>
-        </div>
-
-        <!-- Online Safety Basics -->
-        <div class="resource-card">
-          <h3>Online Safety Basics</h3>
-          <p>Simple daily habits protect your identity, bank account and personal information.</p>
-          <a href="/resources/online-safety/" class="btn btn-green-sm">Open Guide</a>
-        </div>
-
-        <!-- Phishing & Scam Defence -->
-        <div class="resource-card">
-          <h3>Phishing & Scam Defence</h3>
-          <p>Modern scams are polished, convincing and increasingly AI-generated.</p>
-          <a href="/resources/phishing/" class="btn btn-green-sm">Open Guide</a>
-        </div>
-
+      <!-- Wi-Fi Safety -->
+      <div class="resource-card enhanced-card">
+        <img src="/images/wifi-icon.png" class="resource-icon" alt="">
+        <h3>Wi-Fi Safety</h3>
+        <p>Weak Wi-Fi settings expose every device in your home. This guide shows how to secure your network in minutes.</p>
+        <a href="/resources/wifi/" class="btn btn-green-sm">Open Guide</a>
       </div>
 
-      <!-- Back Button -->
-      <div class="center mt-40">
-        <a href="/" class="back-btn">← Back to Home</a>
+      <!-- Device Hygiene -->
+      <div class="resource-card enhanced-card">
+        <img src="/images/device-icon.png" class="resource-icon" alt="">
+        <h3>Device Hygiene</h3>
+        <p>Old apps and outdated settings create easy entry points for attackers. Learn simple weekly habits that protect your home.</p>
+        <a href="/resources/device-hygiene/" class="btn btn-green-sm">Open Guide</a>
+      </div>
+
+      <!-- Children’s Digital Risk Index -->
+      <div class="resource-card enhanced-card">
+        <img src="/images/child-icon.png" class="resource-icon" alt="">
+        <h3>Children’s Digital Risk Index</h3>
+        <p>Games and apps expose children to strangers more often than adults realise. Understand the hidden risks — calmly.</p>
+        <a href="/resources/childrens-risk-index/" class="btn btn-green-sm">Open Guide</a>
+      </div>
+
+      <!-- Online Safety Basics -->
+      <div class="resource-card enhanced-card">
+        <img src="/images/online-icon.png" class="resource-icon" alt="">
+        <h3>Online Safety Basics</h3>
+        <p>Small daily habits protect your privacy, identity and money. Perfect for beginners and busy families.</p>
+        <a href="/resources/online-safety/" class="btn btn-green-sm">Open Guide</a>
+      </div>
+
+      <!-- Phishing & Scam Defence -->
+      <div class="resource-card enhanced-card">
+        <img src="/images/phishing-icon.png" class="resource-icon" alt="">
+        <h3>Phishing & Scam Defence</h3>
+        <p>Modern scams look real — many are AI-generated. Learn how to spot them instantly and protect your household.</p>
+        <a href="/resources/phishing/" class="btn btn-green-sm">Open Guide</a>
       </div>
 
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>© 2025 Cyber Seeds. Digital Safety for Families.</p>
-      <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/#about">About</a>
-        <a href="/#audit">Audit</a>
-        <a href="/#resources-preview">Resources</a>
-        <a href="/#contact">Book</a>
-      </div>
+    <!-- BACK BUTTON -->
+    <div class="center mt-40">
+      <a href="/" class="back-btn">← Back to Home</a>
     </div>
-  </footer>
 
-  <script src="/script.js"></script>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-content">
+    <p>© 2025 Cyber Seeds. Digital Safety for Families.</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#about">About</a>
+      <a href="/#audit">Audit</a>
+      <a href="/#resources-preview">Resources</a>
+      <a href="/#contact">Book</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
 
 </body>
 </html>
