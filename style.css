@@ -576,6 +576,28 @@ body {
   color: #4a5b63;
   line-height: 1.6;
 }
+
+.enhanced-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.enhanced-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+.resource-icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 18px;
+  opacity: 0.95;
+}
+
 /* ======================================================
    CTA
 ====================================================== */
