@@ -1,3 +1,16 @@
+/*
+  Cyber Seeds site styles
+  -----------------------
+
+  The palette and typography here aim for a calm, restrained look. The
+  visual hierarchy is clear and minimal, leaving space for the reader
+  to think. Colours are based off of muted blues, greens, ambers and
+  violets to gently differentiate the key sections without overwhelming
+  the reader. Throughout the stylesheet you’ll notice generous
+  padding and spacing to give each element room to breathe.
+*/
+
+/* Root variables define the palette for easy tweaking */
 :root {
   --ink: #0b1220;
   --muted: #475569;
@@ -6,11 +19,13 @@
   --line: #e5e7eb;
 
   --blue: #2563eb;
+  --blue-hover: #1e40af;
   --green: #16a34a;
   --amber: #d97706;
   --violet: #7c3aed;
 }
 
+/* Global reset */
 * {
   box-sizing: border-box;
 }
@@ -21,100 +36,133 @@ body {
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont,
     "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.55;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Layout container: centres content and limits width */
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 64px 24px 56px;
+  padding: 80px 24px 60px;
 }
 
 /* HERO */
-
 .hero {
   text-align: left;
-  margin-bottom: 56px;
+  margin-bottom: 80px;
 }
 
 .tagline {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--soft);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  display: block;
 }
 
 h1 {
-  font-size: clamp(3rem, 8vw, 4rem);
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   margin: 0;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
+  color: var(--ink);
 }
 
 .subtitle {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--muted);
-  margin: 18px 0 26px;
+  margin-top: 22px;
+  margin-bottom: 32px;
 }
 
 .btn-primary {
   display: inline-block;
-  padding: 14px 30px;
-  border-radius: 999px;
+  padding: 16px 34px;
+  border-radius: 9999px;
   background: var(--blue);
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--blue-hover);
 }
 
 .meta {
-  margin-top: 14px;
+  margin-top: 16px;
   font-size: 0.85rem;
   color: var(--soft);
 }
 
 /* ABOUT */
+.about {
+  margin-bottom: 70px;
+}
 
 .about h2 {
-  font-size: 1.5rem;
-  margin-bottom: 14px;
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .about p {
   font-size: 1.05rem;
-  margin-bottom: 18px;
+  color: var(--muted);
+  margin-bottom: 20px;
 }
 
 .principles {
   list-style: none;
   padding: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  display: grid;
-  gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.principles li {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: #f9fafb;
 }
 
 /* SIGNALS */
-
 .signals {
-  margin-top: 40px;
+  margin-top: 60px;
   display: grid;
-  gap: 20px;
+  gap: 24px;
 }
 
 .signal {
-  padding: 18px 20px;
-  border-radius: 12px;
-  border-left: 6px solid;
-  background: #f9fafb;
+  padding: 24px;
+  border-radius: 14px;
+  border-left: 8px solid;
+  background: #f8fafc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .signal h3 {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.signal p {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 .card-good {
@@ -129,10 +177,99 @@ h1 {
   border-color: var(--violet);
 }
 
-/* FOOTER */
+/* PHILOSOPHY / VALUE */
+.value {
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
 
-.footer {
+.value .value-line {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+/* OUTCOME */
+.outcome {
   margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.outcome h2 {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.outcome p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.outcomes {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 18px;
+}
+
+.outcomes li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.outcomes li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--violet);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.outcome-note {
+  font-size: 0.95rem;
+  color: var(--soft);
+}
+
+/* CTA */
+.cta {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 16px 36px;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #1f2937;
+}
+
+.cta .meta {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+
+/* Footer */
+.footer {
+  margin-top: 80px;
   padding: 24px;
   border-top: 1px solid var(--line);
   text-align: center;
@@ -143,9 +280,15 @@ h1 {
 .footer a {
   color: var(--muted);
   text-decoration: none;
+  margin: 0 6px;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--ink);
 }
 
 .separator {
-  margin: 0 6px;
   color: var(--soft);
+  margin: 0 6px;
 }
