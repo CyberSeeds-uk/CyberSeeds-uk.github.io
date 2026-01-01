@@ -1,152 +1,147 @@
-/* ======================================================
-   CYBER SEEDS — CANON UI v1.0
-   Calm Authority • Deliberate Colour • Family-Safe
-   Replace entire file
-====================================================== */
+:root {
+  --ink: #0f172a;
+  --muted: #475569;
+  --soft: #94a3b8;
+  --line: #e5e7eb;
+  --accent: #2563eb;
+  --bg: #ffffff;
+}
 
-/* ---------- RESET ---------- */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* ---------- VARIABLES (LOCKED CANON) ---------- */
-:root {
-  --ink: #0f1f2d;
-  --ink-soft: #334a5f;
-  --muted: #6b7c8a;
-
-  --seed: #0a5cff;
-  --seed-soft: #e8f0ff;
-
-  --ground: #f6f9fc;
-  --card: #ffffff;
-  --line: rgba(15, 31, 45, 0.08);
-
-  --radius: 14px;
-}
-
-/* ---------- BASE ---------- */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--ground);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
   color: var(--ink);
-  line-height: 1.65;
+  line-height: 1.45;
 }
 
-/* ---------- LAYOUT ---------- */
-.container {
-  max-width: 720px;
-  margin: 96px auto;
-  padding: 0 28px;
+.frame {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 24px 56px;
 }
 
-/* ---------- TYPOGRAPHY ---------- */
+/* HERO */
+
+.hero {
+  text-align: left;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
 h1 {
-  font-size: 2.6rem;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.4rem;
-}
-
-h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.01em;
-}
-
-p {
-  color: var(--ink-soft);
-  margin-bottom: 1.4rem;
-}
-
-.lead {
-  font-size: 1.15rem;
-  max-width: 620px;
-}
-
-/* ---------- LISTS ---------- */
-.points {
-  list-style: none;
-  margin: 2.4rem 0 3rem;
-}
-
-.points li {
-  position: relative;
-  padding-left: 1.6rem;
-  margin-bottom: 1.1rem;
-  color: var(--ink-soft);
-}
-
-.points li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--seed);
+  font-size: clamp(3.2rem, 8vw, 4.5rem);
+  line-height: 1;
+  margin: 20px 0 24px;
   font-weight: 700;
 }
 
-/* ---------- CTA ---------- */
-.cta {
-  margin: 3.5rem 0 1.2rem;
-  text-align: center;
+.hero-line {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
 }
 
-.button {
-  display: inline-block;
-  background: var(--seed);
-  color: #fff;
-  padding: 14px 34px;
-  border-radius: 999px;
+.hero-sub {
   font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 8px 24px rgba(10, 92, 255, 0.25);
-}
-
-.button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 30px rgba(10, 92, 255, 0.35);
-}
-
-.note {
-  font-size: 0.9rem;
   color: var(--muted);
-  margin-top: 0.9rem;
+  margin-bottom: 36px;
 }
 
-/* ---------- SECTION DIVIDER ---------- */
-.section {
-  margin-top: 5.5rem;
-  padding-top: 3.5rem;
-  border-top: 1px solid var(--line);
+/* CTA */
+
+.cta {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* ---------- FOOTER ---------- */
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+}
+
+.meta {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+/* DIVIDER */
+
+.divider {
+  margin: 64px 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* EXPLAIN */
+
+.explain p {
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+}
+
+.explain .muted {
+  color: var(--soft);
+}
+
+/* SIGNALS */
+
+.signals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.signal {
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.signal span {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.signal p {
+  margin: 8px 0 0;
+  font-size: 1rem;
+}
+
+/* FOOTER */
+
 footer {
-  margin: 6rem 0 2.5rem;
+  border-top: 1px solid var(--line);
+  padding: 24px;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--muted);
 }
 
 footer a {
-  color: var(--ink-soft);
-  text-decoration: underline;
+  color: var(--muted);
+  text-decoration: none;
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 640px) {
-  .container {
-    margin: 72px auto;
-  }
-
-  h1 {
-    font-size: 2.1rem;
-  }
+footer span {
+  margin: 0 6px;
+  color: var(--soft);
 }
