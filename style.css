@@ -1,161 +1,152 @@
 /* ======================================================
    CYBER SEEDS — CANON UI v1.0
-   Deliberate • Calm • Institutional • Governable
-   No marketing theatrics. No visual noise.
+   Calm Authority • Deliberate Colour • Family-Safe
+   Replace entire file
 ====================================================== */
 
 /* ---------- RESET ---------- */
-*,
-*::before,
-*::after {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
+/* ---------- VARIABLES (LOCKED CANON) ---------- */
+:root {
+  --ink: #0f1f2d;
+  --ink-soft: #334a5f;
+  --muted: #6b7c8a;
+
+  --seed: #0a5cff;
+  --seed-soft: #e8f0ff;
+
+  --ground: #f6f9fc;
+  --card: #ffffff;
+  --line: rgba(15, 31, 45, 0.08);
+
+  --radius: 14px;
+}
+
+/* ---------- BASE ---------- */
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               Roboto, Helvetica, Arial, sans-serif;
-  color: #1f2933;
-  background: #f9fafb;
-  line-height: 1.6;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.65;
 }
 
-/* ---------- CORE CONTAINER ---------- */
+/* ---------- LAYOUT ---------- */
 .container {
   max-width: 720px;
-  margin: 80px auto;
-  padding: 64px 56px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow:
-    0 1px 2px rgba(0,0,0,0.04),
-    0 8px 24px rgba(0,0,0,0.06);
+  margin: 96px auto;
+  padding: 0 28px;
 }
 
 /* ---------- TYPOGRAPHY ---------- */
 h1 {
   font-size: 2.6rem;
-  font-weight: 600;
   letter-spacing: -0.02em;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.4rem;
 }
 
 h2 {
   font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
 }
 
 p {
-  margin: 0 0 1.2rem 0;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
 }
 
 .lead {
-  font-size: 1.25rem;
-  max-width: 640px;
-}
-
-/* ---------- HERO BLOCK ---------- */
-header {
-  margin-bottom: 4rem;
+  font-size: 1.15rem;
+  max-width: 620px;
 }
 
 /* ---------- LISTS ---------- */
-.points,
-.list {
+.points {
   list-style: none;
-  padding: 0;
-  margin: 2rem 0 2.5rem;
+  margin: 2.4rem 0 3rem;
 }
 
-.points li,
-.list li {
+.points li {
   position: relative;
-  padding-left: 1.25rem;
-  margin-bottom: 1rem;
+  padding-left: 1.6rem;
+  margin-bottom: 1.1rem;
+  color: var(--ink-soft);
 }
 
-.points li::before,
-.list li::before {
-  content: "–";
+.points li::before {
+  content: "•";
   position: absolute;
   left: 0;
-  color: #6b7280;
+  color: var(--seed);
+  font-weight: 700;
 }
 
 /* ---------- CTA ---------- */
 .cta {
-  margin: 2.5rem 0 1rem;
+  margin: 3.5rem 0 1.2rem;
+  text-align: center;
 }
 
-.button,
-.cta {
+.button {
   display: inline-block;
-  padding: 14px 28px;
-  border-radius: 6px;
-  background: #111827;
-  color: #ffffff;
+  background: var(--seed);
+  color: #fff;
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 8px 24px rgba(10, 92, 255, 0.25);
 }
 
-.button:hover,
-.cta:hover {
-  background: #0f172a;
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(10, 92, 255, 0.35);
 }
 
-/* ---------- META TEXT ---------- */
-.meta,
 .note {
   font-size: 0.9rem;
-  color: #6b7280;
-  margin-top: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.9rem;
 }
 
-/* ---------- SECTIONS ---------- */
-section {
-  margin-top: 4rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid #e5e7eb;
-}
-
-/* Prevent visual drift */
-section > * {
-  max-width: 640px;
+/* ---------- SECTION DIVIDER ---------- */
+.section {
+  margin-top: 5.5rem;
+  padding-top: 3.5rem;
+  border-top: 1px solid var(--line);
 }
 
 /* ---------- FOOTER ---------- */
 footer {
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
+  margin: 6rem 0 2.5rem;
+  text-align: center;
   font-size: 0.85rem;
-  color: #6b7280;
+  color: var(--muted);
 }
 
 footer a {
-  color: inherit;
+  color: var(--ink-soft);
   text-decoration: underline;
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .container {
-    margin: 40px 16px;
-    padding: 48px 28px;
+    margin: 72px auto;
   }
 
   h1 {
-    font-size: 2.2rem;
-  }
-
-  .lead {
-    font-size: 1.15rem;
+    font-size: 2.1rem;
   }
 }
-
-/* END — CANON UI */
