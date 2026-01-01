@@ -1,147 +1,107 @@
-:root {
-  --ink: #0f172a;
-  --muted: #475569;
-  --soft: #94a3b8;
-  --line: #e5e7eb;
-  --accent: #2563eb;
-  --bg: #ffffff;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-* {
-  box-sizing: border-box;
-}
+  <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  line-height: 1.45;
-}
+  <title>Cyber Seeds</title>
+  <meta name="description" content="Cyber Seeds is a household digital health check. Calm, proportionate, and designed for families." />
 
-.frame {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 72px 24px 56px;
-}
+  <link rel="stylesheet" href="/style.css" />
+</head>
 
-/* HERO */
+<body>
 
-.hero {
-  text-align: left;
-}
+  <main class="sheet">
 
-.eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--soft);
-}
+    <!-- HEADER -->
+    <header class="header">
+      <p class="context">Household digital health</p>
+      <h1>Cyber Seeds</h1>
+    </header>
 
-h1 {
-  font-size: clamp(3.2rem, 8vw, 4.5rem);
-  line-height: 1;
-  margin: 20px 0 24px;
-  font-weight: 700;
-}
+    <!-- STATEMENT -->
+    <section class="statement">
+      <p>
+        Most homes now rely on the internet
+        in the same way they rely on electricity,
+        water, or locks on the door.
+      </p>
 
-.hero-line {
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-}
+      <p>
+        But unlike those systems,
+        digital safety is rarely checked as a whole.
+      </p>
+    </section>
 
-.hero-sub {
-  font-size: 1rem;
-  color: var(--muted);
-  margin-bottom: 36px;
-}
+    <!-- DIVIDER -->
+    <div class="rule"></div>
 
-/* CTA */
+    <!-- WHAT IT IS -->
+    <section class="definition">
+      <p class="lead">
+        Cyber Seeds is a digital health check for the home.
+      </p>
 
-.cta {
-  display: inline-block;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
+      <p>
+        It quietly reviews how your household’s
+        digital environment is set up and experienced.
+      </p>
 
-.cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
-}
+      <p class="scope">
+        Connection · Devices · Privacy · Scams · Children
+      </p>
+    </section>
 
-.meta {
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: var(--soft);
-}
+    <!-- DIVIDER -->
+    <div class="rule"></div>
 
-/* DIVIDER */
+    <!-- WHAT YOU RECEIVE -->
+    <section class="outcome">
+      <p>
+        You receive a short written report
+        showing:
+      </p>
 
-.divider {
-  margin: 64px 0;
-  height: 1px;
-  background: var(--line);
-}
+      <ul>
+        <li>What is working as it should</li>
+        <li>What needs attention</li>
+        <li>What to do next</li>
+      </ul>
 
-/* EXPLAIN */
+      <p class="quiet">
+        No monitoring.<br />
+        No judgement.<br />
+        No technical pressure.
+      </p>
+    </section>
 
-.explain p {
-  font-size: 1.05rem;
-  margin-bottom: 20px;
-}
+    <!-- DIVIDER -->
+    <div class="rule"></div>
 
-.explain .muted {
-  color: var(--soft);
-}
+    <!-- CTA -->
+    <section class="action">
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform"
+        class="button"
+      >
+        Start a digital health check
+      </a>
 
-/* SIGNALS */
+      <p class="meta">
+        Early access · £75 · Delivered within 24–48 hours
+      </p>
+    </section>
 
-.signals {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
+  </main>
 
-.signal {
-  padding: 18px 20px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
+  <footer class="footer">
+    <a href="/privacy.html">Privacy & data use</a>
+    <span>·</span>
+    <a href="/contact.html">Contact</a>
+  </footer>
 
-.signal span {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--soft);
-}
-
-.signal p {
-  margin: 8px 0 0;
-  font-size: 1rem;
-}
-
-/* FOOTER */
-
-footer {
-  border-top: 1px solid var(--line);
-  padding: 24px;
-  text-align: center;
-  font-size: 0.85rem;
-}
-
-footer a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-footer span {
-  margin: 0 6px;
-  color: var(--soft);
-}
+</body>
+</html
