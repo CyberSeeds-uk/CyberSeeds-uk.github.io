@@ -3,119 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cyber Seeds — Digital Health for the Home</title>
-  <meta name="description" content="A calm, structured digital health check for families. No monitoring. No judgement. Just clarity." />
+
+  <title>Cyber Seeds — Household Digital Health Check</title>
+
+  <meta name="description" content="A calm, personalised digital health snapshot for your home. No judgement. No monitoring. Just clarity." />
+  <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
+
   <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
 
-<main class="container">
+  <main class="container">
 
-  <!-- ROOM 1: ARRIVAL -->
-  <section class="room hero">
-    <h1>Cyber Seeds</h1>
-    <p class="lead">Digital health for the home.</p>
-    <p class="sub">
-      A calm, structured way to understand your family’s online world —
-      without monitoring, judgement, or fear.
-    </p>
-    <a href="#how" class="quiet-link">See how it works</a>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
+      <span class="eyebrow">Digital health for the home</span>
 
-  <!-- ROOM 2: UNDERSTANDING -->
-  <section class="room" id="how">
-    <p>Most families are doing their best.</p>
+      <h1>Cyber Seeds</h1>
 
-    <p>
-      But homes have quietly become digital ecosystems.
-    </p>
+      <p class="subtitle">
+        A calm, personalised snapshot of your household’s online world.
+      </p>
 
-    <p>
-      Wi-Fi that everything depends on.<br />
-      Phones that never really switch off.<br />
-      Accounts, apps, and passwords spread across the household.
-    </p>
+      <p class="reassurance">
+        No monitoring. No judgement. No technical knowledge required.
+      </p>
 
-    <p>
-      A child watching videos upstairs.<br />
-      A tablet that won’t update anymore.<br />
-      A message that looks official — but isn’t.
-    </p>
+      <a href="#snapshot" class="primary-cta">
+        Start your household check
+      </a>
+    </section>
 
-    <p>
-      Parents are expected to manage it all,
-      without training, language, or support.
-    </p>
+    <!-- SNAPSHOT FORM -->
+    <section id="snapshot" class="snapshot">
 
-    <p>
-      Cyber Seeds exists to change that.
-    </p>
-  </section>
+      <h2>Your household snapshot</h2>
+      <p class="section-intro">
+        Answer a few simple questions. It takes about 2 minutes.
+      </p>
 
-  <!-- ROOM 3: TRUST -->
-  <section class="room">
-    <p>
-      Cyber Seeds is a household digital health check.
-    </p>
+      <form class="snapshot-form">
 
-    <p>
-      It looks at the environment around your family —
-      not individual behaviour.
-    </p>
+        <label>
+          How many people live in your home?
+          <select required>
+            <option value="">Select</option>
+            <option>1</option>
+            <option>2–3</option>
+            <option>4–5</option>
+            <option>6+</option>
+          </select>
+        </label>
 
-    <ul>
-      <li>
-        The Wi-Fi your home relies on — how it’s shared and secured
-      </li>
-      <li>
-        Devices in the house — including older phones or tablets still in use
-      </li>
-      <li>
-        Everyday digital habits — reused passwords, shared logins, forgotten accounts
-      </li>
-      <li>
-        Messages and pressure entering the home — scam texts, fake emails, worrying alerts
-      </li>
-    </ul>
+        <label>
+          Are children or young people using devices at home?
+          <select required>
+            <option value="">Select</option>
+            <option>No</option>
+            <option>Yes — under 10</option>
+            <option>Yes — 10–16</option>
+            <option>Yes — mixed ages</option>
+          </select>
+        </label>
 
-    <p class="quiet">
-      No surveillance. No monitoring children. No technical jargon.
-    </p>
+        <label>
+          How confident do you feel about your home’s digital safety?
+          <select required>
+            <option value="">Select</option>
+            <option>Very confident</option>
+            <option>Somewhat confident</option>
+            <option>Not sure</option>
+            <option>Concerned</option>
+          </select>
+        </label>
 
-    <a href="#start" class="primary-link">Begin a household check</a>
-  </section>
+        <button type="submit" class="secondary-cta">
+          Generate my snapshot
+        </button>
 
-  <!-- ROOM 4: COMMITMENT -->
-  <section class="room" id="start">
-    <p>
-      This is a one-off household audit.
-    </p>
+      </form>
 
-    <p>
-      No subscriptions. No follow-up sales calls.
-    </p>
+      <!-- SNAPSHOT PREVIEW (LOCKED STATE) -->
+      <div class="snapshot-preview">
+        <h3>Your snapshot is ready</h3>
+        <p>
+          We’ve prepared a calm overview of your household’s digital health,
+          including:
+        </p>
 
-    <p>
-      You’ll complete a short form about things you already know —
-      devices, internet use, and any concerns you have.
-    </p>
+        <ul>
+          <li>Overall household digital balance</li>
+          <li>Key pressure points (if any)</li>
+          <li>One clear area to focus on first</li>
+        </ul>
 
-    <p>
-      You don’t need technical knowledge.
-      You don’t need perfect answers.
-    </p>
+        <div class="locked">
+          <p>
+            Unlock your full personalised report to view your results and next steps.
+          </p>
 
-    <a href="https://your-stripe-link-here" class="primary-link">
-      Start my household audit
-    </a>
+          <a href="/purchase" class="primary-cta">
+            Unlock full household report
+          </a>
+        </div>
+      </div>
 
-    <p class="fine-print">
-      You can stop at any time.
-    </p>
-  </section>
+    </section>
 
-</main>
+    <!-- TRUST STRIP -->
+    <section class="trust">
+      <p>
+        Designed for families. Grounded in safeguarding practice.
+        Built to reduce overwhelm — not add to it.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© Cyber Seeds</p>
+    <nav>
+      <a href="/privacy/">Privacy</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </footer>
 
 </body>
 </html>
