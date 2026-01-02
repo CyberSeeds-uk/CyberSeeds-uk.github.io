@@ -3,196 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Canonical URL for search engines -->
   <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
 
-  <title>Cyber Seeds — Household Digital Health Check</title>
-  <!-- A concise meta description helps social networks and search engines understand the purpose -->
-  <meta
-    name="description"
-    content="A calm, structured digital health check for your home. Clear signals. Proportionate guidance. No monitoring. No judgement."
-  />
+  <title>Cyber Seeds</title>
+  <meta name="description" content="Cyber Seeds reveals the hidden digital structure of your home. Calm clarity for the connected household." />
 
-  <!-- Import the site-wide stylesheet -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-  <main class="container">
 
-    <!-- HERO -->
-    <section class="hero">
-      <span class="tagline">Digital health for the home</span>
-      <h1>Cyber Seeds</h1>
-      <p class="subtitle">
-        A calm, structured digital health check<br />
-        for your family’s online world.
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">A household intelligence</span>
+      <h1>Your home is digital.<br>It just hasn’t been mapped yet.</h1>
+      <p class="hero-sub">
+        Cyber Seeds reveals the invisible systems shaping your family’s online life —
+        quietly, proportionately, without surveillance.
       </p>
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform"
-        class="btn-primary"
-      >
-        Start a digital check
-      </a>
-      <p class="meta">
-        Early access · £75 · Delivered in 24–48 hours
+      <button id="openSnapshot" class="primary-btn">
+        View a household signal
+      </button>
+      <p class="hero-foot">
+        No monitoring · No judgement · Runs locally
       </p>
-    </section>
+    </div>
+  </section>
 
-    <!-- WHAT THIS IS -->
-    <section class="about">
-      <h2>What this is</h2>
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <p>
+      For years, households were given tools, rules, and controls.
+      <br />
+      What they were never given was <em>orientation</em>.
+    </p>
+    <p>
+      Cyber Seeds treats the home as a living digital ecosystem —
+      where small, well-placed adjustments quietly change everything.
+    </p>
+  </section>
+
+  <!-- SEEDS -->
+  <section class="seeds">
+    <div class="seed">
+      <h3>Digital foundations</h3>
       <p>
-        Cyber Seeds is a quiet review of your home’s digital health. It looks
-        at how your internet, devices, accounts, privacy and children’s
-        experiences online fit together — and where small changes can reduce
-        risk and stress.
+        Internet, accounts, devices, and identity —
+        the unseen roots everything else depends on.
       </p>
-      <ul class="principles">
-        <li>No monitoring</li>
-        <li>No judgement</li>
-        <li>No technical pressure</li>
-      </ul>
-    </section>
-
-    <!-- SIGNALS -->
-    <section class="signals">
-      <div class="signal card-good">
-        <h3>What’s working</h3>
-        <p>
-          In a typical household, the internet connection is stable,
-          devices are mostly up to date and nothing malicious is
-          happening.
-        </p>
-        <p>
-          Most families are doing more right than they realise.
-        </p>
-      </div>
-      <div class="signal card-attn">
-        <h3>What needs attention</h3>
-        <p>
-          A reused password appears in an old data breach. The Wi‑Fi router
-          hasn’t been reviewed since installation.
-        </p>
-        <p>
-          Scam messages arrive regularly and a child’s device shares more
-          information than intended.
-        </p>
-      </div>
-      <div class="signal card-next">
-        <h3>What to do next</h3>
-        <p>
-          Change two key passwords. Adjust one router setting. Review a
-          single child privacy control together.
-        </p>
-        <p>
-          Small steps. Clear priorities. No overwhelm.
-        </p>
-      </div>
-    </section>
-
-    <!-- PHILOSOPHY -->
-    <section class="value">
-      <p class="value-line">
-        This isn’t about locking everything down.
-      </p>
-      <p class="value-line">
-        It’s about understanding your digital home — and making a few
-        calm improvements that actually last.
-      </p>
-    </section>
-
-    <!-- OUTCOME -->
-    <section class="outcome">
-      <h2>What you’re left with</h2>
+    </div>
+    <div class="seed">
+      <h3>Behavioural flow</h3>
       <p>
-        After the check, families consistently report the same thing: they
-        feel clearer. Not more worried — more oriented.
+        How people actually use technology —
+        not how policies assume they do.
       </p>
-      <ul class="outcomes">
-        <li>You know what actually matters in your home</li>
-        <li>You know what can safely be ignored for now</li>
-        <li>You know the next small step — and why</li>
-      </ul>
-      <p class="outcome-note">
-        No alerts. No dashboards. Just understanding.
+    </div>
+    <div class="seed">
+      <h3>Child reality</h3>
+      <p>
+        Development, curiosity, risk, and trust —
+        handled without fear or control.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <!-- SNAPSHOT (Interactive household digital snapshot) -->
-    <section class="snapshot">
-      <h2>Your Household Digital Snapshot</h2>
-      <p class="snapshot-note">
-        A signal of resilience — not a judgement. This runs locally; your
-        answers never leave your browser.
+  <!-- SNAPSHOT -->
+  <section class="snapshot">
+    <div class="snapshot-inner">
+      <h2>A provisional household signal</h2>
+      <p class="snapshot-intro">
+        This is not a test.
+        <br />
+        It is a moment of orientation.
       </p>
+
       <form id="snapshotForm">
-        <div class="field">
-          <label for="adults">How many adults live in your home?</label>
-          <select id="adults" name="adults" required>
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4+</option>
+        <label>
+          Household makeup
+          <select name="household">
+            <option value="simple">Adults only</option>
+            <option value="family">Adults and children</option>
+            <option value="complex">Large or blended household</option>
           </select>
-        </div>
-        <div class="field">
-          <label for="children">How many children live in your home?</label>
-          <select id="children" name="children" required>
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3+</option>
+        </label>
+
+        <label>
+          How clear does your digital setup feel?
+          <select name="clarity">
+            <option value="low">Not very clear</option>
+            <option value="medium">Somewhat clear</option>
+            <option value="high">Very clear</option>
           </select>
-        </div>
-        <div class="field">
-          <label for="devices">Do children use digital devices at home?</label>
-          <select id="devices" name="devices" required>
-            <option value="none" selected>No children / no devices</option>
-            <option value="mixed">Yes — mixed ages</option>
-            <option value="older">Yes — older children</option>
-            <option value="younger">Yes — younger children</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="confidence">How confident do you feel about your home’s digital safety?</label>
-          <select id="confidence" name="confidence" required>
-            <option value="none">Not at all confident</option>
-            <option value="some" selected>Somewhat confident</option>
-            <option value="high">Very confident</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-primary snapshot-btn">Generate snapshot</button>
+        </label>
+
+        <button type="submit" class="primary-btn">
+          Reveal signal
+        </button>
       </form>
-      <div id="snapshotResult" class="snapshot-result" aria-live="polite"></div>
-      <p class="snapshot-privacy">
-        This snapshot is a provisional signal. For a full Digital MOT, book a
-        complete Cyber Seeds check.
-      </p>
-    </section>
 
-    <!-- CTA -->
-    <section class="cta">
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform"
-        class="btn-secondary"
-      >
-        Start a digital check
-      </a>
-      <p class="meta">
-        You’ll receive a clear, human‑readable PDF within 24–48 hours.
-      </p>
-    </section>
-  </main>
+      <div id="snapshotOutput" class="snapshot-output"></div>
+    </div>
+  </section>
 
-  <footer class="footer">
-    <a href="/privacy.html">Privacy &amp; data use</a>
-    <span class="separator">·</span>
-    <a href="/contact.html">Contact</a>
+  <!-- CLOSE -->
+  <section class="closing">
+    <p>
+      Cyber Seeds is not a product.
+      <br />
+      It is missing infrastructure.
+    </p>
+    <a class="secondary-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform">
+      Request a full household reading
+    </a>
+  </section>
+
+  <footer>
+    <span>Cyber Seeds</span>
+    <span>·</span>
+    <a href="/privacy.html">Privacy</a>
   </footer>
 
-  <!-- Client-side script to generate the provisional digital snapshot -->
   <script src="./script.js"></script>
 </body>
 </html>
+
