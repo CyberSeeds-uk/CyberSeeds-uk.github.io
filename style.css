@@ -1,406 +1,161 @@
-/*
-  Cyber Seeds site styles
-  -----------------------
-
-  The palette and typography here aim for a calm, restrained look.
-  Visual hierarchy is clear and minimal, leaving space for the reader.
-  Muted blues, greens, ambers and violets differentiate key sections.
-  Generous padding and spacing give each element room to breathe.
-*/
-
-/* Palette variables */
 :root {
-  --ink: #0b1220;
-  --muted: #475569;
-  --soft: #94a3b8;
+  --ink: #0a0f1f;
+  --soft: #5b6478;
+  --line: #e6e8ee;
   --bg: #ffffff;
-  --line: #e5e7eb;
-
-  --blue: #2563eb;
-  --blue-hover: #1e40af;
-  --green: #16a34a;
-  --amber: #d97706;
-  --violet: #7c3aed;
+  --accent: #111827;
 }
 
-/* Reset and base */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", Helvetica, Arial, sans-serif;
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont,
-    "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 80px 24px 60px;
+section {
+  padding: 100px 24px;
 }
 
-/* HERO */
 .hero {
-  text-align: left;
-  margin-bottom: 80px;
+  border-bottom: 1px solid var(--line);
 }
 
-.tagline {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
+.hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--soft);
-  margin-bottom: 14px;
-  display: block;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 8vw, 3.5rem);
-  margin: 0;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--ink);
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: var(--muted);
-  margin-top: 22px;
-  margin-bottom: 32px;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 16px 34px;
-  border-radius: 9999px;
-  background: var(--blue);
-  color: #ffffff;
-  text-decoration: none;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
   font-weight: 600;
+  margin: 24px 0;
+  line-height: 1.15;
+}
+
+.hero-sub {
+  max-width: 620px;
+  font-size: 1.1rem;
+  color: var(--soft);
+}
+
+.primary-btn {
+  margin-top: 40px;
+  padding: 18px 40px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
   font-size: 1rem;
-  transition: background 0.3s ease;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
-  background: var(--blue-hover);
+.primary-btn:hover {
+  opacity: 0.9;
 }
 
-.meta {
-  margin-top: 16px;
+.hero-foot {
+  margin-top: 18px;
   font-size: 0.85rem;
   color: var(--soft);
 }
 
-/* ABOUT */
-.about {
-  margin-bottom: 70px;
+.philosophy {
+  max-width: 820px;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  color: var(--soft);
 }
 
-.about h2 {
-  font-size: 1.8rem;
-  margin-bottom: 16px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.about p {
-  font-size: 1.05rem;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.principles {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.principles li {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  color: var(--ink);
-  background: #f9fafb;
-}
-
-/* SIGNALS */
-.signals {
-  margin-top: 60px;
+.seeds {
   display: grid;
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 48px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.signal {
-  padding: 24px;
-  border-radius: 14px;
-  border-left: 8px solid;
-  background: #f8fafc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.signal h3 {
-  margin: 0;
-  margin-bottom: 12px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.signal p {
-  margin: 0;
+.seed h3 {
+  font-weight: 500;
   margin-bottom: 10px;
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.6;
 }
 
-.card-good {
-  border-color: var(--green);
-}
-
-.card-attn {
-  border-color: var(--amber);
-}
-
-.card-next {
-  border-color: var(--violet);
-}
-
-/* PHILOSOPHY / VALUE */
-.value {
-  margin-top: 80px;
-  margin-bottom: 60px;
-}
-
-.value .value-line {
-  font-size: 1.05rem;
-  color: var(--muted);
-  margin-bottom: 14px;
-  line-height: 1.6;
-}
-
-/* OUTCOME */
-.outcome {
-  margin-top: 60px;
-  margin-bottom: 60px;
-}
-
-.outcome h2 {
-  font-size: 1.6rem;
-  margin-bottom: 18px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.outcome p {
-  font-size: 1.05rem;
-  color: var(--muted);
-  margin-bottom: 18px;
-}
-
-.outcomes {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 18px;
-}
-
-.outcomes li {
-  position: relative;
-  padding-left: 26px;
-  margin-bottom: 10px;
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.outcomes li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--violet);
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.outcome-note {
-  font-size: 0.95rem;
+.seed p {
   color: var(--soft);
 }
 
-/* SNAPSHOT (Interactive form and result) */
 .snapshot {
-  margin-top: 60px;
-  margin-bottom: 80px;
-}
-
-.snapshot h2 {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.snapshot-note {
-  font-size: 0.95rem;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-
-.snapshot form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.snapshot .field {
-  display: flex;
-  flex-direction: column;
-}
-
-.snapshot label {
-  font-size: 0.95rem;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.snapshot select {
-  font-size: 1rem;
-  padding: 14px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  color: var(--ink);
   background: #f9fafb;
 }
 
-.snapshot select:focus {
-  border-color: var(--blue);
-  outline: none;
+.snapshot-inner {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.snapshot-btn {
-  margin-top: 12px;
-  align-self: flex-start;
+.snapshot-intro {
+  color: var(--soft);
+  margin-bottom: 40px;
 }
 
-.snapshot-result {
-  margin-top: 32px;
-  padding: 24px;
-  border-radius: 14px;
-  border-left: 8px solid var(--violet);
-  background: #f8fafc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-  display: none;
-}
-
-.snapshot-result.active {
+label {
   display: block;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
 }
 
-.snapshot-result h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 1.3rem;
-  font-weight: 600;
+select {
+  width: 100%;
+  margin-top: 10px;
+  padding: 16px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.snapshot-output {
+  margin-top: 40px;
+  font-size: 1.2rem;
   color: var(--ink);
 }
 
-.snapshot-result p {
-  margin: 0 0 12px 0;
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.snapshot-result ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 12px 0;
-}
-
-.snapshot-result li {
-  position: relative;
-  padding-left: 26px;
-  margin-bottom: 8px;
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.snapshot-result li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 1.2rem;
-  line-height: 1;
-  color: var(--violet);
-}
-
-.snapshot-privacy {
-  font-size: 0.8rem;
-  color: var(--soft);
-  margin-top: 16px;
-}
-
-/* CTA */
-.cta {
-  margin-top: 70px;
+.closing {
   text-align: center;
-}
-
-.btn-secondary {
-  display: inline-block;
-  padding: 16px 36px;
-  border-radius: 9999px;
-  background: var(--ink);
-  color: var(--bg);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-}
-
-.btn-secondary:hover {
-  background: #1f2937;
-}
-
-.cta .meta {
-  margin-top: 14px;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   color: var(--soft);
 }
 
-/* Footer */
-.footer {
-  margin-top: 80px;
-  padding: 24px;
-  border-top: 1px solid var(--line);
+.secondary-btn {
+  display: inline-block;
+  margin-top: 30px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+footer {
+  padding: 30px;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.footer a {
-  color: var(--muted);
-  text-decoration: none;
-  margin: 0 6px;
-  transition: color 0.2s ease;
-}
-
-.footer a:hover {
-  color: var(--ink);
-}
-
-.separator {
   color: var(--soft);
-  margin: 0 6px;
+}
+
+footer a {
+  color: var(--soft);
+  text-decoration: none;
 }
