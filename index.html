@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Cyber Seeds — Household Digital Snapshot</title>
-  <meta name="description" content="Get a calm, personalised snapshot score for your household’s digital health. No judgement. No monitoring. Clear next steps." />
+  <title>Cyber Seeds — Household Digital Health Snapshot</title>
+  <meta name="description" content="A calm, personalised digital health snapshot for your home. Real score, clear guidance, no judgement." />
   <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
 
   <link rel="stylesheet" href="/style.css" />
@@ -13,426 +13,197 @@
 
 <body>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="/">Cyber Seeds</a>
-      <nav class="nav">
-        <a href="#snapshot">Snapshot</a>
-        <a href="#example">Family example</a>
-        <a href="#how">How it works</a>
-        <a href="/purchase" class="nav-cta">Unlock full report</a>
-      </nav>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="brand">Cyber Seeds</a>
+    <nav class="nav">
+      <a href="#snapshot">Snapshot</a>
+      <a href="#example">Family example</a>
+      <a href="#whatyouget">What you get</a>
+      <a href="/purchase" class="nav-cta">Unlock full report</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Digital health for the home</span>
+    <h1>Your Household Digital Snapshot</h1>
+
+    <p class="subtitle">
+      A real score and calm guidance, built from how your household actually works.
+    </p>
+
+    <p class="reassurance">
+      No monitoring. No judgement. Runs privately in your browser.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#snapshot" class="primary-cta">Start free snapshot</a>
+      <a href="#example" class="ghost-cta">See a family example</a>
     </div>
-  </header>
 
-  <main class="container">
+    <div class="microtrust">
+      <span>Private by design</span>
+      <span>2–3 minutes</span>
+      <span>Value before purchase</span>
+    </div>
+  </section>
 
-    <!-- HERO -->
-    <section class="hero">
-      <span class="eyebrow">Digital health for the home</span>
-      <h1>Household Digital Snapshot</h1>
+  <!-- SNAPSHOT -->
+  <section id="snapshot" class="panel">
+    <div class="panel-head">
+      <h2>Step 1 — Quick snapshot</h2>
+      <p class="section-intro">
+        Three questions to get your initial household signal.
+      </p>
+    </div>
 
-      <p class="subtitle">
-        A real score and calm guidance, based on what you tell us.
+    <form id="snapshotForm" class="grid">
+
+      <div class="field">
+        <label>How many people live in your home?</label>
+        <select id="hh_size" required>
+          <option value="">Select</option>
+          <option value="1">1</option>
+          <option value="2-3">2–3</option>
+          <option value="4-5">4–5</option>
+          <option value="6+">6+</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Do children use digital devices at home?</label>
+        <select id="kids" required>
+          <option value="">Select</option>
+          <option value="none">No</option>
+          <option value="under10">Yes — under 10</option>
+          <option value="10-16">Yes — 10–16</option>
+          <option value="mixed">Yes — mixed ages</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>How confident do you feel about your home’s digital safety?</label>
+        <select id="confidence" required>
+          <option value="">Select</option>
+          <option value="high">Very confident</option>
+          <option value="medium">Somewhat confident</option>
+          <option value="low">Not sure / concerned</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="primary-cta">Generate snapshot</button>
+      </div>
+
+      <p class="privacy-note">
+        This snapshot runs locally in your browser. We don’t see your answers.
       </p>
 
-      <p class="reassurance">
-        No monitoring. No judgement. No technical knowledge required.
+    </form>
+
+    <!-- RESULTS -->
+    <section id="results" class="results hidden">
+      <div class="scoreline">
+        <div>
+          <h3>Your Household Snapshot Score</h3>
+          <p class="small">A signal of resilience — not a judgement.</p>
+        </div>
+        <div class="scorechip">
+          <span id="scoreOut">—</span><span class="scorehint">/100</span>
+        </div>
+      </div>
+
+      <div class="bar">
+        <div id="barFill" class="bar-fill"></div>
+      </div>
+
+      <p id="snapshotNarrative" class="narrative"></p>
+
+      <div class="unlock">
+        <div>
+          <h4>Want a more accurate picture?</h4>
+          <p class="small">
+            Answer a few more questions to refine your score and get personalised next steps.
+          </p>
+        </div>
+        <a href="/refine" class="secondary-cta">Refine snapshot</a>
+      </div>
+    </section>
+  </section>
+
+  <!-- FAMILY EXAMPLE -->
+  <section id="example" class="panel">
+    <div class="panel-head">
+      <h2>Family example — before & after</h2>
+      <p class="section-intro">
+        What “planting digital seeds” looks like in practice.
       </p>
+    </div>
 
-      <div class="hero-actions">
-        <a href="#snapshot" class="primary-cta">Start the snapshot</a>
-        <a href="#example" class="ghost-cta">See a family example</a>
+    <div class="example-grid">
+      <div class="example-card">
+        <h3>Before</h3>
+        <ul>
+          <li>Single Wi-Fi for everything</li>
+          <li>Default router settings untouched</li>
+          <li>Password reuse</li>
+          <li>Scam messages cause stress</li>
+          <li>Arguments around screen time</li>
+        </ul>
       </div>
 
-      <div class="microtrust">
-        <span>Private</span>
-        <span>2–3 minutes</span>
-        <span>Value before purchase</span>
-      </div>
-    </section>
-
-    <!-- SNAPSHOT -->
-    <section id="snapshot" class="panel">
-      <div class="panel-head">
-        <h2>Your household snapshot</h2>
-        <p class="section-intro">
-          Answer what you know. “Not sure” is a valid answer here.
-        </p>
-      </div>
-
-      <form id="snapshotForm" class="grid">
-
-        <!-- Household context -->
-        <div class="field">
-          <label for="hh_size">How many people live in your home?</label>
-          <select id="hh_size" required>
-            <option value="">Select</option>
-            <option value="1">1</option>
-            <option value="2-3">2–3</option>
-            <option value="4-5">4–5</option>
-            <option value="6+">6+</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="kids">Do children/young people use devices at home?</label>
-          <select id="kids" required>
-            <option value="">Select</option>
-            <option value="none">No</option>
-            <option value="under10">Yes — under 10</option>
-            <option value="10-16">Yes — 10–16</option>
-            <option value="mixed">Yes — mixed ages</option>
-          </select>
-        </div>
-
-        <!-- Network -->
-        <div class="field">
-          <label for="router_admin">Have you changed the router admin password?</label>
-          <select id="router_admin" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="wifi_pw">Is your Wi-Fi password unique (not default)?</label>
-          <select id="wifi_pw" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="guest_wifi">Do you use a guest Wi-Fi for visitors / smart devices?</label>
-          <select id="guest_wifi" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="updates_router">Do router updates happen automatically?</label>
-          <select id="updates_router" required>
-            <option value="">Select</option>
-            <option value="yes">Yes / automatic</option>
-            <option value="no">No / never checked</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <!-- Devices -->
-        <div class="field">
-          <label for="updates_devices">Do your devices update automatically?</label>
-          <select id="updates_devices" required>
-            <option value="">Select</option>
-            <option value="yes">Yes (most devices)</option>
-            <option value="some">Some do</option>
-            <option value="no">No / rarely</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="screenlock">Do key devices use screen lock / biometrics?</label>
-          <select id="screenlock" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="some">Some</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="backups">Do you have backups for photos/files?</label>
-          <select id="backups" required>
-            <option value="">Select</option>
-            <option value="yes">Yes (reliable)</option>
-            <option value="some">Some / partial</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <!-- Privacy -->
-        <div class="field">
-          <label for="pw_manager">Do you use a password manager?</label>
-          <select id="pw_manager" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="twofa">Is 2-step verification on important accounts?</label>
-          <select id="twofa" required>
-            <option value="">Select</option>
-            <option value="yes">Yes (most)</option>
-            <option value="some">Some</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="sharing">Do you feel your family overshares online?</label>
-          <select id="sharing" required>
-            <option value="">Select</option>
-            <option value="no">Not really</option>
-            <option value="some">Sometimes</option>
-            <option value="yes">Yes / often</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <!-- Scams -->
-        <div class="field">
-          <label for="scams">Have you had scam texts/calls/emails recently?</label>
-          <select id="scams" required>
-            <option value="">Select</option>
-            <option value="no">Not recently</option>
-            <option value="some">A few</option>
-            <option value="yes">Yes, frequent</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="money_rules">Do you have a simple “money rule” for links & payments?</label>
-          <select id="money_rules" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="some">Kind of</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <!-- Child wellbeing -->
-        <div class="field">
-          <label for="boundaries">Do you have calm device boundaries (time/rooms/bedtime)?</label>
-          <select id="boundaries" required>
-            <option value="">Select</option>
-            <option value="yes">Yes</option>
-            <option value="some">Some</option>
-            <option value="no">No</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="supervision">Do you feel able to supervise without conflict?</label>
-          <select id="supervision" required>
-            <option value="">Select</option>
-            <option value="yes">Mostly</option>
-            <option value="some">Sometimes</option>
-            <option value="no">Often difficult</option>
-            <option value="unsure">Not sure</option>
-          </select>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="primary-cta">Generate my snapshot</button>
-          <button type="button" id="resetBtn" class="secondary-cta">Reset</button>
-        </div>
-
-        <p class="privacy-note">
-          This snapshot runs in your browser. We don’t need to know who you are for you to get value.
-        </p>
-
-      </form>
-
-      <!-- RESULTS -->
-      <section id="results" class="results hidden" aria-live="polite">
-        <div class="scoreline">
-          <div>
-            <h3>Your Household Snapshot Score</h3>
-            <p class="small">A calm indicator of resilience, not a judgement.</p>
-          </div>
-          <div class="scorechip">
-            <span id="scoreOut">—</span>
-            <span class="scorehint">/ 100</span>
-          </div>
-        </div>
-
-        <div class="bar-wrap">
-          <div class="bar">
-            <div id="barFill" class="bar-fill" style="width: 0%"></div>
-          </div>
-          <div class="bar-labels">
-            <span>Fragile</span><span>Growing</span><span>Strong</span>
-          </div>
-        </div>
-
-        <div class="lens-grid">
-          <div class="lens">
-            <div class="lens-top">
-              <span>Network</span><strong id="lensNetwork">—</strong>
-            </div>
-            <p id="lensNetworkText" class="lens-text"></p>
-          </div>
-
-          <div class="lens">
-            <div class="lens-top">
-              <span>Devices</span><strong id="lensDevices">—</strong>
-            </div>
-            <p id="lensDevicesText" class="lens-text"></p>
-          </div>
-
-          <div class="lens">
-            <div class="lens-top">
-              <span>Privacy</span><strong id="lensPrivacy">—</strong>
-            </div>
-            <p id="lensPrivacyText" class="lens-text"></p>
-          </div>
-
-          <div class="lens">
-            <div class="lens-top">
-              <span>Scams</span><strong id="lensScams">—</strong>
-            </div>
-            <p id="lensScamsText" class="lens-text"></p>
-          </div>
-
-          <div class="lens">
-            <div class="lens-top">
-              <span>Wellbeing</span><strong id="lensWellbeing">—</strong>
-            </div>
-            <p id="lensWellbeingText" class="lens-text"></p>
-          </div>
-        </div>
-
-        <div class="insight">
-          <h4>Your personalised snapshot</h4>
-          <p id="snapshotNarrative"></p>
-
-          <h4>Three calm next steps</h4>
-          <ol id="nextSteps"></ol>
-
-          <div class="download-row">
-            <button id="copyBtn" class="secondary-cta" type="button">Copy snapshot summary</button>
-            <button id="printBtn" class="secondary-cta" type="button">Print / save as PDF</button>
-          </div>
-        </div>
-
-        <div class="unlock">
-          <div>
-            <h4>Want the full household report?</h4>
-            <p class="small">
-              The paid version turns your snapshot into a full plan: step-by-step fixes, device checklists, family rules,
-              and a printable action pack.
-            </p>
-          </div>
-          <a class="primary-cta" href="/purchase">Unlock full report</a>
-        </div>
-      </section>
-
-    </section>
-
-    <!-- FAMILY EXAMPLE -->
-    <section id="example" class="panel">
-      <div class="panel-head">
-        <h2>Family example: before → after</h2>
-        <p class="section-intro">
-          A simple picture of what “planting digital seeds” looks like in the real world.
-        </p>
-      </div>
-
-      <div class="example-grid">
-        <div class="example-card">
-          <h3 class="example-title">Before</h3>
-          <p class="example-sub">The home ecosystem is busy, but unmanaged.</p>
-          <ul class="example-list">
-            <li>One Wi-Fi for everything (visitors + devices + kids)</li>
-            <li>Default router settings never checked</li>
-            <li>Passwords reused “because it’s easier”</li>
-            <li>Scam texts cause stress and uncertainty</li>
-            <li>Arguments about screens, especially at bedtime</li>
-          </ul>
-          <p class="example-note">
-            Result: the home doesn’t feel unsafe every day — but it’s easy to tip into chaos.
-          </p>
-        </div>
-
-        <div class="example-card">
-          <h3 class="example-title">After</h3>
-          <p class="example-sub">Small changes create a stable foundation.</p>
-          <ul class="example-list">
-            <li>Guest Wi-Fi (visitors + smart devices separated)</li>
-            <li>Router admin secured + updates checked</li>
-            <li>Password manager + 2-step on key accounts</li>
-            <li>One household money rule: “never pay from a link”</li>
-            <li>Calm boundaries: devices charge outside bedrooms</li>
-          </ul>
-          <p class="example-note">
-            Result: fewer emergencies, less conflict, and a household that recovers quickly when something happens.
-          </p>
-        </div>
-      </div>
-
-      <div class="oakline">
-        <p>
-          Cyber Seeds isn’t about perfection. It’s about planting the right “digital seeds” so the household grows a strong,
-          oak-level foundation over time.
-        </p>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="how" class="panel">
-      <div class="panel-head">
-        <h2>How the snapshot works</h2>
-        <p class="section-intro">
-          We translate your answers into signals across five lenses, then generate a calm summary and a small plan.
-        </p>
-      </div>
-
-      <div class="how-grid">
-        <div class="how-item">
-          <h3>1) Five lenses</h3>
-          <p>Network, Devices, Privacy, Scams, Wellbeing — the most common household pressure points.</p>
-        </div>
-        <div class="how-item">
-          <h3>2) A real score</h3>
-          <p>A practical indicator of resilience (not a “grade”). It helps you prioritise what matters first.</p>
-        </div>
-        <div class="how-item">
-          <h3>3) Calm next steps</h3>
-          <p>We focus on small, high-impact actions that reduce risk without increasing stress.</p>
-        </div>
-      </div>
-
-      <div class="legal-note">
-        <p class="small">
-          This snapshot is guidance, not monitoring or surveillance. If you unlock the full report, you’ll get deeper steps and resources — still calm, still proportionate.
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="foot-left">
-        <p class="small">© Cyber Seeds</p>
-        <p class="small">Digital health for the home.</p>
-      </div>
-      <div class="foot-right">
-        <a href="/privacy/">Privacy</a>
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
+      <div class="example-card">
+        <h3>After</h3>
+        <ul>
+          <li>Guest Wi-Fi for visitors & smart devices</li>
+          <li>Router secured and updated</li>
+          <li>Password manager + 2-step login</li>
+          <li>One calm money rule</li>
+          <li>Clear device boundaries</li>
+        </ul>
       </div>
     </div>
-  </footer>
 
-  <script src="/script.js"></script>
+    <p class="oakline">
+      Cyber Seeds isn’t about perfection — it’s about building a strong digital ecosystem that grows over time.
+    </p>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section id="whatyouget" class="panel">
+    <div class="panel-head">
+      <h2>What you get if you unlock the full report</h2>
+    </div>
+
+    <ul class="deliverables">
+      <li>Full household digital health report (PDF)</li>
+      <li>Five-lens breakdown with clear priorities</li>
+      <li>14-day Digital Seed Planting Plan</li>
+      <li>Device & account checklist</li>
+      <li>Family rules & scam-prevention templates</li>
+      <li>Printable household summary</li>
+    </ul>
+
+    <div class="unlock center">
+      <a href="/purchase" class="primary-cta">Unlock full report (£75)</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© Cyber Seeds · Digital health for the home</p>
+  <nav>
+    <a href="/privacy/">Privacy</a>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</footer>
+
+<script src="/script.js"></script>
 </body>
 </html>
