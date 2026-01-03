@@ -3,129 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cyber Seeds – Calm clarity for the connected home</title>
+  <meta name="description" content="Cyber Seeds helps families gently understand and strengthen their home’s digital wellbeing. No judgement. No monitoring. Just clarity." />
+
   <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
-
-  <title>Cyber Seeds</title>
-  <meta name="description" content="Cyber Seeds reveals the hidden digital structure of your home. Calm clarity for the connected household." />
-
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="eyebrow">A household intelligence</span>
-      <h1>Your home is digital.<br>It just hasn’t been mapped yet.</h1>
-      <p class="hero-sub">
-        Cyber Seeds reveals the invisible systems shaping your family’s online life —
-        quietly, proportionately, without surveillance.
-      </p>
-      <button id="openSnapshot" class="primary-btn">
-        View a household signal
-      </button>
-      <p class="hero-foot">
-        No monitoring · No judgement · Runs locally
-      </p>
-    </div>
-  </section>
-
-  <!-- PHILOSOPHY -->
-  <section class="philosophy">
-    <p>
-      For years, households were given tools, rules, and controls.
-      <br />
-      What they were never given was <em>orientation</em>.
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">A household digital wellbeing service</span>
+    <h1>Your home is already digital.<br>We help it feel safer.</h1>
+    <p class="hero-sub">
+      Cyber Seeds offers calm, family-friendly orientation for modern homes —
+      helping you understand what’s working, what’s unclear, and where small changes can quietly improve everything.
     </p>
-    <p>
-      Cyber Seeds treats the home as a living digital ecosystem —
-      where small, well-placed adjustments quietly change everything.
+
+    <button class="primary-btn" onclick="document.getElementById('signal').scrollIntoView({behavior:'smooth'})">
+      View a household signal
+    </button>
+
+    <p class="hero-foot">No monitoring · No judgement · UK families</p>
+  </div>
+</header>
+
+<section class="philosophy">
+  <p>
+    Most families don’t need more rules or controls.
+    <br />
+    They need <strong>orientation</strong>.
+  </p>
+  <p>
+    Cyber Seeds treats the home as a living digital environment —
+    shaped by people, routines, devices and trust.
+  </p>
+</section>
+
+<section class="pillars">
+  <div class="pillar">
+    <h3>Foundations</h3>
+    <p>Wi-Fi, devices and accounts that quietly support daily life.</p>
+  </div>
+  <div class="pillar">
+    <h3>Everyday habits</h3>
+    <p>How technology is actually used — not how guides assume.</p>
+  </div>
+  <div class="pillar">
+    <h3>Children & care</h3>
+    <p>Curiosity, safety and trust handled without fear.</p>
+  </div>
+</section>
+
+<section id="signal" class="signal">
+  <div class="signal-inner">
+    <h2>A provisional household signal</h2>
+    <p class="signal-intro">
+      This is not a test.<br>
+      It’s a moment of orientation.
     </p>
-  </section>
 
-  <!-- SEEDS -->
-  <section class="seeds">
-    <div class="seed">
-      <h3>Digital foundations</h3>
-      <p>
-        Internet, accounts, devices, and identity —
-        the unseen roots everything else depends on.
-      </p>
-    </div>
-    <div class="seed">
-      <h3>Behavioural flow</h3>
-      <p>
-        How people actually use technology —
-        not how policies assume they do.
-      </p>
-    </div>
-    <div class="seed">
-      <h3>Child reality</h3>
-      <p>
-        Development, curiosity, risk, and trust —
-        handled without fear or control.
-      </p>
-    </div>
-  </section>
+    <form id="signalForm">
+      <label>
+        Who lives in your household?
+        <select name="household">
+          <option value="adults">Adults only</option>
+          <option value="family">Adults and children</option>
+          <option value="extended">Larger or blended household</option>
+        </select>
+      </label>
 
-  <!-- SNAPSHOT -->
-  <section class="snapshot">
-    <div class="snapshot-inner">
-      <h2>A provisional household signal</h2>
-      <p class="snapshot-intro">
-        This is not a test.
-        <br />
-        It is a moment of orientation.
-      </p>
+      <label>
+        How clear does your digital setup feel day-to-day?
+        <select name="clarity">
+          <option value="low">Often confusing</option>
+          <option value="medium">Mostly manageable</option>
+          <option value="high">Clear and settled</option>
+        </select>
+      </label>
 
-      <form id="snapshotForm">
-        <label>
-          Household makeup
-          <select name="household">
-            <option value="simple">Adults only</option>
-            <option value="family">Adults and children</option>
-            <option value="complex">Large or blended household</option>
-          </select>
-        </label>
+      <label>
+        When something goes wrong digitally, it usually feels:
+        <select name="stress">
+          <option value="high">Stressful and disruptive</option>
+          <option value="medium">Annoying but solvable</option>
+          <option value="low">Rare and manageable</option>
+        </select>
+      </label>
 
-        <label>
-          How clear does your digital setup feel?
-          <select name="clarity">
-            <option value="low">Not very clear</option>
-            <option value="medium">Somewhat clear</option>
-            <option value="high">Very clear</option>
-          </select>
-        </label>
+      <button class="primary-btn" type="submit">Reveal signal</button>
+    </form>
 
-        <button type="submit" class="primary-btn">
-          Reveal signal
-        </button>
-      </form>
+    <div id="signalOutput" class="signal-output"></div>
+  </div>
+</section>
 
-      <div id="snapshotOutput" class="snapshot-output"></div>
-    </div>
-  </section>
+<section class="resources-preview">
+  <h2>Free guides for calm digital living</h2>
+  <p>
+    Many families start by exploring our free, plain-language resources —
+    designed to reduce worry, not add homework.
+  </p>
+  <a href="/resources/" class="secondary-btn">Explore free resources</a>
+</section>
 
-  <!-- CLOSE -->
-  <section class="closing">
-    <p>
-      Cyber Seeds is not a product.
-      <br />
-      It is missing infrastructure.
-    </p>
-    <a class="secondary-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform">
-      Request a full household reading
-    </a>
-  </section>
+<section class="closing">
+  <p>
+    Some households want deeper clarity.
+  </p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform" class="primary-btn">
+    Request a full household reading
+  </a>
+</section>
 
-  <footer>
-    <span>Cyber Seeds</span>
-    <span>·</span>
-    <a href="/privacy.html">Privacy</a>
-  </footer>
+<footer>
+  <span>Cyber Seeds · UK</span>
+  <a href="/privacy.html">Privacy</a>
+</footer>
 
-  <script src="./script.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>
-
