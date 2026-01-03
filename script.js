@@ -1,20 +1,22 @@
-document.getElementById("snapshotForm").addEventListener("submit", (e) => {
+document.getElementById("signalForm").addEventListener("submit", e => {
   e.preventDefault();
 
-  const household = e.target.household.value;
-  const clarity = e.target.clarity.value;
+  const { household, clarity, stress } = e.target;
 
-  let signal;
+  let message = "";
 
-  if (clarity === "high" && household === "simple") {
-    signal = "Your household appears calm, oriented, and quietly resilient.";
-  } else if (clarity === "low") {
-    signal =
-      "Your home likely functions day-to-day, but some digital foundations may be assumed rather than understood.";
-  } else {
-    signal =
-      "Your household shows signs of stability, with a few areas that would benefit from gentle clarification.";
+  if (clarity.value === "high" && stress.value === "low") {
+    message =
+      "Your household feels settled and well-oriented. Most digital systems appear to support daily life quietly, with only minor opportunities for refinement.";
+  } 
+  else if (clarity.value === "low" || stress.value === "high") {
+    message =
+      "Your home is functioning, but some digital foundations may feel unclear or stressful when things go wrong. Gentle clarification would likely bring noticeable relief.";
+  } 
+  else {
+    message =
+      "Your household shows signs of stability, with a few areas that would benefit from calm attention and small adjustments over time.";
   }
 
-  document.getElementById("snapshotOutput").innerText = signal;
+  document.getElementById("signalOutput").innerText = message;
 });
