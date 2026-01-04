@@ -12,8 +12,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap"
-        rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap"
+    rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
@@ -23,20 +24,18 @@
 
 <div class="page">
 
-  <!-- PRACTITIONER MODE TOGGLE -->
-  <div id="overlayToggle">Practitioner Mode</div>
-
-  <!-- PRACTITIONER OVERLAY -->
+  <!-- PRACTITIONER OVERLAY (HIDDEN / SECRET ACCESS ONLY) -->
   <aside id="practitionerOverlay">
     <h3>Practitioner Overlay</h3>
     <p>
-      This view exposes interpretive anchors and professional context.
-      It is never shown to households.
+      Interpretive context for accredited practitioners only.
+      This layer is intentionally invisible to households.
     </p>
     <ul>
       <li>Signal ≠ score</li>
-      <li>Directional, not diagnostic</li>
-      <li>Attention does not imply risk</li>
+      <li>Directional tension indicator</li>
+      <li>Attention does not imply failure</li>
+      <li>No single lens determines outcome</li>
     </ul>
   </aside>
 
@@ -65,24 +64,27 @@
     <small>No fear · No monitoring · No technical pressure</small>
   </section>
 
-  <!-- SIGNAL SIMULATOR -->
+  <!-- LIVE SIGNAL SIMULATOR -->
   <section class="section-soft" id="simulator">
 
     <h2>Live Household Signal</h2>
-    <p>This is a directional signal — it responds as you answer.</p>
+    <p>
+      This is a directional signal — it responds as you answer,
+      gently highlighting where attention may help.
+    </p>
 
     <div class="simulator">
 
       <!-- LEFT: QUESTIONS -->
       <div class="sim-left">
-        <div id="simStep">Question 1 of 7</div>
+        <div id="simStep">Question 1 of 5</div>
 
         <div id="simQuestion">
-          How confident do you feel about the devices connected to your home?
+          <!-- injected by script.js -->
         </div>
 
         <div id="simOptions">
-          <!-- JS injects options here -->
+          <!-- clickable options injected by script.js -->
         </div>
 
         <div class="sim-nav">
@@ -91,24 +93,30 @@
         </div>
       </div>
 
-      <!-- RIGHT: SIGNAL DIAL -->
+      <!-- RIGHT: SIGNAL VISUAL -->
       <div class="sim-right">
-        <svg viewBox="0 0 320 320" class="dial" aria-label="Household signal visual">
+        <svg viewBox="0 0 320 320"
+             class="dial"
+             aria-label="Household digital signal visualisation">
+
           <circle cx="160" cy="160" r="132" class="dial-bg"/>
           <circle cx="160" cy="160" r="112" class="dial-ring"/>
 
+          <!-- Five lens arcs -->
           <path id="arc0" class="arc"/>
           <path id="arc1" class="arc"/>
           <path id="arc2" class="arc"/>
           <path id="arc3" class="arc"/>
           <path id="arc4" class="arc"/>
 
+          <!-- Hub -->
           <circle cx="160" cy="160" r="52" class="hub"/>
 
-          <text x="160" y="152" text-anchor="middle" class="hubT1">
+          <text x="160" y="150" text-anchor="middle" class="hubT1">
             Signal
           </text>
-          <text x="160" y="176" text-anchor="middle" class="hubT2" id="signalMood">
+          <text x="160" y="176" text-anchor="middle"
+                class="hubT2" id="signalMood">
             Listening
           </text>
         </svg>
@@ -120,10 +128,11 @@
     <div class="export-card" id="exportCard">
       <h3>Your Household Snapshot</h3>
       <p>
-        A calm, shareable summary of what your household signal revealed.
+        A calm, shareable summary of the signal your answers created.
       </p>
 
-      <canvas id="snapshotCanvas" width="420" height="260"></canvas>
+      <canvas id="snapshotCanvas" width="420" height="260"
+              aria-label="Household snapshot export"></canvas>
 
       <button class="primary" id="downloadSnapshot">
         Download Snapshot
@@ -136,45 +145,63 @@
 
   </section>
 
-  <!-- FIVE LENSES -->
+  <!-- FIVE-LENS SAFETY MODEL -->
   <section class="lenses">
     <h2>The Five-Lens Safety Model</h2>
-    <p>Your household is a living digital ecosystem.</p>
+    <p>
+      Your household is a living digital ecosystem.
+      Each lens protects a different part of it.
+    </p>
 
     <div class="lens-grid">
 
       <div class="lens-card">
         <div class="front">Network &amp; Wi-Fi</div>
         <div class="back">
-          Routers, access paths, configuration and visibility.
+          <strong>Network &amp; Wi-Fi</strong><br><br>
+          How your home connects to the outside world.<br>
+          Routers, passwords, guest access and visibility.<br><br>
+          <em>Families often realise this is the digital front door.</em>
         </div>
       </div>
 
       <div class="lens-card">
         <div class="front">Devices &amp; Apps</div>
         <div class="back">
-          Phones, tablets, TVs, consoles and forgotten technology.
+          <strong>Devices &amp; Apps</strong><br><br>
+          Phones, tablets, TVs, consoles and background services.<br>
+          What’s active, what’s forgotten, what’s shared.<br><br>
+          <em>Often described as the “rooms in the house”.</em>
         </div>
       </div>
 
       <div class="lens-card">
         <div class="front">Privacy &amp; Identity</div>
         <div class="back">
-          Accounts, data trails, exposure and control.
+          <strong>Privacy &amp; Identity</strong><br><br>
+          Accounts, data trails and personal exposure.<br>
+          How information moves beyond the household.<br><br>
+          <em>This lens shapes long-term digital footprint.</em>
         </div>
       </div>
 
       <div class="lens-card">
         <div class="front">Scams &amp; Behaviour</div>
         <div class="back">
-          Pressure tactics, emotional manipulation and decision fatigue.
+          <strong>Scams &amp; Behaviour</strong><br><br>
+          Pressure moments, urgency tactics and decision fatigue.<br>
+          How households respond under stress.<br><br>
+          <em>Clarity here often brings immediate relief.</em>
         </div>
       </div>
 
       <div class="lens-card">
         <div class="front">Children’s Wellbeing</div>
         <div class="back">
-          Digital routines, confidence, balance and resilience.
+          <strong>Children’s Wellbeing</strong><br><br>
+          Digital routines, confidence and balance.<br>
+          Not control — but understanding and support.<br><br>
+          <em>This lens anchors the future of the ecosystem.</em>
         </div>
       </div>
 
@@ -188,6 +215,7 @@
 
 </div>
 
+<!-- Behaviour -->
 <script src="script.js"></script>
 </body>
 </html>
