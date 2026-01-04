@@ -3,126 +3,646 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Cyber Seeds – Calm clarity for the connected home</title>
-  <meta name="description" content="Cyber Seeds helps families gently understand and strengthen their home’s digital wellbeing. No judgement. No monitoring. Just clarity." />
-
   <link rel="canonical" href="https://www.cyberseeds.co.uk/" />
-  <link rel="stylesheet" href="/style.css" />
+
+  <title>Cyber Seeds — Household Digital Snapshot</title>
+  <meta name="description" content="A calm household digital snapshot. Understand your home’s connected ecosystem with protective clarity — no monitoring, no judgement." />
+
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Cyber Seeds Home">
+      <span class="brandMark" aria-hidden="true"></span>
+      <span class="brandText">Cyber Seeds</span>
+      <span class="brandTag">Household Intelligence</span>
+    </a>
 
-<header class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">A household digital wellbeing service</span>
-    <h1>Your home is already digital.<br>We help it feel safer.</h1>
-    <p class="hero-sub">
-      Cyber Seeds offers calm, family-friendly orientation for modern homes —
-      helping you understand what’s working, what’s unclear, and where small changes can quietly improve everything.
-    </p>
+    <nav class="nav">
+      <a href="#snapshot">Snapshot</a>
+      <a href="#how">How it works</a>
+      <a href="#plans">Plans</a>
+      <a href="#faq">FAQ</a>
+    </nav>
 
-    <button class="primary-btn" onclick="document.getElementById('signal').scrollIntoView({behavior:'smooth'})">
-      View a household signal
-    </button>
+    <div class="topActions">
+      <button class="ghostBtn" id="toggleTheme" type="button" aria-label="Toggle theme">Theme</button>
+      <button class="primaryBtn" id="startSnapshot" type="button">Get your snapshot</button>
+    </div>
+  </header>
 
-    <p class="hero-foot">No monitoring · No judgement · UK families</p>
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="heroCopy">
+          <div class="eyebrow">Protective clarity for the connected household</div>
+          <h1>Your home is digital.<br/>We help you see it clearly.</h1>
+
+          <p class="lede">
+            Cyber Seeds turns the invisible parts of your household’s online life into a calm, usable picture —
+            so you can strengthen what matters without fear, surveillance, or judgement.
+          </p>
+
+          <div class="heroBullets">
+            <div class="pill">🧠 Cognitive safety</div>
+            <div class="pill">🌱 Participatory understanding</div>
+            <div class="pill">🏡 Household intelligence</div>
+            <div class="pill">🛡️ Protective clarity</div>
+          </div>
+
+          <div class="ctaRow">
+            <button class="primaryBtn" id="startSnapshot2" type="button">Build my household snapshot</button>
+            <button class="ghostBtn" id="viewExample" type="button">See an example</button>
+          </div>
+
+          <p class="microNote">
+            <strong>Local-only.</strong> Your answers stay in your browser. No monitoring. No device access. No tracking scripts.
+          </p>
+        </div>
+
+        <div class="heroPanel" aria-label="Household signal preview">
+          <div class="panelTop">
+            <div class="panelTitle">Provisional Household Signal</div>
+            <div class="panelSub">A calm snapshot across the 5 lenses</div>
+          </div>
+
+          <div class="signalTiles" role="list" aria-label="Five lens tiles">
+            <div class="tile" role="listitem">
+              <div class="tileHead">
+                <span class="tileIcon">📶</span>
+                <span class="tileName">Wi-Fi & Network</span>
+              </div>
+              <div class="tileBar"><span class="barFill" style="width:78%"></span></div>
+              <div class="tileFoot">Mostly stable</div>
+            </div>
+
+            <div class="tile" role="listitem">
+              <div class="tileHead">
+                <span class="tileIcon">📱</span>
+                <span class="tileName">Device Hygiene</span>
+              </div>
+              <div class="tileBar"><span class="barFill" style="width:64%"></span></div>
+              <div class="tileFoot">Improving</div>
+            </div>
+
+            <div class="tile" role="listitem">
+              <div class="tileHead">
+                <span class="tileIcon">🕵️</span>
+                <span class="tileName">Privacy & Exposure</span>
+              </div>
+              <div class="tileBar"><span class="barFill" style="width:52%"></span></div>
+              <div class="tileFoot">Some visibility gaps</div>
+            </div>
+
+            <div class="tile" role="listitem">
+              <div class="tileHead">
+                <span class="tileIcon">🎭</span>
+                <span class="tileName">Scams & Behaviour</span>
+              </div>
+              <div class="tileBar"><span class="barFill" style="width:70%"></span></div>
+              <div class="tileFoot">Good instincts</div>
+            </div>
+
+            <div class="tile" role="listitem">
+              <div class="tileHead">
+                <span class="tileIcon">🌙</span>
+                <span class="tileName">Child Wellbeing</span>
+              </div>
+              <div class="tileBar"><span class="barFill" style="width:66%"></span></div>
+              <div class="tileFoot">Steady rhythm</div>
+            </div>
+          </div>
+
+          <div class="panelBottom">
+            <div class="miniCallout">
+              <div class="miniTitle">What this feels like</div>
+              <div class="miniText">“Ah. I can finally see the shape of our home.”</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="trustStrip">
+      <div class="trustItem">
+        <div class="trustIcon">🔒</div>
+        <div class="trustText">
+          <strong>No monitoring</strong>
+          <span>We do not watch, track, or record your household.</span>
+        </div>
+      </div>
+
+      <div class="trustItem">
+        <div class="trustIcon">🧭</div>
+        <div class="trustText">
+          <strong>No judgement</strong>
+          <span>We map reality, then offer gentle next steps.</span>
+        </div>
+      </div>
+
+      <div class="trustItem">
+        <div class="trustIcon">🧩</div>
+        <div class="trustText">
+          <strong>Real clarity</strong>
+          <span>Five lenses. Three actions. One calm picture.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNAPSHOT -->
+    <section id="snapshot" class="snapSection">
+      <div class="sectionHead">
+        <h2>Your Household Snapshot</h2>
+        <p class="sectionSub">
+          Build a provisional signal in under 8 minutes. This is not a test. It’s a map.
+        </p>
+      </div>
+
+      <div class="snapLayout">
+        <!-- Left: Stepper -->
+        <div class="snapCard">
+          <div class="snapTop">
+            <div class="snapTitle">Snapshot Builder</div>
+            <div class="snapMeta">
+              <span id="progressLabel">Step 1 of 3</span>
+              <span class="dotSep" aria-hidden="true">•</span>
+              <span id="timeHint">~6–8 minutes</span>
+            </div>
+          </div>
+
+          <div class="progressWrap" aria-label="progress">
+            <div class="progressBar"><span id="progressFill"></span></div>
+          </div>
+
+          <form id="snapForm" autocomplete="off">
+            <!-- STEP 1 -->
+            <div class="step active" data-step="1">
+              <h3>1) Your household shape</h3>
+              <p class="hint">
+                We’re not asking for names. Just a simple outline so the snapshot fits your reality.
+              </p>
+
+              <div class="grid2">
+                <label class="field">
+                  <span class="label">Household type</span>
+                  <select name="householdType" required>
+                    <option value="" disabled selected>Select…</option>
+                    <option value="solo">Solo</option>
+                    <option value="couple">Couple</option>
+                    <option value="family">Family</option>
+                    <option value="shared">Shared house</option>
+                    <option value="multi">Multi-generational</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span class="label">Approx devices connected</span>
+                  <select name="deviceCount" required>
+                    <option value="" disabled selected>Select…</option>
+                    <option value="low">1–6</option>
+                    <option value="mid">7–15</option>
+                    <option value="high">16–30</option>
+                    <option value="veryhigh">31+</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="builderBlock">
+                <div class="builderHead">
+                  <div>
+                    <div class="builderTitle">Build your home map</div>
+                    <div class="builderSub">Add devices you recognise. This increases accuracy.</div>
+                  </div>
+                  <button type="button" class="ghostBtn small" id="addDeviceBtn">Add device</button>
+                </div>
+
+                <div class="deviceList" id="deviceList" aria-live="polite"></div>
+
+                <div class="builderFoot">
+                  <div class="tip">
+                    <strong>Tip:</strong> If you’re not sure, that’s normal. Add what you can. The snapshot adapts.
+                  </div>
+                </div>
+              </div>
+
+              <div class="stepActions">
+                <button type="button" class="primaryBtn" data-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step" data-step="2">
+              <h3>2) How your systems behave</h3>
+              <p class="hint">
+                These questions are about the household system, not personal competence.
+              </p>
+
+              <div class="qBlock">
+                <div class="q">
+                  <div class="qTitle">Wi-Fi router admin password is changed from default</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="routerPass" value="yes" required> Yes</label>
+                    <label><input type="radio" name="routerPass" value="no"> No / unsure</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">You have a guest Wi-Fi network for visitors / smart devices</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="guestWifi" value="yes" required> Yes</label>
+                    <label><input type="radio" name="guestWifi" value="no"> No / unsure</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">Automatic updates are enabled on most devices</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="updates" value="yes" required> Mostly</label>
+                    <label><input type="radio" name="updates" value="some"> Some</label>
+                    <label><input type="radio" name="updates" value="no"> Rarely / unsure</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">You use a password manager (or strong unique passwords)</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="pwManager" value="yes" required> Yes</label>
+                    <label><input type="radio" name="pwManager" value="no"> Not yet</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">Two-step verification is enabled on key accounts</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="mfa" value="yes" required> Yes</label>
+                    <label><input type="radio" name="mfa" value="some"> Some</label>
+                    <label><input type="radio" name="mfa" value="no"> No / unsure</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">Children have clear boundaries for bedtime / screen rhythm</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="rhythm" value="yes" required> Mostly</label>
+                    <label><input type="radio" name="rhythm" value="some"> Sometimes</label>
+                    <label><input type="radio" name="rhythm" value="no"> Not yet</label>
+                  </div>
+                </div>
+
+                <div class="q">
+                  <div class="qTitle">If a message feels urgent (bank, delivery, prize), you pause and verify</div>
+                  <div class="qChoices">
+                    <label><input type="radio" name="scamPause" value="yes" required> Usually</label>
+                    <label><input type="radio" name="scamPause" value="some"> Sometimes</label>
+                    <label><input type="radio" name="scamPause" value="no"> Not really</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stepActions">
+                <button type="button" class="ghostBtn" data-prev>Back</button>
+                <button type="button" class="primaryBtn" data-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step" data-step="3">
+              <h3>3) What you want Cyber Seeds to prioritise</h3>
+              <p class="hint">
+                This is how we keep it humane: the snapshot should serve your reality.
+              </p>
+
+              <div class="focusGrid" role="group" aria-label="Select one priority">
+                <label class="focusCard">
+                  <input type="radio" name="priority" value="clarity" required />
+                  <span class="focusIcon">🧭</span>
+                  <span class="focusTitle">Clarity</span>
+                  <span class="focusText">“I just want to understand what’s going on.”</span>
+                </label>
+
+                <label class="focusCard">
+                  <input type="radio" name="priority" value="privacy" />
+                  <span class="focusIcon">🕵️</span>
+                  <span class="focusTitle">Privacy</span>
+                  <span class="focusText">Reduce exposure. Tighten the outer edges.</span>
+                </label>
+
+                <label class="focusCard">
+                  <input type="radio" name="priority" value="kids" />
+                  <span class="focusIcon">🌙</span>
+                  <span class="focusTitle">Children</span>
+                  <span class="focusText">Wellbeing, boundaries, and safety without conflict.</span>
+                </label>
+              </div>
+
+              <div class="consentBox">
+                <label class="check">
+                  <input type="checkbox" id="localOnlyAck" required />
+                  <span>
+                    I understand this snapshot is <strong>local-only</strong> and does not monitor my household.
+                  </span>
+                </label>
+              </div>
+
+              <div class="stepActions">
+                <button type="button" class="ghostBtn" data-prev>Back</button>
+                <button type="submit" class="primaryBtn">Generate my snapshot</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="resetRow">
+            <button class="textBtn" id="resetAll" type="button">Reset snapshot data</button>
+            <span class="sep">·</span>
+            <button class="textBtn" id="exportJson" type="button">Export local snapshot (JSON)</button>
+          </div>
+        </div>
+
+        <!-- Right: Results -->
+        <aside class="resultCard" aria-live="polite">
+          <div class="resultTop">
+            <div>
+              <div class="resultTitle">Your Signal</div>
+              <div class="resultSub">Generated from your inputs — calm, provisional, usable.</div>
+            </div>
+            <div class="badge" id="stateBadge">Waiting</div>
+          </div>
+
+          <div class="resultBody">
+            <div class="resultSection">
+              <div class="resultLabel">Focus</div>
+              <div class="focusLine" id="focusLine">Complete the builder to see what your home is leaning towards.</div>
+            </div>
+
+            <div class="resultSection">
+              <div class="resultLabel">Five lens signal</div>
+              <div class="lensGrid" id="lensGrid">
+                <!-- JS fills -->
+              </div>
+            </div>
+
+            <div class="resultSection">
+              <div class="resultLabel">Three strengths</div>
+              <ul class="list" id="strengthsList">
+                <li>We’ll surface what your household is already doing well.</li>
+              </ul>
+            </div>
+
+            <div class="resultSection">
+              <div class="resultLabel">Three gentle actions</div>
+              <ol class="list" id="actionsList">
+                <li>Finish the snapshot builder to generate your actions.</li>
+              </ol>
+            </div>
+
+            <div class="resultSection">
+              <div class="resultLabel">Your household map</div>
+              <div class="mapBox">
+                <pre class="mapPre" id="mapPre">[ Add devices to build your map ]</pre>
+              </div>
+              <div class="tinyNote">This is a symbolic map — it helps you see structure, not personal details.</div>
+            </div>
+          </div>
+
+          <div class="resultBottom">
+            <button class="primaryBtn full" id="goPlans" type="button">View next steps</button>
+            <p class="microNote">
+              You can stop here and still keep the value. If you continue, you’re paying for packaging and guidance, not fear.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="howSection">
+      <div class="sectionHead">
+        <h2>How Cyber Seeds works</h2>
+        <p class="sectionSub">A simple loop that turns uncertainty into structure.</p>
+      </div>
+
+      <div class="howGrid">
+        <div class="howCard">
+          <div class="howNum">1</div>
+          <h3>Map</h3>
+          <p>We map the household’s connected ecosystem: devices, Wi-Fi shape, behaviours, and boundaries.</p>
+        </div>
+
+        <div class="howCard">
+          <div class="howNum">2</div>
+          <h3>Signal</h3>
+          <p>You receive a calm provisional signal across the five lenses — with strengths and clarity gaps.</p>
+        </div>
+
+        <div class="howCard">
+          <div class="howNum">3</div>
+          <h3>Plant</h3>
+          <p>We recommend three gentle “digital seeds” — small actions that improve resilience without overwhelm.</p>
+        </div>
+      </div>
+
+      <div class="beforeAfter">
+        <div class="baHead">
+          <h3>Before / After (example)</h3>
+          <p class="hint">Not “unsafe vs safe” — just “unmapped vs mapped”.</p>
+        </div>
+
+        <div class="baGrid">
+          <div class="baCard">
+            <div class="baTitle">Unmapped home</div>
+            <pre class="baPre">Wi-Fi: unknown
+Devices: “loads”
+Boundaries: inconsistent
+Scams: confusing
+Privacy: guesswork</pre>
+          </div>
+
+          <div class="baCard">
+            <div class="baTitle">Mapped home</div>
+            <pre class="baPre">Wi-Fi: named + separated
+Devices: known + updated
+Boundaries: agreed rhythm
+Scams: pause → verify
+Privacy: reduced exposure</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans" class="plansSection">
+      <div class="sectionHead">
+        <h2>Choose a next step</h2>
+        <p class="sectionSub">Rule of 3. No clutter. Pick the level of support you want.</p>
+      </div>
+
+      <div class="planGrid">
+        <article class="planCard">
+          <div class="planTop">
+            <div class="planName">Snapshot</div>
+            <div class="planPrice">Free</div>
+          </div>
+          <ul class="planList">
+            <li>Five lens provisional signal</li>
+            <li>Three strengths + three actions</li>
+            <li>Local-only data (no tracking)</li>
+          </ul>
+          <button class="ghostBtn full" type="button" id="backToSnap1">Back to snapshot</button>
+        </article>
+
+        <article class="planCard featured" aria-label="Recommended plan">
+          <div class="planTag">Recommended</div>
+          <div class="planTop">
+            <div class="planName">Snapshot + Action Pack</div>
+            <div class="planPrice">£75 <span class="planWas">£129</span></div>
+          </div>
+          <ul class="planList">
+            <li>Printable household pack</li>
+            <li>Personalised seed plan (30 days)</li>
+            <li>Device + account checklist</li>
+          </ul>
+          <button class="primaryBtn full" type="button" id="buyPack">Continue to purchase</button>
+          <div class="planFoot">You’re paying for structure + packaging, not fear.</div>
+        </article>
+
+        <article class="planCard">
+          <div class="planTop">
+            <div class="planName">Practitioner Review</div>
+            <div class="planPrice">£129</div>
+          </div>
+          <ul class="planList">
+            <li>Human review of your snapshot</li>
+            <li>Priority fixes tailored to your home</li>
+            <li>Safeguarding-aware guidance</li>
+          </ul>
+          <button class="ghostBtn full" type="button" id="buyReview">Request review</button>
+        </article>
+      </div>
+
+      <div class="plansNote">
+        <div class="noteCard">
+          <strong>Protective clarity policy:</strong> Cyber Seeds avoids surveillance and shame-based messaging. We build understanding first, then support.
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faqSection">
+      <div class="sectionHead">
+        <h2>FAQ</h2>
+        <p class="sectionSub">Short answers, calm clarity.</p>
+      </div>
+
+      <div class="faqGrid">
+        <details class="faq">
+          <summary>Does Cyber Seeds monitor my household?</summary>
+          <p>No. This site does not access devices, networks, microphones, cameras, or accounts. The snapshot is a structured self-report and stays in your browser.</p>
+        </details>
+
+        <details class="faq">
+          <summary>Is this a pass/fail test?</summary>
+          <p>No. The signal is provisional and practical. It highlights what’s already working and where small changes would reduce stress and exposure.</p>
+        </details>
+
+        <details class="faq">
+          <summary>What if I don’t know the answers?</summary>
+          <p>That’s normal. “Unsure” is a valid data point. Cyber Seeds is built for real households, not experts.</p>
+        </details>
+
+        <details class="faq">
+          <summary>Why five lenses?</summary>
+          <p>Because household safety is not one thing. It’s network, devices, privacy, scams/behaviour, and wellbeing — interacting as a living system.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footerInner">
+        <div class="footBrand">
+          <div class="brandLine">
+            <span class="brandMark" aria-hidden="true"></span>
+            <strong>Cyber Seeds</strong>
+          </div>
+          <p class="footText">
+            Calm clarity for the connected household. No monitoring. No judgement.
+          </p>
+        </div>
+
+        <div class="footLinks">
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/contact/">Contact</a>
+        </div>
+      </div>
+
+      <div class="footBottom">
+        <span>© <span id="year"></span> Cyber Seeds</span>
+        <span class="dotSep" aria-hidden="true">•</span>
+        <span>Household Digital Snapshot</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-label="Example snapshot">
+    <div class="modalOverlay" data-close></div>
+    <div class="modalPanel" role="document">
+      <div class="modalTop">
+        <div>
+          <div class="modalTitle">Example snapshot (preview)</div>
+          <div class="modalSub">This is what a calm output looks like.</div>
+        </div>
+        <button class="ghostBtn small" data-close type="button">Close</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="exampleGrid">
+          <div class="exampleCard">
+            <div class="exTitle">Focus</div>
+            <div class="exText">Exposure (privacy edges) — not “danger”, just “visibility gaps”.</div>
+          </div>
+
+          <div class="exampleCard">
+            <div class="exTitle">3 strengths</div>
+            <ul class="list">
+              <li>Good scam pause instinct</li>
+              <li>Updates enabled on most devices</li>
+              <li>Clear household rhythm emerging</li>
+            </ul>
+          </div>
+
+          <div class="exampleCard">
+            <div class="exTitle">3 gentle actions</div>
+            <ol class="list">
+              <li>Create a guest Wi-Fi for visitors / smart devices</li>
+              <li>Turn on two-step verification for key accounts</li>
+              <li>Do a 10-minute privacy edge tidy (social profiles)</li>
+            </ol>
+          </div>
+
+          <div class="exampleCard">
+            <div class="exTitle">Household map</div>
+            <pre class="mapPre">[Router]
+  ├─ Phone (adult)
+  ├─ Laptop
+  ├─ Smart TV
+  ├─ Tablet (child)
+  └─ Console</pre>
+          </div>
+        </div>
+
+        <div class="modalNote">
+          This preview is intentionally calm. Cyber Seeds is designed to reduce panic — not increase it.
+        </div>
+      </div>
+    </div>
   </div>
-</header>
 
-<section class="philosophy">
-  <p>
-    Most families don’t need more rules or controls.
-    <br />
-    They need <strong>orientation</strong>.
-  </p>
-  <p>
-    Cyber Seeds treats the home as a living digital environment —
-    shaped by people, routines, devices and trust.
-  </p>
-</section>
-
-<section class="pillars">
-  <div class="pillar">
-    <h3>Foundations</h3>
-    <p>Wi-Fi, devices and accounts that quietly support daily life.</p>
-  </div>
-  <div class="pillar">
-    <h3>Everyday habits</h3>
-    <p>How technology is actually used — not how guides assume.</p>
-  </div>
-  <div class="pillar">
-    <h3>Children & care</h3>
-    <p>Curiosity, safety and trust handled without fear.</p>
-  </div>
-</section>
-
-<section id="signal" class="signal">
-  <div class="signal-inner">
-    <h2>A provisional household signal</h2>
-    <p class="signal-intro">
-      This is not a test.<br>
-      It’s a moment of orientation.
-    </p>
-
-    <form id="signalForm">
-      <label>
-        Who lives in your household?
-        <select name="household">
-          <option value="adults">Adults only</option>
-          <option value="family">Adults and children</option>
-          <option value="extended">Larger or blended household</option>
-        </select>
-      </label>
-
-      <label>
-        How clear does your digital setup feel day-to-day?
-        <select name="clarity">
-          <option value="low">Often confusing</option>
-          <option value="medium">Mostly manageable</option>
-          <option value="high">Clear and settled</option>
-        </select>
-      </label>
-
-      <label>
-        When something goes wrong digitally, it usually feels:
-        <select name="stress">
-          <option value="high">Stressful and disruptive</option>
-          <option value="medium">Annoying but solvable</option>
-          <option value="low">Rare and manageable</option>
-        </select>
-      </label>
-
-      <button class="primary-btn" type="submit">Reveal signal</button>
-    </form>
-
-    <div id="signalOutput" class="signal-output"></div>
-  </div>
-</section>
-
-<section class="resources-preview">
-  <h2>Free guides for calm digital living</h2>
-  <p>
-    Many families start by exploring our free, plain-language resources —
-    designed to reduce worry, not add homework.
-  </p>
-  <a href="/resources/" class="secondary-btn">Explore free resources</a>
-</section>
-
-<section class="closing">
-  <p>
-    Some households want deeper clarity.
-  </p>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLScmrqL_ZvlRBgRqlm6FkKW8txG-6Xn86roTrEtuAAIT4s2TKw/viewform" class="primary-btn">
-    Request a full household reading
-  </a>
-</section>
-
-<footer>
-  <span>Cyber Seeds · UK</span>
-  <a href="/privacy.html">Privacy</a>
-</footer>
-
-<script src="/script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
