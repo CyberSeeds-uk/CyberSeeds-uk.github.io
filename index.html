@@ -4,463 +4,356 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Cyber Seeds — Household Digital Safety</title>
+
   <meta name="description" content="Cyber Seeds reveals the hidden digital structure of your home. Calm, trauma-aware digital safety for families." />
   <link rel="canonical" href="https://cyberseeds.co.uk/" />
 
-  <!-- Premium typography: Inter + Fraunces -->
+  <!-- Premium typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@350;400;500;600&family=Fraunces:opsz,wght@9..144,450;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <!-- Ambient background -->
-  <div class="bg-ambient" aria-hidden="true">
-    <div class="glow g1"></div>
-    <div class="glow g2"></div>
-    <div class="grid"></div>
+
+<header class="nav">
+  <div class="nav-left">
+    <img src="Cyber Seeds Logo.PNG" alt="Cyber Seeds logo" class="logo" />
+    <div class="nav-meta">
+      <div class="nav-title">Cyber Seeds</div>
+      <div class="nav-sub">Domestic Cyber Ecology · Household Digital Safety</div>
+    </div>
   </div>
 
-  <!-- NAV -->
-  <header class="nav">
-    <div class="nav-left">
-      <img src="Cyber Seeds Logo.PNG" alt="Cyber Seeds" class="logo" />
-      <div class="nav-text">
-        <div class="brand">Cyber Seeds</div>
-        <div class="tag">Household Digital Safety</div>
-      </div>
-    </div>
+  <div class="nav-right">
+    <a class="nav-link" href="#signal">Household Signal</a>
+    <a class="nav-link" href="#lenses">Five Lenses</a>
+    <a class="nav-link" href="#examples">Examples</a>
+    <button class="nav-btn" id="jumpSnapshot">Start Snapshot</button>
+  </div>
+</header>
 
-    <nav class="nav-right">
-      <a href="#signal">Household Signal</a>
-      <a href="#lenses">Five Lenses</a>
-      <a href="#beforeafter">Before / After</a>
-      <button class="btn ghost" id="jumpSnapshot">View snapshot</button>
-    </nav>
-  </header>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="Cyber Seeds Hero.PNG" alt="" />
+    <div class="hero-glow"></div>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-media">
-      <img src="Cyber Seeds Hero.PNG" alt="" class="hero-img" />
-      <div class="hero-sheen" aria-hidden="true"></div>
-      <div class="hero-noise" aria-hidden="true"></div>
-    </div>
-
-    <div class="hero-inner">
-      <div class="pill">
-        <span class="dot"></span>
-        Domestic Cyber Ecology · Calm clarity for the connected household
-      </div>
-
-      <h1>
-        Your home is digital.<br/>
-        <span>It just hasn’t been mapped yet.</span>
-      </h1>
-
+  <div class="wrap hero-wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">A calm diagnostic signal for modern homes</p>
+      <h1>Your home is digital.<br><span>It just hasn’t been mapped yet.</span></h1>
       <p class="lead">
-        Cyber Seeds reveals the invisible systems shaping your family’s online life —
-        proportionately, without monitoring or judgement.
+        Cyber Seeds helps families see their household digital ecosystem —
+        the router, devices, accounts, and behaviours — with calm clarity.
       </p>
 
-      <div class="hero-actions">
-        <button class="btn primary" id="startSignal">View your household signal</button>
-        <button class="btn" id="seeDiagram">See the household map</button>
+      <div class="hero-cta">
+        <button class="btn primary" id="startSignal">View a household signal</button>
+        <button class="btn ghost" id="seeMap">See how it works</button>
       </div>
 
-      <div class="assurances">
-        <div class="assurance"><span class="a-icon">🧠</span> Cognitive safety</div>
-        <div class="assurance"><span class="a-icon">🌱</span> Participatory understanding</div>
-        <div class="assurance"><span class="a-icon">🏡</span> Household intelligence</div>
-        <div class="assurance"><span class="a-icon">🛡️</span> Protective clarity</div>
+      <div class="trustline">
+        <span>🧠 Cognitive safety</span>
+        <span>🌱 Participatory understanding</span>
+        <span>🏡 Household intelligence</span>
+        <span>🛡️ Protective clarity</span>
+      </div>
+
+      <p class="fineprint">No monitoring · No judgement · No fear framing · No technical pressure</p>
+    </div>
+
+    <div class="hero-card">
+      <div class="card-top">
+        <div class="card-title">Your household is a system</div>
+        <div class="card-sub">Cyber Seeds maps it in five lenses.</div>
+      </div>
+
+      <!-- MINI SIGNAL PREVIEW -->
+      <div class="mini-signal" id="miniSignal">
+        <div class="mini-ring">
+          <div class="mini-dot" style="--a: 20deg;"></div>
+          <div class="mini-dot" style="--a: 90deg;"></div>
+          <div class="mini-dot" style="--a: 160deg;"></div>
+          <div class="mini-dot" style="--a: 230deg;"></div>
+          <div class="mini-dot" style="--a: 300deg;"></div>
+          <div class="mini-core"></div>
+        </div>
+        <div class="mini-caption">
+          <strong>Directional signal</strong>
+          <span>Shows where attention gently helps.</span>
+        </div>
+      </div>
+
+      <div class="card-foot">
+        <div class="pill">Not a score</div>
+        <div class="pill">No shame</div>
+        <div class="pill">Small steps</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SECTION: SIGNAL -->
-  <section class="section" id="signal">
-    <div class="section-head reveal">
-      <h2>Household Signal</h2>
+<!-- HOW IT WORKS / FLOW MAP -->
+<section class="section section-soft" id="map">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What Cyber Seeds actually does</h2>
       <p>
-        Not a score. A directional signal — showing what’s working, and where small attention helps.
-        It’s designed to reduce overwhelm and increase clarity.
+        It turns “I feel unsure” into a calm household map — then gives the smallest, highest-impact seeds to plant.
       </p>
     </div>
 
-    <div class="signal-grid">
-      <!-- SIGNAL VISUAL CARD -->
-      <article class="card signal-card reveal">
-        <div class="card-top">
-          <div class="card-title">
-            <div class="kicker">Example household signal</div>
-            <div class="title">“Calm + clear, with two gentle focus areas”</div>
+    <!-- FLOWCHART (SVG) -->
+    <div class="diagram">
+      <svg viewBox="0 0 1200 420" role="img" aria-label="Cyber Seeds household flow map">
+        <!-- connectors -->
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.20"/>
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0.05"/>
+          </linearGradient>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0b2540" flood-opacity="0.12"/>
+          </filter>
+        </defs>
+
+        <g class="flow">
+          <!-- nodes -->
+          <g class="node" transform="translate(40,70)">
+            <rect width="240" height="120" rx="18" filter="url(#softShadow)"></rect>
+            <text x="22" y="46" class="t1">Home</text>
+            <text x="22" y="78" class="t2">People · routines · needs</text>
+          </g>
+
+          <g class="node" transform="translate(320,70)">
+            <rect width="240" height="120" rx="18" filter="url(#softShadow)"></rect>
+            <text x="22" y="46" class="t1">Router + Wi-Fi</text>
+            <text x="22" y="78" class="t2">Gate · sharing · defaults</text>
+          </g>
+
+          <g class="node" transform="translate(600,70)">
+            <rect width="240" height="120" rx="18" filter="url(#softShadow)"></rect>
+            <text x="22" y="46" class="t1">Devices</text>
+            <text x="22" y="78" class="t2">Phones · tablets · TVs · consoles</text>
+          </g>
+
+          <g class="node" transform="translate(880,70)">
+            <rect width="280" height="120" rx="18" filter="url(#softShadow)"></rect>
+            <text x="22" y="46" class="t1">Accounts + Identity</text>
+            <text x="22" y="78" class="t2">Email · logins · recovery · sharing</text>
+          </g>
+
+          <g class="node node-wide" transform="translate(140,240)">
+            <rect width="920" height="140" rx="22" fill="url(#g)" filter="url(#softShadow)"></rect>
+            <text x="26" y="54" class="t1">Cyber Seeds Output</text>
+            <text x="26" y="90" class="t2">A directional Household Signal + 3 calm actions (the next seeds).</text>
+            <text x="26" y="120" class="t3">Not fear. Not monitoring. Just clarity.</text>
+
+            <!-- lens chips -->
+            <g class="chips">
+              <rect x="520" y="38" width="160" height="38" rx="16"></rect>
+              <text x="540" y="63" class="chipT">Five Lenses</text>
+
+              <rect x="690" y="38" width="200" height="38" rx="16"></rect>
+              <text x="710" y="63" class="chipT">Smallest steps</text>
+            </g>
+          </g>
+
+          <!-- connectors -->
+          <path class="link" d="M280 130 C300 130, 300 130, 320 130"></path>
+          <path class="link" d="M560 130 C580 130, 580 130, 600 130"></path>
+          <path class="link" d="M840 130 C860 130, 860 130, 880 130"></path>
+
+          <path class="link" d="M460 190 C460 230, 460 230, 460 240"></path>
+          <path class="link" d="M740 190 C740 230, 740 230, 740 240"></path>
+        </g>
+      </svg>
+    </div>
+
+    <div class="callout-row">
+      <div class="callout">
+        <strong>Participatory</strong>
+        <span>You recognise your own home inside the model.</span>
+      </div>
+      <div class="callout">
+        <strong>Cognitively safe</strong>
+        <span>No shame language. No alarm. No judgement.</span>
+      </div>
+      <div class="callout">
+        <strong>Protective clarity</strong>
+        <span>Three actions that actually fit real households.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNAL (FULL WOW) -->
+<section class="section" id="signal">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Household Signal</h2>
+      <p>
+        A directional signal across the Five Lenses. Click a lens to see what it means — and what a small seed looks like.
+      </p>
+    </div>
+
+    <div class="signal-layout">
+      <!-- LEFT: signal dial -->
+      <div class="signal-card">
+        <div class="signal-top">
+          <div>
+            <div class="kicker">Example household</div>
+            <div class="signal-title" id="householdName">Family A · “Busy Wi-Fi House”</div>
           </div>
 
-          <div class="chips">
-            <span class="chip ok">Stable</span>
-            <span class="chip focus">Focus: Devices</span>
-            <span class="chip focus">Focus: Exposure</span>
+          <div class="segmented">
+            <button class="seg on" data-view="before">Before</button>
+            <button class="seg" data-view="after">After</button>
           </div>
         </div>
 
-        <!-- Radar-like SVG (beautiful, legible, non-gimmick) -->
-        <div class="signal-wrap" aria-label="Household Signal diagram">
-          <svg viewBox="0 0 520 360" class="signal-svg" role="img">
+        <div class="dial-wrap">
+          <svg class="dial" viewBox="0 0 320 320" aria-label="Household Signal Dial">
             <defs>
-              <linearGradient id="sigGlow" x1="0" x2="1">
-                <stop offset="0" stop-color="currentColor" stop-opacity="0.18"/>
-                <stop offset="1" stop-color="currentColor" stop-opacity="0.06"/>
-              </linearGradient>
-              <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="14" stdDeviation="18" flood-opacity="0.18"/>
+              <filter id="dialShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0b2540" flood-opacity="0.12"/>
               </filter>
             </defs>
 
-            <!-- frame -->
-            <rect x="18" y="18" width="484" height="324" rx="18" class="sig-frame" />
+            <circle cx="160" cy="160" r="132" class="dial-bg" filter="url(#dialShadow)"></circle>
+            <circle cx="160" cy="160" r="112" class="dial-ring"></circle>
 
-            <!-- grid rings -->
-            <g class="sig-grid">
-              <circle cx="180" cy="180" r="108"/>
-              <circle cx="180" cy="180" r="78"/>
-              <circle cx="180" cy="180" r="48"/>
-              <line x1="180" y1="72" x2="180" y2="288"/>
-              <line x1="72" y1="180" x2="288" y2="180"/>
-              <line x1="104" y1="104" x2="256" y2="256"/>
-              <line x1="256" y1="104" x2="104" y2="256"/>
-            </g>
+            <!-- 5 arcs (values injected by JS) -->
+            <path id="arc0" class="arc"></path>
+            <path id="arc1" class="arc"></path>
+            <path id="arc2" class="arc"></path>
+            <path id="arc3" class="arc"></path>
+            <path id="arc4" class="arc"></path>
+
+            <!-- hub -->
+            <circle cx="160" cy="160" r="54" class="hub"></circle>
+            <text x="160" y="154" text-anchor="middle" class="hubT1">Signal</text>
+            <text x="160" y="178" text-anchor="middle" class="hubT2" id="signalMood">Calm clarity</text>
 
             <!-- lens labels -->
-            <g class="sig-labels">
-              <text x="180" y="52" text-anchor="middle">Network</text>
-              <text x="312" y="186" text-anchor="start">Devices</text>
-              <text x="180" y="316" text-anchor="middle">Privacy</text>
-              <text x="48" y="186" text-anchor="end">Scams</text>
-              <text x="62" y="92" text-anchor="end">Children</text>
-            </g>
-
-            <!-- signal polygon (animated via JS) -->
-            <path class="sig-area" id="sigArea" filter="url(#softShadow)"
-              d="M180 90 L260 180 L180 250 L110 180 L135 125 Z" />
-            <path class="sig-line" id="sigLine"
-              d="M180 90 L260 180 L180 250 L110 180 L135 125 Z" />
-
-            <!-- side narrative -->
-            <g class="sig-side">
-              <text x="350" y="92" class="sig-h">What this means</text>
-              <text x="350" y="122" class="sig-b">Your network looks stable.</text>
-              <text x="350" y="146" class="sig-b">Two gentle focus areas:</text>
-
-              <g class="sig-bullets">
-                <circle cx="350" cy="174" r="4"></circle>
-                <text x="364" y="179" class="sig-b">Old/unused devices still connected</text>
-
-                <circle cx="350" cy="204" r="4"></circle>
-                <text x="364" y="209" class="sig-b">Accounts visible from past sign-ups</text>
-              </g>
-
-              <text x="350" y="252" class="sig-h">Next 3 seeds</text>
-
-              <g class="sig-checks">
-                <path d="M350 276 l6 6 l12 -14" class="chk"></path>
-                <text x="374" y="281" class="sig-b">List devices that belong</text>
-
-                <path d="M350 304 l6 6 l12 -14" class="chk"></path>
-                <text x="374" y="309" class="sig-b">Remove unknown / old logins</text>
-
-                <path d="M350 332 l6 6 l12 -14" class="chk"></path>
-                <text x="374" y="337" class="sig-b">Family “pause + verify” rule</text>
-              </g>
+            <g class="labels">
+              <text x="160" y="34" text-anchor="middle" data-lens="0" class="lbl">Network</text>
+              <text x="302" y="166" text-anchor="end" data-lens="1" class="lbl">Devices</text>
+              <text x="246" y="302" text-anchor="middle" data-lens="2" class="lbl">Privacy</text>
+              <text x="74" y="302" text-anchor="middle" data-lens="3" class="lbl">Scams</text>
+              <text x="18" y="166" text-anchor="start" data-lens="4" class="lbl">Children</text>
             </g>
           </svg>
-        </div>
 
-        <div class="note">
-          This is an illustrative example. Cyber Seeds uses calm framing: it shows what’s working, then offers a small, doable next step.
-        </div>
-
-        <div class="card-actions">
-          <button class="btn primary" id="openSnapshot">Build my signal</button>
-          <button class="btn ghost" id="swapExample">Show another example</button>
-        </div>
-      </article>
-
-      <!-- MICRO-PICtochart CARD -->
-      <aside class="card picto-card reveal">
-        <div class="kicker">What families recognise instantly</div>
-        <h3>Three everyday moments</h3>
-        <p class="muted">
-          This is the “ah… that’s us” section. Not scary. Just accurate.
-        </p>
-
-        <div class="picto">
-          <div class="row">
-            <div class="emoji">📶</div>
-            <div class="txt">
-              <div class="t">“Wi-Fi password hasn’t changed since setup day.”</div>
-              <div class="s">Seed: create a guest network + update router admin password.</div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="emoji">📱</div>
-            <div class="txt">
-              <div class="t">“Old phones/tablets still connected somewhere.”</div>
-              <div class="s">Seed: remove unknown devices + update OS on active ones.</div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="emoji">🧾</div>
-            <div class="txt">
-              <div class="t">“A message arrives and someone reacts fast.”</div>
-              <div class="s">Seed: a shared household pause rule (30 seconds).</div>
-            </div>
+          <div class="dial-legend">
+            <span><i class="dot good"></i> Strong</span>
+            <span><i class="dot mid"></i> Developing</span>
+            <span><i class="dot focus"></i> Attention helps</span>
           </div>
         </div>
 
-        <div class="mini-callout">
-          Cyber Seeds turns these into a household map — then gives the smallest next step with the highest impact.
+        <div class="households">
+          <button class="chip on" data-house="0">Busy Wi-Fi House</button>
+          <button class="chip" data-house="1">Two Phones + Kids</button>
+          <button class="chip" data-house="2">Grandparent + Scams</button>
         </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- SECTION: HOUSEHOLD MAP DIAGRAM -->
-  <section class="section" id="map">
-    <div class="section-head reveal">
-      <h2>The Household Digital Map</h2>
-      <p>
-        A home isn’t “devices”. It’s relationships: Wi-Fi, accounts, apps, habits, people.
-        This map explains the ecosystem in one glance.
-      </p>
-    </div>
-
-    <div class="card map-card reveal">
-      <div class="map-legend">
-        <span class="lg lg-router">Router / Wi-Fi</span>
-        <span class="lg lg-dev">Devices</span>
-        <span class="lg lg-acc">Accounts</span>
-        <span class="lg lg-beh">Behaviour</span>
       </div>
 
-      <!-- SVG ecosystem diagram -->
-      <svg class="map-svg" viewBox="0 0 980 420" role="img" aria-label="Household digital ecosystem diagram">
-        <defs>
-          <filter id="mapShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="12" stdDeviation="14" flood-opacity="0.16"/>
-          </filter>
-          <linearGradient id="mapGlow" x1="0" x2="1">
-            <stop offset="0" stop-color="currentColor" stop-opacity="0.18"/>
-            <stop offset="1" stop-color="currentColor" stop-opacity="0.08"/>
-          </linearGradient>
-        </defs>
+      <!-- RIGHT: lens story -->
+      <div class="lens-story" aria-live="polite">
+        <div class="story-head">
+          <div class="badge">Click a lens</div>
+          <h3 id="lensTitle">Start anywhere</h3>
+          <p id="lensDesc">
+            The model works because it matches real household life — not abstract cybersecurity.
+          </p>
+        </div>
 
-        <!-- soft connections -->
-        <g class="map-links" filter="url(#mapShadow)">
-          <path d="M220 210 C330 120, 420 120, 520 180" />
-          <path d="M220 210 C330 300, 420 300, 520 240" />
-          <path d="M520 180 C640 120, 740 120, 820 170" />
-          <path d="M520 240 C640 300, 740 300, 820 250" />
-          <path d="M520 240 C600 350, 720 360, 820 330" />
-        </g>
+        <div class="story-panels">
+          <div class="panel">
+            <div class="panelT">What this lens protects</div>
+            <div class="panelB" id="lensProtects">—</div>
+          </div>
 
-        <!-- nodes -->
-        <g class="map-nodes">
-          <g class="node router" transform="translate(140 160)">
-            <rect rx="18" width="160" height="100"/>
-            <text x="80" y="42" text-anchor="middle">Router</text>
-            <text x="80" y="70" text-anchor="middle" class="sub">Wi-Fi / Admin</text>
-          </g>
+          <div class="panel">
+            <div class="panelT">A relatable moment</div>
+            <div class="panelB" id="lensMoment">—</div>
+          </div>
 
-          <g class="node dev" transform="translate(460 132)">
-            <rect rx="18" width="170" height="96"/>
-            <text x="85" y="42" text-anchor="middle">Devices</text>
-            <text x="85" y="68" text-anchor="middle" class="sub">phones · tablets · TVs</text>
-          </g>
-
-          <g class="node acc" transform="translate(460 240)">
-            <rect rx="18" width="170" height="96"/>
-            <text x="85" y="42" text-anchor="middle">Accounts</text>
-            <text x="85" y="68" text-anchor="middle" class="sub">email · logins · sharing</text>
-          </g>
-
-          <g class="node beh" transform="translate(780 136)">
-            <rect rx="18" width="170" height="96"/>
-            <text x="85" y="42" text-anchor="middle">Scams</text>
-            <text x="85" y="68" text-anchor="middle" class="sub">messages · calls · pressure</text>
-          </g>
-
-          <g class="node beh" transform="translate(780 236)">
-            <rect rx="18" width="170" height="96"/>
-            <text x="85" y="42" text-anchor="middle">Wellbeing</text>
-            <text x="85" y="68" text-anchor="middle" class="sub">children · balance · trust</text>
-          </g>
-        </g>
-
-        <!-- caption -->
-        <text x="490" y="402" text-anchor="middle" class="map-caption">
-          Cyber Seeds maps the ecosystem first — then plants the smallest high-impact improvements.
-        </text>
-      </svg>
+          <div class="panel panel-green">
+            <div class="panelT">A small seed</div>
+            <div class="panelB" id="lensSeed">—</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SECTION: FIVE LENSES -->
-  <section class="section" id="lenses">
-    <div class="section-head reveal">
+<!-- LENSES (FLIP CARDS) -->
+<section class="section section-soft" id="lenses">
+  <div class="wrap">
+    <div class="section-head">
       <h2>The Five Lenses</h2>
       <p>
-        Tap a lens to flip it. Each one protects a different part of the household ecosystem.
+        Tap a card. It flips. It speaks like a household, not like a manual.
       </p>
     </div>
 
-    <div class="lens-grid reveal">
-      <button class="lens-card" data-lens="network" aria-label="Network and Wi-Fi lens">
-        <div class="face front">
-          <div class="icon">📶</div>
-          <div class="name">Network & Wi-Fi</div>
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <div class="b-title">What it protects</div>
-          <div class="b-text">Your household connection, router settings, guest access, and who can join.</div>
-          <div class="b-seed">Seed: change router admin password + create a guest network.</div>
-        </div>
-      </button>
-
-      <button class="lens-card" data-lens="devices" aria-label="Devices and Apps lens">
-        <div class="face front">
-          <div class="icon">📱</div>
-          <div class="name">Devices & Apps</div>
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <div class="b-title">What it protects</div>
-          <div class="b-text">Phones, tablets, consoles, TVs — and the apps quietly holding permissions.</div>
-          <div class="b-seed">Seed: update OS + remove unused apps + review permissions.</div>
-        </div>
-      </button>
-
-      <button class="lens-card" data-lens="privacy" aria-label="Privacy and Identity lens">
-        <div class="face front">
-          <div class="icon">🪪</div>
-          <div class="name">Privacy & Identity</div>
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <div class="b-title">What it protects</div>
-          <div class="b-text">Old emails, forgotten accounts, breached logins, and household visibility online.</div>
-          <div class="b-seed">Seed: secure the primary email + reduce exposed data + use passkeys/2FA.</div>
-        </div>
-      </button>
-
-      <button class="lens-card" data-lens="scams" aria-label="Scams and Behaviour lens">
-        <div class="face front">
-          <div class="icon">🧾</div>
-          <div class="name">Scams & Behaviour</div>
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <div class="b-title">What it protects</div>
-          <div class="b-text">Decision-making under pressure — especially messages designed to rush.</div>
-          <div class="b-seed">Seed: “Pause 30 seconds” household rule + verify via official routes.</div>
-        </div>
-      </button>
-
-      <button class="lens-card" data-lens="children" aria-label="Children’s Wellbeing lens">
-        <div class="face front">
-          <div class="icon">🧒</div>
-          <div class="name">Children’s Wellbeing</div>
-          <div class="hint">Tap to reveal</div>
-        </div>
-        <div class="face back">
-          <div class="b-title">What it protects</div>
-          <div class="b-text">Confidence, boundaries, support — not surveillance. Safer systems and calmer habits.</div>
-          <div class="b-seed">Seed: nighttime routines + app boundaries + safe reporting language.</div>
-        </div>
-      </button>
+    <div class="lens-grid" id="lensGrid">
+      <!-- Filled by JS for perfect alignment & consistent content -->
     </div>
-  </section>
 
-  <!-- SECTION: BEFORE/AFTER (PILOT-STYLE) -->
-  <section class="section" id="beforeafter">
-    <div class="section-head reveal">
-      <h2>Before / After</h2>
+    <div class="hint">
+      Tip: On mobile, tap any lens to flip it. Tap again to return.
+    </div>
+  </div>
+</section>
+
+<!-- REALISTIC EXAMPLES -->
+<section class="section" id="examples">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Before → After (realistic, recognisable)</h2>
       <p>
-        These are anonymised household patterns we see repeatedly.
-        Not fear. Just recognition — and relief.
+        Not scary. Not shaming. Just the kind of change families actually notice when the household becomes visible.
       </p>
     </div>
 
-    <div class="ba-grid">
-      <article class="card ba reveal">
-        <div class="ba-head">
-          <div class="kicker">Household A</div>
-          <div class="title">“We didn’t realise how much was connected.”</div>
-        </div>
-        <div class="ba-cols">
-          <div class="col">
-            <div class="label">Before</div>
-            <ul>
-              <li>Router admin login unchanged from install day</li>
-              <li>3 old devices still connected (unused)</li>
-              <li>One shared password reused across accounts</li>
-            </ul>
-          </div>
-          <div class="col">
-            <div class="label">After</div>
-            <ul>
-              <li>Guest Wi-Fi + router admin updated</li>
-              <li>Unknown devices removed, active devices updated</li>
-              <li>Primary email secured + passwords separated</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <article class="card ba reveal">
-        <div class="ba-head">
-          <div class="kicker">Household B</div>
-          <div class="title">“The scam texts stopped working on us.”</div>
-        </div>
-        <div class="ba-cols">
-          <div class="col">
-            <div class="label">Before</div>
-            <ul>
-              <li>“Delivery missed” and “Bank alert” texts triggered fast clicks</li>
-              <li>Children saw scary popups and didn’t know who to tell</li>
-              <li>No shared household rule for verifying messages</li>
-            </ul>
-          </div>
-          <div class="col">
-            <div class="label">After</div>
-            <ul>
-              <li>Household “Pause + verify” rule adopted</li>
-              <li>Children given a calm reporting phrase: “Something feels off”</li>
-              <li>Browser + device protections turned on</li>
-            </ul>
-          </div>
-        </div>
-      </article>
+    <div class="examples-grid" id="exampleGrid">
+      <!-- Filled by JS -->
     </div>
+  </div>
+</section>
 
-    <div class="cta-band reveal" id="snapshot">
-      <div class="cta-copy">
-        <h3>Build your household snapshot</h3>
-        <p>Fast, calm, and genuinely useful — even before purchase.</p>
+<!-- CTA -->
+<section class="cta" id="snapshot">
+  <div class="wrap cta-wrap">
+    <div>
+      <h2>Begin your household snapshot</h2>
+      <p>
+        A short, trauma-aware snapshot that produces a real household signal and three calm next steps.
+      </p>
+      <div class="cta-actions">
+        <button class="btn primary">Start Snapshot</button>
+        <button class="btn ghost" id="scrollTop">Back to top</button>
       </div>
-      <button class="btn primary" id="beginSnapshot">Begin household snapshot</button>
+      <div class="cta-foot">No monitoring · No judgement · Just clarity you can act on</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div>Cyber Seeds · Domestic Cyber Ecology · UK</div>
-    <div class="foot-muted">No monitoring · No judgement · No fear framing</div>
-  </footer>
+<footer class="footer">
+  <div class="wrap foot">
+    <span>Cyber Seeds · Domestic Cyber Ecology · UK</span>
+    <span class="muted">Designed for cognitive safety and real households.</span>
+  </div>
+</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
