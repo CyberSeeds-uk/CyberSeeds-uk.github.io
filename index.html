@@ -1,116 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Cyber Seeds — Household Digital Intelligence</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="description" content="Cyber Seeds maps the digital ecosystem of your household calmly and without judgement. A living diagnostic, not a score.">
+  <title>Cyber Seeds — Household Digital Intelligence</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
+  <meta name="description"
+        content="Cyber Seeds maps the digital ecosystem of your household calmly and without judgement. A living diagnostic — not a score.">
 
-<link rel="stylesheet" href="style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap"
+        rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- PRACTITIONER OVERLAY TOGGLE -->
-<div id="overlayToggle">Practitioner Mode</div>
+<div class="page">
 
-<!-- PRACTITIONER OVERLAY -->
-<div id="practitionerOverlay">
-  <h3>Practitioner Overlay</h3>
-  <p>This view reveals interpretive anchors and professional notes. Not shown to households.</p>
-  <ul>
-    <li>Signal ≠ risk score</li>
-    <li>Directional tension indicator</li>
-    <li>Attention ≠ intervention</li>
-  </ul>
-</div>
+  <!-- PRACTITIONER MODE TOGGLE -->
+  <div id="overlayToggle">Practitioner Mode</div>
 
-<header class="nav">
-  <img src="cyber_seeds_logo.png" alt="Cyber Seeds">
-  <span>Household Digital Safety</span>
-</header>
+  <!-- PRACTITIONER OVERLAY -->
+  <aside id="practitionerOverlay">
+    <h3>Practitioner Overlay</h3>
+    <p>
+      This view exposes interpretive anchors and professional context.
+      It is never shown to households.
+    </p>
+    <ul>
+      <li>Signal ≠ score</li>
+      <li>Directional, not diagnostic</li>
+      <li>Attention does not imply risk</li>
+    </ul>
+  </aside>
 
-<section class="hero">
-  <h1>Your home is digital.<br><span>It just hasn’t been mapped yet.</span></h1>
-  <p>
-    Cyber Seeds reveals the invisible digital structure of your household —
-    calmly, proportionately, without monitoring or judgement.
-  </p>
-  <button class="primary" id="scrollSimulator">View your household signal</button>
-  <small>No fear · No monitoring · No technical pressure</small>
-</section>
+  <!-- HEADER -->
+  <header class="nav">
+    <img src="cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo">
+    <span>Household Digital Safety</span>
+  </header>
 
-<!-- SIGNAL SIMULATOR -->
-<section class="section-soft" id="simulator">
-  <h2>Live Household Signal</h2>
-  <p>This is a directional signal — it changes as you answer.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>
+      Your home is digital.<br>
+      <span>It just hasn’t been mapped yet.</span>
+    </h1>
 
-  <div class="simulator">
+    <p>
+      Cyber Seeds reveals the invisible digital structure of your household —
+      calmly, proportionately, without monitoring or judgement.
+    </p>
 
-    <div class="sim-left">
-      <div id="simStep">Question 1 of 7</div>
-      <div id="simQuestion"></div>
-      <div id="simOptions"></div>
+    <button class="primary" id="scrollSimulator">
+      View your household signal
+    </button>
 
-      <div class="sim-nav">
-        <button id="simBack" disabled>Back</button>
-        <button id="simNext" disabled>Next</button>
+    <small>No fear · No monitoring · No technical pressure</small>
+  </section>
+
+  <!-- SIGNAL SIMULATOR -->
+  <section class="section-soft" id="simulator">
+
+    <h2>Live Household Signal</h2>
+    <p>This is a directional signal — it responds as you answer.</p>
+
+    <div class="simulator">
+
+      <!-- LEFT: QUESTIONS -->
+      <div class="sim-left">
+        <div id="simStep">Question 1 of 7</div>
+
+        <div id="simQuestion">
+          How confident do you feel about the devices connected to your home?
+        </div>
+
+        <div id="simOptions">
+          <!-- JS injects options here -->
+        </div>
+
+        <div class="sim-nav">
+          <button id="simBack" disabled>Back</button>
+          <button id="simNext" disabled>Next</button>
+        </div>
       </div>
+
+      <!-- RIGHT: SIGNAL DIAL -->
+      <div class="sim-right">
+        <svg viewBox="0 0 320 320" class="dial" aria-label="Household signal visual">
+          <circle cx="160" cy="160" r="132" class="dial-bg"/>
+          <circle cx="160" cy="160" r="112" class="dial-ring"/>
+
+          <path id="arc0" class="arc"/>
+          <path id="arc1" class="arc"/>
+          <path id="arc2" class="arc"/>
+          <path id="arc3" class="arc"/>
+          <path id="arc4" class="arc"/>
+
+          <circle cx="160" cy="160" r="52" class="hub"/>
+
+          <text x="160" y="152" text-anchor="middle" class="hubT1">
+            Signal
+          </text>
+          <text x="160" y="176" text-anchor="middle" class="hubT2" id="signalMood">
+            Listening
+          </text>
+        </svg>
+      </div>
+
     </div>
 
-    <div class="sim-right">
-      <svg viewBox="0 0 320 320" class="dial">
-        <circle cx="160" cy="160" r="132" class="dial-bg"/>
-        <circle cx="160" cy="160" r="112" class="dial-ring"/>
+    <!-- SNAPSHOT EXPORT -->
+    <div class="export-card" id="exportCard">
+      <h3>Your Household Snapshot</h3>
+      <p>
+        A calm, shareable summary of what your household signal revealed.
+      </p>
 
-        <path id="arc0" class="arc"/>
-        <path id="arc1" class="arc"/>
-        <path id="arc2" class="arc"/>
-        <path id="arc3" class="arc"/>
-        <path id="arc4" class="arc"/>
+      <canvas id="snapshotCanvas" width="420" height="260"></canvas>
 
-        <circle cx="160" cy="160" r="52" class="hub"/>
-        <text x="160" y="154" text-anchor="middle" class="hubT1">Signal</text>
-        <text x="160" y="176" text-anchor="middle" class="hubT2" id="signalMood">Listening</text>
-      </svg>
+      <button class="primary" id="downloadSnapshot">
+        Download Snapshot
+      </button>
+
+      <small>
+        PDF-safe · Shareable · No personal data stored
+      </small>
     </div>
 
-  </div>
+  </section>
 
-  <!-- SNAPSHOT EXPORT -->
-  <div class="export-card" id="exportCard">
-    <h3>Your Household Snapshot</h3>
-    <p>A calm, shareable summary of what your household signal revealed.</p>
+  <!-- FIVE LENSES -->
+  <section class="lenses">
+    <h2>The Five-Lens Safety Model</h2>
+    <p>Your household is a living digital ecosystem.</p>
 
-    <canvas id="snapshotCanvas" width="420" height="260"></canvas>
+    <div class="lens-grid">
 
-    <button class="primary" id="downloadSnapshot">Download Snapshot</button>
-    <small>PDF-safe · Shareable · No personal data stored</small>
-  </div>
-</section>
+      <div class="lens-card">
+        <div class="front">Network &amp; Wi-Fi</div>
+        <div class="back">
+          Routers, access paths, configuration and visibility.
+        </div>
+      </div>
 
-<!-- FIVE LENSES -->
-<section class="lenses">
-  <h2>The Five-Lens Safety Model</h2>
-  <p>Your household is a living digital ecosystem.</p>
+      <div class="lens-card">
+        <div class="front">Devices &amp; Apps</div>
+        <div class="back">
+          Phones, tablets, TVs, consoles and forgotten technology.
+        </div>
+      </div>
 
-  <div class="lens-grid">
-    <div class="lens-card"><div class="front">Network & Wi-Fi</div><div class="back">Connectivity, routers, access paths.</div></div>
-    <div class="lens-card"><div class="front">Devices & Apps</div><div class="back">Phones, tablets, TVs, forgotten tech.</div></div>
-    <div class="lens-card"><div class="front">Privacy & Identity</div><div class="back">Accounts, exposure, data trails.</div></div>
-    <div class="lens-card"><div class="front">Scams & Behaviour</div><div class="back">Pressure tactics, emotional triggers.</div></div>
-    <div class="lens-card"><div class="front">Children’s Wellbeing</div><div class="back">Digital routines, balance, confidence.</div></div>
-  </div>
-</section>
+      <div class="lens-card">
+        <div class="front">Privacy &amp; Identity</div>
+        <div class="back">
+          Accounts, data trails, exposure and control.
+        </div>
+      </div>
 
-<footer>
-  Cyber Seeds · Domestic Cyber Ecology · UK
-</footer>
+      <div class="lens-card">
+        <div class="front">Scams &amp; Behaviour</div>
+        <div class="back">
+          Pressure tactics, emotional manipulation and decision fatigue.
+        </div>
+      </div>
+
+      <div class="lens-card">
+        <div class="front">Children’s Wellbeing</div>
+        <div class="back">
+          Digital routines, confidence, balance and resilience.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Cyber Seeds · Domestic Cyber Ecology · UK
+  </footer>
+
+</div>
 
 <script src="script.js"></script>
 </body>
