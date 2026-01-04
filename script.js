@@ -1,36 +1,22 @@
-/* ===============================
-   PRACTITIONER MODE (SECRET)
-   =============================== */
-
-/*
-  Hidden activation:
-  - Desktop: press P + R together
-  - Mobile: long press footer 3 seconds
-*/
-
+// =========== PRACTITIONER MODE (SECRET) ==========
+// Desktop: press P+R together | Mobile: long-press footer 3s
 let practitionerEnabled = false;
 const overlay = document.getElementById("practitionerOverlay");
-
 document.addEventListener("keydown", e => {
   if (e.key.toLowerCase() === "p") window._p = true;
   if (e.key.toLowerCase() === "r" && window._p) togglePractitioner();
 });
 document.addEventListener("keyup", () => window._p = false);
-
 document.querySelector("footer").addEventListener("touchstart", e => {
   let t = setTimeout(togglePractitioner, 3000);
   document.querySelector("footer").addEventListener("touchend", () => clearTimeout(t), { once:true });
 });
-
 function togglePractitioner(){
   practitionerEnabled = !practitionerEnabled;
   overlay.classList.toggle("active", practitionerEnabled);
 }
 
-/* ===============================
-   SIMULATOR DATA MODEL
-   =============================== */
-
+// =========== SIMULATOR DATA MODEL ==========
 const questions = [
   {
     lens: 0,
@@ -80,7 +66,6 @@ const questions = [
     ]
   }
 ];
-
 let step = 0;
 let answers = Array(questions.length).fill(null);
 let values = [0.4,0.4,0.4,0.4,0.4];
@@ -91,19 +76,26 @@ const stepEl = document.getElementById("simStep");
 const nextBtn = document.getElementById("simNext");
 const backBtn = document.getElementById("simBack");
 
-/* ===============================
-   RENDER QUESTION
-   =============================== */
+// Scroll to simulator section when button is clicked
+document.getElementById("scrollSimulator").onclick = function() {
+  document.getElementById("simulator").scrollIntoView({behavior: "smooth"});
+};
 
+// Lens card flip animation for quick learning
+document.querySelectorAll('.lens-card').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+});
+
+// RENDERING SIMULATOR QUESTION & OPTIONS
 function renderQuestion(){
   const q = questions[step];
   stepEl.textContent = `Question ${step+1} of ${questions.length}`;
   qEl.textContent = q.text;
   oEl.innerHTML = "";
-
   q.options.forEach((opt,i)=>{
     const d = document.createElement("div");
     d.textContent = opt.label;
+    d.className = "sim-opt";
     d.onclick = () => {
       answers[step] = opt;
       values[q.lens] = opt.value;
@@ -116,11 +108,9 @@ function renderQuestion(){
     if(answers[step] === opt) d.classList.add("selected");
     oEl.appendChild(d);
   });
-
   backBtn.disabled = step === 0;
   nextBtn.disabled = answers[step] === null;
 }
-
 nextBtn.onclick = ()=>{
   if(step < questions.length-1){
     step++;
@@ -133,12 +123,9 @@ backBtn.onclick = ()=>{
     renderQuestion();
   }
 };
-
 renderQuestion();
 
-/* ===============================
-   SIGNAL DIAL
-   =============================== */
+// =========== SIGNAL DIAL ==========
 
 const arcs=[...Array(5)].map((_,i)=>document.getElementById("arc"+i));
 const mood=document.getElementById("signalMood");
@@ -166,32 +153,35 @@ function renderSignal(){
 }
 renderSignal();
 
-/* ===============================
-   SNAPSHOT EXPORT (REAL DATA)
-   =============================== */
-
+// =========== SNAPSHOT EXPORT ==========
 const canvas=document.getElementById("snapshotCanvas");
 const ctx=canvas.getContext("2d");
-
 function drawSnapshot(){
   ctx.clearRect(0,0,420,260);
+  // Title
   ctx.fillStyle="#0b2540";
-  ctx.font="18px Fraunces";
-  ctx.fillText("Household Digital Snapshot",20,30);
-
+  ctx.font="bold 18px Fraunces";
+  ctx.fillText("Household Digital Snapshot",20,34);
+  // Bar graph
   values.forEach((v,i)=>{
     ctx.fillStyle=color(v);
-    ctx.fillRect(20+i*70,80,50,120);
+    ctx.fillRect(40+i*70,80,50,120);
     ctx.fillStyle="#0b2540";
     ctx.font="11px Inter";
     ctx.fillText(
       ["Net","Dev","Priv","Scam","Child"][i],
-      28+i*70,220
+      52+i*70,220
     );
   });
+  // Signal Mood
+  ctx.font="bold 16px Inter";
+  ctx.fillStyle=color(values.reduce((a,b)=>a+b)/5);
+  ctx.fillText("Signal: "+(mood.textContent),20,55);
 }
+drawSnapshot();
 
 document.getElementById("downloadSnapshot").onclick=()=>{
+  drawSnapshot();
   const a=document.createElement("a");
   a.download="cyber-seeds-household-snapshot.png";
   a.href=canvas.toDataURL("image/png");
