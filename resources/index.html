@@ -2,106 +2,202 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cyber Seeds — Free Resources</title>
+  <meta name="description" content="Free, family-friendly digital safety resources for UK households — calm clarity, no fear." />
 
-  <title>Cyber Seeds Resources – Free Guides for UK Families</title>
-  <meta name="description" content="Free digital safety guides helping UK families protect Wi-Fi, devices, privacy, and children's digital wellbeing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
+<div class="page">
 
-<!-- HERO -->
-<header class="page-hero resources-hero" style="
-  background: linear-gradient(135deg, #e7f5ff 0%, #f7fff1 100%);
-  padding: 80px 20px;
-  text-align: center;
-  border-bottom: 1px solid #eef2f5;
-">
-  <h1 style="font-size: 2.8rem; margin-bottom: 10px;">Free Digital Safety Resources</h1>
-  <p class="page-subtitle" style="max-width: 760px; margin: 0 auto;">
-    Trusted, family-friendly guides designed to help protect your home, devices, and children online — without fear, panic or overwhelm.
-  </p>
-</header>
-
-<section class="section">
-  <div class="container">
-
-    <!-- RESOURCE GRID -->
-    <div class="resources-grid" style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    ">
-
-      <!-- Wi-Fi Safety -->
-      <div class="resource-card enhanced-card">
-        <img src="/images/wifi-icon.png" class="resource-icon" alt="">
-        <h3>Wi-Fi Safety</h3>
-        <p>Weak Wi-Fi settings expose every device in your home. This guide shows how to secure your network in minutes.</p>
-        <a href="/resources/wifi/" class="btn btn-green-sm">Open Guide</a>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo" />
+      <div class="brandText">
+        <div class="brandName">Cyber Seeds</div>
+        <div class="brandTag">Free Resources</div>
       </div>
+    </a>
 
-      <!-- Device Hygiene -->
-      <div class="resource-card enhanced-card">
-        <img src="/images/device-icon.png" class="resource-icon" alt="">
-        <h3>Device Hygiene</h3>
-        <p>Old apps and outdated settings create easy entry points for attackers. Learn simple weekly habits that protect your home.</p>
-        <a href="/resources/device-hygiene/" class="btn btn-green-sm">Open Guide</a>
-      </div>
+    <div class="navCta">
+      <a class="ghost" href="/">Back to home</a>
+      <a class="primary" href="/#signal">View household signal</a>
+    </div>
+  </header>
 
-      <!-- Children’s Digital Risk Index -->
-      <div class="resource-card enhanced-card">
-        <img src="/images/child-icon.png" class="resource-icon" alt="">
-        <h3>Children’s Digital Risk Index</h3>
-        <p>Games and apps expose children to strangers more often than adults realise. Understand the hidden risks — calmly.</p>
-        <a href="/resources/childrens-risk-index/" class="btn btn-green-sm">Open Guide</a>
-      </div>
-
-      <!-- Online Safety Basics -->
-      <div class="resource-card enhanced-card">
-        <img src="/images/online-icon.png" class="resource-icon" alt="">
-        <h3>Online Safety Basics</h3>
-        <p>Small daily habits protect your privacy, identity and money. Perfect for beginners and busy families.</p>
-        <a href="/resources/online-safety/" class="btn btn-green-sm">Open Guide</a>
-      </div>
-
-      <!-- Phishing & Scam Defence -->
-      <div class="resource-card enhanced-card">
-        <img src="/images/phishing-icon.png" class="resource-icon" alt="">
-        <h3>Phishing & Scam Defence</h3>
-        <p>Modern scams look real — many are AI-generated. Learn how to spot them instantly and protect your household.</p>
-        <a href="/resources/phishing/" class="btn btn-green-sm">Open Guide</a>
-      </div>
-
+  <section class="section" aria-label="Resources hero">
+    <div class="sectionHead">
+      <h2>Free resources</h2>
+      <p class="lead">
+        Calm, practical guides that strengthen your digital household — one small seed at a time.
+      </p>
+      <p class="muted">
+        No scare tactics. No judgement. Just clarity you can use today.
+      </p>
     </div>
 
-    <!-- BACK BUTTON -->
-    <div class="center mt-40">
-      <a href="/" class="back-btn">← Back to Home</a>
+    <div class="resourcesGrid" role="list" aria-label="Resource cards">
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Wi-Fi & Router</div>
+          <div class="rcTag">front door</div>
+        </div>
+        <p class="muted">
+          Make the router boring (in the best way). A few small settings protect the whole home.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/wifi/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">If the router had feelings, it would love being updated.</div>
+      </article>
+
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Device Hygiene</div>
+          <div class="rcTag">weekly rhythm</div>
+        </div>
+        <p class="muted">
+          A gentle 7-minute weekly tidy: updates, permissions, and removing what’s no longer needed.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/device-hygiene/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">Your phone deserves less chaos than your kitchen drawer.</div>
+      </article>
+
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Privacy & Identity</div>
+          <div class="rcTag">footprint</div>
+        </div>
+        <p class="muted">
+          Reduce exposure without going off-grid. Strengthen logins, recovery settings, and account hygiene.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/privacy/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">“Password123” is not a personality trait.</div>
+      </article>
+
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Scams & Phishing</div>
+          <div class="rcTag">pause script</div>
+        </div>
+        <p class="muted">
+          Learn the household pause: verify routes, urgency tactics, and how to stay calm under pressure.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/phishing/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">If it says “ACT NOW”, that’s your cue to… not.</div>
+      </article>
+
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Children’s Wellbeing</div>
+          <div class="rcTag">routines</div>
+        </div>
+        <p class="muted">
+          Boundaries without surveillance. Confidence without fear. Routines that actually fit real family life.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/children/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">Bedtime Wi-Fi rules: ecology, not cruelty.</div>
+      </article>
+
+      <article class="resourceCard" role="listitem">
+        <div class="rcTop">
+          <div class="rcTitle">Household Basics</div>
+          <div class="rcTag">starter kit</div>
+        </div>
+        <p class="muted">
+          The calm starting point: what to prioritise, what to ignore, and how to build a steady household rhythm.
+        </p>
+        <div class="rcActions">
+          <a class="primary" href="/resources/online-safety/">Open guide</a>
+        </div>
+        <div class="rcHumour muted">Small seeds > big panics.</div>
+      </article>
     </div>
 
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer-content">
-    <p>© 2025 Cyber Seeds. Digital Safety for Families.</p>
-    <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/#about">About</a>
-      <a href="/#audit">Audit</a>
-      <a href="/#resources-preview">Resources</a>
-      <a href="/#contact">Book</a>
+    <div class="gentleCTA" style="margin-top:18px;">
+      <div>
+        <div class="ctaTitle">Want a personalised snapshot first?</div>
+        <div class="muted">Take the household signal on the homepage. It’s free and shareable.</div>
+      </div>
+      <div class="ctaActions">
+        <a class="primary" href="/#signal">Go to household signal</a>
+        <a class="ghost" href="/">Back to home</a>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<script src="/script.js"></script>
+  <footer class="footer" aria-label="Footer">
+    <div class="footerInner">
+      <div class="footLeft">
+        <div class="footBrand">Cyber Seeds</div>
+        <div class="muted tiny">Domestic Cyber Ecology · UK</div>
+      </div>
+      <div class="footLinks">
+        <a href="/">Home</a>
+        <a href="/#lenses">Five lenses</a>
+        <a href="/#signal">Signal</a>
+      </div>
+      <div class="footNote muted tiny">No monitoring · No personal data stored · Calm by design</div>
+    </div>
+  </footer>
+
+</div>
+
+<style>
+/* resources-only layout (keeps single global stylesheet, but stays canon-aligned) */
+.resourcesGrid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+.resourceCard{
+  background:#fff;
+  border:1px solid rgba(11,37,64,.08);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: 0 6px 22px rgba(11,37,64,.06);
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rcTop{
+  display:flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.rcTitle{ font-weight: 900; letter-spacing: .2px; }
+.rcTag{
+  font-size:.84rem;
+  padding:6px 10px;
+  border-radius:999px;
+  background: rgba(11,37,64,.04);
+  border: 1px solid rgba(11,37,64,.08);
+  opacity: .82;
+}
+.rcActions{ margin-top: 4px; }
+.rcHumour{ margin-top: auto; }
+
+@media (max-width: 980px){
+  .resourcesGrid{ grid-template-columns: 1fr; }
+}
+</style>
 
 </body>
 </html>
