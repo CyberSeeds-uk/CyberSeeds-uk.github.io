@@ -3,180 +3,573 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
   <title>Cyber Seeds — Household Digital Intelligence</title>
-  <meta name="description" content="Cyber Seeds helps families understand their household digital ecosystem with calm clarity. A living signal — not a score." />
+  <meta name="description" content="Cyber Seeds maps the digital ecosystem of your household calmly and without judgement. A living signal — not a score." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="cyber_seeds_logo.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+<div class="page">
 
-<header class="nav">
-  <div class="wrap navInner">
-    <div class="brand">
-      <img src="cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo">
-      <span>Household Digital Safety</span>
+  <!-- PRACTITIONER OVERLAY (SECRET / INVISIBLE TO HOUSEHOLDS) -->
+  <aside id="practitionerOverlay" aria-hidden="true">
+    <div class="po-head">
+      <div class="po-badge">Practitioner Overlay</div>
+      <button class="po-close" id="poClose" aria-label="Close overlay">Close</button>
     </div>
-    <nav class="navLinks">
-      <a href="#lenses">Five lenses</a>
-      <a href="resources/index.html">Free resources</a>
-      <a href="#signal" class="primary">View household signal</a>
+
+    <h3>Interpretation layer (accredited use only)</h3>
+    <p class="muted">
+      This website provides a <strong>household signal</strong> — a directional indicator of where attention may help.
+      It is intentionally <strong>non-diagnostic</strong>, <strong>non-surveillant</strong>, and <strong>non-judgemental</strong>.
+    </p>
+
+    <div class="po-grid">
+      <div class="po-card">
+        <h4>Signal philosophy</h4>
+        <ul>
+          <li><strong>Signal ≠ score</strong> (no pass/fail)</li>
+          <li>“Attention helps” is a care prompt, not a warning</li>
+          <li>One lens does not define the household</li>
+          <li>Small “digital seeds” compound (week-by-week)</li>
+        </ul>
+      </div>
+      <div class="po-card">
+        <h4>How to talk about findings</h4>
+        <ul>
+          <li>Use “current state”, “pattern”, “next step”</li>
+          <li>Avoid blame language (“you should have…”)</li>
+          <li>Offer 1–2 gentle actions per lens</li>
+          <li>End with reassurance + choice</li>
+        </ul>
+      </div>
+      <div class="po-card">
+        <h4>Ethics boundary</h4>
+        <ul>
+          <li>No monitoring, no keystrokes, no content spying</li>
+          <li>No child interrogation; observe routines, not secrets</li>
+          <li>Safeguarding escalation only when indicated</li>
+          <li>Data-minimised by design</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="po-foot muted">
+      Access gesture is intentionally obscure to prevent accidental discovery by households.
+    </div>
+  </aside>
+
+  <!-- HEADER -->
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo" />
+      <div class="brandText">
+        <div class="brandName">Cyber Seeds</div>
+        <div class="brandTag">Household Digital Intelligence</div>
+      </div>
+    </a>
+
+    <nav class="navLinks" aria-label="Primary">
+      <a href="#signal" class="navLink">Household signal</a>
+      <a href="#lenses" class="navLink">Five lenses</a>
+      <a href="/resources/" class="navLink">Free resources</a>
     </nav>
-  </div>
-</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="wrap">
-    <h1>
-      Your home is digital.<br>
-      <span>It just hasn’t been mapped yet.</span>
-    </h1>
-    <p>
-      Cyber Seeds reveals the invisible digital structure of your household —
-      calmly, proportionately, without monitoring or judgement.
-    </p>
-    <button class="primary" onclick="scrollToSignal()">View your household signal</button>
-    <small>No fear · No monitoring · No technical pressure</small>
-  </div>
-</section>
-
-<!-- INVISIBLE PROBLEM -->
-<section class="section">
-  <div class="wrap split">
-    <div>
-      <h2>The invisible problem</h2>
-      <p>
-        Most homes don’t see their digital structure because it grew quietly —
-        one device at a time, one app at a time.
-      </p>
-      <p>
-        Cyber Seeds doesn’t fix “mistakes”.
-        It simply helps you see the system you already have.
-      </p>
-      <p class="muted">
-        (Like finally finding the fuse box after years of guessing.)
-      </p>
+    <div class="navCta">
+      <button class="ghost" id="openMiniMap" type="button">See the ecosystem</button>
+      <button class="primary" id="scrollToSignal" type="button">View a household signal</button>
     </div>
-    <div class="softCard">
-      <strong>What households usually feel</strong>
-      <ul>
-        <li>“We’ve got lots of devices now…”</li>
-        <li>“I think it’s mostly fine?”</li>
-        <li>“I wouldn’t know where to start.”</li>
-      </ul>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="heroInner">
+      <div class="eyebrow">A calm household intelligence</div>
+
+      <h1>
+        Your home is digital.<br />
+        <span>It just hasn’t been mapped yet.</span>
+      </h1>
+
+      <p class="heroSub">
+        Cyber Seeds helps families see the invisible structure shaping everyday online life —
+        quietly, proportionately, without monitoring or judgement.
+      </p>
+
+      <div class="heroActions">
+        <button class="primary big" id="heroSignal" type="button">View a household signal</button>
+        <a class="linkBtn" href="/resources/">Browse free guides</a>
+      </div>
+
+      <div class="heroMeta">
+        <span class="pill">No fear</span>
+        <span class="pill">No monitoring</span>
+        <span class="pill">No technical pressure</span>
+        <span class="pill">Built for families</span>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- SIGNAL -->
-<section class="section-soft" id="signal">
-  <div class="wrap">
-    <h2>Live household signal</h2>
-    <p class="lead">
-      A directional snapshot that responds as you answer —
-      gently highlighting where attention may help.
-    </p>
+    <!-- subtle background geometry -->
+    <div class="heroGlow" aria-hidden="true"></div>
+  </section>
 
-    <div class="simulator">
-      <div class="sim-left">
-        <div id="simStep"></div>
-        <div id="simQuestion"></div>
-        <div id="simOptions"></div>
-        <div class="sim-nav">
-          <button id="simBack" disabled>Back</button>
-          <button id="simNext" disabled>Next</button>
+  <!-- THE INVISIBLE PROBLEM -->
+  <section class="section" id="problem" aria-label="The invisible problem">
+    <div class="grid2">
+      <div>
+        <h2>The invisible problem</h2>
+        <p class="lead">
+          Most households don’t lack care — they lack <strong>visibility</strong>.
+        </p>
+        <p>
+          A connected home is like a house at night: rooms, doors, visitors, routines… and the occasional
+          “Who left this window open?” moment.
+          Cyber Seeds doesn’t scold the house. It turns on the lights — gently.
+        </p>
+
+        <div class="humourCard">
+          <div class="humourTitle">A small truth (with love):</div>
+          <p class="humourLine">
+            Most digital problems start the same way: <em>“I thought it was fine… because nothing was obviously on fire.”</em>
+          </p>
+          <p class="muted">
+            We replace that guessing with a calm snapshot: what’s connected, what’s habitual, what’s exposed,
+            and what’s worth one small improvement.
+          </p>
         </div>
       </div>
 
-      <div class="sim-right">
-        <svg viewBox="0 0 320 320" class="dial">
-          <circle cx="160" cy="160" r="132" class="dial-bg"/>
-          <circle cx="160" cy="160" r="112" class="dial-ring"/>
-          <path id="arc0" class="arc"/>
-          <path id="arc1" class="arc"/>
-          <path id="arc2" class="arc"/>
-          <path id="arc3" class="arc"/>
-          <path id="arc4" class="arc"/>
-          <circle cx="160" cy="160" r="52" class="hub"/>
-          <text x="160" y="150" text-anchor="middle" class="hubT1">Signal</text>
-          <text x="160" y="176" text-anchor="middle" class="hubT2" id="signalMood">Listening</text>
+      <div class="systemCard" id="systemCard">
+        <div class="systemTop">
+          <div>
+            <div class="systemTitle">Digital Organism Map</div>
+            <div class="muted">A household as a living system</div>
+          </div>
+          <span class="miniTag">clarity tool</span>
+        </div>
+
+        <svg viewBox="0 0 520 320" class="organismSvg" role="img" aria-label="Household digital organism diagram">
+          <!-- house outline -->
+          <rect x="80" y="78" width="360" height="190" rx="34" fill="none" class="svgInkThin"/>
+          <path d="M90 78 L260 28 L430 78" fill="none" class="svgSeedThin"/>
+
+          <!-- orbit -->
+          <ellipse cx="260" cy="190" rx="220" ry="96" fill="none" class="svgSeed"/>
+
+          <!-- router heart -->
+          <circle cx="260" cy="190" r="40" fill="white" class="svgInk"/>
+          <path d="M245 190 C245 170, 275 170, 275 190 C275 205, 260 210, 260 222 C260 210, 245 205, 245 190 Z" class="svgSeedFill"/>
+          <text x="260" y="250" text-anchor="middle" class="svgLabelSeed">Router = Heart</text>
+
+          <!-- wifi flow -->
+          <path d="M260 115 Q300 155 330 135" fill="none" class="svgSeedDash"/>
+          <path d="M260 115 Q220 155 190 135" fill="none" class="svgSeedDash"/>
+          <text x="340" y="134" class="svgLabelSeedSmall">Wi-Fi = Blood flow</text>
+
+          <!-- devices -->
+          <g>
+            <circle cx="160" cy="212" r="22" fill="white" class="svgInkThin"/>
+            <text x="160" y="217" text-anchor="middle" class="svgLabel">Tablet</text>
+
+            <circle cx="360" cy="212" r="22" fill="white" class="svgInkThin"/>
+            <text x="360" y="217" text-anchor="middle" class="svgLabel">TV</text>
+
+            <circle cx="220" cy="112" r="18" fill="white" class="svgInkThin"/>
+            <text x="220" y="117" text-anchor="middle" class="svgLabelSmall">Laptop</text>
+
+            <circle cx="300" cy="112" r="18" fill="white" class="svgInkThin"/>
+            <text x="300" y="117" text-anchor="middle" class="svgLabelSmall">Phone</text>
+          </g>
+
+          <text x="260" y="302" text-anchor="middle" class="svgCaption">
+            Devices = Organs · Data = Nerves · Behaviour = Immune system
+          </text>
         </svg>
+
+        <div class="systemFoot">
+          <div class="muted">
+            You don’t need to become “technical”. You need a map that makes sense.
+          </div>
+          <button class="ghost" id="jumpToLenses" type="button">See the five lenses</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOUSEHOLD SIGNAL -->
+  <section class="sectionSoft" id="signal" aria-label="Household signal">
+    <div class="sectionHead">
+      <h2>The household signal</h2>
+      <p class="lead">
+        A live snapshot that responds as you answer — highlighting where attention may help.
+      </p>
+      <p class="muted">
+        This is not a grade. It’s a gentle “weather report” for your household’s digital ecosystem.
+      </p>
+    </div>
+
+    <div class="simulator" role="group" aria-label="Household signal simulator">
+      <!-- LEFT -->
+      <div class="simLeft">
+        <div class="simMeta">
+          <div id="simStep" class="simStep">Question 1 of 5</div>
+          <div class="simHint" id="simHint">Small answers. Real clarity.</div>
+        </div>
+
+        <div id="simQuestion" class="simQuestion"></div>
+        <div id="simOptions" class="simOptions" role="listbox" aria-label="Answer choices"></div>
+
+        <div class="simNav">
+          <button id="simBack" class="ghost" type="button" disabled>Back</button>
+          <button id="simNext" class="primary" type="button" disabled>Next</button>
+        </div>
+
+        <div class="microHumour" id="microHumour" aria-live="polite"></div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="simRight">
+        <div class="dialWrap">
+          <svg viewBox="0 0 320 320" class="dial" aria-label="Household signal dial">
+            <circle cx="160" cy="160" r="132" class="dialBg"></circle>
+            <circle cx="160" cy="160" r="112" class="dialRing"></circle>
+
+            <path id="arc0" class="arc"></path>
+            <path id="arc1" class="arc"></path>
+            <path id="arc2" class="arc"></path>
+            <path id="arc3" class="arc"></path>
+            <path id="arc4" class="arc"></path>
+
+            <circle cx="160" cy="160" r="54" class="hub"></circle>
+            <text x="160" y="148" text-anchor="middle" class="hubT1">Signal</text>
+            <text x="160" y="176" text-anchor="middle" class="hubT2" id="signalMood">Listening</text>
+          </svg>
+
+          <div class="dialLegend" aria-label="Legend">
+            <div class="legendItem"><span class="dot calm"></span> Calm</div>
+            <div class="legendItem"><span class="dot growing"></span> Growing</div>
+            <div class="legendItem"><span class="dot care"></span> Attention helps</div>
+          </div>
+        </div>
+
+        <div class="lensMini" aria-label="Lens readout">
+          <div class="lensRow"><span class="k">Network</span><span class="v" id="v0">—</span></div>
+          <div class="lensRow"><span class="k">Devices</span><span class="v" id="v1">—</span></div>
+          <div class="lensRow"><span class="k">Privacy</span><span class="v" id="v2">—</span></div>
+          <div class="lensRow"><span class="k">Scams</span><span class="v" id="v3">—</span></div>
+          <div class="lensRow"><span class="k">Children</span><span class="v" id="v4">—</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="export-card" id="exportCard">
-      <h3>Your household snapshot</h3>
-      <p>A calm, shareable summary of the signal your answers created.</p>
-      <canvas id="snapshotCanvas" width="420" height="260"></canvas>
-      <button class="primary" id="downloadSnapshot">Download snapshot</button>
-      <small>PDF-safe · Shareable · No personal data stored</small>
+    <!-- SNAPSHOT EXPORT -->
+    <div class="exportCard" id="exportCard" aria-label="Snapshot export">
+      <div class="exportTop">
+        <div>
+          <h3>Your Household Snapshot</h3>
+          <p class="muted">
+            A calm, shareable summary of the signal your answers created — plus a few “digital seeds” to plant next.
+          </p>
+        </div>
+        <div class="exportMeta muted" id="exportMeta">No personal data stored.</div>
+      </div>
+
+      <div class="exportGrid">
+        <canvas id="snapshotCanvas" width="720" height="420" aria-label="Household snapshot image"></canvas>
+
+        <div class="seedsPanel" aria-label="Suggested digital seeds">
+          <div class="seedsTitle">Suggested digital seeds</div>
+          <div class="muted seedsSub">Small actions that strengthen the ecosystem over time.</div>
+          <div id="seedList" class="seedList"></div>
+        </div>
+      </div>
+
+      <div class="exportActions">
+        <button class="primary" id="downloadSnapshot" type="button">Download Snapshot</button>
+        <a class="linkBtn" href="/resources/">Open free guides</a>
+      </div>
+      <div class="muted tiny">
+        PDF-safe · Shareable · No monitoring · No personal data stored
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ECOSYSTEM -->
-<section class="section">
-  <div class="wrap center">
-    <h2>What does your digital ecosystem look like?</h2>
-    <p class="lead">
-      A household behaves like a living system — not a checklist.
-    </p>
-
-    <div class="ecosystemBox">
-      Router = heart · Wi-Fi = blood flow · Devices = organs · Data = nerves · Behaviour = immune system
+  <!-- FIVE LENSES -->
+  <section class="section" id="lenses" aria-label="Five lenses">
+    <div class="sectionHead">
+      <h2>The Five-Lens Safety Model</h2>
+      <p class="lead">
+        Not a checklist. A system: five protective lenses that keep the household resilient.
+      </p>
+      <p class="muted">
+        Click a lens to expand. Each one teaches something quickly — without turning your living room into a lecture theatre.
+      </p>
     </div>
-  </div>
-</section>
 
-<!-- LENSES -->
-<section class="lenses" id="lenses">
-  <div class="wrap">
-    <h2>The Five-Lens Safety Model</h2>
-    <p class="lead">Each lens protects a different part of the system.</p>
+    <div class="lensGrid" role="list">
+      <article class="lensCard" data-lens="0" role="listitem">
+        <button class="lensHead" type="button" aria-expanded="false">
+          <span class="lensTitle">Network & Wi-Fi</span>
+          <span class="lensOne">Your digital front door.</span>
+        </button>
+        <div class="lensBody">
+          <p>
+            The router decides who gets in and how safely information moves. Strong settings reduce risk for every device —
+            without changing anyone’s personality.
+          </p>
+          <div class="lensTeach">
+            <div class="teachTitle">Teaches:</div>
+            <ul>
+              <li>Secure defaults matter more than “being careful”</li>
+              <li>Guest networks = boundaries for IoT and visitors</li>
+              <li>Updates are boring… and quietly heroic</li>
+            </ul>
+          </div>
+          <div class="lensHumour muted">
+            Household moment: “We named the Wi-Fi ‘FBI Van’ once. The router did not become safer.”
+          </div>
+        </div>
+      </article>
 
-    <div class="lens-grid">
-      <div class="lens-card"><strong>Network & Wi-Fi</strong><span>Your digital front door</span></div>
-      <div class="lens-card"><strong>Devices & Apps</strong><span>The rooms in the house</span></div>
-      <div class="lens-card"><strong>Privacy & Identity</strong><span>Your long-term footprint</span></div>
-      <div class="lens-card"><strong>Scams & Behaviour</strong><span>How pressure is handled</span></div>
-      <div class="lens-card"><strong>Children’s Wellbeing</strong><span>Confidence over control</span></div>
+      <article class="lensCard" data-lens="1" role="listitem">
+        <button class="lensHead" type="button" aria-expanded="false">
+          <span class="lensTitle">Devices & Apps</span>
+          <span class="lensOne">The rooms of the house.</span>
+        </button>
+        <div class="lensBody">
+          <p>
+            Phones, tablets, TVs, consoles — each has settings, permissions, and little background services doing “just one more thing”.
+            Device hygiene is not perfection; it’s rhythm.
+          </p>
+          <div class="lensTeach">
+            <div class="teachTitle">Teaches:</div>
+            <ul>
+              <li>Permissions are small doors (camera, mic, location)</li>
+              <li>Old apps become forgotten windows</li>
+              <li>A weekly 7-minute tidy beats rare “panic cleans”</li>
+            </ul>
+          </div>
+          <div class="lensHumour muted">
+            Household moment: “If your tablet has 94 tabs open, it’s basically raising itself.”
+          </div>
+        </div>
+      </article>
+
+      <article class="lensCard" data-lens="2" role="listitem">
+        <button class="lensHead" type="button" aria-expanded="false">
+          <span class="lensTitle">Privacy & Identity</span>
+          <span class="lensOne">Your footprint in the wild.</span>
+        </button>
+        <div class="lensBody">
+          <p>
+            Accounts, recovery emails, shared logins, public profiles, old usernames — privacy is often a trail made slowly,
+            not a single mistake.
+          </p>
+          <div class="lensTeach">
+            <div class="teachTitle">Teaches:</div>
+            <ul>
+              <li>Identity is a network of accounts, not one password</li>
+              <li>Recovery settings are as important as login settings</li>
+              <li>Data minimisation = calm by design</li>
+            </ul>
+          </div>
+          <div class="lensHumour muted">
+            Household moment: “Yes, ‘Password123’ is memorable. So is leaving your keys in the front door.”
+          </div>
+        </div>
+      </article>
+
+      <article class="lensCard" data-lens="3" role="listitem">
+        <button class="lensHead" type="button" aria-expanded="false">
+          <span class="lensTitle">Scams & Behaviour</span>
+          <span class="lensOne">Pressure moments.</span>
+        </button>
+        <div class="lensBody">
+          <p>
+            Scams succeed when we’re rushed, tired, or overloaded. This lens builds simple pause-scripts that protect money,
+            identity, and peace of mind.
+          </p>
+          <div class="lensTeach">
+            <div class="teachTitle">Teaches:</div>
+            <ul>
+              <li>Urgency is a tactic; the pause is a shield</li>
+              <li>One trusted “verify route” for the whole household</li>
+              <li>Confidence comes from rehearsed defaults</li>
+            </ul>
+          </div>
+          <div class="lensHumour muted">
+            Household moment: “If a message says ‘ACT NOW’, your job is to do the opposite.”
+          </div>
+        </div>
+      </article>
+
+      <article class="lensCard" data-lens="4" role="listitem">
+        <button class="lensHead" type="button" aria-expanded="false">
+          <span class="lensTitle">Children’s Wellbeing</span>
+          <span class="lensOne">Routines, not surveillance.</span>
+        </button>
+        <div class="lensBody">
+          <p>
+            Children need guidance, trust, and age-appropriate boundaries — not digital policing.
+            This lens protects development, sleep, confidence, and social safety online.
+          </p>
+          <div class="lensTeach">
+            <div class="teachTitle">Teaches:</div>
+            <ul>
+              <li>Boundaries are clearer than punishments</li>
+              <li>Co-pilot rules beat “gotcha” monitoring</li>
+              <li>Wellbeing is part of cyber safety</li>
+            </ul>
+          </div>
+          <div class="lensHumour muted">
+            Household moment: “The Wi-Fi going off at bedtime isn’t cruelty — it’s ecology.”
+          </div>
+        </div>
+      </article>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WHAT IT IS / ISNT -->
-<section class="section-soft">
-  <div class="wrap split">
-    <div>
-      <h2>What Cyber Seeds is</h2>
-      <ul>
-        <li>A household clarity framework</li>
-        <li>A calm diagnostic signal</li>
-        <li>Education without overwhelm</li>
-      </ul>
-    </div>
-    <div>
-      <h2>What it is not</h2>
-      <ul>
-        <li>Not surveillance</li>
-        <li>Not monitoring</li>
-        <li>Not judgement or scoring</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  <!-- WHAT CHANGES -->
+  <section class="section" id="changes" aria-label="What changes">
+    <div class="grid2">
+      <div>
+        <h2>What changes when you can see clearly</h2>
+        <p class="lead">
+          Clarity reduces friction. And better decisions start to feel… easier.
+        </p>
+        <p>
+          Cyber Seeds is designed to replace vague worry with practical awareness.
+          Not “control”. Not “lockdown”. Just a household that understands itself.
+        </p>
 
-<footer class="footer">
-  Cyber Seeds · Domestic Cyber Ecology · UK
-</footer>
+        <div class="changeList">
+          <div class="changeItem">
+            <div class="changeDot"></div>
+            <div>
+              <strong>Less guessing.</strong>
+              <span class="muted">You know what matters and what doesn’t.</span>
+            </div>
+          </div>
+          <div class="changeItem">
+            <div class="changeDot"></div>
+            <div>
+              <strong>Fewer surprise moments.</strong>
+              <span class="muted">Scams, settings, and “mystery logins” become manageable.</span>
+            </div>
+          </div>
+          <div class="changeItem">
+            <div class="changeDot"></div>
+            <div>
+              <strong>More calm confidence.</strong>
+              <span class="muted">You have repeatable habits — not one-off fixes.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="beforeAfterCard" aria-label="Before and after clarity illustration">
+        <div class="baTop">
+          <div class="baTitle">Before → After (clarity)</div>
+          <div class="muted">Not fear. Just visibility.</div>
+        </div>
+
+        <svg viewBox="0 0 520 240" class="baSvg" role="img" aria-label="Before after rings diagram">
+          <g transform="translate(120,120)">
+            <circle r="80" class="baRing soft"></circle>
+            <circle r="56" class="baRing soft2"></circle>
+            <circle r="32" class="baRing soft3"></circle>
+            <text y="6" text-anchor="middle" class="baText">Before</text>
+            <text y="28" text-anchor="middle" class="baSub">“It feels… vague.”</text>
+          </g>
+
+          <g transform="translate(400,120)">
+            <circle r="80" class="baRing seed"></circle>
+            <circle r="56" class="baRing seed2"></circle>
+            <circle r="32" class="baRing seed3"></circle>
+            <text y="6" text-anchor="middle" class="baText">After</text>
+            <text y="28" text-anchor="middle" class="baSub">“Ah. That’s the system.”</text>
+          </g>
+
+          <path d="M240 120 C275 90, 305 90, 340 120" class="baArrow"></path>
+          <polygon points="340,120 330,112 330,128" class="baArrowFill"></polygon>
+        </svg>
+
+        <div class="baFoot muted">
+          The goal is not to make the home perfect — it’s to make it understandable.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT CYBER SEEDS IS / IS NOT -->
+  <section class="sectionSoft" id="what" aria-label="What Cyber Seeds is and is not">
+    <div class="sectionHead">
+      <h2>What Cyber Seeds is (and is not)</h2>
+      <p class="lead">A household safety practice. Not surveillance. Not judgement.</p>
+    </div>
+
+    <div class="isIsNot">
+      <div class="iiCard">
+        <div class="iiTitle">Cyber Seeds is</div>
+        <ul class="iiList">
+          <li>A calm map of your household’s digital ecosystem</li>
+          <li>A five-lens approach: network, devices, privacy, scams, children</li>
+          <li>Education that fits real household life</li>
+          <li>Small actions (“digital seeds”) that compound over time</li>
+        </ul>
+      </div>
+
+      <div class="iiCard">
+        <div class="iiTitle">Cyber Seeds is not</div>
+        <ul class="iiList">
+          <li>Monitoring your messages, photos, or private content</li>
+          <li>A “gotcha” tool for parents or children</li>
+          <li>Fear-based security theatre</li>
+          <li>A pass/fail rating of your parenting or your home</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gentleCTA">
+      <div>
+        <div class="ctaTitle">Want something immediately useful?</div>
+        <div class="muted">Start with free guides — or take the signal snapshot above.</div>
+      </div>
+      <div class="ctaActions">
+        <a class="primary" href="/resources/">Open Free Resources</a>
+        <button class="ghost" id="backToSignal" type="button">Back to Signal</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="footerInner">
+      <div class="footLeft">
+        <div class="footBrand">Cyber Seeds</div>
+        <div class="muted tiny">Domestic Cyber Ecology · UK</div>
+      </div>
+
+      <div class="footLinks">
+        <a href="#signal">Household signal</a>
+        <a href="#lenses">Five lenses</a>
+        <a href="/resources/">Resources</a>
+      </div>
+
+      <div class="footNote muted tiny" id="footNote">
+        No monitoring · No personal data stored · Calm by design
+      </div>
+    </div>
+  </footer>
+
+</div>
 
 <script src="script.js"></script>
 </body>
