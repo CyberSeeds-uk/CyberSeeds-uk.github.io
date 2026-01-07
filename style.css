@@ -1,38 +1,34 @@
-/* =============================================================
-   Cyber Seeds – Modern Website Styles (2026)
-   Calm, clean and responsive design
-   This stylesheet defines the core visual identity for the
-   refreshed Cyber Seeds website. Variables make it easy to
-   adjust colours and spacing in one place. The layout is
-   responsive and accessible, with high contrast and generous
-   white space. See index.html for usage.
-============================================================= */
+/* ===============================
+   CYBER SEEDS – HARD RESET FIX
+   Safari + Cloudflare Safe
+================================ */
 
-/* Reset and base typography */
-* {
+html {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  font-size: 16px;
 }
 
-html, body {
-  font-family: 'Inter', sans-serif;
-  color: var(--text);
-  line-height: 1.5;
-  background: var(--bg);
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
-a {
-  color: var(--primary-dark);
-  text-decoration: none;
-  transition: color var(--transition);
+/* FORCE VISUAL STRUCTURE */
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background: #f5f9fc !important;
+  color: #0b2540 !important;
+  line-height: 1.5 !important;
+  display: block !important;
 }
 
-a:hover {
-  text-decoration: underline;
+/* PREVENT CSS WIPES */
+header, main, footer, section, nav, div {
+  all: revert;
 }
 
-/* Colour palette and sizing variables */
+/* VARIABLES */
 :root {
   --primary: #2bb673;
   --primary-dark: #1f9b60;
@@ -43,642 +39,127 @@ a:hover {
   --card-bg: #ffffff;
   --card-border: #e3edf4;
   --radius: 12px;
-  --max-width: 1200px;
-  --transition: 0.2s ease;
-  /* gentle status palette for the signal simulator */
-  --calm: #2bb673;
-  --growing: #f0b429;
-  --care: #c96a4a;
 }
 
-/* Layout helpers */
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Header */
+/* HEADER */
 .header {
-  display: flex;
-  align-items: center;
+  display: flex !important;
   justify-content: space-between;
-  padding: 1rem 0;
-  background: var(--bg);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(11, 37, 64, 0.08);
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #dde7ef;
+  background: #f5f9fc;
 }
 
-.header .logo-wrap {
+.logo-wrap {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.header img.logo {
+.logo {
   width: 40px;
-  height: auto;
 }
 
-.header .brand-name {
-  font-size: 1.2rem;
+.brand-name {
   font-weight: 700;
-  color: var(--text);
 }
 
-.header nav {
+/* NAV */
+.nav-menu {
   display: flex;
   gap: 1rem;
 }
 
-.header nav a {
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text);
   font-weight: 500;
-  opacity: 0.8;
-  padding: 0.5rem 0;
 }
 
-.header nav a:hover {
-  opacity: 1;
-}
-
-.header .cta {
-  margin-left: auto;
-}
-
+/* BUTTON */
 .btn {
-  border: none;
   background: var(--primary);
-  color: #fff;
+  color: white !important;
   padding: 0.6rem 1.2rem;
   border-radius: 999px;
   font-weight: 600;
-  cursor: pointer;
-  transition: background var(--transition), transform var(--transition);
-  display: inline-flex;
+  text-decoration: none !important;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
-.btn:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-/* Hero section */
+/* HERO */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
-  padding: 4rem 0 3rem;
+  padding: 4rem 1rem;
   background: linear-gradient(180deg, #e6f6ef, var(--bg));
-  position: relative;
-  overflow: hidden;
 }
 
 .hero h1 {
   font-family: 'Fraunces', serif;
   font-size: 2.4rem;
-  font-weight: 600;
-  color: var(--text);
   margin-bottom: 1rem;
 }
 
 .hero p {
   max-width: 640px;
-  font-size: 1.1rem;
+  margin: 0 auto 2rem;
   color: var(--muted);
-  margin-bottom: 2rem;
 }
 
-.hero .btn-group {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Generic section styling */
+/* SECTIONS */
 .section {
-  padding: 3rem 0;
+  padding: 3rem 1rem;
 }
 
 .section-title {
   text-align: center;
   font-family: 'Fraunces', serif;
   font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: var(--text);
+  margin-bottom: 2rem;
 }
 
-/* Why clarity section */
+/* WHY */
 .why-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: flex !important;
   gap: 2rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .why-item {
-  flex: 1 1 280px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
+  background: white;
   border-radius: var(--radius);
   padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(11, 37, 64, 0.05);
+  max-width: 300px;
+  border: 1px solid var(--card-border);
 }
 
-.why-item .icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: var(--primary);
-}
-
-.why-item h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-}
-
-.why-item p {
-  color: var(--muted);
-}
-
-/* Lenses section */
+/* LENSES */
 .lenses-grid {
-  display: grid;
+  display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 
 .lens-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
+  background: white;
   border-radius: var(--radius);
   padding: 1.5rem;
+  border: 1px solid var(--card-border);
   text-align: center;
-  box-shadow: 0 4px 12px rgba(11, 37, 64, 0.05);
 }
 
-.lens-card .icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--secondary);
-}
-
-.lens-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-}
-
-.lens-card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* Resources section */
-.resources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.resource-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 12px rgba(11, 37, 64, 0.05);
-}
-
-.resource-card h4 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-}
-
-.resource-card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-}
-
-.resource-card .btn {
-  align-self: flex-start;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-}
-
-/* Principles section */
-.principles-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.principle {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(11, 37, 64, 0.05);
-}
-
-.principle h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-  color: var(--primary-dark);
-}
-
-.principle p {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-/* Call to action section */
-.call-to-action {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.call-to-action .btn-group .btn {
-  margin: 0.5rem;
-}
-
-/* Footer */
+/* FOOTER */
 .footer {
-  background: var(--text);
-  color: #fff;
-  padding: 2rem 0;
+  background: #0b2540;
+  color: white;
+  padding: 2rem 1rem;
 }
 
-.footer .footer-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.footer .footer-brand {
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.footer .footer-links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.footer .footer-links a {
-  color: #fff;
-  opacity: 0.8;
-  transition: opacity var(--transition);
-}
-
-.footer .footer-links a:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
-
-.footer .note {
-  opacity: 0.7;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-  .section-title {
-    font-size: 1.8rem;
-  }
-}
-
-/* --------------------------------------------------------
-   Signal simulator styles
-   These rules style the question flow, dial, lens readout and
-   export card used in snapshot.html. They are adapted from
-   the original site but simplified to integrate with the
-   refreshed aesthetic.
--------------------------------------------------------- */
-.simulator {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  max-width: var(--max-width);
-  margin: 2rem auto;
-}
-
-.simLeft, .simRight {
-  flex: 1 1 350px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(11, 37, 64, 0.05);
-  min-width: 0;
-}
-
-.simMeta {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.simStep {
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-
-.simHint {
-  opacity: .7;
-  font-size: .92rem;
-}
-
-.simQuestion {
-  font-size: 1.08rem;
-  font-weight: 650;
-  margin: 10px 0 12px;
-}
-
-.simOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-.simOpt {
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(11, 37, 64, .04);
-  border: 1px solid rgba(11, 37, 64, .08);
-  cursor: pointer;
-  transition: background .16s, border-color .16s, transform .12s;
-  font-weight: 600;
-}
-
-.simOpt:hover {
-  background: rgba(43, 182, 115, .10);
-  border-color: rgba(43, 182, 115, .22);
-  transform: translateY(-1px);
-}
-
-.simOpt.selected {
-  background: rgba(43, 182, 115, .12);
-  border-color: rgba(43, 182, 115, .40);
-  box-shadow: 0 6px 18px rgba(43, 182, 115, .15);
-}
-
-.simNav {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.microHumour {
-  margin-top: 14px;
-  border-radius: 18px;
-  padding: 12px;
-  background: rgba(11, 37, 64, .03);
-  border: 1px solid rgba(11, 37, 64, .07);
-  min-height: 54px;
-  font-size: .98rem;
-  opacity: .92;
-}
-
-/* Dial & legend */
-.dialWrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.dial {
-  width: 100%;
-  max-width: 290px;
-  height: auto;
-}
-
-.dialBg {
-  stroke: rgba(11, 37, 64, .10);
-  stroke-width: 22;
-  fill: none;
-}
-
-.dialRing {
-  stroke: rgba(43, 182, 115, .18);
-  stroke-width: 7;
-  fill: none;
-}
-
-.arc {
-  stroke-width: 13;
-  fill: none;
-  stroke-linecap: round;
-  transition: stroke .26s ease;
-  filter: drop-shadow(0 0 8px rgba(43, 182, 115, .10));
-}
-
-.hub {
-  fill: #fff;
-  stroke: rgba(43, 182, 115, .6);
-  stroke-width: 3;
-  filter: drop-shadow(0 0 14px rgba(43, 182, 115, .18));
-}
-
-.hubT1 {
-  font-family: 'Fraunces', serif;
-  font-size: 1.18rem;
-  fill: rgba(11, 37, 64, .92);
-  font-weight: 700;
-}
-
-.hubT2 {
-  font-size: 1.07rem;
-  fill: rgba(31, 155, 96, .95);
-  font-weight: 800;
-}
-
-.dialLegend {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin-top: 8px;
-  font-size: .92rem;
-  opacity: .86;
-}
-
-.legendItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.dot.calm { background: var(--calm); }
-.dot.growing { background: var(--growing); }
-.dot.care { background: var(--care); }
-
-/* Lens mini readout */
-.lensMini {
-  width: 100%;
-  max-width: 360px;
-  background: rgba(11, 37, 64, .03);
-  border: 1px solid rgba(11, 37, 64, .08);
-  border-radius: 18px;
-  padding: 12px;
-  margin-top: 1rem;
-}
-
-.lensRow {
-  display: flex;
-  justify-content: space-between;
-  padding: 7px 6px;
-  border-bottom: 1px solid rgba(11, 37, 64, .06);
-}
-
-.lensRow:last-child { border-bottom: none; }
-
-.lensRow .k { font-weight: 700; opacity: .86; }
-
-.lensRow .v { font-weight: 800; }
-
-/* Export card */
-.exportCard {
-  max-width: var(--max-width);
-  margin: 2rem auto 0;
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  border: 1px solid rgba(11, 37, 64, .06);
-  box-shadow: 0 6px 22px rgba(11, 37, 64, .06);
-  padding: 1.5rem;
-}
-
-.exportTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 12px;
-}
-
-.exportMeta { text-align: right; }
-
-.exportGrid {
-  display: grid;
-  grid-template-columns: 1.25fr .75fr;
-  gap: 14px;
-  align-items: start;
-}
-
-canvas {
-  width: 100%;
-  height: auto;
-  background: rgba(11, 37, 64, .03);
-  border-radius: 18px;
-  border: 1px solid rgba(11, 37, 64, .06);
-}
-
-.seedsPanel {
-  background: rgba(43, 182, 115, .06);
-  border: 1px solid rgba(43, 182, 115, .18);
-  border-radius: 18px;
-  padding: 14px;
-}
-
-.seedsTitle {
-  font-weight: 900;
-  letter-spacing: .2px;
-  color: var(--primary-dark);
-}
-
-.seedsSub {
-  margin-top: 4px;
-  font-size: .95rem;
-}
-
-.seedList {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.seedItem {
-  background: #fff;
-  border: 1px solid rgba(11, 37, 64, .08);
-  border-radius: 16px;
-  padding: 10px;
-}
-
-.seedItem .seedTop {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-}
-
-.seedItem .seedName {
-  font-weight: 900;
-}
-
-.seedItem .seedTag {
-  font-size: .84rem;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(11, 37, 64, .04);
-  border: 1px solid rgba(11, 37, 64, .08);
-  opacity: .82;
-}
-
-.seedItem .seedText {
-  margin-top: 6px;
-  opacity: .85;
-  font-size: .95rem;
-}
-
-.exportActions {
-  margin-top: 12px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.exportActions .btn {
-  font-size: 0.9rem;
-}
-
-.note.tiny {
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  opacity: 0.7;
+.footer a {
+  color: white;
+  text-decoration: none;
 }
