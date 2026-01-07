@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cyber Seeds – Domestic Cyber Ecology</title>
+  <title>Cyber Seeds — Household Digital Snapshot</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet" />
+  <meta name="description" content="A calm, non-judgemental household digital snapshot. Runs locally. Nothing leaves your browser." />
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="site-header">
-  <h1 class="logo-text">Cyber Seeds</h1>
+<header class="header">
+  <h1 class="brand">Cyber Seeds</h1>
 </header>
 
 <main>
 
-<section class="hero">
+<section class="intro">
   <h2>Your Household Digital Snapshot</h2>
-  <p class="hero-sub">
+  <p class="intro-text">
     A signal of resilience — not a judgement.<br>
-    Runs locally. Nothing leaves your browser.
+    This assessment runs locally. Nothing leaves your browser.
   </p>
 </section>
 
-<section class="quiz-wrapper">
+<section class="snapshot-panel">
 
 <form id="quizForm">
 
@@ -32,25 +36,25 @@
 
     <fieldset>
       <legend>Adults in household</legend>
-      <label><input type="radio" name="adults_count" value="1" required> 1</label>
-      <label><input type="radio" name="adults_count" value="2"> 2</label>
-      <label><input type="radio" name="adults_count" value="3"> 3</label>
-      <label><input type="radio" name="adults_count" value="4"> 4+</label>
+      <label><input type="radio" name="adults" value="1" required> 1</label>
+      <label><input type="radio" name="adults" value="2"> 2</label>
+      <label><input type="radio" name="adults" value="3"> 3</label>
+      <label><input type="radio" name="adults" value="4"> 4+</label>
     </fieldset>
 
     <fieldset>
       <legend>Children in household</legend>
-      <label><input type="radio" name="children_count" value="0" required> None</label>
-      <label><input type="radio" name="children_count" value="1"> 1</label>
-      <label><input type="radio" name="children_count" value="2"> 2</label>
-      <label><input type="radio" name="children_count" value="3"> 3+</label>
+      <label><input type="radio" name="children" value="0" required> None</label>
+      <label><input type="radio" name="children" value="1"> 1</label>
+      <label><input type="radio" name="children" value="2"> 2</label>
+      <label><input type="radio" name="children" value="3"> 3+</label>
     </fieldset>
 
     <fieldset>
       <legend>Home Wi-Fi setup</legend>
       <label><input type="radio" name="network" value="-1" required> Default / unchanged</label>
       <label><input type="radio" name="network" value="0"> Basic password only</label>
-      <label><input type="radio" name="network" value="1"> Some changes made</label>
+      <label><input type="radio" name="network" value="1"> Some settings adjusted</label>
       <label><input type="radio" name="network" value="2"> Actively managed</label>
     </fieldset>
 
@@ -58,7 +62,7 @@
       <legend>Device care & updates</legend>
       <label><input type="radio" name="devices" value="-1" required> Rarely updated</label>
       <label><input type="radio" name="devices" value="0"> Sometimes</label>
-      <label><input type="radio" name="devices" value="1"> Mostly up-to-date</label>
+      <label><input type="radio" name="devices" value="1"> Mostly consistent</label>
       <label><input type="radio" name="devices" value="2"> Very consistent</label>
     </fieldset>
 
@@ -74,32 +78,32 @@
       <legend>Scam awareness</legend>
       <label><input type="radio" name="scams" value="-1" required> Often unsure</label>
       <label><input type="radio" name="scams" value="0"> Some confidence</label>
-      <label><input type="radio" name="scams" value="1"> Usually spot scams</label>
-      <label><input type="radio" name="scams" value="2"> Very alert</label>
+      <label><input type="radio" name="scams" value="1"> Usually cautious</label>
+      <label><input type="radio" name="scams" value="2"> Highly alert</label>
     </fieldset>
 
     <fieldset id="childrenBlock">
       <legend>Children’s online safety</legend>
-      <label><input type="radio" name="children_practices" value="-1"> No rules</label>
-      <label><input type="radio" name="children_practices" value="0"> Basic rules</label>
-      <label><input type="radio" name="children_practices" value="1"> Some controls</label>
-      <label><input type="radio" name="children_practices" value="2"> Clear rules + discussion</label>
+      <label><input type="radio" name="childrenSafety" value="-1"> No structure yet</label>
+      <label><input type="radio" name="childrenSafety" value="0"> Basic rules</label>
+      <label><input type="radio" name="childrenSafety" value="1"> Some controls</label>
+      <label><input type="radio" name="childrenSafety" value="2"> Clear rules + discussion</label>
     </fieldset>
 
   </div>
 
-  <button type="submit" class="primary-btn">Generate snapshot</button>
+  <button type="submit" class="primary-action">Generate snapshot</button>
 
 </form>
 
-<div id="results"></div>
+<div id="result" class="result-panel" tabindex="-1"></div>
 
 </section>
 
 </main>
 
-<footer>
-  <p>© 2026 Cyber Seeds</p>
+<footer class="footer">
+  <p>© 2026 Cyber Seeds — Domestic Cyber Ecology</p>
 </footer>
 
 <script src="script.js"></script>
