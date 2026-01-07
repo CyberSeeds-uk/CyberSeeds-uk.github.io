@@ -4,16 +4,21 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Contact Cyber Seeds – We're Here to Help</title>
-<meta name="description" content="Get in touch with Cyber Seeds. Friendly, human support for families needing guidance with online safety, devices, WiFi, privacy and children’s digital wellbeing." />
+<title>Cyber Seeds — Household Orientation</title>
+<meta name="description" content="A calm, visual orientation of your household’s digital environment. No judgement. No monitoring. Just clarity." />
 
 <link rel="canonical" href="https://cyberseeds-uk.github.io/contact/" />
 <link rel="stylesheet" href="/style.css" />
 
-<meta property="og:title" content="Contact Cyber Seeds" />
-<meta property="og:description" content="Friendly support for UK families needing help with digital safety." />
+<!-- Open Graph -->
+<meta property="og:title" content="Cyber Seeds — Household Orientation" />
+<meta property="og:description" content="A calm way to see how your digital home fits together." />
 <meta property="og:image" content="/cyber_seeds_logo.png" />
 <meta property="og:url" content="https://cyberseeds-uk.github.io/contact/" />
+
+<!-- Three.js -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 
 <body>
@@ -21,7 +26,6 @@
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
-
     <a href="/" class="nav-logo">
       <img src="/cyber_seeds_logo.png" alt="Cyber Seeds Logo">
       Cyber Seeds
@@ -36,99 +40,146 @@
       <li><a href="/about/">About</a></li>
       <li><a href="/services/">Services</a></li>
       <li><a href="/resources/">Resources</a></li>
-      <li><a href="/schedule/">Schedule</a></li>
-      <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/contact/" class="active">Contact</a></li>
+      <li><a href="/schedule/">Next Steps</a></li>
     </ul>
-
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="padding:60px 20px;">
-  <h1>Contact Cyber Seeds</h1>
-  <p class="hero-sub">
-    Whether you have a question, need reassurance, or want help getting started — 
-    we’re here for you.
+<section class="orientation-hero">
+  <h1>Your Household, Gently Mapped</h1>
+  <p>
+    This space helps you see how your home connects digitally.
+    Nothing here is judging or watching you.
+    It’s simply an orientation — so you’re not navigating blind.
   </p>
 </section>
 
+<!-- 3D ORIENTATION -->
+<section class="orientation-stage">
+  <div id="cyberSeeds3D"></div>
+  <p class="orientation-instruction">
+    Drag to explore · Pinch or scroll to zoom
+  </p>
+</section>
 
-<main>
-
-<!-- CONTACT SECTION -->
-<section class="section">
-  <h2>We’re Here to Help</h2>
-
-  <div class="card">
-
+<!-- GROUNDING COPY -->
+<section class="orientation-copy">
+  <div class="copy-card">
     <p>
-      Cyber Seeds is built to support real families — calmly, kindly, and without judgment.
-      If something doesn’t feel safe online, or you just need a bit of guidance, please reach out.
+      Every household already has a digital shape.
+      Devices, accounts, habits, and people quietly interact — whether anyone explains it or not.
     </p>
-
-    <h3>📩 Email Us</h3>
     <p>
-      You can email us anytime at:  
-      <strong><a href="mailto:cyberseeds.uk@gmail.com">cyberseeds.uk@gmail.com</a></strong>
+      Cyber Seeds exists to make that invisible structure visible,
+      calmly and without judgement.
     </p>
-
-    <h3>💬 Quick Questions or Support</h3>
-    <p>
-      If you’re unsure which service you need or have a safety concern,
-      we’ll respond as soon as possible with clear, friendly guidance.
+    <p class="quiet-note">
+      You don’t need to act yet.  
+      Understanding comes first.
     </p>
-
-    <h3>📅 Want to Book a Session?</h3>
-    <p>
-      You can skip the messages entirely and go straight to booking:  
-      <a href="/schedule/" class="btn btn-outline">Book a Digital MOT</a>
-    </p>
-
-    <h3>⏱ When You’ll Hear Back</h3>
-    <p>
-      We aim to reply within:
-      <ul>
-        <li>✔ <strong>24 hours</strong> for general questions</li>
-        <li>✔ <strong>Same day</strong> for safety concerns</li>
-        <li>✔ <strong>1–2 hours</strong> if something feels urgent</li>
-      </ul>
-    </p>
-
-    <h3>🌱 When Families Usually Contact Us</h3>
-    <ul>
-      <li>✓ Something on a device doesn’t feel right</li>
-      <li>✓ A child has seen something upsetting</li>
-      <li>✓ A scam email/message has appeared</li>
-      <li>✓ You want reassurance about a game or app</li>
-      <li>✓ You’re not sure whether a device is secure</li>
-      <li>✓ You want advice before your Digital MOT</li>
-    </ul>
-
-    <p style="margin-top:20px;">
-      No question is too small — if it’s worrying you, it matters.
-    </p>
-
   </div>
 </section>
 
-
-<!-- CTA -->
-<section class="cta-banner">
-  <h2>Ready to Strengthen Your Digital Home?</h2>
-  <a class="btn btn-green btn-large" href="/schedule/">Book Your Session</a>
-</section>
-
-</main>
-
 <footer>
-  <p>© 2025 Cyber Seeds — Digital Safety for Families</p>
+  <p>© 2025 Cyber Seeds — Household Digital Clarity</p>
 </footer>
 
+<!-- NAV SCRIPT -->
 <script>
 document.getElementById("navToggle").addEventListener("click", () => {
   document.getElementById("navLinks").classList.toggle("open");
 });
+</script>
+
+<!-- 3D SCRIPT -->
+<script>
+(function () {
+  const container = document.getElementById("cyberSeeds3D");
+  if (!container) return;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x020617);
+
+  const camera = new THREE.PerspectiveCamera(
+    60,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.set(0, 2.5, 7);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  const light = new THREE.PointLight(0x93c5fd, 0.9);
+  light.position.set(4, 6, 4);
+  scene.add(light);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enablePan = false;
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+
+  const mat = (color, opacity = 0.9) =>
+    new THREE.MeshStandardMaterial({
+      color,
+      roughness: 0.6,
+      metalness: 0.1,
+      transparent: true,
+      opacity
+    });
+
+  const internet = new THREE.Mesh(
+    new THREE.SphereGeometry(4, 32, 32),
+    mat(0x1e293b, 0.15)
+  );
+  scene.add(internet);
+
+  const adult = new THREE.Mesh(
+    new THREE.SphereGeometry(0.9, 32, 32),
+    mat(0xa78bfa)
+  );
+  adult.position.set(-2, 0, 0);
+
+  const shared = new THREE.Mesh(
+    new THREE.SphereGeometry(0.9, 32, 32),
+    mat(0x34d399)
+  );
+  shared.position.set(0, 0, -2);
+
+  const child = new THREE.Mesh(
+    new THREE.SphereGeometry(0.9, 32, 32),
+    mat(0xfbbf24)
+  );
+  child.position.set(2, 0, 0);
+
+  scene.add(adult, shared, child);
+
+  const signal = new THREE.Mesh(
+    new THREE.SphereGeometry(0.35, 32, 32),
+    mat(0xffffff)
+  );
+  scene.add(signal);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    signal.scale.setScalar(1 + Math.sin(Date.now() * 0.002) * 0.05);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+})();
 </script>
 
 </body>
