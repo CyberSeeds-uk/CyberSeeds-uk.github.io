@@ -1,10 +1,9 @@
 /* ===============================
-   CYBER SEEDS — FINAL LAYOUT CORE
+   CYBER SEEDS — OPTICAL LAYOUT
 =============================== */
 
 :root {
   --bg: #f6f9fb;
-  --paper: #ffffff;
   --ink: #0b2540;
   --muted: rgba(11,37,64,.72);
   --line: rgba(11,37,64,.14);
@@ -12,9 +11,8 @@
   --green: #2bb673;
   --blue: #006c8e;
 
-  --radius: 16px;
-  --shadow: 0 12px 30px rgba(11,37,64,.08);
-  --maxw: 1120px;
+  --radius: 14px;
+  --maxw: 980px; /* ↓ tighter, calmer, centred */
 }
 
 /* RESET */
@@ -27,21 +25,34 @@ body {
   line-height: 1.65;
 }
 
-/* GLOBAL CENTERING — THIS IS THE CRITICAL FIX */
+/* ACCESSIBILITY */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  background: white;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+}
+
+/* GLOBAL CENTRING (HARD GUARANTEE) */
 .wrap {
   width: 100%;
   max-width: var(--maxw);
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1rem, 3vw, 2rem);
-  padding-right: clamp(1rem, 3vw, 2rem);
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
 }
 
 /* HEADER */
 .site-header {
   position: sticky;
   top: 0;
-  background: rgba(246,249,251,.95);
+  background: rgba(246,249,251,.96);
   border-bottom: 1px solid var(--line);
 }
 
@@ -52,46 +63,54 @@ body {
   gap: 1rem;
 }
 
+/* BRAND */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+}
+
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-weight: 600;
+}
+
+.brand-sub {
+  font-size: .8rem;
+  color: var(--muted);
+}
+
 /* HERO */
-.hero { padding: 3rem 0; }
+.hero {
+  padding: 3rem 0 2.5rem;
+}
+
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr .85fr;
+  grid-template-columns: 1fr 0.9fr;
   gap: 2rem;
+  align-items: center;
 }
 
-/* CONTAINER QUERY ENABLEMENT */
-.hero,
-.section {
-  container-type: inline-size;
+.hero-copy {
+  max-width: 560px; /* optical balance */
 }
 
-/* LENSES GRID */
-.grid-5 {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-}
-
-/* CONTAINER QUERIES */
-@container (max-width: 900px) {
-  .grid-5 { grid-template-columns: repeat(2, 1fr); }
-}
-
-@container (max-width: 600px) {
-  .grid-5 { grid-template-columns: 1fr; }
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .hero-grid,
-  .split { grid-template-columns: 1fr; }
-  .nav { display: none; }
+h1 {
+  font-family: Fraunces, serif;
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  line-height: 1.15;
 }
 
 /* BUTTONS */
 .btn {
-  padding: .75rem 1.25rem;
+  padding: .7rem 1.25rem;
   border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
@@ -99,10 +118,10 @@ body {
 .btn.primary { background: var(--green); color: #fff; }
 .btn.secondary { background: var(--blue); color: #fff; }
 .btn.ghost { border: 1px solid var(--line); }
-.btn.full { width: 100%; }
+.btn.small { padding: .5rem 1rem; }
 
-/* FOOTER */
-.site-footer {
-  border-top: 1px solid var(--line);
-  padding: 2rem 0;
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .nav { display: none; }
 }
