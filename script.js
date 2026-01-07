@@ -1,47 +1,43 @@
 const form = document.getElementById("quizForm");
-const results = document.getElementById("results");
+const result = document.getElementById("result");
 const childrenBlock = document.getElementById("childrenBlock");
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", e => {
   e.preventDefault();
 
   const data = new FormData(form);
   let score = 0;
-  let count = 0;
+  let factors = 0;
 
   for (let [key, value] of data.entries()) {
-    if (key === "children_practices" && data.get("children_count") === "0") {
-      continue;
-    }
+    if (key === "childrenSafety" && data.get("children") === "0") continue;
     score += parseInt(value);
-    count++;
+    factors++;
   }
 
-  const signal = Math.round((score / (count * 2)) * 100);
+  const signal = Math.round((score / (factors * 2)) * 100);
 
-  let message = "";
+  let narrative = "";
 
   if (signal < 35) {
-    message = "Your household is early in its digital journey. That’s okay — awareness is already a strong seed.";
+    narrative = "Your household is at an early stage of digital resilience. Awareness itself is already a meaningful first step.";
   } else if (signal < 65) {
-    message = "Your household shows developing digital resilience. A few small changes could make a big difference.";
+    narrative = "Your household shows developing digital stability. A small number of focused improvements could significantly strengthen resilience.";
   } else {
-    message = "Your household demonstrates strong digital care and awareness. This is a healthy ecosystem.";
+    narrative = "Your household demonstrates strong digital care and awareness. This is a healthy, well-tended digital environment.";
   }
 
-  results.innerHTML = `
-    <h3>Your Household Signal: ${signal}%</h3>
-    <p>${message}</p>
-    <p><em>This is a snapshot, not a score.</em></p>
+  result.innerHTML = `
+    <h3>Household Signal: ${signal}%</h3>
+    <p>${narrative}</p>
+    <p><em>This snapshot reflects current conditions, not capability or worth.</em></p>
   `;
-  results.style.display = "block";
-  results.focus();
+  result.style.display = "block";
+  result.focus();
 });
 
-// Hide children section dynamically
-document.querySelectorAll('input[name="children_count"]').forEach(input => {
+document.querySelectorAll('input[name="children"]').forEach(input => {
   input.addEventListener("change", () => {
-    childrenBlock.style.display =
-      input.value === "0" ? "none" : "block";
+    childrenBlock.style.display = input.value === "0" ? "none" : "block";
   });
 });
