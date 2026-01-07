@@ -1,3 +1,13 @@
+/*
+ * Cyber Seeds – Domestic Cyber Ecology styles
+ *
+ * This stylesheet provides a calm, friendly colour palette inspired by
+ * nature: soft greens and teals to evoke growth and safety. Typography
+ * and spacing are chosen for clarity and accessibility on both mobile
+ * and desktop. The result panel and lens details appear after the
+ * snapshot is generated, maintaining a clean layout until needed.
+ */
+
 * {
   box-sizing: border-box;
 }
@@ -5,95 +15,183 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: #f7faf8;
-  color: #1e2b28;
+  background: #f4faf6;
+  color: #153a36;
+  line-height: 1.5;
 }
 
+/* Header */
 .header {
   padding: 1.5rem;
   text-align: center;
+  background: #e5f4ee;
+  border-bottom: 1px solid #d4eade;
 }
 
 .brand {
-  font-family: Fraunces, serif;
-  font-size: 2rem;
   margin: 0;
+  font-family: Fraunces, serif;
+  font-size: 2.25rem;
+  color: #0d463e;
 }
 
+/* Intro */
 .intro {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 1.5rem;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .intro h2 {
   font-family: Fraunces, serif;
   font-size: 2rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: #0d463e;
 }
 
 .intro-text {
-  max-width: 520px;
-  margin: 0 auto;
   opacity: 0.85;
+  margin: 0 auto;
 }
 
+/* Snapshot panel */
 .snapshot-panel {
-  max-width: 1000px;
-  margin: 0 auto 4rem;
-  padding: 1.5rem;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .question-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 fieldset {
-  border: 1px solid #dbe7e2;
+  border: 1px solid #d6e9e0;
   border-radius: 12px;
   padding: 1rem;
   background: #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+fieldset:hover {
+  border-color: #89cbb6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 legend {
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #0d463e;
 }
 
 label {
   display: block;
   margin: 0.35rem 0;
   cursor: pointer;
+  color: #153a36;
 }
 
+/* Primary button */
 .primary-action {
   display: block;
-  margin: 2.5rem auto 0;
+  margin: 2rem auto 0;
   padding: 0.9rem 2rem;
   border-radius: 999px;
   border: none;
-  background: #2f6f5e;
-  color: white;
   font-size: 1rem;
   cursor: pointer;
+  background: #21856f;
+  color: #ffffff;
+  transition: background 0.3s, transform 0.1s;
 }
 
 .primary-action:hover {
-  background: #275e4f;
+  background: #1a6c5b;
 }
 
+.primary-action:active {
+  transform: translateY(1px);
+}
+
+/* Result panel */
 .result-panel {
   display: none;
   margin-top: 2.5rem;
   padding: 1.75rem;
-  background: #eaf3ef;
+  background: #e5f4ee;
   border-radius: 14px;
+  color: #0d463e;
+  border: 1px solid #c8e5d6;
+}
+
+.result-panel h3 {
+  margin-top: 0;
+  font-family: Fraunces, serif;
+  font-size: 1.5rem;
+  color: #0d463e;
+}
+
+.result-panel p {
+  margin-bottom: 0.75rem;
+}
+
+/* Detail section for lens descriptions */
+.detail-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f7fbf9;
+  border-radius: 14px;
+  border: 1px solid #d9eee4;
+  color: #153a36;
+}
+
+.detail-heading {
+  margin-top: 0;
+  font-family: Fraunces, serif;
+  font-size: 1.5rem;
+  color: #0d463e;
+}
+
+.lens + .lens {
+  margin-top: 1.25rem;
+}
+
+.lens h4 {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+  color: #0d463e;
+}
+
+.lens p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Vision section */
+.vision {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  text-align: center;
+  color: #153a36;
+}
+
+.vision h3 {
+  margin-top: 0;
+  font-family: Fraunces, serif;
+  font-size: 1.5rem;
+  color: #0d463e;
 }
 
 .footer {
   text-align: center;
   padding: 2rem 1rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
+  font-size: 0.85rem;
+  background: #e5f4ee;
+  color: #4d7770;
+  border-top: 1px solid #d4eade;
 }
