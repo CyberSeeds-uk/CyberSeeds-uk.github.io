@@ -50,46 +50,94 @@
       </aside>
     </section>
 
-    <!-- Interactive Quiz Section -->
-    <section id="quiz" class="quiz-section">
-      <h2>Household Signal Quiz</h2>
-      <p>How resilient is your digital household? Answer these quick questions to find out. (It’s anonymous and there are no wrong answers – this is just to help you gauge your “digital safety signal.”)</p>
-      <form id="quizForm">
-        <!-- Question 1 -->
-        <div class="question-block">
-          <p class="question">1. How do you handle software updates on your devices?</p>
-          <label><input type="radio" name="q1" value="2" required /> I install updates as soon as they’re available.</label><br>
-          <label><input type="radio" name="q1" value="1" /> I install updates sometimes, when I remember or when it’s convenient.</label><br>
-          <label><input type="radio" name="q1" value="0" /> I rarely or never update my devices.</label>
-        </div>
-        <!-- Question 2 -->
-        <div class="question-block">
-          <p class="question">2. Is your Wi-Fi router using a default password (the one it came with)?</p>
-          <label><input type="radio" name="q2" value="2" required /> No, we set a unique strong password for our router.</label><br>
-          <label><input type="radio" name="q2" value="1" /> I'm not sure – it might still be the default.</label><br>
-          <label><input type="radio" name="q2" value="0" /> Yes, it’s still using the default factory password.</label>
-        </div>
-        <!-- Question 3 -->
-        <div class="question-block">
-          <p class="question">3. When you receive a suspicious email or text (for example, about a prize or an unknown bill):</p>
-          <label><input type="radio" name="q3" value="2" required /> I ignore it or verify it through official channels (never click suspicious links).</label><br>
-          <label><input type="radio" name="q3" value="1" /> I might click or respond if it looks legitimate to me.</label><br>
-          <label><input type="radio" name="q3" value="0" /> I often click on these messages to see what’s going on.</label>
-        </div>
-        <!-- Question 4 -->
-        <div class="question-block">
-          <p class="question">4. Which best describes digital rules or discussions in your household?</p>
-          <label><input type="radio" name="q4" value="2" required /> We regularly discuss online safety and have some clear family rules (e.g. no devices at dinner).</label><br>
-          <label><input type="radio" name="q4" value="1" /> We’ve had a few chats or set basic rules, but nothing very consistent.</label><br>
-          <label><input type="radio" name="q4" value="0" /> We rarely talk about online safety or have set rules about device use.</label>
-        </div>
-        <button type="submit" class="quiz-submit">Get My Results</button>
-      </form>
-      <!-- Result will be displayed here -->
-      <div id="quizResult" class="quiz-result" aria-live="polite"></div>
-      <p class="quiz-footer">Remember: Every seed you plant – a new habit, a family conversation – helps your digital garden grow safer and stronger. 🌱</p>
-    </section>
-  </main>
+    <section id="household-quiz">
+  <h2>Your Household Digital Snapshot</h2>
+  <p>A signal of resilience — not a judgement. This runs locally; your answers never leave your browser. <em>All questions are required.</em></p>
+
+  <form id="quizForm">
+    <!-- Question 1: Number of adults -->
+    <fieldset class="inline-options">
+      <legend>How many adults live in your home?</legend>
+      <label><input type="radio" name="adults_count" value="1" required> 1</label>
+      <label><input type="radio" name="adults_count" value="2"> 2</label>
+      <label><input type="radio" name="adults_count" value="3"> 3</label>
+      <label><input type="radio" name="adults_count" value="4+"> 4+</label>
+    </fieldset>
+
+    <!-- Question 2: Number of children -->
+    <fieldset class="inline-options">
+      <legend>How many children live in your home?</legend>
+      <label><input type="radio" name="children_count" value="0" required> 0</label>
+      <label><input type="radio" name="children_count" value="1"> 1</label>
+      <label><input type="radio" name="children_count" value="2"> 2</label>
+      <label><input type="radio" name="children_count" value="3+"> 3+</label>
+    </fieldset>
+
+    <!-- Question 3: Children use devices? -->
+    <fieldset>
+      <legend>Do children in your home use digital devices?</legend>
+      <label><input type="radio" name="kids_devices" value="none" required> No children / no device use</label><br>
+      <label><input type="radio" name="kids_devices" value="mixed"> Yes — mixed ages</label><br>
+      <label><input type="radio" name="kids_devices" value="older"> Yes — mostly older children</label><br>
+      <label><input type="radio" name="kids_devices" value="younger"> Yes — mostly younger children</label>
+    </fieldset>
+
+    <!-- Question 4: Network & Wi-Fi Security -->
+    <fieldset>
+      <legend>Which best describes how your home Wi-Fi network is set up currently?</legend>
+      <label><input type="radio" name="network" value="-1" required> I haven't changed any router settings since it was installed (it might still have the default password).</label><br>
+      <label><input type="radio" name="network" value="0"> I set a Wi-Fi password but haven't done much else with the router.</label><br>
+      <label><input type="radio" name="network" value="1"> I changed some important settings (like the default password) and occasionally update or check the router.</label><br>
+      <label><input type="radio" name="network" value="2"> I actively manage my router (strong unique passwords, keep it updated, and use its security features).</label>
+    </fieldset>
+
+    <!-- Question 5: Device Hygiene & App Safety -->
+    <fieldset>
+      <legend>Which best describes how you take care of your devices (updates, passwords, etc)?</legend>
+      <label><input type="radio" name="devices" value="-1" required> I rarely update devices or adjust security settings.</label><br>
+      <label><input type="radio" name="devices" value="0"> I install updates sometimes, but usually only if I have to.</label><br>
+      <label><input type="radio" name="devices" value="1"> I keep devices fairly up-to-date and use basic security (passcodes, etc.).</label><br>
+      <label><input type="radio" name="devices" value="2"> I promptly install updates and use strong security practices (strong passwords, antivirus, backups).</label>
+    </fieldset>
+
+    <!-- Question 6: Privacy & Identity -->
+    <fieldset>
+      <legend>Which best describes your approach to online privacy and personal information?</legend>
+      <label><input type="radio" name="privacy" value="-1" required> I reuse simple passwords often and haven't paid much attention to privacy settings.</label><br>
+      <label><input type="radio" name="privacy" value="0"> I use strong passwords on important accounts but reuse simple ones on others, and I rarely review privacy settings.</label><br>
+      <label><input type="radio" name="privacy" value="1"> I use mostly strong, unique passwords (or a manager) and have tightened some privacy settings on my accounts.</label><br>
+      <label><input type="radio" name="privacy" value="2"> I use unique passwords (via a manager) everywhere, plus two-factor logins and careful privacy settings on social media.</label>
+    </fieldset>
+
+    <!-- Question 7: Scams & Phishing -->
+    <fieldset>
+      <legend>Which best describes how you handle suspicious messages (emails, texts, calls)?</legend>
+      <label><input type="radio" name="scams" value="-1" required> I'm not confident spotting scams or phishing – I've been fooled or almost fooled before.</label><br>
+      <label><input type="radio" name="scams" value="0"> I try to be careful, but I'm not always sure what's real or fake.</label><br>
+      <label><input type="radio" name="scams" value="1"> I'm quite cautious and can usually spot a scam, though I sometimes second-guess.</label><br>
+      <label><input type="radio" name="scams" value="2"> I'm very alert – I double-check unexpected links/requests and haven't fallen for a scam yet.</label>
+    </fieldset>
+
+    <!-- Question 8: Children's Online Safety (shown only if applicable) -->
+    <fieldset id="children-practices-section">
+      <legend>Which best describes how you manage your children's online activities?</legend>
+      <label><input type="radio" name="children_practices" value="-1"> We don't really have any rules or controls; the kids basically do their own thing online.</label><br>
+      <label><input type="radio" name="children_practices" value="0"> We have a few basic rules (like screen time limits or "don't talk to strangers"), but no strict controls in place.</label><br>
+      <label><input type="radio" name="children_practices" value="1"> We supervise some activities and have some safety settings or rules, but there might be a few gaps.</label><br>
+      <label><input type="radio" name="children_practices" value="2"> We have clear rules and use parental controls or monitoring, and we talk often about online safety.</label>
+    </fieldset>
+
+    <!-- Submit Button -->
+    <button type="submit" id="generateSnapshot">Generate snapshot</button>
+  </form>
+
+  <!-- Results will be injected here -->
+  <div id="results" aria-live="polite" tabindex="-1"></div>
+
+  <p>This snapshot is a provisional signal. For a full Digital MOT, you can <a href="https://docs.google.com">start a complete Cyber Seeds check</a>.</p>
+  <p>You’ll receive a clear, human-readable PDF within 24–48 hours.</p>
+</section>
+
 
   <!-- Footer (minimal for now) -->
   <footer class="site-footer">
