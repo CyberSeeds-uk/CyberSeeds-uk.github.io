@@ -2,122 +2,143 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cyber Seeds — Household Digital Snapshot</title>
-  <meta name="description" content="Take a calm, non‑judgemental digital wellbeing snapshot for your household. Runs locally in your browser." />
-  <!-- Typography: Inter for body copy, Fraunces for headings -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>Cyber Seeds — A Calm Digital Health Snapshot</title>
+  <meta name="description" content="Cyber Seeds helps families gently understand their household digital ecosystem. No judgement. No tracking. Just clarity." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <header class="header">
-    <h1 class="brand">Cyber Seeds</h1>
-  </header>
+<header class="site-header">
+  <img src="cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo" />
+</header>
 
-  <main>
+<main class="container">
 
-    <!-- Intro section -->
-    <section class="intro">
-      <h2>Your Household Digital Snapshot</h2>
-      <p class="intro-text">A signal of resilience — not a judgement. This assessment runs locally. Nothing leaves your browser.</p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Your household is already digital.<br>Cyber Seeds helps it feel human again.</h1>
+    <p class="hero-sub">
+      This is a gentle snapshot of your household’s digital environment —
+      not a test, not a score, and never a judgement.
+    </p>
+    <p class="hero-note">
+      Nothing you share leaves your device.
+    </p>
+  </section>
 
-    <!-- Form and results panel -->
-    <section class="snapshot-panel">
-      <form id="quizForm">
-        <div class="question-grid">
-          <fieldset>
-            <legend>Adults in household</legend>
-            <label><input type="radio" name="adults" value="1" required> 1</label>
-            <label><input type="radio" name="adults" value="2"> 2</label>
-            <label><input type="radio" name="adults" value="3"> 3</label>
-            <label><input type="radio" name="adults" value="4"> 4+</label>
-          </fieldset>
-          <fieldset>
-            <legend>Children in household</legend>
-            <label><input type="radio" name="children" value="0" required> None</label>
-            <label><input type="radio" name="children" value="1"> 1</label>
-            <label><input type="radio" name="children" value="2"> 2</label>
-            <label><input type="radio" name="children" value="3"> 3+</label>
-          </fieldset>
-          <fieldset>
-            <legend>Home Wi‑Fi setup</legend>
-            <label><input type="radio" name="network" value="-1" required> Default / unchanged</label>
-            <label><input type="radio" name="network" value="0"> Basic password only</label>
-            <label><input type="radio" name="network" value="1"> Some settings adjusted</label>
-            <label><input type="radio" name="network" value="2"> Actively managed</label>
-          </fieldset>
-          <fieldset>
-            <legend>Device care &amp; updates</legend>
-            <label><input type="radio" name="devices" value="-1" required> Rarely updated</label>
-            <label><input type="radio" name="devices" value="0"> Sometimes</label>
-            <label><input type="radio" name="devices" value="1"> Mostly consistent</label>
-            <label><input type="radio" name="devices" value="2"> Very consistent</label>
-          </fieldset>
-          <fieldset>
-            <legend>Privacy &amp; passwords</legend>
-            <label><input type="radio" name="privacy" value="-1" required> Reused / weak</label>
-            <label><input type="radio" name="privacy" value="0"> Mixed</label>
-            <label><input type="radio" name="privacy" value="1"> Mostly strong</label>
-            <label><input type="radio" name="privacy" value="2"> Manager + 2FA</label>
-          </fieldset>
-          <fieldset>
-            <legend>Scam awareness</legend>
-            <label><input type="radio" name="scams" value="-1" required> Often unsure</label>
-            <label><input type="radio" name="scams" value="0"> Some confidence</label>
-            <label><input type="radio" name="scams" value="1"> Usually cautious</label>
-            <label><input type="radio" name="scams" value="2"> Highly alert</label>
-          </fieldset>
-          <fieldset id="childrenBlock">
-            <legend>Children’s online safety</legend>
-            <label><input type="radio" name="childrenSafety" value="-1"> No structure yet</label>
-            <label><input type="radio" name="childrenSafety" value="0"> Basic rules</label>
-            <label><input type="radio" name="childrenSafety" value="1"> Some controls</label>
-            <label><input type="radio" name="childrenSafety" value="2"> Clear rules + discussion</label>
-          </fieldset>
-        </div>
-        <button type="submit" class="primary-action">Generate snapshot</button>
-      </form>
-      <!-- Results and details will appear here -->
-      <div id="result" class="result-panel" tabindex="-1"></div>
-      <div id="detailSection" class="detail-section" style="display:none;">
-        <h3 class="detail-heading">Deepening each digital lens</h3>
-        <div class="lens">
-          <h4>Network &amp; Wi‑Fi: Your router as a garden gate</h4>
-          <p>Think of your router as the gate to your digital garden. Change default passwords, update firmware regularly and choose strong, unique credentials to keep intruders out. A well‑secured Wi‑Fi network protects everything inside your home, just like a sturdy gate protects your garden.</p>
-        </div>
-        <div class="lens">
-          <h4>Device care &amp; hygiene: Tending your digital plants</h4>
-          <p>Software updates are the sunlight and water that keep devices thriving. Install updates promptly, use antivirus tools and backups, and turn on automatic patching wherever possible. These simple habits nurture resilience and prevent small issues from becoming pests.</p>
-        </div>
-        <div class="lens">
-          <h4>Privacy &amp; identity: Cultivating strong roots</h4>
-          <p>Use password managers to grow unique, complex passwords and enable two‑factor authentication to deepen your roots. Review privacy settings on social networks and devices regularly. Strong roots help your household withstand storms and maintain privacy and dignity online.</p>
-        </div>
-        <div class="lens">
-          <h4>Scams &amp; phishing: Spotting the mimic octopus</h4>
-          <p>Scammers disguise themselves as something familiar — like the mimic octopus. If something seems too urgent or too good to be true, pause. Verify links, requests and attachments directly with the source. Awareness and a moment of reflection keep impostors at bay.</p>
-        </div>
-        <div class="lens">
-          <h4>Children’s online safety: Planting digital seeds</h4>
-          <p>Digital resilience starts early. Have open conversations with your children about their online lives, set clear rules and use parental controls where appropriate. Together, plant the seeds of empathy, trust and curiosity so that your family grows strong, safe digital habits.</p>
+  <!-- SNAPSHOT -->
+  <section class="snapshot" id="snapshot">
+
+    <h2>Let’s begin with a few gentle signals</h2>
+    <p class="section-intro">
+      Think of these as <strong>digital seeds</strong> — small conditions that shape how calm,
+      safe, and supported your home feels online.
+    </p>
+
+    <form id="snapshotForm">
+
+      <!-- HOUSEHOLD -->
+      <div class="card">
+        <h3>Your household</h3>
+
+        <div class="option-group">
+          <label class="option">
+            <input type="radio" name="household" value="single" required>
+            <span>One adult</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="household" value="couple">
+            <span>Two adults</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="household" value="family">
+            <span>Adults and children</span>
+          </label>
         </div>
       </div>
-    </section>
 
-    <!-- Cyber Seeds vision -->
-    <section class="vision">
-      <h3>Our vision of Domestic Cyber Ecology</h3>
-      <p>Cyber Seeds is the UK’s first holistic framework for household digital safety and wellbeing. We believe digital safety is a journey taken together, one small seed at a time. Through empathy, trust and practical guidance, we help families cultivate resilient digital ecosystems where everyone thrives.</p>
-    </section>
+      <!-- FEELING -->
+      <div class="card">
+        <h3>How does your digital life usually feel?</h3>
 
-  </main>
+        <div class="option-group">
+          <label class="option">
+            <input type="radio" name="feeling" value="calm" required>
+            <span>Mostly calm and manageable</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="feeling" value="mixed">
+            <span>A mix of calm and concern</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="feeling" value="overwhelming">
+            <span>Often overwhelming or confusing</span>
+          </label>
+        </div>
+      </div>
 
-  <footer class="footer">
-    <p>© 2026 Cyber Seeds — Cultivating Domestic Cyber Ecology with care.</p>
-  </footer>
+      <!-- AWARENESS -->
+      <div class="card">
+        <h3>When something goes wrong online…</h3>
 
-  <script src="script.js"></script>
+        <div class="option-group">
+          <label class="option">
+            <input type="radio" name="response" value="confident" required>
+            <span>I usually know what to do</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="response" value="unsure">
+            <span>I’m not always sure</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="response" value="avoid">
+            <span>I tend to hope it doesn’t happen</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="primary-btn">
+        View my household snapshot
+      </button>
+
+    </form>
+
+  </section>
+
+  <!-- RESULT -->
+  <section class="result hidden" id="result">
+    <h2>Your Cyber Seeds snapshot</h2>
+    <p id="resultText"></p>
+
+    <div class="next-steps">
+      <p>
+        Cyber Seeds exists because families were never given a map
+        for a system that grew faster than anyone expected.
+      </p>
+      <button class="secondary-btn">
+        Explore gentle next steps with Cyber Seeds
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    Cyber Seeds is calm by design.  
+    Awareness without fear. Guidance without blame.
+  </p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
