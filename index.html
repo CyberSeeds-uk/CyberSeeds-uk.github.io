@@ -4,146 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cyber Seeds – Domestic Cyber Ecology</title>
-  <!-- Typography: Inter for body, Fraunces (or IBM Plex Serif) for headings -->
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header with logo -->
-  <header class="site-header">
-    <a href="#" class="logo-link">
-      <img src="cyber_seeds_logo.png" alt="Cyber Seeds logo" class="logo" />
-    </a>
-    <!-- Navigation (if needed in future) could go here -->
-  </header>
 
-  <!-- Main content area -->
-  <main>
-    <!-- Hero Section: Intro and CTA -->
-    <section class="hero">
-      <div class="hero-inner">
-        <h1>Cultivating a Safe Digital Home</h1>
-        <p>Welcome to Cyber Seeds – the UK’s first holistic framework for household digital safety and wellbeing. We help families <em>grow</em> strong digital habits through empathy, trust, and practical guidance. Digital safety is a journey we’ll take together, one small <strong>seed</strong> at a time.</p>
-        <a href="#quiz" class="cta-button">Take the Household Quiz</a>
-      </div>
-    </section>
+<header class="site-header">
+  <h1 class="logo-text">Cyber Seeds</h1>
+</header>
 
-    <!-- Key Concepts & Metaphors Section -->
-    <section class="metaphors">
-      <h2>Key Concepts &amp; Metaphors</h2>
-      <div class="concept-grid">
-        <div class="concept">
-          <h3>Your Router as a Garden Gate</h3>
-          <p>Just like a garden gate keeps intruders out, a secure Wi-Fi router protects your digital home. <strong>Tip:</strong> Change default router passwords to lock your “gate” – a simple step that keeps your family safe.</p>
-        </div>
-        <div class="concept">
-          <h3>Scams &ndash; The Mimic Octopus</h3>
-          <p>Scams often disguise themselves as something familiar – much like a mimic octopus blending in. Always double-check unexpected messages or offers. If it feels too good (or too urgent) to be true, it might be an impostor!</p>
-        </div>
-        <div class="concept">
-          <h3>Planting Digital Seeds</h3>
-          <p>Small actions grow into strong habits. Every time you reset a password or talk to your child about online life, you’re planting a <em>digital seed</em>. With care and consistency, these seeds bloom into lasting digital wellbeing.</p>
-        </div>
-      </div>
-      <aside class="note">
-        <strong>Fun fact:</strong> If you’ve ever tried to reset the Wi-Fi by thumping the router... you’re not alone! We’ve all been there – technology can be frustrating. Cyber Seeds is here to help, no judgement, no jargon.
-      </aside>
-    </section>
+<main>
 
-    <section id="household-quiz">
+<section class="hero">
   <h2>Your Household Digital Snapshot</h2>
-  <p>A signal of resilience — not a judgement. This runs locally; your answers never leave your browser. <em>All questions are required.</em></p>
+  <p class="hero-sub">
+    A signal of resilience — not a judgement.<br>
+    Runs locally. Nothing leaves your browser.
+  </p>
+</section>
 
-  <form id="quizForm">
-    <!-- Question 1: Number of adults -->
-    <fieldset class="inline-options">
-      <legend>How many adults live in your home?</legend>
+<section class="quiz-wrapper">
+
+<form id="quizForm">
+
+  <div class="question-grid">
+
+    <fieldset>
+      <legend>Adults in household</legend>
       <label><input type="radio" name="adults_count" value="1" required> 1</label>
       <label><input type="radio" name="adults_count" value="2"> 2</label>
       <label><input type="radio" name="adults_count" value="3"> 3</label>
-      <label><input type="radio" name="adults_count" value="4+"> 4+</label>
+      <label><input type="radio" name="adults_count" value="4"> 4+</label>
     </fieldset>
 
-    <!-- Question 2: Number of children -->
-    <fieldset class="inline-options">
-      <legend>How many children live in your home?</legend>
-      <label><input type="radio" name="children_count" value="0" required> 0</label>
+    <fieldset>
+      <legend>Children in household</legend>
+      <label><input type="radio" name="children_count" value="0" required> None</label>
       <label><input type="radio" name="children_count" value="1"> 1</label>
       <label><input type="radio" name="children_count" value="2"> 2</label>
-      <label><input type="radio" name="children_count" value="3+"> 3+</label>
+      <label><input type="radio" name="children_count" value="3"> 3+</label>
     </fieldset>
 
-    <!-- Question 3: Children use devices? -->
     <fieldset>
-      <legend>Do children in your home use digital devices?</legend>
-      <label><input type="radio" name="kids_devices" value="none" required> No children / no device use</label><br>
-      <label><input type="radio" name="kids_devices" value="mixed"> Yes — mixed ages</label><br>
-      <label><input type="radio" name="kids_devices" value="older"> Yes — mostly older children</label><br>
-      <label><input type="radio" name="kids_devices" value="younger"> Yes — mostly younger children</label>
+      <legend>Home Wi-Fi setup</legend>
+      <label><input type="radio" name="network" value="-1" required> Default / unchanged</label>
+      <label><input type="radio" name="network" value="0"> Basic password only</label>
+      <label><input type="radio" name="network" value="1"> Some changes made</label>
+      <label><input type="radio" name="network" value="2"> Actively managed</label>
     </fieldset>
 
-    <!-- Question 4: Network & Wi-Fi Security -->
     <fieldset>
-      <legend>Which best describes how your home Wi-Fi network is set up currently?</legend>
-      <label><input type="radio" name="network" value="-1" required> I haven't changed any router settings since it was installed (it might still have the default password).</label><br>
-      <label><input type="radio" name="network" value="0"> I set a Wi-Fi password but haven't done much else with the router.</label><br>
-      <label><input type="radio" name="network" value="1"> I changed some important settings (like the default password) and occasionally update or check the router.</label><br>
-      <label><input type="radio" name="network" value="2"> I actively manage my router (strong unique passwords, keep it updated, and use its security features).</label>
+      <legend>Device care & updates</legend>
+      <label><input type="radio" name="devices" value="-1" required> Rarely updated</label>
+      <label><input type="radio" name="devices" value="0"> Sometimes</label>
+      <label><input type="radio" name="devices" value="1"> Mostly up-to-date</label>
+      <label><input type="radio" name="devices" value="2"> Very consistent</label>
     </fieldset>
 
-    <!-- Question 5: Device Hygiene & App Safety -->
     <fieldset>
-      <legend>Which best describes how you take care of your devices (updates, passwords, etc)?</legend>
-      <label><input type="radio" name="devices" value="-1" required> I rarely update devices or adjust security settings.</label><br>
-      <label><input type="radio" name="devices" value="0"> I install updates sometimes, but usually only if I have to.</label><br>
-      <label><input type="radio" name="devices" value="1"> I keep devices fairly up-to-date and use basic security (passcodes, etc.).</label><br>
-      <label><input type="radio" name="devices" value="2"> I promptly install updates and use strong security practices (strong passwords, antivirus, backups).</label>
+      <legend>Privacy & passwords</legend>
+      <label><input type="radio" name="privacy" value="-1" required> Reused / weak</label>
+      <label><input type="radio" name="privacy" value="0"> Mixed</label>
+      <label><input type="radio" name="privacy" value="1"> Mostly strong</label>
+      <label><input type="radio" name="privacy" value="2"> Manager + 2FA</label>
     </fieldset>
 
-    <!-- Question 6: Privacy & Identity -->
     <fieldset>
-      <legend>Which best describes your approach to online privacy and personal information?</legend>
-      <label><input type="radio" name="privacy" value="-1" required> I reuse simple passwords often and haven't paid much attention to privacy settings.</label><br>
-      <label><input type="radio" name="privacy" value="0"> I use strong passwords on important accounts but reuse simple ones on others, and I rarely review privacy settings.</label><br>
-      <label><input type="radio" name="privacy" value="1"> I use mostly strong, unique passwords (or a manager) and have tightened some privacy settings on my accounts.</label><br>
-      <label><input type="radio" name="privacy" value="2"> I use unique passwords (via a manager) everywhere, plus two-factor logins and careful privacy settings on social media.</label>
+      <legend>Scam awareness</legend>
+      <label><input type="radio" name="scams" value="-1" required> Often unsure</label>
+      <label><input type="radio" name="scams" value="0"> Some confidence</label>
+      <label><input type="radio" name="scams" value="1"> Usually spot scams</label>
+      <label><input type="radio" name="scams" value="2"> Very alert</label>
     </fieldset>
 
-    <!-- Question 7: Scams & Phishing -->
-    <fieldset>
-      <legend>Which best describes how you handle suspicious messages (emails, texts, calls)?</legend>
-      <label><input type="radio" name="scams" value="-1" required> I'm not confident spotting scams or phishing – I've been fooled or almost fooled before.</label><br>
-      <label><input type="radio" name="scams" value="0"> I try to be careful, but I'm not always sure what's real or fake.</label><br>
-      <label><input type="radio" name="scams" value="1"> I'm quite cautious and can usually spot a scam, though I sometimes second-guess.</label><br>
-      <label><input type="radio" name="scams" value="2"> I'm very alert – I double-check unexpected links/requests and haven't fallen for a scam yet.</label>
+    <fieldset id="childrenBlock">
+      <legend>Children’s online safety</legend>
+      <label><input type="radio" name="children_practices" value="-1"> No rules</label>
+      <label><input type="radio" name="children_practices" value="0"> Basic rules</label>
+      <label><input type="radio" name="children_practices" value="1"> Some controls</label>
+      <label><input type="radio" name="children_practices" value="2"> Clear rules + discussion</label>
     </fieldset>
 
-    <!-- Question 8: Children's Online Safety (shown only if applicable) -->
-    <fieldset id="children-practices-section">
-      <legend>Which best describes how you manage your children's online activities?</legend>
-      <label><input type="radio" name="children_practices" value="-1"> We don't really have any rules or controls; the kids basically do their own thing online.</label><br>
-      <label><input type="radio" name="children_practices" value="0"> We have a few basic rules (like screen time limits or "don't talk to strangers"), but no strict controls in place.</label><br>
-      <label><input type="radio" name="children_practices" value="1"> We supervise some activities and have some safety settings or rules, but there might be a few gaps.</label><br>
-      <label><input type="radio" name="children_practices" value="2"> We have clear rules and use parental controls or monitoring, and we talk often about online safety.</label>
-    </fieldset>
+  </div>
 
-    <!-- Submit Button -->
-    <button type="submit" id="generateSnapshot">Generate snapshot</button>
-  </form>
+  <button type="submit" class="primary-btn">Generate snapshot</button>
 
-  <!-- Results will be injected here -->
-  <div id="results" aria-live="polite" tabindex="-1"></div>
+</form>
 
-  <p>This snapshot is a provisional signal. For a full Digital MOT, you can <a href="https://docs.google.com">start a complete Cyber Seeds check</a>.</p>
-  <p>You’ll receive a clear, human-readable PDF within 24–48 hours.</p>
+<div id="results"></div>
+
 </section>
 
+</main>
 
-  <!-- Footer (minimal for now) -->
-  <footer class="site-footer">
-    <p>&copy; 2026 Cyber Seeds. Cultivating Domestic Cyber Ecology with care.</p>
-  </footer>
+<footer>
+  <p>© 2026 Cyber Seeds</p>
+</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
