@@ -1,12 +1,11 @@
-/*
- * Cyber Seeds – Domestic Cyber Ecology styles
- *
- * This stylesheet provides a calm, friendly colour palette inspired by
- * nature: soft greens and teals to evoke growth and safety. Typography
- * and spacing are chosen for clarity and accessibility on both mobile
- * and desktop. The result panel and lens details appear after the
- * snapshot is generated, maintaining a clean layout until needed.
- */
+:root {
+  --bg: #f6fbf8;
+  --card: #ffffff;
+  --primary: #1f4f3d;
+  --accent: #dceee6;
+  --text: #243b33;
+  --muted: #5f7f73;
+}
 
 * {
   box-sizing: border-box;
@@ -14,184 +13,122 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: #f4faf6;
-  color: #153a36;
-  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* Header */
-.header {
+.site-header {
   padding: 1.5rem;
   text-align: center;
-  background: #e5f4ee;
-  border-bottom: 1px solid #d4eade;
 }
 
-.brand {
-  margin: 0;
-  font-family: Fraunces, serif;
-  font-size: 2.25rem;
-  color: #0d463e;
+.logo {
+  max-width: 140px;
+  height: auto;
 }
 
-/* Intro */
-.intro {
-  text-align: center;
-  padding: 2rem 1rem 1.5rem;
+.container {
   max-width: 720px;
   margin: 0 auto;
+  padding: 1.5rem;
 }
 
-.intro h2 {
-  font-family: Fraunces, serif;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #0d463e;
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.intro-text {
-  opacity: 0.85;
-  margin: 0 auto;
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 1rem;
 }
 
-/* Snapshot panel */
-.snapshot-panel {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 1rem;
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
 }
 
-.question-grid {
+.hero-note {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-family: 'Fraunces', serif;
+}
+
+.option-group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 0.75rem;
 }
 
-fieldset {
-  border: 1px solid #d6e9e0;
-  border-radius: 12px;
-  padding: 1rem;
-  background: #ffffff;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-fieldset:hover {
-  border-color: #89cbb6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-legend {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #0d463e;
-}
-
-label {
-  display: block;
-  margin: 0.35rem 0;
+.option {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--accent);
   cursor: pointer;
-  color: #153a36;
 }
 
-/* Primary button */
-.primary-action {
-  display: block;
-  margin: 2rem auto 0;
-  padding: 0.9rem 2rem;
+.option input {
+  margin-right: 0.75rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  padding: 1rem;
   border-radius: 999px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  background: #21856f;
-  color: #ffffff;
-  transition: background 0.3s, transform 0.1s;
 }
 
-.primary-action:hover {
-  background: #1a6c5b;
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  margin-top: 1.5rem;
 }
 
-.primary-action:active {
-  transform: translateY(1px);
+.secondary-btn {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
 }
 
-/* Result panel */
-.result-panel {
-  display: none;
+.result {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 2rem;
   margin-top: 2.5rem;
-  padding: 1.75rem;
-  background: #e5f4ee;
-  border-radius: 14px;
-  color: #0d463e;
-  border: 1px solid #c8e5d6;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-.result-panel h3 {
-  margin-top: 0;
-  font-family: Fraunces, serif;
-  font-size: 1.5rem;
-  color: #0d463e;
+.hidden {
+  display: none;
 }
 
-.result-panel p {
-  margin-bottom: 0.75rem;
-}
-
-/* Detail section for lens descriptions */
-.detail-section {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: #f7fbf9;
-  border-radius: 14px;
-  border: 1px solid #d9eee4;
-  color: #153a36;
-}
-
-.detail-heading {
-  margin-top: 0;
-  font-family: Fraunces, serif;
-  font-size: 1.5rem;
-  color: #0d463e;
-}
-
-.lens + .lens {
-  margin-top: 1.25rem;
-}
-
-.lens h4 {
-  margin: 0 0 0.25rem;
-  font-weight: 600;
-  color: #0d463e;
-}
-
-.lens p {
-  margin: 0;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Vision section */
-.vision {
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 1.5rem;
+.site-footer {
   text-align: center;
-  color: #153a36;
-}
-
-.vision h3 {
-  margin-top: 0;
-  font-family: Fraunces, serif;
-  font-size: 1.5rem;
-  color: #0d463e;
-}
-
-.footer {
-  text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem 1.5rem;
   font-size: 0.85rem;
-  background: #e5f4ee;
-  color: #4d7770;
-  border-top: 1px solid #d4eade;
+  color: var(--muted);
 }
