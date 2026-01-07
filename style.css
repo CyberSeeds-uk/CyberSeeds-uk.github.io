@@ -795,74 +795,146 @@ canvas{
 }
 
 
-/* Orientation Page */
 
-.orientation-hero {
-  padding: 80px 20px 40px;
+/* ===== Cyber Seeds Orientation (Contact replaced) ===== */
+
+.cs-orient-hero {
+  padding: 86px 20px 44px;
+  background: linear-gradient(180deg, #020617 0%, #050b16 100%);
   text-align: center;
-  background: linear-gradient(180deg, #020617, #020617);
 }
 
-.orientation-hero h1 {
-  font-size: 2.2rem;
-  color: #e5e7eb;
-  margin-bottom: 16px;
-}
-
-.orientation-hero p {
-  max-width: 680px;
+.cs-orient-hero-inner {
+  max-width: 820px;
   margin: 0 auto;
-  color: #cbd5f5;
+}
+
+.cs-orient-hero h1 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  color: #e5e7eb;
+}
+
+.cs-orient-hero p {
+  margin: 0 auto;
+  max-width: 720px;
   font-size: 1.05rem;
   line-height: 1.7;
+  color: rgba(203, 213, 245, 0.92);
 }
 
-.orientation-stage {
-  padding: 40px 20px;
-  background: radial-gradient(circle at top, #111827, #020617);
+.cs-orient-stage {
+  padding: 34px 20px 70px;
+  background:
+    radial-gradient(1000px 420px at 50% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(900px 380px at 15% 20%, rgba(167, 139, 250, 0.10), transparent 60%),
+    radial-gradient(900px 380px at 85% 25%, rgba(52, 211, 153, 0.10), transparent 60%),
+    #020617;
 }
 
-#cyberSeeds3D {
+.cs-orient-frame {
+  position: relative;
   width: 100%;
-  max-width: 900px;
-  height: 380px;
+  max-width: 980px;
   margin: 0 auto;
-  border-radius: 18px;
+  border-radius: 22px;
   overflow: hidden;
+  box-shadow:
+    0 20px 80px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.06) inset;
+  background: rgba(2, 6, 23, 0.55);
 }
 
-.orientation-instruction {
+.cs-orient-canvas {
+  width: 100%;
+  height: 420px;
+}
+
+@media (max-width: 640px) {
+  .cs-orient-canvas { height: 360px; }
+}
+
+.cs-orient-ui {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none; /* UI text is passive */
+}
+
+.cs-orient-chip {
+  pointer-events: none;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.62);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(226, 232, 240, 0.92);
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cs-orient-btn {
+  pointer-events: auto; /* button must be clickable */
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(15, 23, 42, 0.7);
+  color: rgba(226, 232, 240, 0.95);
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cs-orient-btn:active { transform: translateY(1px); }
+
+.cs-orient-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 28px;
   text-align: center;
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: #94a3b8;
+  background: rgba(2,6,23,0.92);
 }
 
-.orientation-copy {
-  padding: 60px 20px;
-  background: #020617;
-}
-
-.copy-card {
-  max-width: 720px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.02);
-  padding: 32px;
-  border-radius: 16px;
+.cs-orient-fallback h3 {
+  margin: 0 0 10px;
   color: #e5e7eb;
+  font-size: 1.2rem;
 }
 
-.copy-card p {
-  font-size: 1rem;
+.cs-orient-fallback p {
+  margin: 0;
+  color: rgba(203, 213, 245, 0.9);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.cs-orient-caption {
+  max-width: 980px;
+  margin: 22px auto 0;
+}
+
+.cs-orient-card {
+  padding: 22px 20px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: rgba(226, 232, 240, 0.95);
   line-height: 1.7;
-  margin-bottom: 16px;
 }
 
-.quiet-note {
-  opacity: 0.7;
+.cs-orient-quiet {
+  opacity: 0.72;
   font-style: italic;
+  margin-top: 10px;
 }
-
-
-
 
