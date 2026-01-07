@@ -793,3 +793,76 @@ canvas{
   .navLinks{ display:none; }
   .nav{ padding: 12px 0; }
 }
+
+
+/* Orientation Page */
+
+.orientation-hero {
+  padding: 80px 20px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #020617, #020617);
+}
+
+.orientation-hero h1 {
+  font-size: 2.2rem;
+  color: #e5e7eb;
+  margin-bottom: 16px;
+}
+
+.orientation-hero p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #cbd5f5;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.orientation-stage {
+  padding: 40px 20px;
+  background: radial-gradient(circle at top, #111827, #020617);
+}
+
+#cyberSeeds3D {
+  width: 100%;
+  max-width: 900px;
+  height: 380px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.orientation-instruction {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.orientation-copy {
+  padding: 60px 20px;
+  background: #020617;
+}
+
+.copy-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 32px;
+  border-radius: 16px;
+  color: #e5e7eb;
+}
+
+.copy-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.quiet-note {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+
+
+
