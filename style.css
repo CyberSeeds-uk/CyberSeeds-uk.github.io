@@ -721,6 +721,27 @@ a:hover{ text-decoration: underline; }
 .modal-body{
   padding: 16px;
 }
+
+.snapshot-lens-context{
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(14,21,18,.10);
+  background: rgba(42,122,87,.08);
+}
+
+.lens-context-title{
+  margin: 0 0 4px;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.lens-context-copy{
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
 .notice{
   margin-top: 10px;
   padding: 12px;
