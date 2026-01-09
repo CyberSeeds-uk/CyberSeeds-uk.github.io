@@ -7,6 +7,24 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  /* -----------------------------------------
+     Fix 1: Clean internal navigation (NO URL hash)
+     - Works for links with data-scroll (your nav + any CTAs you mark)
+     - Smooth scroll, no /#audiences in the address bar
+  ----------------------------------------- */
+  document.querySelectorAll('a[data-scroll]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href') || '';
+      if (!href.startsWith('#')) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   // Year
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -266,23 +284,42 @@
     return Number(checked.value);
   }
 
+  /* -----------------------------------------
+     Fix 2: Modal scroll lock that works on mobile
+     - Stops background scroll on iOS/Android
+     - Preserves scroll position when closing
+     Requires CSS: body.modal-open { position:fixed; ... }
+  ----------------------------------------- */
+  let scrollY = 0;
+
   function openModal() {
     if (!modal) return;
+
+    // store scroll position then lock body
+    scrollY = window.scrollY || 0;
     modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+
+    document.body.classList.add("modal-open");
+    document.body.style.top = `-${scrollY}px`;
+
     stepIndex = -1;
     answers = {};
     const saved = loadSnapshot();
     if (saved?.answers) answers = saved.answers;
+
     renderStep();
-    // Focus
     setTimeout(() => snapshotNext?.focus(), 40);
   }
 
   function closeModal() {
     if (!modal) return;
+
     modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
+
+    // unlock body and restore scroll position
+    document.body.classList.remove("modal-open");
+    document.body.style.top = "";
+    window.scrollTo(0, scrollY);
   }
 
   // Attach open handlers
