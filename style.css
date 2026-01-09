@@ -1,3 +1,13 @@
+/*
+ * Cyber Seeds website stylesheet
+ *
+ * This stylesheet defines the visual styles for the Cyber Seeds web app.
+ * It separates concerns from the HTML to keep markup clean and applies
+ * responsive design rules to ensure the site functions well on both
+ * desktop and mobile devices. Variables are declared on :root for
+ * easy theme management.
+ */
+
 :root{
   --bg:#fbfcfb;
   --surface:#ffffff;
@@ -545,7 +555,7 @@ textarea{ resize:vertical; }
 }
 .icon-btn:hover{ box-shadow:var(--shadow-soft); }
 
-/* Quiz + results (kept) */
+/* Quiz + results */
 .quiz{ margin-top:12px; border:1px solid var(--line); border-radius:22px; overflow:hidden; }
 .q{ padding:14px 14px; border-bottom:1px solid var(--line); }
 .q:last-child{ border-bottom:none; }
@@ -619,7 +629,7 @@ textarea{ resize:vertical; }
 }
 .result-actions{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
 
-/* ✅ Resources Hub (used on resources.html) */
+/* ✅ Resources Hub */
 .hub{
   display:grid;
   gap:14px;
@@ -753,7 +763,7 @@ textarea{ resize:vertical; }
   flex-wrap:wrap;
 }
 
-/* Practitioner overlay (critical hidden fix) */
+/* Practitioner overlay */
 .practitioner{
   position:fixed;
   inset:0;
