@@ -905,3 +905,24 @@ a:hover{ text-decoration: underline; }
   .signal-grid{ grid-template-columns: 1fr; }
   .form-row{ grid-template-columns: 1fr; }
 }
+
+/* -----------------------------------------
+   Modal scroll locking (mobile-safe)
+------------------------------------------ */
+
+body.modal-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.modal {
+  overscroll-behavior: contain;
+}
+
+.modal-panel {
+  max-height: calc(100dvh - 68px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
