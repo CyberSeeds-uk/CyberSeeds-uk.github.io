@@ -30,9 +30,9 @@
       <nav class="nav" aria-label="Primary">
         <a href="#how" data-scroll>How it works</a>
         <a href="#lenses" data-scroll>Five lenses</a>
-        <a href="#audiences" data-scroll>For…</a>
+        <a href="#hub" data-scroll>My resources</a>
         <a href="#audit" data-scroll>Audit</a>
-        <a href="#resources" data-scroll>Resources</a>
+        <a href="#resources" data-scroll>Starter resources</a>
       </nav>
 
       <div class="top-actions">
@@ -48,9 +48,9 @@
     <div class="mobile-nav" id="mobileNav" hidden>
       <a href="#how" data-scroll>How it works</a>
       <a href="#lenses" data-scroll>Five lenses</a>
-      <a href="#audiences" data-scroll>For…</a>
+      <a href="#hub" data-scroll>My resources</a>
       <a href="#audit" data-scroll>Audit</a>
-      <a href="#resources" data-scroll>Resources</a>
+      <a href="#resources" data-scroll>Starter resources</a>
       <div class="mobile-nav-actions">
         <button class="btn ghost" id="openSnapshotMobile" type="button">Household snapshot</button>
         <a class="btn primary" href="#request" data-scroll>Request an audit</a>
@@ -116,7 +116,7 @@
               <li><span aria-hidden="true">✓</span> A household signal across the five lenses</li>
               <li><span aria-hidden="true">✓</span> Plain-English meaning (what matters + what to do next)</li>
               <li><span aria-hidden="true">✓</span> A calm action path — small seeds first, then stronger foundations</li>
-              <li><span aria-hidden="true">✓</span> Optional: request a full audit (professional, human-led)</li>
+              <li><span aria-hidden="true">✓</span> A personal Resources Hub generated from your snapshot</li>
             </ul>
 
             <div class="card-note">
@@ -126,7 +126,7 @@
 
             <div class="card-actions">
               <button class="btn primary" id="openSnapshotCard" type="button">Start snapshot</button>
-              <a class="btn ghost" href="#how" data-scroll>How it works</a>
+              <a class="btn ghost" href="#hub" data-scroll>Open my resources</a>
             </div>
           </div>
         </aside>
@@ -153,19 +153,19 @@
 
           <article class="step">
             <div class="step-num" aria-hidden="true">2</div>
-            <h3>Professional audit (£75)</h3>
+            <h3>Resources Hub</h3>
             <p>
-              A human-led household digital health check delivered by an accredited practitioner.
-              Includes structured intake, five-lens review, and a plan that fits real life.
+              Your snapshot generates a personal hub: only the relevant lens packs are shown by default —
+              with clear weekly seeds.
             </p>
           </article>
 
           <article class="step">
             <div class="step-num" aria-hidden="true">3</div>
-            <h3>Grow safely</h3>
+            <h3>Professional audit (£75)</h3>
             <p>
-              Small “digital seeds” become routines: better settings, better habits, stronger boundaries,
-              fewer surprises. Harder to harm — easier to live in.
+              A human-led household digital health check delivered by an accredited practitioner.
+              Includes structured intake, five-lens review, and a plan that fits real life.
             </p>
           </article>
         </div>
@@ -201,7 +201,6 @@
               <li>Can guests or unknown devices join easily?</li>
               <li>Do children and smart devices share the same network?</li>
             </ul>
-            <p class="lens-example"><strong>Example:</strong> A guest network stops a risky device “touching” everything else.</p>
           </article>
 
           <article class="lens">
@@ -212,7 +211,6 @@
               <li>Are accounts shared across the household?</li>
               <li>Are old devices still logged in?</li>
             </ul>
-            <p class="lens-example"><strong>Example:</strong> A forgotten tablet still signed into email becomes the weak point.</p>
           </article>
 
           <article class="lens">
@@ -223,7 +221,6 @@
               <li>Do apps collect more data than needed?</li>
               <li>Are routines / school clues visible?</li>
             </ul>
-            <p class="lens-example"><strong>Example:</strong> Small profile changes reduce targeted scams and harassment.</p>
           </article>
 
           <article class="lens">
@@ -234,7 +231,6 @@
               <li>Are delivery scams, bank impersonation, QR traps understood?</li>
               <li>Are children taught “pause and check” habits?</li>
             </ul>
-            <p class="lens-example"><strong>Example:</strong> One rule (“never act on links”) prevents most common fraud.</p>
           </article>
 
           <article class="lens">
@@ -245,49 +241,29 @@
               <li>Privacy, bullying, grooming risks, and resilience supports.</li>
               <li>How rules are communicated: calm, consistent, repair-focused.</li>
             </ul>
-            <p class="lens-example"><strong>Example:</strong> A bedtime charging station reduces conflict and improves sleep.</p>
           </article>
         </div>
 
         <div class="mini-cta">
           <button class="btn primary" id="openSnapshotLenses" type="button">Get your household snapshot</button>
-          <a class="btn ghost" href="#audit" data-scroll>Or see the full audit</a>
+          <a class="btn ghost" href="#hub" data-scroll>Open my resources hub</a>
         </div>
       </div>
     </section>
 
-    <!-- AUDIENCE GATEWAYS -->
-    <section class="section" id="audiences">
+    <!-- ✅ PERSONAL RESOURCES HUB "PAGE" -->
+    <section class="section" id="hub">
       <div class="container">
         <div class="section-head">
-          <h2>Who it’s for</h2>
-          <p class="sub">Cyber Seeds works across households and institutions — without changing the tone.</p>
+          <h2>My resources hub</h2>
+          <p class="sub">
+            This hub is generated from your last snapshot and saved locally on this device.
+            By default, it shows only the lenses that need attention.
+          </p>
         </div>
 
-        <div class="gateways">
-          <article class="gateway">
-            <h3>Families</h3>
-            <p>Clear, calm guidance — safer Wi-Fi, cleaner devices, less exposure, fewer scams, better wellbeing.</p>
-            <a class="text-link" href="#request" data-scroll>Request an audit →</a>
-          </article>
-
-          <article class="gateway">
-            <h3>Schools</h3>
-            <p>Complements e-safety: what happens in the home matters. Align school and household practice.</p>
-            <a class="text-link" href="#request" data-scroll>Partner or refer →</a>
-          </article>
-
-          <article class="gateway">
-            <h3>Local Authorities</h3>
-            <p>A community resilience framework: prevention + harm-reduction — public health, but cyber.</p>
-            <a class="text-link" href="#request" data-scroll>Discuss deployment →</a>
-          </article>
-
-          <article class="gateway">
-            <h3>Safeguarding & Professionals</h3>
-            <p>Structured assessments, language discipline, practitioner-ready reporting. Training routes alongside the model.</p>
-            <a class="text-link" href="#request" data-scroll>Training interest →</a>
-          </article>
+        <div id="hubContent" class="hub">
+          <!-- Injected by script.js -->
         </div>
       </div>
     </section>
@@ -366,16 +342,20 @@
       </div>
     </section>
 
-    <!-- RESOURCES (CLICKABLE + MUCH RICHER) -->
+    <!-- RESOURCES (STARTER) -->
     <section class="section" id="resources">
       <div class="container">
         <div class="section-head">
           <h2>Starter resources</h2>
-          <p class="sub">Small seeds you can plant today — even before an audit. Click a card to open the guide.</p>
+          <p class="sub">Small seeds you can plant today — even before a snapshot. (If you’ve done a snapshot, your personalised hub is above.)</p>
+        </div>
+
+        <div class="mini-cta" style="margin-top:0;">
+          <a class="btn ghost" href="#hub" data-scroll>Open my resources hub</a>
+          <button class="btn primary" id="openSnapshotResources" type="button">Generate my hub via snapshot</button>
         </div>
 
         <div class="resources">
-
           <details class="resource" id="res-pause">
             <summary>
               <div class="resource-sum">
@@ -384,44 +364,38 @@
               </div>
               <span class="resource-cta" aria-hidden="true">Open</span>
             </summary>
-
             <div class="resource-body">
               <div class="resource-grid">
                 <div class="resource-box">
                   <h4>Purpose</h4>
                   <p>Reduce pressure decisions. Create a moment where your household can think clearly.</p>
                 </div>
-
                 <div class="resource-box">
                   <h4>Practices</h4>
                   <ul>
-                    <li>Use one sentence as the rule: <strong>“Pause — verify — then act.”</strong></li>
-                    <li>Never trust urgency: banks, schools, delivery firms do not need instant action via links.</li>
-                    <li>Verify using a known route: official app, typed website, saved contact number.</li>
-                    <li>Make “second eyes” normal: ask another adult / teen before paying, logging in, or downloading.</li>
+                    <li>Use one sentence: <strong>“Pause — verify — then act.”</strong></li>
+                    <li>Never act on links for logins or payments.</li>
+                    <li>Verify via official app or typed website.</li>
+                    <li>Use “second eyes” for anything urgent.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
                   <h4>Outcomes</h4>
                   <ul>
-                    <li>Less fraud and fewer account takeovers.</li>
-                    <li>Less panic. More confidence.</li>
+                    <li>Fewer fraud losses and compromised accounts.</li>
+                    <li>Less panic, more confidence.</li>
                     <li>Children learn a lifelong safety reflex.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
-                  <h4>How to do it (10 minutes)</h4>
+                  <h4>How to do it</h4>
                   <ol>
-                    <li>Choose your household phrase (“Pause and verify”).</li>
-                    <li>Pick your verification routes (bank app, official website, known numbers).</li>
-                    <li>Decide what counts as “urgent” (money, passwords, deliveries, school, prizes).</li>
-                    <li>Agree a no-shame rule: if someone clicked, you don’t blame — you fix it together.</li>
+                    <li>Pick your phrase.</li>
+                    <li>Pick your verification routes.</li>
+                    <li>Agree no-shame repair if someone clicks.</li>
                   </ol>
                 </div>
               </div>
-
               <div class="resource-actions">
                 <button class="btn ghost" type="button" data-copy="pause_script">Copy household script</button>
                 <button class="btn primary" type="button" data-open-snapshot>Tailor to my snapshot</button>
@@ -437,44 +411,39 @@
               </div>
               <span class="resource-cta" aria-hidden="true">Open</span>
             </summary>
-
             <div class="resource-body">
               <div class="resource-grid">
                 <div class="resource-box">
                   <h4>Purpose</h4>
                   <p>Move devices out of bedrooms at night to reduce hidden risks and improve rest.</p>
                 </div>
-
                 <div class="resource-box">
                   <h4>Practices</h4>
                   <ul>
-                    <li>Pick a neutral place (kitchen counter / hallway shelf).</li>
-                    <li>Make it a routine, not a punishment: “We charge here so we sleep better.”</li>
-                    <li>Use exceptions consciously: illness, exams, travel — discussed calmly.</li>
-                    <li>Pair with a “what if something feels wrong?” plan for children.</li>
+                    <li>Pick a neutral place (kitchen / hallway).</li>
+                    <li>Make it routine, not punishment.</li>
+                    <li>Set exceptions consciously.</li>
+                    <li>Pair with a “what if something feels wrong?” plan.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
                   <h4>Outcomes</h4>
                   <ul>
                     <li>Better sleep and less late-night scrolling.</li>
-                    <li>Reduced exposure to contact from strangers.</li>
-                    <li>Fewer arguments: rules become predictable.</li>
+                    <li>Reduced exposure to risky contact.</li>
+                    <li>Fewer arguments from predictable rules.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
-                  <h4>How to do it (15 minutes)</h4>
+                  <h4>How to do it</h4>
                   <ol>
-                    <li>Choose the place and plug-in (multi-USB charger helps).</li>
-                    <li>Set the time: “Phones dock at 9pm” (or your household time).</li>
-                    <li>Give the reason: sleep + safety + calm mornings.</li>
-                    <li>Create a repair path: if someone breaks the rule, you reset — not shame.</li>
+                    <li>Choose the place + plug-in.</li>
+                    <li>Set the time.</li>
+                    <li>Give the reason (sleep + safety).</li>
+                    <li>Agree repair path, not shame.</li>
                   </ol>
                 </div>
               </div>
-
               <div class="resource-actions">
                 <button class="btn ghost" type="button" data-copy="night_script">Copy parent/child script</button>
                 <button class="btn primary" type="button" data-open-snapshot>Tailor to my snapshot</button>
@@ -486,60 +455,49 @@
             <summary>
               <div class="resource-sum">
                 <h3>Monthly update rhythm</h3>
-                <p>One household ritual that keeps devices predictable and safer over time.</p>
+                <p>One ritual that keeps devices predictable and safer over time.</p>
               </div>
               <span class="resource-cta" aria-hidden="true">Open</span>
             </summary>
-
             <div class="resource-body">
               <div class="resource-grid">
                 <div class="resource-box">
                   <h4>Purpose</h4>
-                  <p>Prevent “quiet drift” — when devices become risky because they’re forgotten.</p>
+                  <p>Prevent quiet drift — when devices become risky because they’re forgotten.</p>
                 </div>
-
                 <div class="resource-box">
                   <h4>Practices</h4>
                   <ul>
-                    <li>Pick one date each month: updates + backups + quick privacy check.</li>
-                    <li>Include the router: firmware updates matter.</li>
-                    <li>Remove dead weight: uninstall unused apps, revoke permissions.</li>
-                    <li>Check sign-ins: log out old devices you don’t recognise.</li>
+                    <li>Pick one date each month.</li>
+                    <li>Include the router (firmware matters).</li>
+                    <li>Remove unused apps and permissions.</li>
+                    <li>Check account sign-ins for unknown devices.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
                   <h4>Outcomes</h4>
                   <ul>
-                    <li>Less compromise, less “weird behaviour” on devices.</li>
+                    <li>Less compromise, fewer “weird behaviour” moments.</li>
                     <li>Fewer crises, more prevention.</li>
                     <li>Household confidence grows steadily.</li>
                   </ul>
                 </div>
-
                 <div class="resource-box">
-                  <h4>How to do it (20–30 minutes)</h4>
+                  <h4>How to do it</h4>
                   <ol>
-                    <li>Make a short checklist (phones, tablets, TVs, laptops, router).</li>
-                    <li>Update everything, then confirm backups (at least one device).</li>
-                    <li>Do a 2-minute privacy sweep (location, contacts, camera permissions).</li>
-                    <li>End with a win: “Our home is healthier now.”</li>
+                    <li>Make a short checklist (phones → router).</li>
+                    <li>Update everything.</li>
+                    <li>Confirm backups.</li>
+                    <li>2-minute privacy sweep.</li>
                   </ol>
                 </div>
               </div>
-
               <div class="resource-actions">
                 <button class="btn ghost" type="button" data-copy="update_script">Copy monthly checklist</button>
                 <button class="btn primary" type="button" data-open-snapshot>Tailor to my snapshot</button>
               </div>
             </div>
           </details>
-
-        </div>
-
-        <div class="mini-cta">
-          <button class="btn ghost" id="openSnapshotResources" type="button">Start with a snapshot</button>
-          <a class="btn primary" href="#request" data-scroll>Request an audit</a>
         </div>
       </div>
     </section>
@@ -619,7 +577,7 @@
 
         <div class="footer-links">
           <a href="#how" data-scroll>How it works</a>
-          <a href="#lenses" data-scroll>Five lenses</a>
+          <a href="#hub" data-scroll>My resources</a>
           <a href="#audit" data-scroll>Audit</a>
           <a href="#request" data-scroll>Request</a>
         </div>
@@ -680,15 +638,13 @@
           </div>
 
           <div class="signal-grid" id="signalGrid" aria-label="Signal results by lens">
-            <!-- Injected by script.js -->
+            <!-- Injected -->
           </div>
 
-          <!-- THIS IS WHERE THE “CLEAR STARTING PICTURE” BECOMES REAL RESOURCES -->
           <div class="result-copy" id="resultCopy">
-            <!-- Injected by script.js -->
+            <!-- Injected -->
           </div>
 
-          <!-- FULL LENS GUIDE (CLICK A LENS BAR) -->
           <div class="lens-detail" id="lensDetail" hidden aria-live="polite">
             <div class="lens-detail-head">
               <div>
@@ -732,6 +688,7 @@
 
           <div class="result-actions">
             <button class="btn primary" id="exportSnapshot" type="button">Print / Export</button>
+            <button class="btn ghost" id="goToHub" type="button">Open my resources hub</button>
             <a class="btn ghost" href="#request" id="ctaFromResult" data-scroll>Request an audit</a>
           </div>
 
