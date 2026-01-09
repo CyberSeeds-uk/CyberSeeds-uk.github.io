@@ -86,131 +86,172 @@
     { id: "children", name: "Children’s wellbeing" }
   ];
 
+   const LENS_CONTEXT = {
+  network: {
+    title: "Network & Wi-Fi",
+    copy:
+      "This looks at how your home connects to the internet. Most households never touch their router after setup — small changes here can quietly protect everything else."
+  },
+  devices: {
+    title: "Device hygiene",
+    copy:
+      "Phones, tablets, laptops and TVs are part of daily life. This lens checks whether they’re quietly being looked after — or slowly becoming weak points."
+  },
+  privacy: {
+    title: "Privacy & exposure",
+    copy:
+      "This is about what the outside world can see. Little bits of information add up faster than most families realise."
+  },
+  scams: {
+    title: "Scam & behavioural risk",
+    copy:
+      "Scams work by creating pressure and urgency. This lens looks at habits — not intelligence — and how your household reacts under stress."
+  },
+  children: {
+    title: "Children’s digital wellbeing",
+    copy:
+      "This focuses on boundaries, sleep, emotional safety, and how children experience the online world — not just screen time."
+  }
+};
+
+   
   // Snapshot questions
   // Value scale: 0..3 (0 = fragile, 3 = strong)
   // Keep it short, meaningful, and shame-free.
-  const QUESTIONS = [
-    {
-      id: "wifi_password",
-      lens: "network",
-      title: "Is your home Wi-Fi protected with a strong password (not the one on the router sticker)?",
-      help: "This is about reducing easy, accidental access.",
-      options: [
-        { label: "Yes — we changed it and it’s strong", value: 3 },
-        { label: "We changed it, but it’s probably weak / reused", value: 2 },
-        { label: "Not sure / think it’s the default", value: 1 },
-        { label: "No — it’s open or shared widely", value: 0 }
-      ]
-    },
-    {
-      id: "router_updates",
-      lens: "network",
-      title: "Do you know how to update your router, or have you checked it within the last year?",
-      help: "Routers are often the most ignored device in the home.",
-      options: [
-        { label: "Yes — updated recently / managed carefully", value: 3 },
-        { label: "I can, but I haven’t checked in a long time", value: 2 },
-        { label: "Not really sure how", value: 1 },
-        { label: "No — never touched it", value: 0 }
-      ]
-    },
-    {
-      id: "device_updates",
-      lens: "devices",
-      title: "Are updates turned on for phones/tablets/laptops (and do they install)?",
-      help: "Updates quietly close common doors.",
-      options: [
-        { label: "Mostly yes — updates are on and used", value: 3 },
-        { label: "Mixed — some devices update, some don’t", value: 2 },
-        { label: "Rarely — we ignore update prompts", value: 1 },
-        { label: "No — we avoid updates", value: 0 }
-      ]
-    },
-    {
-      id: "backups",
-      lens: "devices",
-      title: "If you lost a phone today, could you recover photos and important data?",
-      help: "Backups are safety, not just convenience.",
-      options: [
-        { label: "Yes — backups are working", value: 3 },
-        { label: "Some things would be saved, some not", value: 2 },
-        { label: "Not sure", value: 1 },
-        { label: "No — we’d lose a lot", value: 0 }
-      ]
-    },
-    {
-      id: "privacy_visibility",
-      lens: "privacy",
-      title: "Would it be easy for someone to find your family’s school/routine from public profiles?",
-      help: "This is about reducing unwanted attention.",
-      options: [
-        { label: "No — profiles are private / minimal", value: 3 },
-        { label: "Mostly no, but there are some clues", value: 2 },
-        { label: "Maybe — we haven’t checked", value: 1 },
-        { label: "Yes — lots is public", value: 0 }
-      ]
-    },
-    {
-      id: "shared_accounts",
-      lens: "privacy",
-      title: "Do family members share accounts/logins (email, streaming, app stores)?",
-      help: "Shared logins can blur boundaries and complicate safety decisions.",
-      options: [
-        { label: "No — separate logins where it matters", value: 3 },
-        { label: "Some shared, but we manage it", value: 2 },
-        { label: "Yes — lots of sharing", value: 1 },
-        { label: "Everything is shared", value: 0 }
-      ]
-    },
-    {
-      id: "pressure_messages",
-      lens: "scams",
-      title: "How does the household respond to urgent messages (bank, delivery, ‘your account is locked’)?",
-      help: "Most harm happens when people are rushed.",
-      options: [
-        { label: "We pause and verify using official channels", value: 3 },
-        { label: "We try, but sometimes act quickly", value: 2 },
-        { label: "We often click links to check", value: 1 },
-        { label: "We usually act immediately", value: 0 }
-      ]
-    },
-    {
-      id: "two_factor",
-      lens: "scams",
-      title: "Is two-factor authentication (2FA) enabled for key accounts (email, banking, socials)?",
-      help: "This protects accounts even if a password leaks.",
-      options: [
-        { label: "Yes — for most key accounts", value: 3 },
-        { label: "Some accounts, not all", value: 2 },
-        { label: "Not sure", value: 1 },
-        { label: "No", value: 0 }
-      ]
-    },
-    {
-      id: "bedtime_devices",
-      lens: "children",
-      title: "Do children keep devices in the bedroom overnight?",
-      help: "This can affect sleep, exposure, and late-night risk.",
-      options: [
-        { label: "No — devices charge outside bedrooms", value: 3 },
-        { label: "Sometimes / depends", value: 2 },
-        { label: "Yes — usually", value: 1 },
-        { label: "Yes — always", value: 0 }
-      ]
-    },
-    {
-      id: "talking_rules",
-      lens: "children",
-      title: "Do you have a calm, clear family agreement about online behaviour (even a simple one)?",
-      help: "Clarity reduces conflict. Repair matters more than punishment.",
-      options: [
-        { label: "Yes — clear and consistent", value: 3 },
-        { label: "Some rules, but inconsistent", value: 2 },
-        { label: "Not really", value: 1 },
-        { label: "No — we argue about it a lot", value: 0 }
-      ]
-    }
-  ];
+
+   const QUESTIONS = [
+  // NETWORK & WIFI
+  {
+    id: "wifi_access",
+    lens: "network",
+    title: "Who can realistically access your home Wi-Fi?",
+    help: "This isn’t about perfection — just whether access feels intentional.",
+    options: [
+      { label: "Only people in our household", value: 3 },
+      { label: "Household plus occasional guests", value: 2 },
+      { label: "Quite a few people have it", value: 1 },
+      { label: "We’re not really sure", value: 0 }
+    ]
+  },
+  {
+    id: "router_attention",
+    lens: "network",
+    title: "When was the last time you thought about your router settings?",
+    help: "Most families never look after setup — that’s normal.",
+    options: [
+      { label: "Within the last year", value: 3 },
+      { label: "A long time ago, but we could check", value: 2 },
+      { label: "We wouldn’t know where to start", value: 1 },
+      { label: "Never", value: 0 }
+    ]
+  },
+
+  // DEVICES
+  {
+    id: "device_updates",
+    lens: "devices",
+    title: "Do devices in your home update themselves without much fuss?",
+    help: "Updates are boring — but they quietly reduce risk.",
+    options: [
+      { label: "Yes, mostly automatic", value: 3 },
+      { label: "Some do, some don’t", value: 2 },
+      { label: "We often ignore update prompts", value: 1 },
+      { label: "Updates are usually avoided", value: 0 }
+    ]
+  },
+  {
+    id: "lost_device",
+    lens: "devices",
+    title: "If a phone was lost tomorrow, how stressful would recovery be?",
+    help: "This is about photos, contacts, and peace of mind.",
+    options: [
+      { label: "Not very — backups are in place", value: 3 },
+      { label: "Some things would be saved", value: 2 },
+      { label: "It would be quite stressful", value: 1 },
+      { label: "We’d lose a lot", value: 0 }
+    ]
+  },
+
+  // PRIVACY
+  {
+    id: "online_visibility",
+    lens: "privacy",
+    title: "How visible is your family’s daily life online?",
+    help: "School names, routines, locations — even small clues matter.",
+    options: [
+      { label: "Very little is public", value: 3 },
+      { label: "Some things could be found", value: 2 },
+      { label: "We haven’t really checked", value: 1 },
+      { label: "Quite a lot is visible", value: 0 }
+    ]
+  },
+  {
+    id: "shared_logins",
+    lens: "privacy",
+    title: "How common is account sharing in your household?",
+    help: "Shared logins can blur boundaries without anyone noticing.",
+    options: [
+      { label: "Rare — separate logins where it matters", value: 3 },
+      { label: "Some sharing, some separation", value: 2 },
+      { label: "A lot of sharing", value: 1 },
+      { label: "Everything is shared", value: 0 }
+    ]
+  },
+
+  // SCAMS
+  {
+    id: "urgent_messages",
+    lens: "scams",
+    title: "What usually happens when a message feels urgent or worrying?",
+    help: "Pressure is the key tool scammers use.",
+    options: [
+      { label: "We pause and double-check", value: 3 },
+      { label: "We try to, but not always", value: 2 },
+      { label: "We often click to see", value: 1 },
+      { label: "We usually act quickly", value: 0 }
+    ]
+  },
+  {
+    id: "account_protection",
+    lens: "scams",
+    title: "How protected are key accounts like email or banking?",
+    help: "Extra steps can feel annoying — until they matter.",
+    options: [
+      { label: "Extra protection is on", value: 3 },
+      { label: "Some accounts are protected", value: 2 },
+      { label: "Not sure", value: 1 },
+      { label: "Probably not", value: 0 }
+    ]
+  },
+
+  // CHILDREN
+  {
+    id: "night_devices",
+    lens: "children",
+    title: "Where do children’s devices usually go at night?",
+    help: "Sleep, exposure, and conflict often meet here.",
+    options: [
+      { label: "Outside bedrooms", value: 3 },
+      { label: "Depends on the night", value: 2 },
+      { label: "Usually in bedrooms", value: 1 },
+      { label: "Always in bedrooms", value: 0 }
+    ]
+  },
+  {
+    id: "family_rules",
+    lens: "children",
+    title: "How clear do online rules feel in your household?",
+    help: "Repair and consistency matter more than strictness.",
+    options: [
+      { label: "Clear and calm", value: 3 },
+      { label: "Mostly clear, sometimes tense", value: 2 },
+      { label: "Often unclear", value: 1 },
+      { label: "A frequent source of conflict", value: 0 }
+    ]
+  }
+];
+
+
 
   // Render only one question at a time (calmer)
   function renderStep() {
