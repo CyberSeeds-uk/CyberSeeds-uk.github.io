@@ -283,6 +283,15 @@
     snapshotResult.hidden = true;
 
     const q = QUESTIONS[stepIndex];
+    const lensContext = $("#snapshotLensContext");
+const titleEl = $("#lensContextTitle");
+const copyEl = $("#lensContextCopy");
+
+if (lensContext && LENS_CONTEXT[q.lens]) {
+  lensContext.hidden = false;
+  titleEl.textContent = LENS_CONTEXT[q.lens].title;
+  copyEl.textContent = LENS_CONTEXT[q.lens].copy;
+}
 
     const wrap = document.createElement("div");
     wrap.className = "q";
@@ -379,6 +388,7 @@
         return;
       }
       if (stepIndex >= QUESTIONS.length) return;
+        $("#snapshotLensContext")?.setAttribute("hidden", "");
 
       const val = getSelectionForCurrent();
       if (val === null) return;
