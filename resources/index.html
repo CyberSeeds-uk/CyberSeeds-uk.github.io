@@ -1,88 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Cyber Seeds — Free Digital Safety Resources</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free, family-friendly digital safety resources from Cyber Seeds. Calm guidance for modern households.">
-  <link rel="icon" href="images/logo.png">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Cyber Seeds — Resources Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Your personalised Cyber Seeds resources hub. Auto-generated from your last Household Snapshot and stored locally." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="header">
-  <div class="logo-wrap">
-    <img src="images/logo.png" class="logo" alt="Cyber Seeds logo">
-    <span class="brand-name">Cyber Seeds</span>
-  </div>
+  <header class="topbar" id="top">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html" aria-label="Cyber Seeds home">
+        <span class="brand-mark" aria-hidden="true">🌱</span>
+        <span class="brand-text">
+          <span class="brand-name">Cyber Seeds</span>
+          <span class="brand-sub">Domestic Cyber Ecology</span>
+        </span>
+      </a>
 
-  <nav class="nav-menu">
-    <a href="index.html#why">Why Clarity</a>
-    <a href="index.html#lenses">Five Lenses</a>
-    <a href="index.html#principles">Principles</a>
-    <a href="resources.html">Resources</a>
-  </nav>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#lenses">Five lenses</a>
+        <a href="resources.html" aria-current="page">Resources</a>
+        <a href="index.html#audit">Audit</a>
+      </nav>
 
-  <div class="cta">
-    <a href="snapshot.html" class="btn">Take the Free Household Signal</a>
-  </div>
-</header>
+      <div class="top-actions">
+        <a class="btn ghost" href="index.html?snapshot=1">Update snapshot</a>
+        <a class="btn primary" href="index.html#request">Request an audit</a>
+      </div>
 
-<main>
-
-<section class="hero" style="padding:3rem 0;">
-  <h1>Free Resources &amp; Guides</h1>
-  <p class="note" style="max-width:700px;margin:0 auto;">
-    Calm, practical guidance to strengthen your household — one seed at a time.
-  </p>
-</section>
-
-<section class="section" id="wifi">
-  <h2 class="section-title">Wi-Fi &amp; Router</h2>
-  <div class="principles-list">
-    <div class="principle"><h4>Purpose</h4><p>Secure the digital front door.</p></div>
-    <div class="principle"><h4>Practices</h4><p>Strong passwords, modern encryption, guest networks.</p></div>
-    <div class="principle"><h4>Outcomes</h4><p>Reduced exposure and calmer foundations.</p></div>
-  </div>
-</section>
-
-<section class="section" id="devices">
-  <h2 class="section-title">Devices &amp; Apps</h2>
-  <div class="principles-list">
-    <div class="principle"><h4>Purpose</h4><p>Keep devices predictable and healthy.</p></div>
-    <div class="principle"><h4>Practices</h4><p>Updates, permissions, backups.</p></div>
-    <div class="principle"><h4>Outcomes</h4><p>Resilient, trustworthy technology.</p></div>
-  </div>
-</section>
-
-<section class="section" id="children">
-  <h2 class="section-title">Children’s Wellbeing</h2>
-  <div class="principles-list">
-    <div class="principle"><h4>Purpose</h4><p>Support exploration without fear.</p></div>
-    <div class="principle"><h4>Practices</h4><p>Boundaries, co-use, conversation.</p></div>
-    <div class="principle"><h4>Outcomes</h4><p>Trust, balance and confidence.</p></div>
-  </div>
-</section>
-
-<section class="section call-to-action">
-  <h2 class="section-title">Ready for your household snapshot?</h2>
-  <div class="btn-group">
-    <a href="snapshot.html" class="btn">Take the Free Household Signal</a>
-    <a href="index.html" class="btn" style="background:var(--secondary)">Back to Home</a>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Cyber Seeds</div>
-      <div class="note">Domestic Cyber Ecology · UK</div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
-</footer>
 
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#lenses">Five lenses</a>
+      <a href="resources.html" aria-current="page">Resources</a>
+      <a href="index.html#audit">Audit</a>
+      <div class="mobile-nav-actions">
+        <a class="btn ghost" href="index.html?snapshot=1">Update snapshot</a>
+        <a class="btn primary" href="index.html#request">Request an audit</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" style="padding-top:42px;">
+      <div class="container">
+        <div class="section-head">
+          <h2>My resources hub</h2>
+          <p class="sub">
+            This hub is generated from your last Household Snapshot and stored locally on this device.
+            By default it shows only the lenses that need attention — you can switch to “Show all lenses” anytime.
+          </p>
+        </div>
+
+        <!-- Injected by script.js -->
+        <div id="resourcesHub"></div>
+
+        <div class="callout" style="margin-top:16px;">
+          <div class="callout-icon" aria-hidden="true">🧭</div>
+          <div class="callout-body">
+            <h3>How to use this page</h3>
+            <p>
+              Pick one lens and complete one “seed” this week. Don’t try to do everything at once.
+              Progress is designed to be calm and maintainable.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section soft">
+      <div class="container">
+        <div class="section-head">
+          <h2>Need a plan shaped around real life?</h2>
+          <p class="sub">If you want a practitioner to translate your household context into a staged plan, request the full £75 audit.</p>
+        </div>
+        <div class="mini-cta">
+          <a class="btn primary" href="index.html#request">Request an audit</a>
+          <a class="btn ghost" href="index.html?snapshot=1">Update snapshot</a>
+          <a class="btn ghost" href="index.html">Back to home</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <div class="footer-brand">
+            <span aria-hidden="true">🌱</span>
+            <div>
+              <p class="footer-title">Cyber Seeds</p>
+              <p class="footer-sub">Domestic Cyber Ecology • Household Digital Safety</p>
+            </div>
+          </div>
+          <p class="footer-note">Your hub is stored locally. Nothing is uploaded.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="index.html#how">How it works</a>
+          <a href="index.html#lenses">Five lenses</a>
+          <a href="index.html#audit">Audit</a>
+          <a href="index.html#request">Request</a>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>© <span id="year"></span> Cyber Seeds. All rights reserved.</p>
+        <p class="muted">A calm household signal — not a score.</p>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
