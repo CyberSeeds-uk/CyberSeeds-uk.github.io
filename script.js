@@ -492,17 +492,22 @@
   ];
 
   function openModal() {
-    if (!modal) return;
-    lastFocus = document.activeElement;
-    modal.setAttribute("aria-hidden","false");
-    document.body.style.overflow = "hidden";
+  if (!modal) return;
 
-    step = -1;
-    Object.keys(answers).forEach(k => delete answers[k]);
+  lastFocus = document.activeElement;
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
 
-    render();
-    setTimeout(() => nextBtn?.focus(), 50);
-  }
+  step = -1;
+  Object.keys(answers).forEach(k => delete answers[k]);
+
+  // 🔑 FORCE initial render and unlock Start
+  render();
+  nextBtn.disabled = false;
+  nextBtn.textContent = "Start";
+
+  setTimeout(() => nextBtn?.focus(), 50);
+}
 
   function closeModal() {
     if (!modal) return;
@@ -549,64 +554,68 @@
   }
 
   function render() {
-    if (!form || !nextBtn || !backBtn) return;
+  if (!form || !nextBtn || !backBtn) return;
 
-    form.innerHTML = "";
-    if (lensContextBox) lensContextBox.hidden = true;
+  form.innerHTML = "";
+  if (lensContextBox) lensContextBox.hidden = true;
 
-    backBtn.disabled = step <= 0;
-    nextBtn.disabled = true;
+  backBtn.disabled = step <= 0;
 
-    if (step < 0) {
-      // Show initial screen with Start button enabled
-      nextBtn.textContent = "Start";
-      nextBtn.disabled = false;
-      result && (result.hidden = true);
-      return;
-    }
-
-    if (step >= QUESTIONS.length) {
-      showResults();
-      return;
-    }
-
-    result && (result.hidden = true);
-
-    const q = QUESTIONS[step];
-    if (lensContextBox) lensContextBox.hidden = false;
-    if (lensContextTitle) lensContextTitle.textContent = LENSES.find(l=>l.id===q.lens)?.name || "Lens";
-    if (lensContextCopy) lensContextCopy.textContent = LENS_CONTEXT[q.lens] || "";
-
-    const wrap = document.createElement("div");
-    wrap.className = "q";
-
-    wrap.innerHTML = `
-      <div class="q-title">${escapeHtml(q.title)}</div>
-      <p class="q-help">${escapeHtml(q.help)}</p>
-    `;
-
-    q.options.forEach(([label, expl, val]) => {
-      const row = document.createElement("label");
-      row.className = "choice";
-      row.innerHTML = `
-        <input type="radio" name="${q.id}" value="${val}">
-        <div>
-          <strong>${escapeHtml(label)}</strong>
-          <span>${escapeHtml(expl)}</span>
-        </div>
-      `;
-      const input = row.querySelector("input");
-      input.addEventListener("change", () => {
-        answers[q.id] = Number(val);
-        nextBtn.disabled = false;
-      });
-      wrap.appendChild(row);
-    });
-
-    form.appendChild(wrap);
-    nextBtn.textContent = (step === QUESTIONS.length - 1) ? "Finish" : "Next";
-    if (answers[q.id] != null) nextBtn.disabled = false;
+  // ── INTRO SCREEN ─────────────────────
+  if (step < 0) {
+    nextBtn.textContent = "Start";
+    nextBtn.disabled = false;
+    result.hidden = true;
+    return;
   }
+
+  // ── RESULTS ──────────────────────────
+  if (step >= QUESTIONS.length) {
+    showResults();
+    return;
+  }
+
+  // ── QUESTION ─────────────────────────
+  nextBtn.disabled = true;
+  result.hidden = true;
+
+  const q = QUESTIONS[step];
+
+  if (lensContextBox) {
+    lensContextBox.hidden = false;
+    lensContextTitle.textContent =
+      LENSES.find(l => l.id === q.lens)?.name || "Lens";
+    lensContextCopy.textContent = LENS_CONTEXT[q.lens] || "";
+  }
+
+  const wrap = document.createElement("div");
+  wrap.className = "q";
+  wrap.innerHTML = `
+    <div class="q-title">${escapeHtml(q.title)}</div>
+    <p class="q-help">${escapeHtml(q.help)}</p>
+  `;
+
+  q.options.forEach(([label, expl, val]) => {
+    const row = document.createElement("label");
+    row.className = "choice";
+    row.innerHTML = `
+      <input type="radio" name="${q.id}" value="${val}">
+      <div>
+        <strong>${escapeHtml(label)}</strong>
+        <span>${escapeHtml(expl)}</span>
+      </div>
+    `;
+    row.querySelector("input").addEventListener("change", () => {
+      answers[q.id] = val;
+      nextBtn.disabled = false;
+    });
+    wrap.appendChild(row);
+  });
+
+  form.appendChild(wrap);
+  nextBtn.textContent =
+    step === QUESTIONS.length - 1 ? "Finish" : "Next";
+}
 
   function showResults() {
     if (!result || !grid || !resultCopy) return;
