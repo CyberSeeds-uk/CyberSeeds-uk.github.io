@@ -1,11 +1,20 @@
-(() => {
+/*
+ * Cyber Seeds application logic
+ *
+ * This script powers the interactive parts of the Cyber Seeds website. It handles
+ * the household snapshot quiz, resources hub generation, practitioner mode and
+ * responsive navigation. All data remains on the user’s device via localStorage.
+ */
+
+(function() {
+  // Helper selectors
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => Array.from(document.querySelectorAll(s));
 
-  /* ---------- Helpers ---------- */
+  /* ---------- Utilities ---------- */
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   const escapeHtml = (str) =>
-    (str || "").replace(/[&<>"']/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
+    (str || "").replace(/[&<>"](?!#)/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[m]));
 
   function toast(msg) {
     const t = $("#toast");
@@ -60,7 +69,7 @@
     children: "Sleep, boundaries, safety, and emotional wellbeing in a connected home."
   };
 
-  // Keep the labels simple and public-friendly
+  // Convert percentage to friendly label
   function labelForPct(pct) {
     if (pct >= 75) return "Strong";
     if (pct >= 45) return "Stable";
@@ -238,7 +247,7 @@
     return Object.fromEntries(snap.lensResultsByWeakness.map(x => [x.id, x]));
   }
 
-  /* ---------- Resources Hub renderer (shared) ---------- */
+  /* ---------- Resources Hub renderer ---------- */
   function renderResourcesHub(targetEl) {
     if (!targetEl) return;
 
@@ -377,7 +386,7 @@
     }
   }
 
-  /* ---------- Snapshot modal (only on index.html) ---------- */
+  /* ---------- Snapshot modal logic ---------- */
   const modal = $("#snapshotModal");
   const form = $("#snapshotForm");
   const nextBtn = $("#snapshotNext");
@@ -392,7 +401,7 @@
 
   const openBtns = ["#openSnapshot","#openSnapshotTop","#openSnapshotMobile","#openSnapshotCard","#openSnapshotLenses"]
     .map(id => $(id)).filter(Boolean);
-  const closeBtns = $$("[data-close]");
+  const closeBtns = $$('[data-close]');
 
   const navToggle = $("#navToggle");
   const mobileNav = $("#mobileNav");
@@ -549,7 +558,9 @@
     nextBtn.disabled = true;
 
     if (step < 0) {
+      // Show initial screen with Start button enabled
       nextBtn.textContent = "Start";
+      nextBtn.disabled = false;
       result && (result.hidden = true);
       return;
     }
@@ -658,13 +669,13 @@
   nextBtn?.addEventListener("click", () => { step++; render(); });
   backBtn?.addEventListener("click", () => { step = Math.max(-1, step - 1); render(); });
 
-  /* ---------- Nav ---------- */
+  /* ---------- Navigation toggle and smooth scroll ---------- */
   navToggle?.addEventListener("click", () => {
     const isOpen = navToggle.getAttribute("aria-expanded") === "true";
     navToggle.setAttribute("aria-expanded", String(!isOpen));
     if (mobileNav) mobileNav.hidden = isOpen;
   });
-  $$("[data-scroll]").forEach(a => {
+  $$('[data-scroll]').forEach(a => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href") || "";
       if (!href.startsWith("#")) return;
@@ -679,7 +690,7 @@
     });
   });
 
-  /* ---------- Audit email (kept simple) ---------- */
+  /* ---------- Audit email logic ---------- */
   $("#auditRequestForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -732,7 +743,7 @@
     toast(on ? "Snapshot removed." : "Snapshot will be included.");
   });
 
-  /* ---------- Practitioner mode hidden fix stays (close works on mobile) ---------- */
+  /* ---------- Practitioner mode logic ---------- */
   const practitionerOverlay = $("#practitionerOverlay");
   $("#closePractitioner")?.addEventListener("click", (e) => {
     e.preventDefault(); e.stopPropagation();
@@ -785,20 +796,20 @@
     copyToClipboard(JSON.stringify(snap));
   });
 
-  /* ---------- Auto-open modal if ?snapshot=1 ---------- */
+  /* ---------- Auto-open modal if URL param indicates snapshot ---------- */
   const params = new URLSearchParams(window.location.search);
   if (params.get("snapshot") === "1") {
     setTimeout(openModal, 80);
   }
 
-  /* ---------- Set year ---------- */
+  /* ---------- Set year in footer ---------- */
   const year = $("#year");
   if (year) year.textContent = String(new Date().getFullYear());
 
-  // initial render
+  // initial render for quiz
   if (form) render();
 
-  /* ---------- Copy pack on index if you later add buttons (safe) ---------- */
+  // Copy pack functionality on index if we add buttons later
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-copy-pack]");
     if (!btn) return;
