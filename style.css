@@ -544,6 +544,34 @@ textarea{ resize:vertical; }
   max-height: calc(100vh - 140px);
   overflow:auto;
 }
+
+/* ─────────────────────────────────────────
+   SNAPSHOT MODAL – MOBILE SAFE SCROLL FIX
+   ───────────────────────────────────────── */
+
+.modal-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 100svh; /* real mobile viewport */
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 96px; /* space for sticky buttons */
+}
+
+/* Keep navigation buttons always reachable */
+.snapshot-actions {
+  position: sticky;
+  bottom: 0;
+  background: var(--surface);
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+  z-index: 10;
+}
+
 .icon-btn{
   border:1px solid var(--line);
   background:var(--surface);
