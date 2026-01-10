@@ -82,7 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
      ELEMENTS (GUARDED)
      =============================== */
   const modal = $("#snapshotModal");
-  if (!modal) return; // Script allowed to exist on pages without snapshot
+
+// Do NOT abort script if modal is missing
+// This allows buttons & future hydration to still bind
+
 
   const form = $("#snapshotForm");
   const result = $("#snapshotResult");
