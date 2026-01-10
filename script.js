@@ -1,22 +1,27 @@
-window.addEventListener("error", (event) => {
-  console.error("SCRIPT ERROR:", event.error);
-});
+/* ==========================================================
+   CYBER SEEDS — SNAPSHOT ENGINE (PRODUCTION)
+   ========================================================== */
 
-window.addEventListener("unhandledrejection", (event) => {
-  console.error("UNHANDLED PROMISE REJECTION:", event.reason);
-});
+console.log("✅ Cyber Seeds snapshot engine loaded");
+
+window.addEventListener("error", e =>
+  console.error("SCRIPT ERROR:", e.error)
+);
+window.addEventListener("unhandledrejection", e =>
+  console.error("UNHANDLED PROMISE REJECTION:", e.reason)
+);
 
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   /* ===============================
-     SNAPSHOT QUESTIONS (REQUIRED)
+     QUESTIONS
      =============================== */
   const QUESTIONS = [
     {
-      q: "How confident do you feel about your home Wi-Fi setup?",
       lens: "Network",
+      q: "How confident do you feel about your home Wi-Fi setup?",
       a: [
         { t: "Very confident", sub: "Passwords, updates, guest network handled", s: 4 },
         { t: "Mostly confident", sub: "Some gaps but generally OK", s: 3 },
@@ -25,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
     {
-      q: "How well are devices kept up to date?",
       lens: "Devices",
+      q: "How well are devices kept up to date?",
       a: [
         { t: "Automatically updated", sub: "Phones, tablets, laptops covered", s: 4 },
         { t: "Mostly updated", sub: "Some delays or old devices", s: 3 },
@@ -35,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
     {
-      q: "How comfortable are you managing privacy and accounts?",
       lens: "Privacy",
+      q: "How comfortable are you managing privacy and accounts?",
       a: [
         { t: "Very comfortable", sub: "Passwords, 2FA, privacy settings handled", s: 4 },
         { t: "Somewhat comfortable", sub: "Basic protection in place", s: 3 },
@@ -45,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
     {
-      q: "How prepared do you feel for scams or fraud?",
       lens: "Scams",
+      q: "How prepared do you feel for scams or fraud?",
       a: [
         { t: "Very prepared", sub: "I can spot and stop them", s: 4 },
         { t: "Somewhat prepared", sub: "I’m cautious but unsure", s: 3 },
@@ -55,8 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
     },
     {
-      q: "How healthy does digital life feel in your home?",
       lens: "Wellbeing",
+      q: "How healthy does digital life feel in your home?",
       a: [
         { t: "Balanced", sub: "Boundaries feel calm and respected", s: 4 },
         { t: "Mostly OK", sub: "Some tension or disruption", s: 3 },
@@ -67,54 +72,36 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   /* ===============================
-     CORE STATE
+     STATE
      =============================== */
   let step = -1;
   let answers = new Array(QUESTIONS.length).fill(null);
 
   /* ===============================
-     NAV
-     =============================== */
-  const navToggle = $("#navToggle");
-  const navMenu = $("#navMenu");
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", () => {
-      const open = navMenu.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    $$("a", navMenu).forEach(a =>
-      a.addEventListener("click", () => {
-        navMenu.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      })
-    );
-  }
-
-  const year = $("#year");
-  if (year) year.textContent = new Date().getFullYear();
-
-  /* ===============================
-     MODAL CONTROLS
+     ELEMENTS (GUARDED)
      =============================== */
   const modal = $("#snapshotModal");
-  const openBtns = ["#openSnapshotTop", "#openSnapshotCard"].map(id => $(id)).filter(Boolean);
-  const closeBtn = $("#closeSnapshot");
-  const backdrop = $(".modal-backdrop", modal);
+  if (!modal) return; // Script allowed to exist on pages without snapshot
 
   const form = $("#snapshotForm");
   const result = $("#snapshotResult");
   const resultHeadline = $("#resultHeadline");
   const strongestLensEl = $("#strongestLens");
   const weakestLensEl = $("#weakestLens");
-
   const nextBtn = $("#snapshotNext");
   const backBtn = $("#snapshotBack");
   const stepMeta = $("#stepMeta");
   const controls = $("#snapshotControls");
+  const closeBtn = $("#closeSnapshot");
+  const backdrop = $(".modal-backdrop", modal);
 
-  const exportBtn = $("#exportSnapshot");
-  const retakeBtn = $("#retakeSnapshot");
+  const openBtns = ["#openSnapshotTop", "#openSnapshotCard"]
+    .map(id => $(id))
+    .filter(Boolean);
 
+  /* ===============================
+     BODY LOCK
+     =============================== */
   const lockBody = () => {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
@@ -125,15 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* ===============================
-     CALCULATION ENGINE
+     CALCULATION
      =============================== */
   function calc() {
     const scores = {};
     QUESTIONS.forEach(q => (scores[q.lens] = 0));
-
-    QUESTIONS.forEach((q, i) => {
-      if (answers[i] != null) scores[q.lens] += answers[i];
-    });
+    QUESTIONS.forEach((q, i) => answers[i] != null && (scores[q.lens] += answers[i]));
 
     const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const total = ranked.reduce((s, [, v]) => s + v, 0);
@@ -143,21 +127,13 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (total >= 13) stage = { name: "Emerging", desc: "Some risk flows need attention" };
     else stage = { name: "Vulnerable", desc: "Small, calm changes will help" };
 
-    return {
-      strongest: ranked[0][0],
-      weakest: ranked[ranked.length - 1][0],
-      stage,
-      scores,
-      total
-    };
+    return { stage, strongest: ranked[0][0], weakest: ranked.at(-1)[0], scores, total };
   }
 
   /* ===============================
      RENDER
      =============================== */
   function render() {
-    if (!form) return;
-
     stepMeta.textContent = step < 0 ? "" : `${step + 1} / ${QUESTIONS.length}`;
 
     if (step < 0) {
@@ -211,6 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  /* ===============================
+     MODAL CONTROL
+     =============================== */
   function openModal() {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
@@ -230,6 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   openBtns.forEach(btn => btn.addEventListener("click", openModal));
   closeBtn?.addEventListener("click", closeModal);
   backdrop?.addEventListener("click", closeModal);
+  window.addEventListener("keydown", e => e.key === "Escape" && closeModal());
 
   nextBtn?.addEventListener("click", () => {
     if (step < 0) step = 0;
@@ -241,22 +221,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (step > 0) step--;
     render();
   });
-
-  retakeBtn?.addEventListener("click", () => {
-    answers.fill(null);
-    step = -1;
-    render();
-  });
-
-  exportBtn?.addEventListener("click", () => {
-    const raw = localStorage.getItem("seed_snapshot_v1");
-    if (!raw) return;
-    const blob = new Blob([raw], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "cyber-seeds-snapshot.json";
-    a.click();
-  });
-
-  render();
 });
