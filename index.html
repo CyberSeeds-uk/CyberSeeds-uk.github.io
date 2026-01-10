@@ -1,430 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Cyber Seeds — Domestic Cyber Ecology</title>
-  <meta name="description" content="Cyber Seeds maps the digital ecosystem of your household calmly and without judgement. A living household signal — not surveillance, not shame." />
-
-  <!-- Preconnect for Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;600&display=swap" rel="stylesheet">
-
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cyber Seeds — Household Digital Clarity</title>
+  <meta name="description" content="A calm, trauma-aware household digital snapshot. Not a score — a signal you can act on." />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="header">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/images/logo.png" class="logo" alt="Cyber Seeds logo" />
+      <span class="brand-name">Cyber Seeds</span>
+    </a>
 
-  <header class="topbar" id="top">
-    <div class="container topbar-inner">
-      <a class="brand" href="index.html" aria-label="Cyber Seeds home">
-        <span class="brand-mark" aria-hidden="true">🌱</span>
-        <span class="brand-text">
-          <span class="brand-name">Cyber Seeds</span>
-          <span class="brand-sub">Domestic Cyber Ecology</span>
-        </span>
-      </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
 
-      <nav class="nav" aria-label="Primary">
-        <a href="#how" data-scroll>How it works</a>
-        <a href="#lenses" data-scroll>Five lenses</a>
-        <a href="resources.html">Resources</a>
-        <a href="#audit" data-scroll>Audit</a>
-      </nav>
-
-      <div class="top-actions">
-        <button class="btn ghost" id="openSnapshotTop" type="button">Household snapshot</button>
-        <a class="btn primary" href="#request" data-scroll>Request an audit</a>
-      </div>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
-        <span aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <div class="mobile-nav" id="mobileNav" hidden>
-      <a href="#how" data-scroll>How it works</a>
-      <a href="#lenses" data-scroll>Five lenses</a>
-      <a href="resources.html">Resources</a>
-      <a href="#audit" data-scroll>Audit</a>
-      <div class="mobile-nav-actions">
-        <button class="btn ghost" id="openSnapshotMobile" type="button">Household snapshot</button>
-        <a class="btn primary" href="#request" data-scroll>Request an audit</a>
-      </div>
-    </div>
+    <nav class="nav" id="navMenu">
+      <a href="/#why" data-scroll>Why Clarity</a>
+      <a href="/#lenses" data-scroll>Five Lenses</a>
+      <a href="/#principles" data-scroll>Principles</a>
+      <a href="/resources">Resources</a>
+    </nav>
   </header>
 
-  <main id="main">
-
-    <!-- HERO -->
+  <main class="main">
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">A national practice framework for household digital safety</p>
-          <h1>Your home is digital.<br>It deserves calm clarity.</h1>
-          <p class="lead">
-            Cyber Seeds maps the hidden structure of your household’s online life — devices, Wi-Fi, privacy,
-            scam exposure, and children’s wellbeing — as a <strong>household signal</strong>.
-            Not surveillance. Not judgement. A practical picture you can act on.
-          </p>
+      <div class="hero-inner">
+        <p class="eyebrow">A household intelligence</p>
+        <h1>Your home is digital.<br/>It just hasn’t been mapped yet.</h1>
+        <p class="lead">
+          Cyber Seeds reveals the invisible systems shaping your household’s online life —
+          calmly, proportionately, without surveillance.
+        </p>
 
-          <div class="hero-cta">
-            <button class="btn primary" id="openSnapshot" type="button">
-              Get a 5-minute household snapshot
-            </button>
-            <a class="btn ghost" href="resources.html">Open my resources hub</a>
-          </div>
-
-          <p class="hero-foot">
-            Trauma-aware • No blame • Designed for families, schools, councils, and safeguarding teams
-          </p>
-
-          <div class="pillars" role="list" aria-label="Core pillars">
-            <div class="pillar" role="listitem">
-              <div class="pillar-icon" aria-hidden="true">🏠</div>
-              <div>
-                <p class="pillar-title">Whole-home view</p>
-                <p class="pillar-text">Five lenses, one clear map — tech + behaviour + wellbeing.</p>
-              </div>
-            </div>
-            <div class="pillar" role="listitem">
-              <div class="pillar-icon" aria-hidden="true">🫶</div>
-              <div>
-                <p class="pillar-title">Safety without shame</p>
-                <p class="pillar-text">Supportive language. No gotchas. No judgement.</p>
-              </div>
-            </div>
-            <div class="pillar" role="listitem">
-              <div class="pillar-icon" aria-hidden="true">🛡️</div>
-              <div>
-                <p class="pillar-title">Public-service grade</p>
-                <p class="pillar-text">Built to integrate with safeguarding and community resilience.</p>
-              </div>
-            </div>
-          </div>
+        <div class="hero-actions">
+          <button class="btn primary" id="openSnapshotTop">View a household signal</button>
+          <a class="btn ghost" href="/resources">Open resources hub</a>
         </div>
 
-        <aside class="hero-card" aria-label="What you get">
-          <div class="card">
-            <p class="card-eyebrow">What you’ll leave with</p>
-            <h2 class="card-title">“I see my home more clearly now.”</h2>
-            <ul class="checklist">
-              <li><span aria-hidden="true">✓</span> A household signal across the five lenses</li>
-              <li><span aria-hidden="true">✓</span> Plain-English meaning (what matters + what to do next)</li>
-              <li><span aria-hidden="true">✓</span> Calm next steps — small seeds first, then strong foundations</li>
-              <li><span aria-hidden="true">✓</span> A personalised Resources Hub (saved on your device)</li>
-            </ul>
+        <p class="hero-foot">No monitoring · No judgement · Just clarity</p>
+      </div>
 
-            <div class="card-actions">
-              <button class="btn primary" id="openSnapshotCard" type="button">Start snapshot</button>
-              <a class="btn ghost" href="resources.html">Resources</a>
-            </div>
-          </div>
-        </aside>
+      <div class="hero-card">
+        <div class="card">
+          <h3>What you get in 2 minutes</h3>
+          <ul class="ticks">
+            <li>A snapshot signal (not a shame score)</li>
+            <li>Your strongest & weakest lens</li>
+            <li>Clear next actions you can do today</li>
+          </ul>
+          <button class="btn subtle" id="openSnapshotCard">Start snapshot</button>
+        </div>
       </div>
     </section>
 
-    <!-- HOW -->
-    <section class="section" id="how">
+    <section class="section" id="why">
       <div class="container">
-        <div class="section-head">
-          <h2>How it works</h2>
-          <p class="sub">Cyber Seeds treats digital safety like household health: a whole system, supported calmly.</p>
-        </div>
+        <h2>Why “signal”, not “score”</h2>
+        <p>
+          Most digital-safety tools punish people with numbers. Cyber Seeds does the opposite:
+          it shows you the shape of your household system — where the risk flows, where it’s contained,
+          and what to change first.
+        </p>
 
-        <div class="steps">
-          <article class="step">
-            <div class="step-num" aria-hidden="true">1</div>
-            <h3>Snapshot</h3>
-            <p>A short, non-judgemental check-in. You receive a lens-by-lens household signal.</p>
-          </article>
-
-          <article class="step">
-            <div class="step-num" aria-hidden="true">2</div>
-            <h3>Resources</h3>
-            <p>Your snapshot automatically generates your Resources Hub — only what’s relevant shows by default.</p>
-          </article>
-
-          <article class="step">
-            <div class="step-num" aria-hidden="true">3</div>
-            <h3>Full audit (£75)</h3>
-            <p>A human-led five-lens assessment with a calm staged plan shaped around real life.</p>
-          </article>
+        <div class="grid-3">
+          <div class="panel">
+            <h3>System, not blame</h3>
+            <p>We treat the household like an ecosystem — habits, devices, Wi-Fi, privacy, and wellbeing.</p>
+          </div>
+          <div class="panel">
+            <h3>Proportionate actions</h3>
+            <p>We recommend the smallest move that changes the system in your favour.</p>
+          </div>
+          <div class="panel">
+            <h3>Trauma-aware by default</h3>
+            <p>No judgement language. No “you failed”. Just clear, supportive steps.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- LENSES -->
-    <section class="section soft" id="lenses">
+    <section class="section" id="lenses">
       <div class="container">
-        <div class="section-head">
-          <h2>The five lenses</h2>
-          <p class="sub">One household. Five perspectives. One calm picture.</p>
-        </div>
+        <h2>The Five Lenses</h2>
+        <p class="muted">Cyber Seeds reads your household through five practical safety lenses.</p>
 
-        <div class="lenses">
-          <article class="lens">
-            <h3><span class="lens-dot" aria-hidden="true"></span> Network & Wi-Fi</h3>
-            <p class="lens-why">The home’s “blood flow” — what connects everything.</p>
-            <ul class="lens-bullets">
-              <li>Router safety, guest access, segmentation.</li>
-              <li>Updates, encryption, unknown devices.</li>
-            </ul>
-          </article>
-
-          <article class="lens">
-            <h3><span class="lens-dot" aria-hidden="true"></span> Device hygiene</h3>
-            <p class="lens-why">The home’s “organs” — phones, tablets, laptops, TVs.</p>
-            <ul class="lens-bullets">
-              <li>Updates, backups, account sign-ins.</li>
-              <li>Shared accounts, old devices, permissions.</li>
-            </ul>
-          </article>
-
-          <article class="lens">
-            <h3><span class="lens-dot" aria-hidden="true"></span> Privacy & exposure</h3>
-            <p class="lens-why">The home’s “skin” — what the internet can infer.</p>
-            <ul class="lens-bullets">
-              <li>Discoverability, routine clues, app data.</li>
-              <li>Location sharing, visibility, breaches.</li>
-            </ul>
-          </article>
-
-          <article class="lens">
-            <h3><span class="lens-dot" aria-hidden="true"></span> Scam & behavioural risk</h3>
-            <p class="lens-why">The home’s “immune system” — pressure resistance.</p>
-            <ul class="lens-bullets">
-              <li>Pause/verify habits, 2FA posture.</li>
-              <li>Kids’ pressure reflex and repair.</li>
-            </ul>
-          </article>
-
-          <article class="lens">
-            <h3><span class="lens-dot" aria-hidden="true"></span> Children’s wellbeing</h3>
-            <p class="lens-why">The home’s “growth” — boundaries, sleep, safety.</p>
-            <ul class="lens-bullets">
-              <li>Night-time device habits and contact risks.</li>
-              <li>Calm scripts, resilience, co-use.</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="mini-cta">
-          <button class="btn primary" id="openSnapshotLenses" type="button">Get your household snapshot</button>
-          <a class="btn ghost" href="resources.html">Open resources</a>
+        <div class="grid-5">
+          <div class="lens">
+            <h3>Network</h3>
+            <p>Wi-Fi setup, router hygiene, guest networks, update discipline.</p>
+          </div>
+          <div class="lens">
+            <h3>Devices</h3>
+            <p>Updates, screen locks, backups, shared devices, risky apps.</p>
+          </div>
+          <div class="lens">
+            <h3>Privacy</h3>
+            <p>Exposure, oversharing, account protection, data leakage.</p>
+          </div>
+          <div class="lens">
+            <h3>Scams</h3>
+            <p>Phishing readiness, money risk, recovery habits, confidence.</p>
+          </div>
+          <div class="lens">
+            <h3>Wellbeing</h3>
+            <p>Boundaries, sleep disruption, conflict, kids’ digital safety routines.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- AUDIT -->
-    <section class="section soft" id="audit">
+    <section class="section" id="principles">
       <div class="container">
-        <div class="section-head">
-          <h2>The household digital safety audit</h2>
-          <p class="sub">A premium, human-led “digital safety health check” for your home.</p>
+        <h2>Principles</h2>
+        <div class="grid-3">
+          <div class="panel"><h3>Clarity first</h3><p>Make the invisible visible — then act.</p></div>
+          <div class="panel"><h3>Small moves win</h3><p>Tiny changes that reduce risk the most.</p></div>
+          <div class="panel"><h3>Respect reality</h3><p>Busy homes need systems that actually fit.</p></div>
         </div>
-
-        <div class="audit-grid">
-          <div class="audit-card">
-            <p class="audit-price">£75</p>
-            <h3>Full household audit</h3>
-            <ul class="checklist">
-              <li><span aria-hidden="true">✓</span> Five-lens assessment</li>
-              <li><span aria-hidden="true">✓</span> Household Signal report</li>
-              <li><span aria-hidden="true">✓</span> Staged action plan</li>
-              <li><span aria-hidden="true">✓</span> Optional follow-up rhythm</li>
-            </ul>
-
-            <a class="btn primary" href="#request" data-scroll>Request the audit</a>
-          </div>
-
-          <div class="audit-detail">
-            <h3>What it feels like</h3>
-            <div class="feel">
-              <div class="feel-item">
-                <div class="feel-icon" aria-hidden="true">🫧</div>
-                <div>
-                  <p class="feel-title">Calm</p>
-                  <p class="feel-text">Reduce overwhelm and choose smaller steps.</p>
-                </div>
-              </div>
-              <div class="feel-item">
-                <div class="feel-icon" aria-hidden="true">🧭</div>
-                <div>
-                  <p class="feel-title">Guided</p>
-                  <p class="feel-text">Plain English. No jargon required.</p>
-                </div>
-              </div>
-              <div class="feel-item">
-                <div class="feel-icon" aria-hidden="true">🌳</div>
-                <div>
-                  <p class="feel-title">Growth-based</p>
-                  <p class="feel-text">Small habits first. Strong foundations next.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
-
-    <!-- REQUEST -->
-    <section class="section soft" id="request">
-      <div class="container">
-        <div class="section-head">
-          <h2>Request an audit</h2>
-          <p class="sub">Creates an email draft — you stay in control of what you share.</p>
-        </div>
-
-        <form class="form" id="auditRequestForm">
-          <div class="form-row">
-            <label>
-              Your name
-              <input type="text" name="name" autocomplete="name" required />
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" autocomplete="email" required />
-            </label>
-          </div>
-
-          <div class="form-row">
-            <label>
-              Postcode (optional)
-              <input type="text" name="postcode" autocomplete="postal-code" placeholder="e.g., SW1A 1AA" />
-            </label>
-            <label>
-              I’m contacting as
-              <select name="role">
-                <option value="Family">Family / Parent / Carer</option>
-                <option value="School">School / Education</option>
-                <option value="Local Authority">Local authority / Community org</option>
-                <option value="Safeguarding Professional">Safeguarding / Practitioner</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-          </div>
-
-          <label>
-            What would you like help with? (optional)
-            <textarea name="notes" rows="5" placeholder="Example: scam messages, kids on devices at night, unsure about Wi-Fi…"></textarea>
-          </label>
-
-          <div class="form-actions">
-            <button class="btn primary" type="submit">Create audit request email</button>
-            <button class="btn ghost" type="button" id="attachSnapshotBtn" disabled>Attach my snapshot summary</button>
-          </div>
-
-          <p class="fine">
-            We do not ask for passwords, private messages, or device access through this form.
-          </p>
-        </form>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div class="footer-left">
-          <div class="footer-brand">
-            <span aria-hidden="true">🌱</span>
-            <div>
-              <p class="footer-title">Cyber Seeds</p>
-              <p class="footer-sub">Domestic Cyber Ecology • Household Digital Safety</p>
-            </div>
-          </div>
-          <p class="footer-note">No gimmicks. No shame. Just clarity and action.</p>
-        </div>
-
-        <div class="footer-links">
-          <a href="#how" data-scroll>How it works</a>
-          <a href="resources.html">Resources</a>
-          <a href="#audit" data-scroll>Audit</a>
-          <a href="#request" data-scroll>Request</a>
-        </div>
-      </div>
-
-      <div class="container footer-bottom">
-        <p>© <span id="year"></span> Cyber Seeds. All rights reserved.</p>
-        <p class="muted">A calm household signal — not a score.</p>
-      </div>
-    </footer>
-
   </main>
 
+  <footer class="footer">
+    <div class="container foot-inner">
+      <p>© <span id="year"></span> Cyber Seeds</p>
+      <a href="/resources" class="foot-link">Resources</a>
+    </div>
+  </footer>
+
   <!-- SNAPSHOT MODAL -->
-  <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="snapshotTitle">
-    <div class="modal-backdrop" data-close tabindex="-1"></div>
+  <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
+    <div class="modal-backdrop" data-close></div>
 
     <div class="modal-panel" role="document">
       <div class="modal-head">
         <div>
-          <p class="modal-eyebrow">Household snapshot</p>
-          <h2 id="snapshotTitle">A calm 5-minute signal</h2>
-          <p class="small">A lens-by-lens picture that generates your personalised resources hub.</p>
+          <p class="modal-eyebrow">Household Snapshot</p>
+          <h2 class="modal-title">A calm signal — not a score</h2>
+          <p class="modal-sub">Answer honestly. We’ll return clarity + next steps.</p>
         </div>
-        <button class="icon-btn" type="button" aria-label="Close" data-close>✕</button>
+        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot">✕</button>
       </div>
 
       <div class="modal-body">
-        <div class="snapshot-lens-context" id="snapshotLensContext" hidden>
-          <p class="lens-context-title" id="lensContextTitle"></p>
-          <p class="lens-context-copy" id="lensContextCopy"></p>
-        </div>
-
-        <form id="snapshotForm" class="quiz" aria-label="Household snapshot questions"></form>
-
-        <div class="snapshot-actions" id="snapshotControls">
-          <button class="btn ghost" id="snapshotBack" type="button" disabled>Back</button>
-          <button class="btn primary" id="snapshotNext" type="button">Start</button>
-        </div>
-
-        <div class="result" id="snapshotResult" hidden>
-          <div class="result-head">
-            <h3>Your household signal</h3>
-            <p class="small">A direction, not a diagnosis.</p>
+        <!-- scroll area -->
+        <div class="modal-scroll" id="snapshotScroll">
+          <div class="context-cards">
+            <div class="chip">No monitoring</div>
+            <div class="chip">No judgement</div>
+            <div class="chip">2 minutes</div>
+            <div class="chip">Actionable</div>
           </div>
 
-          <div class="signal-grid" id="signalGrid" aria-label="Signal results by lens"></div>
-          <div class="result-copy" id="resultCopy"></div>
+          <form id="snapshotForm" class="quiz" aria-live="polite"></form>
 
-          <div class="result-actions">
-            <button class="btn primary" id="exportSnapshot" type="button">Print / Export</button>
-            <a class="btn ghost" id="goToResources" href="resources.html">Open my resources hub</a>
-            <a class="btn ghost" href="#request" data-scroll>Request an audit</a>
+          <section id="snapshotResult" class="result" hidden>
+            <h3>Your Household Signal</h3>
+            <p id="resultHeadline" class="result-headline"></p>
+
+            <div class="result-grid">
+              <div class="result-card">
+                <h4>Strongest lens</h4>
+                <p id="strongestLens"></p>
+              </div>
+              <div class="result-card">
+                <h4>Weakest lens</h4>
+                <p id="weakestLens"></p>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
+              <a class="btn primary" id="goToResources" href="/resources">Open my resources hub</a>
+              <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
+            </div>
+
+            <p class="micro muted">
+              Export uses only this device’s local storage. Nothing is sent anywhere.
+            </p>
+          </section>
+        </div>
+
+        <!-- pinned controls -->
+        <div class="modal-foot">
+          <div class="snapshot-actions" id="snapshotControls">
+            <button type="button" class="btn ghost" id="snapshotBack">Back</button>
+            <div class="right-actions">
+              <span class="stepmeta" id="stepMeta" aria-live="polite"></span>
+              <button type="button" class="btn primary" id="snapshotNext">Start</button>
+            </div>
           </div>
-
-          <p class="fine">
-            Cyber Seeds is a prevention and resilience framework, not an emergency service.
-          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PRACTITIONER OVERLAY -->
-  <aside class="practitioner" id="practitionerOverlay" hidden aria-label="Practitioner overlay">
-    <div class="practitioner-inner">
-      <div class="practitioner-head">
-        <h3>Practitioner mode</h3>
-        <button class="icon-btn" type="button" id="closePractitioner" aria-label="Close practitioner mode">✕</button>
-      </div>
-      <p class="small">Hidden layer for accredited practitioners only.</p>
-
-      <div class="practitioner-actions">
-        <button class="btn ghost" type="button" id="copySnapshotJson">Copy snapshot JSON</button>
-        <button class="btn primary" type="button" id="toggleDebug">Toggle debug view</button>
-      </div>
-      <pre class="debug" id="debugPanel" hidden></pre>
-    </div>
-  </aside>
-
-  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
-
-  <!-- Main script -->
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
