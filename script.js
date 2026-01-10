@@ -1,8 +1,8 @@
-/* ==========================================================
-   CYBER SEEDS — SNAPSHOT ENGINE (PRODUCTION)
-   ========================================================== */
+// ===============================
+// CYBER SEEDS SNAPSHOT ENGINE (PRODUCTION)
+// ===============================
 
-console.log("✅ Cyber Seeds snapshot engine loaded");
+console.log("\u2705 Cyber Seeds snapshot engine loaded");
 
 window.addEventListener("error", e =>
   console.error("SCRIPT ERROR:", e.error)
@@ -10,6 +10,7 @@ window.addEventListener("error", e =>
 window.addEventListener("unhandledrejection", e =>
   console.error("UNHANDLED PROMISE REJECTION:", e.reason)
 );
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (sel, root = document) => root.querySelector(sel);
