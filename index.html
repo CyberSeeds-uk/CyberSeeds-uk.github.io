@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Cyber Seeds — Household Digital Clarity</title>
   <meta name="description" content="A calm, trauma-aware household digital snapshot. Not a score — a signal you can act on." />
+
   <link rel="icon" href="/cyber_seeds_logo.png" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/" />
+
+  <!-- Cache-bust to stop desktop holding old CSS/JS -->
+  <link rel="stylesheet" href="/style.css?v=20260110" />
 </head>
 
 <body>
@@ -24,7 +28,7 @@
       <a href="/#why" data-scroll>Why Clarity</a>
       <a href="/#lenses" data-scroll>Five Lenses</a>
       <a href="/#principles" data-scroll>Principles</a>
-      <a href="/resources">Resources</a>
+      <a href="/resources/" id="navResources">Resources</a>
     </nav>
   </header>
 
@@ -39,8 +43,8 @@
         </p>
 
         <div class="hero-actions">
-          <button class="btn primary" id="openSnapshotTop">View a household signal</button>
-          <a class="btn ghost" href="/resources">Open resources hub</a>
+          <button class="btn primary" id="openSnapshotTop" type="button">View a household signal</button>
+          <a class="btn ghost" href="/resources/">Open resources hub</a>
         </div>
 
         <p class="hero-foot">No monitoring · No judgement · Just clarity</p>
@@ -54,7 +58,7 @@
             <li>Your strongest & weakest lens</li>
             <li>Clear next actions you can do today</li>
           </ul>
-          <button class="btn subtle" id="openSnapshotCard">Start snapshot</button>
+          <button class="btn subtle" id="openSnapshotCard" type="button">Start snapshot</button>
         </div>
       </div>
     </section>
@@ -130,7 +134,7 @@
   <footer class="footer">
     <div class="container foot-inner">
       <p>© <span id="year"></span> Cyber Seeds</p>
-      <a href="/resources" class="foot-link">Resources</a>
+      <a href="/resources/" class="foot-link">Resources</a>
     </div>
   </footer>
 
@@ -138,18 +142,17 @@
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
     <div class="modal-backdrop" data-close></div>
 
-    <div class="modal-panel" role="document">
+    <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
       <div class="modal-head">
         <div>
           <p class="modal-eyebrow">Household Snapshot</p>
           <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub">Answer honestly. We’ll return clarity + next steps.</p>
+          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
         </div>
-        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot">✕</button>
+        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
       </div>
 
       <div class="modal-body">
-        <!-- scroll area -->
         <div class="modal-scroll" id="snapshotScroll">
           <div class="context-cards">
             <div class="chip">No monitoring</div>
@@ -177,7 +180,7 @@
 
             <div class="result-actions">
               <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
-              <a class="btn primary" id="goToResources" href="/resources">Open my resources hub</a>
+              <a class="btn primary" id="goToResources" href="/resources/">Open my resources hub</a>
               <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
             </div>
 
@@ -187,7 +190,6 @@
           </section>
         </div>
 
-        <!-- pinned controls -->
         <div class="modal-foot">
           <div class="snapshot-actions" id="snapshotControls">
             <button type="button" class="btn ghost" id="snapshotBack">Back</button>
@@ -197,10 +199,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=20260110" defer></script>
 </body>
 </html>
