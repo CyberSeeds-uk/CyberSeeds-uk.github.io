@@ -1,3 +1,11 @@
+window.addEventListener("error", (event) => {
+  console.error("SCRIPT ERROR:", event.error);
+});
+
+window.addEventListener("unhandledrejection", (event) => {
+  console.error("UNHANDLED PROMISE REJECTION:", event.reason);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
