@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Cyber Seeds — Resources</title>
   <meta name="description" content="Your personalised Cyber Seeds resources hub based on your household snapshot signal." />
+
   <link rel="icon" href="/cyber_seeds_logo.png" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
+  <link rel="stylesheet" href="/style.css?v=20260110" />
 </head>
 
 <body>
@@ -24,7 +26,7 @@
       <a href="/#why">Why Clarity</a>
       <a href="/#lenses">Five Lenses</a>
       <a href="/#principles">Principles</a>
-      <a href="/resources" aria-current="page">Resources</a>
+      <a href="/resources/" aria-current="page">Resources</a>
     </nav>
   </header>
 
@@ -38,10 +40,11 @@
               Built from your last household snapshot. If you haven’t taken one yet, start here.
             </p>
             <div class="hero-actions">
-              <button class="btn primary" id="openSnapshotTop">Take snapshot</button>
+              <button class="btn primary" id="openSnapshotTop" type="button">Take snapshot</button>
               <a class="btn ghost" href="/">Back to home</a>
             </div>
           </div>
+
           <div class="card soft">
             <h3>What this hub does</h3>
             <ul class="ticks">
@@ -64,18 +67,18 @@
     </div>
   </footer>
 
-  <!-- same modal -->
+  <!-- SNAPSHOT MODAL -->
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
     <div class="modal-backdrop" data-close></div>
 
-    <div class="modal-panel" role="document">
+    <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
       <div class="modal-head">
         <div>
           <p class="modal-eyebrow">Household Snapshot</p>
           <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub">Answer honestly. We’ll return clarity + next steps.</p>
+          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
         </div>
-        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot">✕</button>
+        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -106,7 +109,7 @@
 
             <div class="result-actions">
               <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
-              <button class="btn primary" type="button" id="retakeSnapshot">Retake</button>
+              <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
             </div>
 
             <p class="micro muted">
@@ -124,10 +127,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=20260110" defer></script>
 </body>
 </html>
