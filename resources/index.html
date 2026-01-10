@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cyber Seeds — Resources</title>
+  <meta name="description" content="Your personalised Cyber Seeds resources hub based on your household snapshot signal." />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/images/logo.png" class="logo" alt="Cyber Seeds logo" />
+      <span class="brand-name">Cyber Seeds</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="navMenu">
+      <a href="/#why">Why Clarity</a>
+      <a href="/#lenses">Five Lenses</a>
+      <a href="/#principles">Principles</a>
+      <a href="/resources" aria-current="page">Resources</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="section">
+      <div class="container">
+        <div class="resources-hero">
+          <div>
+            <h1>Your Resources Hub</h1>
+            <p class="lead">
+              Built from your last household snapshot. If you haven’t taken one yet, start here.
+            </p>
+            <div class="hero-actions">
+              <button class="btn primary" id="openSnapshotTop">Take snapshot</button>
+              <a class="btn ghost" href="/">Back to home</a>
+            </div>
+          </div>
+          <div class="card soft">
+            <h3>What this hub does</h3>
+            <ul class="ticks">
+              <li>Prioritises the lens that most reduces risk</li>
+              <li>Gives tiny actions you can do today</li>
+              <li>Keeps language calm and non-judgemental</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="resourcesHub" class="resources-hub" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container foot-inner">
+      <p>© <span id="year"></span> Cyber Seeds</p>
+      <a href="/" class="foot-link">Home</a>
+    </div>
+  </footer>
+
+  <!-- same modal -->
+  <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="modal-panel" role="document">
+      <div class="modal-head">
+        <div>
+          <p class="modal-eyebrow">Household Snapshot</p>
+          <h2 class="modal-title">A calm signal — not a score</h2>
+          <p class="modal-sub">Answer honestly. We’ll return clarity + next steps.</p>
+        </div>
+        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-scroll" id="snapshotScroll">
+          <div class="context-cards">
+            <div class="chip">No monitoring</div>
+            <div class="chip">No judgement</div>
+            <div class="chip">2 minutes</div>
+            <div class="chip">Actionable</div>
+          </div>
+
+          <form id="snapshotForm" class="quiz" aria-live="polite"></form>
+
+          <section id="snapshotResult" class="result" hidden>
+            <h3>Your Household Signal</h3>
+            <p id="resultHeadline" class="result-headline"></p>
+
+            <div class="result-grid">
+              <div class="result-card">
+                <h4>Strongest lens</h4>
+                <p id="strongestLens"></p>
+              </div>
+              <div class="result-card">
+                <h4>Weakest lens</h4>
+                <p id="weakestLens"></p>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
+              <button class="btn primary" type="button" id="retakeSnapshot">Retake</button>
+            </div>
+
+            <p class="micro muted">
+              Export uses only this device’s local storage. Nothing is sent anywhere.
+            </p>
+          </section>
+        </div>
+
+        <div class="modal-foot">
+          <div class="snapshot-actions" id="snapshotControls">
+            <button type="button" class="btn ghost" id="snapshotBack">Back</button>
+            <div class="right-actions">
+              <span class="stepmeta" id="stepMeta" aria-live="polite"></span>
+              <button type="button" class="btn primary" id="snapshotNext">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
