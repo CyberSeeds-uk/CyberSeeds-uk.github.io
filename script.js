@@ -11,7 +11,7 @@ window.addEventListener("unhandledrejection", e =>
   console.error("UNHANDLED PROMISE REJECTION:", e.reason)
 );
 
-
+document.addEventListener("DOMContentLoaded", () => {
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
