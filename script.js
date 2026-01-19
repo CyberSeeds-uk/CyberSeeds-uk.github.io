@@ -337,17 +337,52 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     });
 
-    // export + retake
-    const exportBtn = $("#exportSnapshot");
-    exportBtn?.addEventListener("click", () => {
-      try {
-        const raw = localStorage.getItem("seed_snapshot_v1");
-        if (!raw) return;
-        downloadText("cyber-seeds-snapshot.json", raw);
-      } catch (e) {
-        console.error("Export failed:", e);
-      }
-    });
+exportBtn?.addEventListener("click", () => {
+  try {
+    const raw = localStorage.getItem("seed_snapshot_v1");
+    if (!raw) return;
+
+    const data = JSON.parse(raw);
+
+    const text =
+`CYBER SEEDS — HOUSEHOLD SNAPSHOT
+--------------------------------
+
+Overall Signal:
+${data.stage.name}
+${data.stage.desc}
+
+Strongest Lens:
+${data.strongest}
+
+Weakest Lens:
+${data.weakest}
+
+Lens Breakdown:
+- Network:   ${data.scores.Network}/4
+- Devices:   ${data.scores.Devices}/4
+- Privacy:   ${data.scores.Privacy}/4
+- Scams:     ${data.scores.Scams}/4
+- Wellbeing: ${data.scores.Wellbeing}/4
+
+Total Signal Score:
+${data.total} / 20
+
+What this means:
+This is not a judgement.
+It is a signal showing where small, calm changes
+will reduce risk and stress most effectively.
+
+Nothing was sent anywhere.
+This snapshot exists only on this device.
+`;
+
+    downloadText("Cyber-Seeds-Household-Snapshot.txt", text);
+  } catch (e) {
+    console.error("Export failed:", e);
+  }
+});
+
 
     const retakeBtn = $("#retakeSnapshot");
     retakeBtn?.addEventListener("click", () => {
