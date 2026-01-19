@@ -8,7 +8,7 @@
 
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-  <link rel="stylesheet" href="/style.css?v=20260110" />
+  <link rel="stylesheet" href="/style.css?v=20260119" />
 </head>
 
 <body>
@@ -18,14 +18,14 @@
       <span class="brand-name">Cyber Seeds</span>
     </a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
       <span></span><span></span><span></span>
     </button>
 
     <nav class="nav" id="navMenu">
-      <a href="/#why">Why Clarity</a>
-      <a href="/#lenses">Five Lenses</a>
-      <a href="/#principles">Principles</a>
+      <a href="/#why" data-scroll>Why Clarity</a>
+      <a href="/#lenses" data-scroll>Five Lenses</a>
+      <a href="/#principles" data-scroll>Principles</a>
       <a href="/resources/" aria-current="page">Resources</a>
     </nav>
   </header>
@@ -37,19 +37,19 @@
           <div>
             <h1>Your Resources Hub</h1>
             <p class="lead">
-              Built from your last household snapshot. If you haven’t taken one yet, start here.
+              Built from your last household snapshot on <b>this device</b>. If you haven’t taken one yet, start here.
             </p>
             <div class="hero-actions">
-              <button class="btn primary" id="openSnapshotTop" type="button">Take snapshot</button>
+              <button class="btn primary" data-open-snapshot type="button">Take snapshot</button>
               <a class="btn ghost" href="/">Back to home</a>
             </div>
           </div>
 
-          <div class="card soft">
+          <div class="card">
             <h3>What this hub does</h3>
             <ul class="ticks">
               <li>Prioritises the lens that most reduces risk</li>
-              <li>Gives tiny actions you can do today</li>
+              <li>Gives small actions you can do today</li>
               <li>Keeps language calm and non-judgemental</li>
             </ul>
           </div>
@@ -67,7 +67,7 @@
     </div>
   </footer>
 
-  <!-- SNAPSHOT MODAL -->
+  <!-- SNAPSHOT MODAL (shared) -->
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
     <div class="modal-backdrop" data-close></div>
 
@@ -83,11 +83,8 @@
 
       <div class="modal-body">
         <div class="modal-scroll" id="snapshotScroll">
-          <div class="context-cards">
-            <div class="chip">No monitoring</div>
-            <div class="chip">No judgement</div>
-            <div class="chip">2 minutes</div>
-            <div class="chip">Actionable</div>
+          <div class="context-cards" id="snapshotChips">
+            <!-- chips injected by JS -->
           </div>
 
           <form id="snapshotForm" class="quiz" aria-live="polite"></form>
@@ -113,7 +110,7 @@
             </div>
 
             <p class="micro muted">
-              Export uses only this device’s local storage. Nothing is sent anywhere.
+              Runs locally on this device. Nothing is sent anywhere.
             </p>
           </section>
         </div>
@@ -132,6 +129,6 @@
     </div>
   </div>
 
-  <script src="/script.js?v=20260110" defer></script>
+  <script src="/script.js?v=20260119" defer></script>
 </body>
 </html>
