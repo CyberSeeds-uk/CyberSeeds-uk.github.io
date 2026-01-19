@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     });
 
-exportBtn?.addEventListener("click", () => {
+    exportBtn?.addEventListener("click", () => {
   try {
     const raw = localStorage.getItem("seed_snapshot_v1");
     if (!raw) return;
