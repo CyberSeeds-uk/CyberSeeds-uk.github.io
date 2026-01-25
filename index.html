@@ -8,65 +8,98 @@
   <meta name="description" content="A calm, trauma-aware household digital snapshot. Not a score — a signal you can act on." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/" />
-  <!-- Cache-bust (update this number whenever you deploy) -->
-  <link rel="stylesheet" href="/style.css?v=20260120" />  <!-- 🔍 Updated version query to 20260120 -->
+
+  <!-- Google Fonts: Inter for modern, professional typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Main stylesheet (versioned for cache busting) -->
+  <link rel="stylesheet" href="/style.css?v=20260125" />
 </head>
 <body>
-  <header class="header">
-    <a class="brand" href="/" aria-label="Cyber Seeds home">
-      <img src="/cyber_seeds_logo.png" class="logo" alt="Cyber Seeds logo" />
-      <span class="brand-name">Cyber Seeds</span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="nav" id="navMenu">
-      <a href="/#why" data-scroll>Why Clarity</a>
-      <a href="/#lenses" data-scroll>Five Lenses</a>
-      <a href="/#principles" data-scroll>Principles</a>
-      <a href="/resources/" id="navResources">Resources</a>
-    </nav>
+  <!--
+    Header
+    A sticky navigation bar that collapses into a hamburger menu on
+    mobile screens.  The header uses the brand colour palette and
+    stays visible while scrolling.
+  -->
+  <header class="header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Cyber Seeds home">
+        <img src="/cyber_seeds_logo.png" class="logo" alt="Cyber Seeds logo" />
+        <span class="brand-name">Cyber Seeds</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="navMenu">
+        <a href="#why" data-scroll>Why Clarity</a>
+        <a href="#lenses" data-scroll>Five Lenses</a>
+        <a href="#principles" data-scroll>Principles</a>
+        <a href="/resources/" id="navResources">Resources</a>
+      </nav>
+    </div>
   </header>
 
   <main class="main">
-    <!-- ... (hero and page content unchanged) ... -->
+    <!--
+      Hero section
+      Introduces the product with a clear headline, supporting copy
+      and call‑to‑action buttons.  The hero uses a soft accent
+      background to draw attention and splits content into text and
+      a highlighted card summarising the snapshot benefits.
+    -->
     <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">A household intelligence</p>
-        <h1>Your home is <span class="hl">digital</span>.<br/>It just hasn’t been <span class="hl2">mapped</span> yet.</h1>
-        <p class="lead">
-          Cyber Seeds reveals the invisible systems shaping your household’s online life — calmly, proportionately, with dignity.
-        </p>
-        <div class="hero-actions">
-          <button class="btn primary" data-open-snapshot type="button">View a household signal</button>
-          <a class="btn ghost" href="/resources/">Open resources hub</a>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">Household Digital Intelligence</p>
+          <h1>Bring calm to your digital home</h1>
+          <p class="lead">
+            Cyber Seeds reveals the invisible systems shaping your household’s online life — calmly, proportionately and with dignity.
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" data-open-snapshot type="button">Get your household signal</button>
+            <a class="btn ghost" href="/resources/">Browse resources</a>
+          </div>
+          <p class="hero-foot micro muted">Runs locally • No data sent • Calm next steps</p>
         </div>
-        <p class="hero-foot">Runs locally · No data sent · Calm next steps</p>
-      </div>
-      <div class="hero-card">
-        <div class="card">
-          <h3>What you get in 2 minutes</h3>
-          <ul class="ticks">
-            <li>A snapshot signal (not a shame score)</li>
-            <li>Your strongest &amp; weakest lens</li>
-            <li>One clear “start here” plan</li>
-          </ul>
-          <button class="btn subtle" data-open-snapshot type="button">Start snapshot</button>
+        <div class="hero-card">
+          <div class="card">
+            <h3>What you get in 2 minutes</h3>
+            <ul class="ticks">
+              <li>A snapshot signal (not a shame score)</li>
+              <li>Your strongest and weakest lens</li>
+              <li>One clear “start here” plan</li>
+            </ul>
+            <button class="btn subtle" data-open-snapshot type="button">Start snapshot</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ... (additional sections: Why Signal, Five Lenses, Principles, etc. unchanged) ... -->
+    <!--
+      Additional sections (Why, Lenses, Principles) would be placed here
+      following a similar container-based layout.  These have been
+      omitted for brevity; copy your existing content or add new
+      sections as needed.
+    -->
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container foot-inner">
-      <p>© <span id="year"></span> Cyber Seeds</p>
+      <p>© <span id="year"></span> Cyber Seeds</p>
       <a href="/resources/" class="foot-link">Resources</a>
     </div>
   </footer>
 
-  <!-- SNAPSHOT MODAL -->
+  <!--
+    Snapshot modal
+    This dialog appears over the page when the visitor wants to take
+    the household snapshot.  It contains a short quiz and returns a
+    personalised result.  See script.js for the implementation.
+  -->
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
     <div class="modal-backdrop" data-close></div>
     <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
@@ -74,15 +107,13 @@
         <div>
           <p class="modal-eyebrow">Household Snapshot</p>
           <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
+          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
         </div>
         <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-scroll" id="snapshotScroll">
-          <div class="context-cards" id="snapshotChips">
-            <!-- chips injected by JS -->
-          </div>
+          <div class="context-cards" id="snapshotChips"><!-- chips injected by JS --></div>
           <form id="snapshotForm" class="quiz" aria-live="polite"><!-- quiz content injected by JS --></form>
           <section id="snapshotResult" class="result" hidden>
             <h3>Your Household Signal</h3>
@@ -118,6 +149,11 @@
     </div>
   </div>
 
-  <script src="/script.js?v=20260120" defer></script>  <!-- 🔍 Updated script version to 20260120 -->
+  <!--
+    Main JavaScript
+    Defer loading to ensure the DOM is ready.  Version number is
+    incremented to refresh cached assets on deployment.
+  -->
+  <script src="/script.js?v=20260125" defer></script>
 </body>
 </html>
