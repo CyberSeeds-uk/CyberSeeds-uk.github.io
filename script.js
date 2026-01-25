@@ -102,6 +102,10 @@
 
   // Resources page container (may exist on /resources/)
   const resourcesEl = $("#resourcesHub");
+  const goToResources = $("#goToResources");
+  if (goToResources) {
+    goToResources.addEventListener("click", () => closeModal());
+  }
 
   const hasSnapshotUI = !!(modal && form && nextBtn && backBtn);
 
