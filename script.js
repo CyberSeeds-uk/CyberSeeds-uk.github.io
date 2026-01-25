@@ -575,7 +575,6 @@
         </ol>
         <div class="seed-note">
           <b>${escapeHTML(pack.seed.split(":")[0])}:</b> ${escapeHTML(pack.seed.split(":").slice(1).join(":").trim())}
-        </div>
       </div>
 
       <div class="card">
@@ -593,7 +592,6 @@
             `;
           }).join("")}
         </div>
-      </div>
     `;
   }
 
@@ -693,7 +691,6 @@
       <p style="margin-top:10px;"><b>${escapeHTML(snapshot.stage.name)}</b> — ${escapeHTML(snapshot.stage.desc)}</p>
     </div>
 
-    <div class
 
     <div class="card">
       <h2>Snapshot overview</h2>
@@ -728,7 +725,7 @@
       </div>
     </div>
 
-    <div class="card">
+    ="card">
       <h2>What to do next</h2>
       <p>
         This snapshot is not a judgement — it’s a starting signal.
