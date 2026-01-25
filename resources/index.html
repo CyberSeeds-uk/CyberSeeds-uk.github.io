@@ -1,73 +1,55 @@
-<!--
-  Cyber Seeds — Resources Hub
-
-  The Resources page surfaces personalised advice based on the
-  visitor’s most recent household snapshot (stored locally in
-  localStorage).  If no snapshot has been taken yet, a friendly
-  message encourages them to start.  The layout mirrors the
-  homepage for consistency, and calls-to-action allow visitors to
-  return home or retake the quiz.  All styles are defined in
-  style.css and interactions are handled by script.js.
--->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2f2a" />
+
   <title>Cyber Seeds — Resources</title>
-  <meta name="description" content="Your personalised Cyber Seeds resources hub based on your household snapshot signal." />
+  <meta name="description" content="Your personalised Cyber Seeds resources hub, built from your household snapshot on this device." />
+
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-  <!-- Inter font and main stylesheet -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css?v=20260125" />
 </head>
 
 <body>
-  <!-- Header (reused) -->
-  <header class="header" id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Cyber Seeds home">
         <img src="/cyber_seeds_logo.png" class="logo" alt="Cyber Seeds logo" />
         <span class="brand-name">Cyber Seeds</span>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+
+      <button class="nav-toggle" id="navToggle"
+        aria-label="Open menu" aria-expanded="false" aria-controls="navMenu" type="button">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" id="navMenu">
-        <a href="/\#why" data-scroll>Why Clarity</a>
-        <a href="/\#lenses" data-scroll>Five Lenses</a>
-        <a href="/\#principles" data-scroll>Principles</a>
+
+      <nav class="nav" id="navMenu" aria-label="Primary">
+        <a href="/#why">Why Clarity</a>
+        <a href="/#lenses">Five Lenses</a>
+        <a href="/#principles">Principles</a>
         <a href="/resources/" aria-current="page">Resources</a>
       </nav>
     </div>
   </header>
 
-  <main class="main">
+  <main id="main" class="main">
     <section class="section">
       <div class="container">
-        <div class="resources-hero">
-          <div>
-            <h1>Your Resources Hub</h1>
-            <p class="lead">
-              Built from your last household snapshot on <b>this device</b>. If you haven’t taken one yet, start here.
-            </p>
-            <div class="hero-actions">
-              <button class="btn primary" data-open-snapshot type="button">Take snapshot</button>
-              <a class="btn ghost" href="/">Back to home</a>
-            </div>
-          </div>
-          <div class="card">
-            <h3>What this hub does</h3>
-            <ul class="ticks">
-              <li>Prioritises the lens that most reduces risk</li>
-              <li>Gives small actions you can do today</li>
-              <li>Keeps language calm and non‑judgemental</li>
-            </ul>
-          </div>
+        <h1 style="margin:0 0 8px 0;">Your Resources Hub</h1>
+        <p class="muted" style="margin:0 0 14px 0;">
+          Built from your last household snapshot on <b>this device</b>. If you haven’t taken one yet, start here.
+        </p>
+
+        <div class="hero-actions" style="margin-bottom:14px;">
+          <button class="btn primary" data-open-snapshot type="button">Take snapshot</button>
+          <a class="btn ghost" href="/">Back to home</a>
         </div>
+
         <div id="resourcesHub" class="resources-hub" aria-live="polite"></div>
       </div>
     </section>
@@ -75,30 +57,35 @@
 
   <footer class="footer">
     <div class="container foot-inner">
-      <p>© <span id="year"></span> Cyber Seeds</p>
+      <p>© <span id="year"></span> Cyber Seeds</p>
       <a href="/" class="foot-link">Home</a>
     </div>
   </footer>
 
-  <!-- Snapshot modal (shared with homepage) -->
+  <!-- SNAPSHOT MODAL (shared) -->
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
     <div class="modal-backdrop" data-close></div>
+
     <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
       <div class="modal-head">
         <div>
           <p class="modal-eyebrow">Household Snapshot</p>
-          <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
+          <h2 class="modal-title">A calm signal — not a score</h2>
+          <p class="modal-sub" id="snapshotDesc">Answer as you are. We’ll return clarity + next steps.</p>
         </div>
         <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
       </div>
+
       <div class="modal-body">
         <div class="modal-scroll" id="snapshotScroll">
-          <div class="context-cards" id="snapshotChips"><!-- chips injected by JS --></div>
+          <div class="context-cards" id="snapshotChips"></div>
+
           <form id="snapshotForm" class="quiz" aria-live="polite"></form>
+
           <section id="snapshotResult" class="result" hidden>
             <h3>Your Household Signal</h3>
             <p id="resultHeadline" class="result-headline"></p>
+
             <div class="result-grid">
               <div class="result-card">
                 <h4>Strongest lens</h4>
@@ -109,13 +96,16 @@
                 <p id="weakestLens"></p>
               </div>
             </div>
+
             <div class="result-actions">
               <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
               <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
             </div>
+
             <p class="micro muted">Runs locally on this device. Nothing is sent anywhere.</p>
           </section>
         </div>
+
         <div class="modal-foot">
           <div class="snapshot-actions" id="snapshotControls">
             <button type="button" class="btn ghost" id="snapshotBack">Back</button>
@@ -125,11 +115,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Main script -->
   <script src="/script.js?v=20260125" defer></script>
 </body>
 </html>
