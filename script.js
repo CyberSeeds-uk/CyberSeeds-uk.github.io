@@ -58,7 +58,8 @@
       if (!target) return;
       e.preventDefault();
       closeNav();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top: y, behavior: "smooth" });
       history.replaceState(null, "", href);
     });
   });
@@ -180,6 +181,7 @@
     document.body.style.left = "0";
     document.body.style.right = "0";
     document.body.style.width = "100%";
+    document.body.style.webkitOverflowScrolling = "auto"; 
   };
 
   const unlockBody = () => {
@@ -190,6 +192,7 @@
     document.body.style.right = "";
     document.body.style.width = "";
     window.scrollTo(0, scrollY);
+    document.body.style.webkitOverflowScrolling = ""; 
   };
 
   // ---------- STORAGE ----------
@@ -370,7 +373,8 @@
     // Use a distinct state marker (avoid stacking duplicates)
     const st = history.state || {};
     if (!st.__seedModal) {
-      history.pushState({ ...(st || {}), __seedModal: true }, "", "#snapshot");
+       history.replaceState(history.state || {}, "", "#");
+       history.pushState({ ...(st || {}), __seedModal: true }, "", "#snapshot");
     }
   }
 
