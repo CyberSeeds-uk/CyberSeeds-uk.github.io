@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -9,8 +9,8 @@
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/" />
 
-  <!-- Bump v= whenever you deploy (forces refresh even behind caches) -->
-  <link rel="stylesheet" href="/style.css?v=20260125a" />
+  <!-- CACHE BUST: change this number on every deploy -->
+  <link rel="stylesheet" href="/style.css?v=20260125" />
 </head>
 
 <body>
@@ -23,139 +23,273 @@
         <span class="brand-name">Cyber Seeds</span>
       </a>
 
-      <button class="nav-toggle" id="navToggle" type="button"
-        aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
         <span></span><span></span><span></span>
       </button>
 
       <nav class="nav" id="navMenu">
         <a href="#why" data-scroll>Why Clarity</a>
         <a href="#lenses" data-scroll>Five Lenses</a>
-        <a href="#principles" data-scroll>Principles</a>
+        <a href="#benefits" data-scroll>Benefits</a>
+        <a href="#about" data-scroll>About</a>
+        <a href="#faq" data-scroll>FAQs</a>
         <a href="/resources/">Resources</a>
-        <button class="btn nav-cta" type="button" data-open-snapshot>Take Snapshot</button>
       </nav>
     </div>
   </header>
 
   <main class="main" id="main">
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">A household intelligence</p>
-          <h1>Your home is <span class="hl">digital</span>.<br/>It just hasn’t been <span class="hl2">mapped</span> yet.</h1>
+          <h1>
+            Your home is <span class="hl">digital</span>.<br />
+            It just hasn’t been <span class="hl2">mapped</span> yet.
+          </h1>
           <p class="lead">
             Cyber Seeds reveals the invisible systems shaping your household’s online life — calmly, proportionately, with dignity.
           </p>
 
           <div class="hero-actions">
-            <button class="btn primary" type="button" data-open-snapshot>View a household signal</button>
+            <button class="btn primary" type="button" data-open-snapshot>Take the 2-minute snapshot</button>
             <a class="btn ghost" href="/resources/">Open resources hub</a>
           </div>
 
-          <p class="hero-foot">Runs locally · No tracking · No accounts · Calm next steps</p>
+          <div class="hero-meta">
+            <span class="meta-chip">Runs locally</span>
+            <span class="meta-chip">No accounts</span>
+            <span class="meta-chip">No tracking</span>
+            <span class="meta-chip">Clear next steps</span>
+          </div>
+
+          <div class="download-row">
+            <a class="btn subtle" href="/downloads/cyber-seeds-family-pack.pdf" download>
+              Download the Family Pack (PDF)
+            </a>
+            <span class="micro muted">Printable, shareable, public-sector friendly.</span>
+          </div>
         </div>
 
         <div class="hero-card">
-          <div class="card">
-            <h3>What you get in 2 minutes</h3>
+          <div class="card card-strong">
+            <h3>What you get</h3>
             <ul class="ticks">
-              <li>A snapshot signal (not a shame score)</li>
-              <li>Your strongest &amp; weakest lens</li>
-              <li>A “start here” plan that fits real homes</li>
+              <li>A calm household signal (not a shame score)</li>
+              <li>Your strongest & weakest lens</li>
+              <li>A practical “Today / This week / This month” plan</li>
+              <li>Personalised resources that stay on your device</li>
             </ul>
-            <button class="btn subtle" type="button" data-open-snapshot>Start snapshot</button>
+
+            <div class="mini-graphic" aria-hidden="true">
+              <div class="mini-bar"><span style="width:72%"></span></div>
+              <div class="mini-bar"><span style="width:48%"></span></div>
+              <div class="mini-bar"><span style="width:62%"></span></div>
+              <div class="mini-bar"><span style="width:34%"></span></div>
+              <div class="mini-bar"><span style="width:55%"></span></div>
+            </div>
+
+            <button class="btn primary" type="button" data-open-snapshot>Start snapshot</button>
+            <p class="micro muted">Nothing is uploaded. Your results remain on this device.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="section" id="why">
+      <div class="container">
+        <h2>Why clarity matters</h2>
+        <p class="section-lead">
+          Most families don’t need fear. They need a map.
+          Cyber Seeds is designed to reduce cognitive load: one view of what matters, one safe next step at a time.
+        </p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Calm over chaos</h3>
+            <p>We replace panic with practical routines. Safety grows through small, repeatable habits.</p>
+          </div>
+          <div class="card">
+            <h3>Proportionate, not extreme</h3>
+            <p>We focus on the few changes that reduce risk the most — without demanding perfection.</p>
+          </div>
+          <div class="card">
+            <h3>Built for real households</h3>
+            <p>Busy homes, shared devices, mixed confidence levels — Cyber Seeds is designed for everyday life.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LENSES -->
+    <section class="section alt" id="lenses">
+      <div class="container">
+        <h2>The Five Lenses</h2>
+        <p class="section-lead">
+          Each lens is a part of your household’s digital ecology. The snapshot identifies which lens will reduce risk fastest.
+        </p>
+
+        <div class="grid-5">
+          <div class="lens">
+            <div class="lens-icon" aria-hidden="true">📶</div>
+            <h3>Network</h3>
+            <p>Wi-Fi and router settings — the home’s digital front door.</p>
+          </div>
+          <div class="lens">
+            <div class="lens-icon" aria-hidden="true">🧩</div>
+            <h3>Devices</h3>
+            <p>Updates, locks, backups — keeping everyday devices steady.</p>
+          </div>
+          <div class="lens">
+            <div class="lens-icon" aria-hidden="true">🫧</div>
+            <h3>Privacy</h3>
+            <p>Passwords, recovery routes, oversharing, and account protection.</p>
+          </div>
+          <div class="lens">
+            <div class="lens-icon" aria-hidden="true">🛑</div>
+            <h3>Scams</h3>
+            <p>Urgency, impersonation, and manipulation — the household response plan.</p>
+          </div>
+          <div class="lens">
+            <div class="lens-icon" aria-hidden="true">🌙</div>
+            <h3>Wellbeing</h3>
+            <p>Sleep, focus, calm boundaries, and children’s online development.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="section" id="benefits">
+      <div class="container">
+        <h2>Benefits for families</h2>
+        <p class="section-lead">
+          Cyber Seeds is not “more to do”. It’s a clearer order of doing things — built to be kind to busy lives.
+        </p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Less panic, more control</h3>
+            <p>When something happens (a scam message, a lost phone, a suspicious login) you have a calm playbook.</p>
+          </div>
+          <div class="card">
+            <h3>Fewer invisible risks</h3>
+            <p>Small fixes reduce the most common pathways into family accounts and devices.</p>
+          </div>
+          <div class="card">
+            <h3>A calmer home environment</h3>
+            <p>Boundaries that protect sleep and attention — without banning the internet or blaming anyone.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>The rule of gentle progress</h3>
+          <p><b>Change one thing, not everything.</b> Sustainable digital safety is grown, not forced.</p>
+          <div class="hero-actions">
+            <button class="btn primary" type="button" data-open-snapshot>Take the snapshot</button>
+            <a class="btn ghost" href="/downloads/cyber-seeds-family-pack.pdf" download>Download Family Pack</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section alt" id="about">
+      <div class="container">
+        <h2>About Cyber Seeds</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>A Domestic Cyber Ecology</h3>
+            <p>
+              Cyber Seeds treats the home as a living system: Wi-Fi, devices, accounts, habits, and wellbeing all interact.
+              Instead of fear, we build <b>care</b>.
+            </p>
+            <p class="muted">
+              The method is designed to be replicable: families can self-check, practitioners can audit, and institutions can adopt consistent standards.
+            </p>
           </div>
 
-          <div class="card soft">
-            <h3>Designed for families</h3>
-            <p class="muted">
-              We measure systems (Wi-Fi, devices, habits) — not worth. If things are messy, that’s normal. We start with the smallest move that changes the whole system.
+          <div class="card">
+            <h3>Safeguarding-aware by design</h3>
+            <p>
+              The tone is trauma-aware and non-judgemental. The objective is always the same:
+              reduce harm, restore dignity, and support safer digital life for children and adults.
+            </p>
+            <p class="micro muted">
+              If you believe a child is at immediate risk, contact emergency services.
+              For non-emergency safeguarding concerns, follow your local authority or school safeguarding route.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="why">
+    <!-- FAQ -->
+    <section class="section" id="faq">
       <div class="container">
-        <h2>Why “signal”, not “score”</h2>
-        <p class="lead">
-          Most digital-safety tools punish people with numbers. Cyber Seeds does the opposite: it shows the shape of your household system — where risk flows, where it’s contained, and what to change first.
-        </p>
+        <h2>FAQs</h2>
+        <p class="section-lead">Clear answers, no pressure.</p>
 
-        <div class="grid-3">
-          <div class="card">
-            <h3>System, not blame</h3>
-            <p class="muted">We treat the household as an ecosystem: Wi-Fi, devices, accounts, routines, and wellbeing.</p>
-          </div>
-          <div class="card">
-            <h3>Small moves win</h3>
-            <p class="muted">We recommend the smallest change that reduces the most risk — without adding stress.</p>
-          </div>
-          <div class="card">
-            <h3>Trauma-aware by default</h3>
-            <p class="muted">No judgement language. No “you failed”. Just clear, supportive steps.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="lenses">
-      <div class="container">
-        <h2>The Five Lenses</h2>
-        <p class="muted">Cyber Seeds reads your household through five practical safety lenses.</p>
-
-        <div class="grid-5">
-          <div class="card lens">
-            <h3>Network</h3>
-            <p class="muted">Router hygiene, guest networks, update discipline.</p>
-          </div>
-          <div class="card lens">
-            <h3>Devices</h3>
-            <p class="muted">Updates, locks, backups, shared devices, risky apps.</p>
-          </div>
-          <div class="card lens">
-            <h3>Privacy</h3>
-            <p class="muted">Accounts, exposure, oversharing, recovery controls.</p>
-          </div>
-          <div class="card lens">
-            <h3>Scam Defence</h3>
-            <p class="muted">Urgency messages, verification habits, money risk.</p>
-          </div>
-          <div class="card lens">
-            <h3>Child Wellbeing</h3>
-            <p class="muted">Boundaries, sleep, conflict, calm online routines.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="principles">
-      <div class="container">
-        <h2>Principles</h2>
-        <div class="grid-3">
-          <div class="card">
-            <h3>Clarity first</h3>
-            <p class="muted">Make the invisible visible — then act.</p>
-          </div>
-          <div class="card">
-            <h3>Proportionate action</h3>
-            <p class="muted">Match the response to the real risk, not the fear.</p>
-          </div>
-          <div class="card">
-            <h3>Respect reality</h3>
-            <p class="muted">Busy homes need systems that actually fit.</p>
-          </div>
+        <div class="faq">
+          <details>
+            <summary>Is the snapshot a “score”?</summary>
+            <p>No. It’s a calm <b>signal</b> that helps you choose the next best action without shame.</p>
+          </details>
+          <details>
+            <summary>Do you collect or send my data?</summary>
+            <p>The snapshot runs locally in your browser. Your results stay on your device unless you choose to share them during an audit.</p>
+          </details>
+          <details>
+            <summary>Can I reset the snapshot?</summary>
+            <p>Yes. Use “Reset snapshot” in the modal or on the Resources page. It clears local results from this device.</p>
+          </details>
+          <details>
+            <summary>What does an audit involve?</summary>
+            <p>A structured walk-through of the Five Lenses: Wi-Fi, devices, accounts, scam response habits, and child digital wellbeing patterns. Nothing invasive.</p>
+          </details>
+          <details>
+            <summary>Do I need technical skills?</summary>
+            <p>No. Cyber Seeds translates complex settings into practical steps and household rituals.</p>
+          </details>
+          <details>
+            <summary>What if we’ve already been scammed?</summary>
+            <p>You’re not alone. We start with account protection and calm verification habits to reduce repeat risk.</p>
+          </details>
+          <details>
+            <summary>How often should we repeat the snapshot?</summary>
+            <p>Every 3 months, or after a change (new phone, new router, scam incident, new school year).</p>
+          </details>
+          <details>
+            <summary>Will you look through our messages or photos?</summary>
+            <p>No. The method focuses on settings, protections, and household response patterns — not private content.</p>
+          </details>
+          <details>
+            <summary>Is this suitable for schools/councils?</summary>
+            <p>Yes. Cyber Seeds is structured for institutional adoption: repeatable assessments, calm language, safeguarding alignment.</p>
+          </details>
+          <details>
+            <summary>What’s the fastest high-impact improvement?</summary>
+            <p>Protect your main email with two-step verification and stop password reuse for key accounts.</p>
+          </details>
         </div>
 
         <div class="callout">
-          <div class="callout-inner">
-            <h3>Ready to map your household?</h3>
-            <p class="muted">Two minutes. Five questions. A calm plan.</p>
-            <button class="btn primary" type="button" data-open-snapshot>Take the snapshot</button>
-          </div>
+          <h3>Want a printable version?</h3>
+          <p>Use the Family Pack PDF — built for sharing with relatives, carers, and support services.</p>
+          <a class="btn primary" href="/downloads/cyber-seeds-family-pack.pdf" download>Download the Family Pack</a>
         </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section alt">
+      <div class="container final-cta">
+        <h2>Begin with one calm signal</h2>
+        <p class="section-lead">Two minutes. Five questions. Clear next steps.</p>
+        <button class="btn primary large" type="button" data-open-snapshot>Take the snapshot</button>
+        <p class="micro muted">Runs locally on this device. Nothing is sent anywhere.</p>
       </div>
     </section>
   </main>
@@ -163,27 +297,35 @@
   <footer class="footer">
     <div class="container foot-inner">
       <p>© <span id="year"></span> Cyber Seeds</p>
-      <a href="/resources/" class="foot-link">Resources</a>
+      <div class="foot-links">
+        <a href="/resources/">Resources</a>
+        <a href="/downloads/cyber-seeds-family-pack.pdf" download>Family Pack</a>
+      </div>
     </div>
   </footer>
 
   <!-- SNAPSHOT MODAL -->
   <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
-    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-backdrop" data-close></div>
 
     <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
       <div class="modal-head">
-        <div>
+        <div class="modal-head-left">
           <p class="modal-eyebrow">Household Snapshot</p>
-          <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub" id="snapshotDesc">Answer honestly. We’ll return clarity + next steps.</p>
+          <h2 class="modal-title">A calm signal - not a score</h2>
+          <p class="modal-sub" id="snapshotDesc">Answer honestly. You’ll receive clarity and next steps.</p>
         </div>
-        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
+
+        <div class="modal-head-right">
+          <button class="icon-btn" id="resetSnapshot" aria-label="Reset snapshot" type="button" title="Reset snapshot">↺</button>
+          <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button" title="Close">✕</button>
+        </div>
       </div>
 
       <div class="modal-body">
         <div class="modal-scroll" id="snapshotScroll">
           <div class="context-cards" id="snapshotChips"></div>
+
           <form id="snapshotForm" class="quiz" aria-live="polite"></form>
 
           <section id="snapshotResult" class="result" hidden>
@@ -201,8 +343,37 @@
               </div>
             </div>
 
+            <div class="chart" aria-label="Lens strength chart">
+              <div class="chart-row">
+                <span>Network</span>
+                <div class="bar"><div id="barNetwork" class="bar-fill"></div></div>
+                <em id="valNetwork"></em>
+              </div>
+              <div class="chart-row">
+                <span>Devices</span>
+                <div class="bar"><div id="barDevices" class="bar-fill"></div></div>
+                <em id="valDevices"></em>
+              </div>
+              <div class="chart-row">
+                <span>Privacy</span>
+                <div class="bar"><div id="barPrivacy" class="bar-fill"></div></div>
+                <em id="valPrivacy"></em>
+              </div>
+              <div class="chart-row">
+                <span>Scams</span>
+                <div class="bar"><div id="barScams" class="bar-fill"></div></div>
+                <em id="valScams"></em>
+              </div>
+              <div class="chart-row">
+                <span>Wellbeing</span>
+                <div class="bar"><div id="barWellbeing" class="bar-fill"></div></div>
+                <em id="valWellbeing"></em>
+              </div>
+            </div>
+
             <div class="result-actions">
-              <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
+              <button class="btn ghost" type="button" id="printSnapshot">Print / Save as PDF</button>
+              <button class="btn ghost" type="button" id="downloadSnapshotHtml">Download report (HTML)</button>
               <a class="btn primary" id="goToResources" href="/resources/">Open my resources hub</a>
               <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
             </div>
@@ -220,11 +391,10 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <script src="/script.js?v=20260125a" defer></script>
+  <script src="/script.js?v=20260125" defer></script>
 </body>
 </html>
