@@ -9,8 +9,86 @@
 
 (() => {
   "use strict";
+<<<<<<< Updated upstream
   const API_BASE = "https://cyberseeds-api.onrender.com";
+=======
+  
+  const API_BASE = "http://localhost:8080"; // e.g. https://cyberseeds-api.onrender.com
+>>>>>>> Stashed changes
 
+async function postSnapshot(payload) {
+  const res = await fetch(`${API_BASE}/api/snapshot`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) throw new Error(data?.error || "Snapshot failed");
+  return data;
+}
+
+// Convert your 1–4 lens answers into the boolean payload your API expects
+function buildApiPayloadFromLocal(snapshot) {
+  const n = snapshot.scores.Network || 1;
+  const d = snapshot.scores.Devices || 1;
+  const p = snapshot.scores.Privacy || 1;
+  const s = snapshot.scores.Scams || 1;
+  const w = snapshot.scores.Wellbeing || 1;
+
+  const network = {
+    router_admin_changed: n >= 4,
+    wifi_password_strong: n >= 3,
+    wps_disabled: n >= 4,
+    guest_network: n >= 4,
+    auto_updates_router: n >= 4
+  };
+
+  const device = {
+    auto_updates_devices: d >= 3,
+    screen_lock_enabled: d >= 3,
+    backups_enabled: d >= 4,
+    antivirus_or_mdm: d >= 4,
+    old_devices_unmanaged: d <= 2
+  };
+
+  const privacy = {
+    password_manager: p >= 4,
+    mfa_enabled: p >= 3,
+    social_profiles_private: p >= 3,
+    data_broker_optout: p >= 4,
+    shared_passwords: p <= 2
+  };
+
+  const scams = {
+    scam_rules_in_home: s >= 4,
+    bank_alerts_on: s >= 3,
+    kids_know_red_flags: s >= 4,
+    verified_contacts: s >= 4,
+    clicked_suspicious_links_recently: s <= 2
+  };
+
+  const wellbeing = {
+    bedtime_boundaries: w >= 4,
+    device_free_meals: w >= 3,
+    age_appropriate_controls: w >= 3,
+    open_talks_weekly: w >= 3,
+    distress_signals_seen: w <= 2
+  };
+
+  return {
+    household: {
+      label: "Cyber Seeds Household",
+      adults: 1,
+      children: 0
+    },
+    network, device, privacy, scams, wellbeing,
+
+    // extra (safe): keep your local scores for debugging
+    meta_local: snapshot
+  };
+}
+
+  
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -325,6 +403,33 @@
 
     // Save snapshot for Resources hub
     saveSnapshot(snapshot);
+    	
+    // --- Send to Cyberseeds API (creates snapshot_id + server PDF) ---
+(async () => {
+  try {
+    const apiPayload = buildApiPayloadFromLocal(snapshot);
+    const out = await postSnapshot(apiPayload);
+
+    // store server id so resources page can use it later
+    try { localStorage.setItem("seed_snapshot_server_id", out.snapshot_id); } catch {}
+
+    // If you have a button/link in HTML, fill it. Otherwise log it.
+    const pdfLink = `${API_BASE}${out.pdf_url}`;
+    console.log("Cyberseeds API snapshot_id:", out.snapshot_id);
+    console.log("Cyberseeds PDF:", pdfLink);
+
+    // OPTIONAL: if you have an anchor like <a id="serverPdfLink"></a>
+    const a = document.querySelector("#serverPdfLink");
+    if (a) {
+      a.href = pdfLink;
+      a.textContent = "Download PDF report";
+      a.style.display = "inline-block";
+    }
+  } catch (e) {
+    console.warn("API submit failed:", e);
+  }
+})();
+
 
     // Update headline + strongest/weakest labels
     if (resultHeadline) resultHeadline.textContent = `${snapshot.stage.name} signal — ${snapshot.stage.desc}`;
@@ -488,7 +593,26 @@
       URL.revokeObjectURL(url);
     });
   }
+    (async () => {
+  try {
+    const apiPayload = buildApiPayloadFromLocal(snapshot);
+    const out = await postSnapshot(apiPayload);
 
+    const pdfLink = `${API_BASE}${out.pdf_url}`;
+
+    // show the button + attach the URL
+    const linkEl = document.querySelector("#serverPdfLink");
+    if (linkEl) {
+      linkEl.href = pdfLink;
+      linkEl.style.display = "inline-flex";
+    }
+
+    // store id for later use (resources page / future retrieval)
+    try { localStorage.setItem("seed_snapshot_server_id", out.snapshot_id); } catch {}
+  } catch (e) {
+    console.warn("API submit failed:", e);
+  }
+})();
   // ---------- RESOURCES HUB CONTENT (Personalised, valuable) ----------
   const RESOURCES_CONTENT = {
     Network: {
