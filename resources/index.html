@@ -772,6 +772,7 @@
 
       // -------- Multi-key snapshot compatibility --------
       const SNAPSHOT_KEYS = [
+        "seed_snapshot_v2",
         "cyberseeds_snapshot_last",
         "cyberSeeds_snapshot_last",
         "cs_snapshot_last",
@@ -1224,7 +1225,13 @@
       setHTML("fingerprintLine", `<strong>Household fingerprint:</strong> ${fp.pattern} — ${fp.note}`);
 
       // Last taken line
-      const ts = snapshot.ts || snapshot.timestamp || snapshot.createdAt || snapshot.created_at || null;
+      const ts =
+        snapshot.ts ||
+        snapshot.timestamp ||
+        snapshot.createdAt ||
+        snapshot.created_at ||
+        (localStorage.getItem("seed_snapshot_v2_ts") ? Number(localStorage.getItem("seed_snapshot_v2_ts")) : null);
+
       const when = formatDate(ts);
       setText("lastTakenLine", when ? `Last snapshot on this device: ${when}` : `Last snapshot found on this device.`);
 
