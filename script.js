@@ -9,6 +9,7 @@
 
 (() => {
   "use strict";
+  const API_BASE = "http://localhost:8080";
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
