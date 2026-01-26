@@ -8,486 +8,550 @@
   <meta name="description" content="Your personalised Cyber Seeds resources hub, built from your last household snapshot on this device." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-
-  <!-- CACHE BUST: change this number on every deploy -->
   <link rel="stylesheet" href="/style.css?v=20260126" />
 
   <style>
-    /* =========================================================
-       RESOURCES HUB — LOCAL UPGRADE LAYER (NO CSS FILE EDITS)
-       - Mobile first, iOS safe
-       - Calm, public-sector friendly
-       ========================================================= */
-
     :root{
-      --cs-ink: #0f2f2a;
-      --cs-ink-2: #184a43;
-      --cs-muted: rgba(15,47,42,.74);
-      --cs-soft: rgba(15,47,42,.06);
-      --cs-soft-2: rgba(15,47,42,.10);
-      --cs-border: rgba(15,47,42,.14);
-      --cs-card: #ffffff;
-      --cs-bg: #f6fbfa;
-      --cs-shadow: 0 10px 35px rgba(15,47,42,.10);
-      --cs-radius: 22px;
-      --cs-radius-lg: 28px;
-      --cs-gap: 16px;
-      --cs-gap-lg: 22px;
-      --cs-max: 1100px;
+      --cs-ink:#0f2f2a;
+      --cs-ink-2:#184a43;
+      --cs-muted:rgba(15,47,42,.72);
+      --cs-muted-2:rgba(15,47,42,.58);
+      --cs-soft:rgba(15,47,42,.06);
+      --cs-soft-2:rgba(15,47,42,.10);
+      --cs-border:rgba(15,47,42,.14);
+      --cs-card:#ffffff;
+      --cs-bg:#f6fbfa;
+      --cs-shadow:0 10px 35px rgba(15,47,42,.10);
+      --cs-radius:22px;
+      --cs-radius-lg:28px;
+      --cs-gap:16px;
+      --cs-gap-lg:22px;
+      --cs-max:1120px;
+
+      --good: rgba(0,128,96,.12);
+      --good-b: rgba(0,128,96,.25);
+      --bad: rgba(180,70,70,.12);
+      --bad-b: rgba(180,70,70,.25);
     }
 
+    *{ box-sizing:border-box; }
+
     body{
-      background: radial-gradient(1200px 600px at 20% 0%, rgba(24,116,102,.10), transparent 55%),
-                  radial-gradient(900px 500px at 80% 10%, rgba(60,171,150,.10), transparent 50%),
-                  var(--cs-bg);
+      margin:0;
+      color:var(--cs-ink);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(24,116,102,.11), transparent 55%),
+        radial-gradient(900px 500px at 82% 12%, rgba(60,171,150,.10), transparent 50%),
+        var(--cs-bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
     }
 
     main{
-      width: min(var(--cs-max), 92vw);
-      margin: 0 auto;
-      padding: 22px 0 60px;
+      width:min(var(--cs-max), 92vw);
+      margin:0 auto;
+      padding:22px 0 56px;
     }
 
+    /* Hero */
     .hub-hero{
-      margin-top: 8px;
-      padding: 22px 18px;
+      margin-top:6px;
+      padding:22px 18px 18px;
+    }
+
+    .eyebrow{
+      font-size:.90rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(15,47,42,.60);
+      font-weight:850;
+      margin-bottom:8px;
     }
 
     .hub-title{
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.04;
-      letter-spacing: -0.02em;
-      margin: 6px 0 10px;
-      color: var(--cs-ink);
+      font-size:clamp(2.05rem, 6vw, 3.2rem);
+      line-height:1.03;
+      letter-spacing:-0.03em;
+      margin:6px 0 10px;
+      color:var(--cs-ink);
     }
 
     .hub-subtitle{
-      font-size: 1.05rem;
-      line-height: 1.5;
-      color: var(--cs-muted);
-      max-width: 62ch;
-      margin-bottom: 18px;
+      font-size:1.05rem;
+      line-height:1.5;
+      color:var(--cs-muted);
+      max-width:62ch;
+      margin:0 0 16px;
     }
 
     .hub-actions{
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 10px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:8px;
     }
 
     .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight: 700;
-      text-decoration: none;
-      border: 2px solid var(--cs-ink);
-      color: var(--cs-ink);
-      background: transparent;
-      transition: transform .12s ease, background .12s ease, opacity .12s ease;
-      min-width: 150px;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:800;
+      text-decoration:none;
+      border:2px solid var(--cs-ink);
+      color:var(--cs-ink);
+      background:transparent;
+      transition:transform .12s ease, opacity .12s ease, background .12s ease;
+      min-width:150px;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
     }
 
-    .btn:active{
-      transform: scale(.985);
-      opacity: .92;
-    }
-
-    .btn-primary{
-      background: var(--cs-ink);
-      color: #fff;
-      border-color: var(--cs-ink);
-    }
+    .btn:active{ transform:scale(.985); opacity:.92; }
+    .btn-primary{ background:var(--cs-ink); color:#fff; border-color:var(--cs-ink); }
 
     .pill-row{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
     }
 
     .pill{
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: var(--cs-soft);
-      border: 1px solid var(--cs-border);
-      color: var(--cs-ink);
-      font-weight: 650;
-      font-size: .95rem;
+      padding:10px 12px;
+      border-radius:999px;
+      background:var(--cs-soft);
+      border:1px solid var(--cs-border);
+      color:var(--cs-ink);
+      font-weight:700;
+      font-size:.95rem;
     }
 
+    /* Grid */
     .grid{
-      display: grid;
-      gap: var(--cs-gap);
-      margin-top: 18px;
+      display:grid;
+      gap:var(--cs-gap);
+      margin-top:18px;
     }
 
     @media (min-width: 960px){
       .grid{
-        grid-template-columns: 1.2fr .8fr;
-        gap: var(--cs-gap-lg);
+        grid-template-columns: 1.18fr .82fr;
+        gap:var(--cs-gap-lg);
       }
     }
 
     .card{
-      background: var(--cs-card);
-      border-radius: var(--cs-radius-lg);
-      border: 1px solid var(--cs-border);
-      box-shadow: var(--cs-shadow);
-      overflow: hidden;
+      background:var(--cs-card);
+      border-radius:var(--cs-radius-lg);
+      border:1px solid var(--cs-border);
+      box-shadow:var(--cs-shadow);
+      overflow:hidden;
     }
 
-    .card-pad{
-      padding: 18px 18px;
-    }
-
-    .eyebrow{
-      font-size: .92rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(15,47,42,.65);
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
+    .card-pad{ padding:18px; }
 
     .h2{
-      font-size: 1.55rem;
-      line-height: 1.15;
-      margin: 0 0 10px;
-      color: var(--cs-ink);
-      letter-spacing: -.01em;
+      font-size:1.55rem;
+      line-height:1.15;
+      margin:0 0 10px;
+      color:var(--cs-ink);
+      letter-spacing:-.01em;
     }
 
     .p{
-      margin: 0;
-      color: var(--cs-muted);
-      line-height: 1.55;
-      font-size: 1rem;
+      margin:0;
+      color:var(--cs-muted);
+      line-height:1.55;
+      font-size:1rem;
     }
 
     .divider{
-      height: 1px;
-      background: var(--cs-soft-2);
-      margin: 16px 0;
+      height:1px;
+      background:var(--cs-soft-2);
+      margin:16px 0;
     }
 
-    .focus-title{
-      font-size: 1.65rem;
-      letter-spacing: -.01em;
-      margin: 2px 0 10px;
-      color: var(--cs-ink);
-      line-height: 1.15;
+    /* Lens ring module */
+    .ring-wrap{
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--cs-border);
+      background:linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
     }
 
+    .ring-grid{
+      display:grid;
+      gap:12px;
+      align-items:center;
+    }
+
+    @media (min-width: 480px){
+      .ring-grid{
+        grid-template-columns: 180px 1fr;
+        gap:16px;
+      }
+    }
+
+    .ring-svg{
+      width:180px;
+      height:180px;
+      display:block;
+      margin:0 auto;
+    }
+
+    .ring-center{
+      font-weight:950;
+      text-anchor:middle;
+      dominant-baseline:middle;
+      fill:var(--cs-ink);
+    }
+
+    .ring-stage{
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      fill:rgba(15,47,42,.62);
+      font-weight:850;
+    }
+
+    .ring-score{
+      font-size:20px;
+      font-weight:950;
+      letter-spacing:-.02em;
+    }
+
+    .ring-help{
+      color:var(--cs-muted);
+      font-size:.98rem;
+      line-height:1.5;
+    }
+
+    .legend{
+      display:grid;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .legend-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(15,47,42,.12);
+      background:#fff;
+    }
+
+    .legend-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:var(--cs-ink);
+      opacity:.18;
+      flex:none;
+    }
+
+    .legend-name{
+      font-weight:900;
+      letter-spacing:-.01em;
+      color:var(--cs-ink);
+      white-space:nowrap;
+    }
+
+    .legend-val{
+      font-weight:950;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--cs-soft);
+      border:1px solid var(--cs-border);
+      min-width:72px;
+      text-align:center;
+      flex:none;
+    }
+
+    .legend-row.is-focus{
+      border-color: rgba(24,116,102,.35);
+      box-shadow:0 0 0 3px rgba(24,116,102,.08) inset;
+    }
+
+    /* Household map */
     .map-wrap{
-      margin-top: 12px;
-      padding: 14px;
-      background: linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
-      border: 1px solid var(--cs-border);
-      border-radius: 18px;
+      margin-top:12px;
+      padding:14px;
+      background:linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
+      border:1px solid var(--cs-border);
+      border-radius:18px;
     }
 
-    .map{
-      display: grid;
-      gap: 10px;
-      align-items: center;
-    }
+    .map{ display:grid; gap:10px; }
 
     .map-node{
-      border-radius: 16px;
-      border: 1px solid var(--cs-border);
-      background: #fff;
-      padding: 12px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      border-radius:16px;
+      border:1px solid var(--cs-border);
+      background:#fff;
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
     }
 
     .node-top{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     .node-title{
-      font-weight: 900;
-      color: var(--cs-ink);
-      letter-spacing: -.01em;
-      font-size: 1.05rem;
+      font-weight:950;
+      color:var(--cs-ink);
+      letter-spacing:-.01em;
+      font-size:1.05rem;
     }
 
     .node-tag{
-      font-size: .85rem;
-      font-weight: 850;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--cs-soft);
-      border: 1px solid var(--cs-border);
-      color: var(--cs-ink);
-      white-space: nowrap;
+      font-size:.85rem;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--cs-soft);
+      border:1px solid var(--cs-border);
+      color:var(--cs-ink);
+      white-space:nowrap;
     }
 
     .node-text{
-      color: var(--cs-muted);
-      line-height: 1.35;
-      font-size: .96rem;
+      color:var(--cs-muted);
+      line-height:1.35;
+      font-size:.96rem;
     }
 
     .map-arrow{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(15,47,42,.65);
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-size: .82rem;
-      justify-content: center;
-      padding: 4px 0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:rgba(15,47,42,.62);
+      font-weight:850;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:.82rem;
+      justify-content:center;
+      padding:4px 0;
+      flex-wrap:wrap;
     }
 
-    .map-arrow svg{
-      width: 20px;
-      height: 20px;
-      opacity: .8;
-    }
+    .map-arrow svg{ width:20px; height:20px; opacity:.8; }
 
-    .list{
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
+    /* Actions */
+    .list{ display:grid; gap:10px; margin-top:14px; }
 
     .step{
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 12px 12px;
-      border-radius: 18px;
-      background: rgba(15,47,42,.035);
-      border: 1px solid rgba(15,47,42,.10);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px;
+      border-radius:18px;
+      background:rgba(15,47,42,.035);
+      border:1px solid rgba(15,47,42,.10);
     }
 
     .num{
-      width: 32px;
-      height: 32px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: #fff;
-      border: 1px solid var(--cs-border);
-      font-weight: 900;
-      color: var(--cs-ink);
-      flex: none;
+      width:32px;
+      height:32px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      border:1px solid var(--cs-border);
+      font-weight:950;
+      color:var(--cs-ink);
+      flex:none;
     }
 
     .step-title{
-      font-weight: 900;
-      color: var(--cs-ink);
-      margin-bottom: 3px;
-      letter-spacing: -.01em;
+      font-weight:950;
+      color:var(--cs-ink);
+      margin-bottom:3px;
+      letter-spacing:-.01em;
     }
 
     .step-text{
-      color: var(--cs-muted);
-      line-height: 1.4;
-      font-size: .98rem;
+      color:var(--cs-muted);
+      line-height:1.4;
+      font-size:.98rem;
     }
 
     .seedline{
-      margin-top: 12px;
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid var(--cs-border);
-      background: #fff;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      margin-top:12px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--cs-border);
+      background:#fff;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
     }
 
     .seed-badge{
-      flex: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: var(--cs-soft);
-      border: 1px solid var(--cs-border);
+      flex:none;
+      width:36px;
+      height:36px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:var(--cs-soft);
+      border:1px solid var(--cs-border);
     }
 
-    .seed-badge svg{ width: 20px; height: 20px; }
+    .seed-badge svg{ width:20px; height:20px; }
 
     .seed-title{
-      font-weight: 950;
-      color: var(--cs-ink);
-      margin: 0 0 3px;
-      letter-spacing: -.01em;
+      font-weight:950;
+      color:var(--cs-ink);
+      margin:0 0 3px;
+      letter-spacing:-.01em;
     }
 
     .seed-text{
-      margin: 0;
-      color: var(--cs-muted);
-      line-height: 1.45;
-      font-size: .98rem;
+      margin:0;
+      color:var(--cs-muted);
+      line-height:1.45;
+      font-size:.98rem;
     }
 
+    /* Overview / progress */
     .mini{
-      font-size: .92rem;
-      color: rgba(15,47,42,.65);
-      line-height: 1.45;
-    }
-
-    .scorebox{
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .score-row{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(15,47,42,.12);
-      background: #fff;
-    }
-
-    .score-name{
-      font-weight: 900;
-      color: var(--cs-ink);
-    }
-
-    .score-val{
-      font-weight: 950;
-      color: var(--cs-ink);
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--cs-soft);
-      border: 1px solid var(--cs-border);
-      min-width: 70px;
-      text-align: center;
+      font-size:.92rem;
+      color:rgba(15,47,42,.62);
+      line-height:1.45;
     }
 
     .status{
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(15,47,42,.12);
-      background: rgba(255,255,255,.85);
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(15,47,42,.12);
+      background:rgba(255,255,255,.85);
     }
 
-    .status strong{
-      color: var(--cs-ink);
-    }
-
-    .progress-card{
-      margin-top: 14px;
-    }
+    .status strong{ color:var(--cs-ink); }
 
     .progress-grid{
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
+      display:grid;
+      gap:10px;
+      margin-top:12px;
     }
 
     .progress-row{
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
-      padding: 12px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(15,47,42,.12);
-      background: #fff;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(15,47,42,.12);
+      background:#fff;
     }
 
     .progress-label{
-      font-weight: 900;
-      color: var(--cs-ink);
-      letter-spacing: -.01em;
+      font-weight:950;
+      color:var(--cs-ink);
+      letter-spacing:-.01em;
     }
 
     .progress-delta{
-      font-weight: 950;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--cs-border);
-      background: var(--cs-soft);
-      color: var(--cs-ink);
-      min-width: 84px;
-      text-align: center;
-      white-space: nowrap;
+      font-weight:950;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--cs-border);
+      background:var(--cs-soft);
+      color:var(--cs-ink);
+      min-width:84px;
+      text-align:center;
+      white-space:nowrap;
     }
 
-    .progress-delta.good{
-      background: rgba(0, 128, 96, .10);
-      border-color: rgba(0, 128, 96, .22);
-    }
-
-    .progress-delta.bad{
-      background: rgba(180, 70, 70, .10);
-      border-color: rgba(180, 70, 70, .22);
-    }
+    .progress-delta.good{ background:var(--good); border-color:var(--good-b); }
+    .progress-delta.bad{ background:var(--bad); border-color:var(--bad-b); }
 
     .muted-note{
-      margin-top: 10px;
-      font-size: .92rem;
-      color: rgba(15,47,42,.62);
-      line-height: 1.45;
+      margin-top:10px;
+      font-size:.92rem;
+      color:rgba(15,47,42,.62);
+      line-height:1.45;
     }
 
     .empty{
-      padding: 18px;
-      border-radius: var(--cs-radius-lg);
-      border: 1px dashed rgba(15,47,42,.25);
-      background: rgba(255,255,255,.7);
+      padding:18px;
+      border-radius:var(--cs-radius-lg);
+      border:1px dashed rgba(15,47,42,.25);
+      background:rgba(255,255,255,.7);
     }
 
     .empty h3{
-      margin: 0 0 8px;
-      color: var(--cs-ink);
-      letter-spacing: -.01em;
+      margin:0 0 8px;
+      color:var(--cs-ink);
+      letter-spacing:-.01em;
     }
 
     .empty p{
-      margin: 0 0 14px;
-      color: var(--cs-muted);
-      line-height: 1.5;
+      margin:0 0 14px;
+      color:var(--cs-muted);
+      line-height:1.5;
     }
 
     footer{
-      width: min(var(--cs-max), 92vw);
-      margin: 18px auto 40px;
-      padding: 10px 0 0;
-      color: rgba(15,47,42,.60);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      width:min(var(--cs-max), 92vw);
+      margin:18px auto 40px;
+      padding:10px 0 0;
+      color:rgba(15,47,42,.60);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
     footer a{
-      color: rgba(15,47,42,.70);
-      text-decoration: none;
-      font-weight: 750;
+      color:rgba(15,47,42,.70);
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    /* iPhone portrait tightening */
+    @media (max-width: 420px){
+      main{ width: 94vw; }
+      .hub-hero{ padding:18px 14px 16px; }
+      .hub-subtitle{ font-size:1.02rem; }
+      .btn{ min-width: 145px; padding:13px 16px; }
+      .card-pad{ padding:16px; }
+      .ring-svg{ width:168px; height:168px; }
+      .legend-val{ min-width:66px; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .btn{ transition:none; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header should be in your main site index, but we keep a lightweight in-page header for safety -->
   <main id="main">
     <section class="hub-hero">
       <div class="eyebrow">Your personalised resources</div>
@@ -510,23 +574,84 @@
       </div>
     </section>
 
-    <!-- MAIN GRID -->
     <section class="grid" aria-label="Resources hub content">
-
-      <!-- LEFT COLUMN -->
+      <!-- LEFT -->
       <div class="card">
         <div class="card-pad">
           <div class="eyebrow">Your prioritised focus</div>
-          <h2 class="focus-title" id="focusTitle">Loading your focus…</h2>
+          <h2 class="h2" id="focusTitle">Loading your focus…</h2>
           <p class="p" id="focusDesc">We’ll build your next steps from the last snapshot stored on this device.</p>
 
           <div class="divider"></div>
 
-          <!-- HOUSEHOLD MAP -->
+          <!-- Lens Ring -->
+          <div class="eyebrow">Lens map</div>
+          <h3 class="h2" style="margin-top:0;">Your five-lens safety ring</h3>
+          <p class="p">This is your household’s digital ecology at a glance. One highlighted lens = your fastest improvement path.</p>
+
+          <div class="ring-wrap" role="group" aria-label="Five lens ring">
+            <div class="ring-grid">
+              <svg class="ring-svg" viewBox="0 0 200 200" aria-label="Lens ring diagram">
+                <!-- track -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(15,47,42,.10)" stroke-width="18"></circle>
+
+                <!-- 5 segments (we’ll set opacity per score) -->
+                <g id="ringSegments" transform="rotate(-90 100 100)">
+                  <!-- each arc is 72 degrees (360/5). -->
+                  <path id="segNetwork" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segDevices" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segPrivacy" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segScams" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segWellbeing" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+
+                  <!-- focus glow -->
+                  <path id="segFocusGlow" d="" stroke="rgba(24,116,102,.55)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0"></path>
+                </g>
+
+                <!-- center -->
+                <text x="100" y="92" class="ring-center ring-stage" id="ringStage">STAGE</text>
+                <text x="100" y="116" class="ring-center ring-score" id="ringScore">—</text>
+                <text x="100" y="138" class="ring-center ring-stage" id="ringHint">FIVE LENSES</text>
+              </svg>
+
+              <div class="ring-help">
+                <div class="legend" id="legendBox">
+                  <div class="legend-row" id="legendNetwork">
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Network</span></div>
+                    <div class="legend-val" id="valNetwork">—</div>
+                  </div>
+                  <div class="legend-row" id="legendDevices">
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Devices</span></div>
+                    <div class="legend-val" id="valDevices">—</div>
+                  </div>
+                  <div class="legend-row" id="legendPrivacy">
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Privacy</span></div>
+                    <div class="legend-val" id="valPrivacy">—</div>
+                  </div>
+                  <div class="legend-row" id="legendScams">
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Scams</span></div>
+                    <div class="legend-val" id="valScams">—</div>
+                  </div>
+                  <div class="legend-row" id="legendWellbeing">
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Wellbeing</span></div>
+                    <div class="legend-val" id="valWellbeing">—</div>
+                  </div>
+                </div>
+
+                <p class="muted-note" id="ringNote">
+                  A darker segment means stronger protection in that lens. Your focus lens is highlighted.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Household Map -->
           <div class="eyebrow">Household map</div>
           <h3 class="h2" style="margin-top:0;">What protects everything else</h3>
           <p class="p">
-            This is the hidden structure most families never see — but it shapes nearly every online incident.
+            This is the structure most families never see — but it shapes nearly every online incident.
           </p>
 
           <div class="map-wrap" role="group" aria-label="Household map diagram">
@@ -562,13 +687,10 @@
             </div>
           </div>
 
-          <!-- ACTIONS -->
           <div class="divider"></div>
 
           <h3 class="h2">Small actions you can do today</h3>
-          <div class="list" id="actionList">
-            <!-- JS will render steps -->
-          </div>
+          <div class="list" id="actionList"></div>
 
           <div class="seedline" aria-label="Digital Seed takeaway">
             <div class="seed-badge" aria-hidden="true">
@@ -578,30 +700,19 @@
             </div>
             <div>
               <p class="seed-title">Digital Seed</p>
-              <p class="seed-text" id="seedText">
-                Protect the “root accounts” (email + Apple/Google) before everything else.
-              </p>
+              <p class="seed-text" id="seedText">Protect the “root accounts” (email + Apple/Google) before everything else.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT COLUMN -->
+      <!-- RIGHT -->
       <aside>
-        <!-- SNAPSHOT OVERVIEW -->
         <div class="card">
           <div class="card-pad">
             <div class="eyebrow">Your snapshot overview</div>
             <h2 class="h2" id="stageTitle">Loading your stage…</h2>
             <p class="p" id="stageDesc">This is a calm readout — not judgement. It’s a signal you can act on.</p>
-
-            <div class="scorebox" aria-label="Lens scores">
-              <div class="score-row"><span class="score-name">Network</span><span class="score-val" id="scoreNetwork">—</span></div>
-              <div class="score-row"><span class="score-name">Devices</span><span class="score-val" id="scoreDevices">—</span></div>
-              <div class="score-row"><span class="score-name">Privacy</span><span class="score-val" id="scorePrivacy">—</span></div>
-              <div class="score-row"><span class="score-name">Scams</span><span class="score-val" id="scoreScams">—</span></div>
-              <div class="score-row"><span class="score-name">Wellbeing</span><span class="score-val" id="scoreWellbeing">—</span></div>
-            </div>
 
             <div class="status" role="note" aria-label="Snapshot note">
               <div class="mini" id="fingerprintLine">
@@ -612,8 +723,7 @@
           </div>
         </div>
 
-        <!-- PROGRESS TRACKING -->
-        <div class="card progress-card">
+        <div class="card" style="margin-top:14px;">
           <div class="card-pad">
             <div class="eyebrow">Progress tracking</div>
             <h2 class="h2">Retest and compare</h2>
@@ -621,9 +731,7 @@
               Cyber Seeds is designed for repeat snapshots. Small changes compound fast — and your progress should be visible.
             </p>
 
-            <div class="progress-grid" id="progressGrid">
-              <!-- JS renders deltas if baseline exists -->
-            </div>
+            <div class="progress-grid" id="progressGrid"></div>
 
             <p class="muted-note" id="progressNote">
               Tip: take a snapshot today, then retest in 2–6 weeks. This device remembers your baseline locally.
@@ -636,14 +744,11 @@
           </div>
         </div>
 
-        <!-- EMPTY STATE (only shown if no snapshot) -->
-        <div class="card" id="emptyStateCard" style="display:none;">
+        <div class="card" id="emptyStateCard" style="display:none; margin-top:14px;">
           <div class="card-pad">
             <div class="empty">
               <h3>No snapshot found on this device</h3>
-              <p>
-                That’s completely okay. Take a quick snapshot and this page will build your personalised hub automatically.
-              </p>
+              <p>That’s completely okay. Take a quick snapshot and this page will build your personalised hub automatically.</p>
               <a class="btn btn-primary" href="/#snapshot">Take snapshot now</a>
             </div>
           </div>
@@ -658,40 +763,36 @@
   </footer>
 
   <script>
-    // =========================================================
-    // RESOURCES HUB — INTELLIGENCE LAYER
-    // - Works even if snapshot schema changes slightly
-    // - Uses localStorage only
-    // - Builds: Prioritised focus, map interpretation, actions, fingerprint, progress deltas
-    // =========================================================
-
     (function(){
       const $ = (sel, root=document) => root.querySelector(sel);
 
+      // Year
       const YEAR = $("#year");
       if (YEAR) YEAR.textContent = String(new Date().getFullYear());
 
-      // -------- STORAGE KEYS (best-effort compatibility) --------
-      const KEYS = [
+      // -------- Multi-key snapshot compatibility --------
+      const SNAPSHOT_KEYS = [
         "cyberseeds_snapshot_last",
         "cyberSeeds_snapshot_last",
         "cs_snapshot_last",
         "snapshot_last",
         "cyberseeds_snapshot",
         "cyberSeedsSnapshot",
-        "cyberSeeds.snapshot"
+        "cyberSeeds.snapshot",
+        "cs.snapshot.last",
+        "cs:lastSnapshot"
       ];
 
-      const BASELINE_KEY = "cyberseeds_snapshot_baseline_v1";
+      const BASELINE_KEY = "cyberseeds_snapshot_baseline_v2";
 
-      // -------- HELPERS --------
       function safeJSONParse(str){
         try { return JSON.parse(str); } catch { return null; }
       }
 
+      // iOS-safe: attempt recovery from sessionStorage too
       function getLastSnapshot(){
-        for (const k of KEYS){
-          const raw = localStorage.getItem(k);
+        for (const k of SNAPSHOT_KEYS){
+          const raw = localStorage.getItem(k) || sessionStorage.getItem(k);
           if (!raw) continue;
           const parsed = safeJSONParse(raw);
           if (parsed && typeof parsed === "object") return parsed;
@@ -700,26 +801,20 @@
       }
 
       function normScore(v){
-        // Accepts numbers like 3, objects, strings like "3/4"
         if (typeof v === "number") return `${v}/4`;
         if (typeof v === "string"){
           const m = v.match(/(\d)\s*\/\s*(\d)/);
           if (m) return `${m[1]}/${m[2]}`;
         }
         if (v && typeof v === "object"){
-          // {score:3,max:4} or {value:3}
           if (typeof v.score === "number") return `${v.score}/4`;
           if (typeof v.value === "number") return `${v.value}/4`;
+          if (typeof v.points === "number") return `${v.points}/4`;
         }
         return "—";
       }
 
-      function clamp(n, min, max){
-        return Math.max(min, Math.min(max, n));
-      }
-
       function toNumScore(val){
-        // Turns "3/4" -> 3, "—" -> null
         if (typeof val === "number") return val;
         if (typeof val === "string"){
           const m = val.match(/(\d)\s*\/\s*(\d)/);
@@ -737,7 +832,6 @@
         return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
       }
 
-      // -------- DERIVE SNAPSHOT DATA (flexible schema) --------
       function extractLensScores(snap){
         const lens = snap.lenses || snap.scores || snap.subscores || snap.results || {};
 
@@ -762,86 +856,26 @@
           snap.stageDescription ||
           snap.summary ||
           "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
-
         return { stage, desc };
       }
 
       function weakestLens(scores){
-        // returns lens name with lowest numeric score
         const entries = Object.entries(scores)
           .map(([k,v]) => [k, toNumScore(v)])
           .filter(([,n]) => typeof n === "number");
 
         if (!entries.length) return "privacy";
-
         entries.sort((a,b) => a[1]-b[1]);
-        const lowest = entries[0][0];
-        return lowest;
-      }
-
-      function buildFingerprint(scores){
-        const n = toNumScore(scores.network);
-        const d = toNumScore(scores.devices);
-        const p = toNumScore(scores.privacy);
-        const s = toNumScore(scores.scams);
-        const w = toNumScore(scores.wellbeing);
-
-        // Determine dominant pattern (non-judgemental)
-        // This is intentionally simple + explainable for parents.
-        let pattern = "Stability Builder";
-        let note = "You’re close — a few small changes will make your system more resilient.";
-
-        const vals = { network:n, devices:d, privacy:p, scams:s, wellbeing:w };
-
-        // Count low lenses (<=2)
-        const lows = Object.entries(vals).filter(([,v]) => typeof v === "number" && v <= 2).map(([k]) => k);
-
-        if (lows.includes("privacy")){
-          pattern = "Root Account Cascade Risk";
-          note = "Email + Apple/Google sit at the centre. Strengthen them first to protect everything else.";
-        } else if (lows.includes("network")){
-          pattern = "Perimeter Drift";
-          note = "The Wi-Fi layer needs tightening so the household has a strong boundary.";
-        } else if (lows.includes("devices")){
-          pattern = "Device Hygiene Drag";
-          note = "Small update + cleanup habits reduce infections, glitches, and stress quickly.";
-        } else if (lows.includes("scams")){
-          pattern = "Pressure-Point Scam Risk";
-          note = "A few guardrails can prevent impulsive clicks turning into money or account loss.";
-        } else if (lows.includes("wellbeing")){
-          pattern = "Attention + Sleep Loop";
-          note = "A calmer rhythm (bedtime boundaries + notifications) reduces risk and conflict.";
-        } else {
-          // If everything is 3+ treat as "Emerging + polishing"
-          pattern = "Emerging Resilience";
-          note = "Your system is functional — focus on one lens and you’ll feel the difference fast.";
-        }
-
-        return { pattern, note };
+        return entries[0][0];
       }
 
       function focusCopyForLens(lensKey){
         const map = {
-          privacy: {
-            title: "Privacy Lens — protect accounts that protect everything else",
-            desc: "If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere."
-          },
-          network: {
-            title: "Network Lens — strengthen the boundary of your home",
-            desc: "Your Wi-Fi is the front door. Small changes here protect every device inside."
-          },
-          devices: {
-            title: "Device Lens — keep the household healthy and updated",
-            desc: "Out-of-date devices become weak links. Quick hygiene steps reduce risk and chaos."
-          },
-          scams: {
-            title: "Scam Lens — reduce the moments that scams win",
-            desc: "Scams succeed when people are rushed, emotional, or unsure. Guardrails stop damage early."
-          },
-          wellbeing: {
-            title: "Wellbeing Lens — calm routines reduce digital harm",
-            desc: "Healthier rhythms and boundaries reduce exposure, conflict, and impulsive risks."
-          }
+          privacy: { title:"Privacy Lens — protect accounts that protect everything else", desc:"If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere." },
+          network: { title:"Network Lens — strengthen the boundary of your home", desc:"Your Wi-Fi is the front door. Small changes here protect every device inside." },
+          devices: { title:"Device Lens — keep the household healthy and updated", desc:"Out-of-date devices become weak links. Quick hygiene steps reduce risk and chaos." },
+          scams: { title:"Scam Lens — reduce the moments that scams win", desc:"Scams succeed when people are rushed, emotional, or unsure. Guardrails stop damage early." },
+          wellbeing:{ title:"Wellbeing Lens — calm routines reduce digital harm", desc:"Healthier rhythms and boundaries reduce exposure, conflict, and impulsive risks." }
         };
         return map[lensKey] || map.privacy;
       }
@@ -849,34 +883,34 @@
       function actionsForLens(lensKey){
         const actions = {
           privacy: [
-            { t: "Add 2-step verification to your email first", d: "Email is the password-reset key for most services. Protect it like your house keys." },
-            { t: "Use a password manager (optional but powerful)", d: "It reduces reuse and removes mental load. Choose one that feels simple." },
-            { t: "Review account recovery options", d: "Remove old phone numbers and emails. Ensure only you can reset access." },
-            { t: "Reduce public exposure", d: "Audit what’s visible on social profiles; remove address, school details, or routines if present." }
+            { t:"Add 2-step verification to your email first", d:"Email is the password-reset key for most services. Protect it like your house keys." },
+            { t:"Use a password manager (optional but powerful)", d:"It reduces reuse and removes mental load. Choose one that feels simple." },
+            { t:"Review account recovery options", d:"Remove old phone numbers and emails. Ensure only you can reset access." },
+            { t:"Reduce public exposure", d:"Audit what’s visible on social profiles; remove address, school details, or routines if present." }
           ],
           network: [
-            { t: "Change your router admin password", d: "Default router logins are common. A strong admin password prevents takeover." },
-            { t: "Use WPA2/WPA3 and a strong Wi-Fi password", d: "A longer passphrase is harder to guess. Avoid shared ‘easy’ passwords." },
-            { t: "Turn off WPS", d: "WPS is convenient but increases risk. Disabling it tightens the boundary." },
-            { t: "Create a guest network (if you can)", d: "Keep visitors and smart devices separate from main family devices." }
+            { t:"Change your router admin password", d:"Default router logins are common. A strong admin password prevents takeover." },
+            { t:"Use WPA2/WPA3 and a strong Wi-Fi password", d:"A longer passphrase is harder to guess. Avoid shared ‘easy’ passwords." },
+            { t:"Turn off WPS", d:"WPS is convenient but increases risk. Disabling it tightens the boundary." },
+            { t:"Create a guest network (if you can)", d:"Keep visitors and smart devices separate from main family devices." }
           ],
           devices: [
-            { t: "Turn on automatic updates", d: "Updates fix known vulnerabilities. Set it and forget it wherever possible." },
-            { t: "Remove unused apps", d: "Less software means less exposure. Keep only what you use." },
-            { t: "Install a device screen lock", d: "PIN/FaceID prevents casual access and reduces account compromise." },
-            { t: "Back up the most important data", d: "Photos and documents deserve a recovery plan. Backups reduce panic." }
+            { t:"Turn on automatic updates", d:"Updates fix known vulnerabilities. Set it and forget it wherever possible." },
+            { t:"Remove unused apps", d:"Less software means less exposure. Keep only what you use." },
+            { t:"Install a device screen lock", d:"PIN/FaceID prevents casual access and reduces account compromise." },
+            { t:"Back up the most important data", d:"Photos and documents deserve a recovery plan. Backups reduce panic." }
           ],
           scams: [
-            { t: "Use a ‘pause rule’ for links", d: "If it’s urgent, it’s suspicious. Pause, verify, then act." },
-            { t: "Turn on bank/app alerts", d: "Fast notifications mean fast response. It reduces damage windows." },
-            { t: "Teach the household your ‘safe words’", d: "Agree simple phrases: ‘I will check the official app’, ‘I will call back’." },
-            { t: "Review subscriptions and payments", d: "Scams hide as recurring charges. A quick check prevents slow losses." }
+            { t:"Use a ‘pause rule’ for links", d:"If it’s urgent, it’s suspicious. Pause, verify, then act." },
+            { t:"Turn on bank/app alerts", d:"Fast notifications mean fast response. It reduces damage windows." },
+            { t:"Agree simple household ‘safe words’", d:"Examples: ‘I’ll check the official app’, ‘I’ll call back’, ‘Send it in writing’." },
+            { t:"Review subscriptions and payments", d:"Scams hide as recurring charges. A quick check prevents slow losses." }
           ],
           wellbeing: [
-            { t: "Set a calm bedtime boundary", d: "A small cut-off time protects sleep and reduces late-night risk." },
-            { t: "Reduce notification noise", d: "Less noise means more control. Keep only what matters." },
-            { t: "Create a ‘charging home’ for devices", d: "One place for charging reduces midnight scrolling and arguments." },
-            { t: "Use screen time tools gently", d: "Use them as support, not punishment. The goal is calm and consistency." }
+            { t:"Set a calm bedtime boundary", d:"A small cut-off time protects sleep and reduces late-night risk." },
+            { t:"Reduce notification noise", d:"Less noise means more control. Keep only what matters." },
+            { t:"Create a ‘charging home’ for devices", d:"One place for charging reduces midnight scrolling and arguments." },
+            { t:"Use screen time tools gently", d:"Use them as support, not punishment. The goal is calm and consistency." }
           ]
         };
         return actions[lensKey] || actions.privacy;
@@ -886,7 +920,6 @@
         const list = $("#actionList");
         if (!list) return;
         list.innerHTML = "";
-
         const items = actionsForLens(lensKey);
         items.forEach((it, idx) => {
           const row = document.createElement("div");
@@ -917,7 +950,42 @@
         el.style.display = yes ? "" : "none";
       }
 
-      // -------- PROGRESS --------
+      // -------- Fingerprint (calm + explainable) --------
+      function buildFingerprint(scores){
+        const vals = {
+          network: toNumScore(scores.network),
+          devices: toNumScore(scores.devices),
+          privacy: toNumScore(scores.privacy),
+          scams: toNumScore(scores.scams),
+          wellbeing: toNumScore(scores.wellbeing),
+        };
+
+        let pattern = "Emerging Resilience";
+        let note = "Your system is functional — focus on one lens and you’ll feel the difference fast.";
+
+        const lows = Object.entries(vals).filter(([,v]) => typeof v === "number" && v <= 2).map(([k]) => k);
+
+        if (lows.includes("privacy")){
+          pattern = "Root Account Cascade Risk";
+          note = "Email + Apple/Google sit at the centre. Strengthen them first to protect everything else.";
+        } else if (lows.includes("network")){
+          pattern = "Perimeter Drift";
+          note = "The Wi-Fi boundary needs tightening so the household has a stronger edge.";
+        } else if (lows.includes("devices")){
+          pattern = "Device Hygiene Drag";
+          note = "A few update + cleanup habits reduce risk and stress quickly.";
+        } else if (lows.includes("scams")){
+          pattern = "Pressure-Point Scam Risk";
+          note = "One calm rule can prevent impulsive clicks turning into money or account loss.";
+        } else if (lows.includes("wellbeing")){
+          pattern = "Attention + Sleep Loop";
+          note = "Stabilising routines reduces exposure, conflict, and risk moments.";
+        }
+
+        return { pattern, note };
+      }
+
+      // -------- Progress baseline --------
       function getBaseline(){
         return safeJSONParse(localStorage.getItem(BASELINE_KEY));
       }
@@ -941,7 +1009,6 @@
 
         const baseline = getBaseline();
         if (!baseline || !baseline.scores){
-          // Empty informative state
           const el = document.createElement("div");
           el.className = "progress-row";
           el.innerHTML = `
@@ -1002,49 +1069,147 @@
         }
       }
 
-      // -------- MAIN RENDER --------
+      // -------- SVG ring helpers --------
+      function polarToCartesian(cx, cy, r, angleDeg){
+        const rad = (angleDeg * Math.PI) / 180;
+        return { x: cx + (r * Math.cos(rad)), y: cy + (r * Math.sin(rad)) };
+      }
+
+      function arcPath(cx, cy, r, startAngle, endAngle){
+        const start = polarToCartesian(cx, cy, r, endAngle);
+        const end = polarToCartesian(cx, cy, r, startAngle);
+        const largeArc = (endAngle - startAngle) <= 180 ? "0" : "1";
+        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}`;
+      }
+
+      function opacityForScore(n){
+        // n: 0..4 → 0.18..0.95
+        if (typeof n !== "number") return 0.18;
+        const t = Math.max(0, Math.min(4, n)) / 4;
+        return 0.18 + (0.77 * t);
+      }
+
+      function setSeg(id, d, op){
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.setAttribute("d", d);
+        if (typeof op === "number") el.setAttribute("opacity", String(op));
+      }
+
+      function highlightLegend(focusKey){
+        const ids = {
+          network:"legendNetwork",
+          devices:"legendDevices",
+          privacy:"legendPrivacy",
+          scams:"legendScams",
+          wellbeing:"legendWellbeing"
+        };
+        Object.values(ids).forEach(x => {
+          const el = document.getElementById(x);
+          if (el) el.classList.remove("is-focus");
+        });
+        const active = document.getElementById(ids[focusKey]);
+        if (active) active.classList.add("is-focus");
+      }
+
+      function renderRing(scores, stageLabel, focusKey){
+        // 5 equal arcs, clockwise around circle
+        const start = 0;
+        const step = 72;
+
+        const order = [
+          ["network","segNetwork"],
+          ["devices","segDevices"],
+          ["privacy","segPrivacy"],
+          ["scams","segScams"],
+          ["wellbeing","segWellbeing"]
+        ];
+
+        order.forEach(([key, segId], idx) => {
+          const a0 = start + (idx * step);
+          const a1 = a0 + step - 6; // small gap for clarity
+          const path = arcPath(100, 100, 70, a0, a1);
+          const n = toNumScore(scores[key]);
+          setSeg(segId, path, opacityForScore(n));
+        });
+
+        // focus glow
+        const focusIdx = order.findIndex(([k]) => k === focusKey);
+        if (focusIdx >= 0){
+          const a0 = start + (focusIdx * step);
+          const a1 = a0 + step - 6;
+          const glowPath = arcPath(100,100,70, a0, a1);
+          const glow = document.getElementById("segFocusGlow");
+          if (glow){
+            glow.setAttribute("d", glowPath);
+            glow.setAttribute("opacity", "0.9");
+          }
+        } else {
+          const glow = document.getElementById("segFocusGlow");
+          if (glow) glow.setAttribute("opacity","0");
+        }
+
+        // center labels
+        setText("ringStage", (stageLabel || "Emerging").toString().toUpperCase());
+        // compute quick “total” out of 20 if available
+        const nums = ["network","devices","privacy","scams","wellbeing"].map(k => toNumScore(scores[k])).filter(n => typeof n === "number");
+        const total = nums.length ? nums.reduce((a,b)=>a+b,0) : null;
+        setText("ringScore", total !== null ? `${total}/20` : "—");
+        setText("ringHint", "FIVE LENSES");
+      }
+
+      // -------- Main render --------
       const snapshot = getLastSnapshot();
 
+      // Empty state
       if (!snapshot){
-        // No snapshot found
         show($("#emptyStateCard"), true);
         setText("focusTitle", "Take a snapshot to build your hub");
         setText("focusDesc", "Cyber Seeds will generate your prioritised focus, map, and next steps from your answers.");
         setText("stageTitle", "No snapshot yet");
         setText("stageDesc", "This page becomes personalised once a snapshot exists on this device.");
+
+        const emptyScores = {network:"—",devices:"—",privacy:"—",scams:"—",wellbeing:"—"};
+        setText("valNetwork","—"); setText("valDevices","—"); setText("valPrivacy","—"); setText("valScams","—"); setText("valWellbeing","—");
+
+        renderRing(emptyScores, "Stage", "privacy");
+        highlightLegend("privacy");
         renderActions("privacy");
-        renderProgress({network:"—",devices:"—",privacy:"—",scams:"—",wellbeing:"—"});
+        renderProgress(emptyScores);
         return;
       }
 
-      // Snapshot exists → render
+      // Snapshot exists
       show($("#emptyStateCard"), false);
 
       const scores = extractLensScores(snapshot);
       const stage = extractStage(snapshot);
 
-      // Update lens values
-      setText("scoreNetwork", scores.network);
-      setText("scoreDevices", scores.devices);
-      setText("scorePrivacy", scores.privacy);
-      setText("scoreScams", scores.scams);
-      setText("scoreWellbeing", scores.wellbeing);
+      // Legend values
+      setText("valNetwork", scores.network);
+      setText("valDevices", scores.devices);
+      setText("valPrivacy", scores.privacy);
+      setText("valScams", scores.scams);
+      setText("valWellbeing", scores.wellbeing);
 
-      // Stage
-      setText("stageTitle", stage.stage + " —");
+      // Stage block
+      setText("stageTitle", `${stage.stage} —`);
       setText("stageDesc", stage.desc);
 
-      // Weakest lens → focus
+      // Weakest lens = focus
       const wl = weakestLens(scores);
       const focus = focusCopyForLens(wl);
 
       setText("focusTitle", focus.title);
       setText("focusDesc", focus.desc);
 
-      // Actions reflect weakest lens
+      highlightLegend(wl);
+      renderRing(scores, stage.stage, wl);
+
+      // Actions
       renderActions(wl);
 
-      // Seed line slightly adapts per lens
+      // Seed line adapts
       const seedLine = {
         privacy: "Protect the ‘root accounts’ (email + Apple/Google) before everything else.",
         network: "Strengthen the Wi-Fi boundary first — it protects every device inside the home.",
@@ -1066,7 +1231,7 @@
       // Progress
       renderProgress(scores);
 
-      // Buttons
+      // Baseline buttons
       const saveBtn = $("#saveBaselineBtn");
       const clearBtn = $("#clearBaselineBtn");
 
@@ -1087,6 +1252,11 @@
           setTimeout(() => (clearBtn.textContent = "Clear baseline"), 1100);
         });
       }
+
+      // NOTE:
+      // If Safari is still not saving snapshots, the issue is likely on the snapshot page itself
+      // (it may store into sessionStorage only, or never writes localStorage).
+      // This resources hub reads both localStorage and sessionStorage already.
     })();
   </script>
 </body>
