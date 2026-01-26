@@ -1,125 +1,1093 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0f2f2a" />
-
-  <title>Cyber Seeds — Resources</title>
-  <meta name="description" content="Your personalised Cyber Seeds resources hub, built from your household snapshot on this device." />
-
+  <title>Cyber Seeds — Resources Hub</title>
+  <meta name="description" content="Your personalised Cyber Seeds resources hub, built from your last household snapshot on this device." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-  <link rel="stylesheet" href="/style.css?v=20260125" />
+
+  <!-- CACHE BUST: change this number on every deploy -->
+  <link rel="stylesheet" href="/style.css?v=20260126" />
+
+  <style>
+    /* =========================================================
+       RESOURCES HUB — LOCAL UPGRADE LAYER (NO CSS FILE EDITS)
+       - Mobile first, iOS safe
+       - Calm, public-sector friendly
+       ========================================================= */
+
+    :root{
+      --cs-ink: #0f2f2a;
+      --cs-ink-2: #184a43;
+      --cs-muted: rgba(15,47,42,.74);
+      --cs-soft: rgba(15,47,42,.06);
+      --cs-soft-2: rgba(15,47,42,.10);
+      --cs-border: rgba(15,47,42,.14);
+      --cs-card: #ffffff;
+      --cs-bg: #f6fbfa;
+      --cs-shadow: 0 10px 35px rgba(15,47,42,.10);
+      --cs-radius: 22px;
+      --cs-radius-lg: 28px;
+      --cs-gap: 16px;
+      --cs-gap-lg: 22px;
+      --cs-max: 1100px;
+    }
+
+    body{
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(24,116,102,.10), transparent 55%),
+                  radial-gradient(900px 500px at 80% 10%, rgba(60,171,150,.10), transparent 50%),
+                  var(--cs-bg);
+    }
+
+    main{
+      width: min(var(--cs-max), 92vw);
+      margin: 0 auto;
+      padding: 22px 0 60px;
+    }
+
+    .hub-hero{
+      margin-top: 8px;
+      padding: 22px 18px;
+    }
+
+    .hub-title{
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      margin: 6px 0 10px;
+      color: var(--cs-ink);
+    }
+
+    .hub-subtitle{
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: var(--cs-muted);
+      max-width: 62ch;
+      margin-bottom: 18px;
+    }
+
+    .hub-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px solid var(--cs-ink);
+      color: var(--cs-ink);
+      background: transparent;
+      transition: transform .12s ease, background .12s ease, opacity .12s ease;
+      min-width: 150px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active{
+      transform: scale(.985);
+      opacity: .92;
+    }
+
+    .btn-primary{
+      background: var(--cs-ink);
+      color: #fff;
+      border-color: var(--cs-ink);
+    }
+
+    .pill-row{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .pill{
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: var(--cs-soft);
+      border: 1px solid var(--cs-border);
+      color: var(--cs-ink);
+      font-weight: 650;
+      font-size: .95rem;
+    }
+
+    .grid{
+      display: grid;
+      gap: var(--cs-gap);
+      margin-top: 18px;
+    }
+
+    @media (min-width: 960px){
+      .grid{
+        grid-template-columns: 1.2fr .8fr;
+        gap: var(--cs-gap-lg);
+      }
+    }
+
+    .card{
+      background: var(--cs-card);
+      border-radius: var(--cs-radius-lg);
+      border: 1px solid var(--cs-border);
+      box-shadow: var(--cs-shadow);
+      overflow: hidden;
+    }
+
+    .card-pad{
+      padding: 18px 18px;
+    }
+
+    .eyebrow{
+      font-size: .92rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(15,47,42,.65);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .h2{
+      font-size: 1.55rem;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      color: var(--cs-ink);
+      letter-spacing: -.01em;
+    }
+
+    .p{
+      margin: 0;
+      color: var(--cs-muted);
+      line-height: 1.55;
+      font-size: 1rem;
+    }
+
+    .divider{
+      height: 1px;
+      background: var(--cs-soft-2);
+      margin: 16px 0;
+    }
+
+    .focus-title{
+      font-size: 1.65rem;
+      letter-spacing: -.01em;
+      margin: 2px 0 10px;
+      color: var(--cs-ink);
+      line-height: 1.15;
+    }
+
+    .map-wrap{
+      margin-top: 12px;
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
+      border: 1px solid var(--cs-border);
+      border-radius: 18px;
+    }
+
+    .map{
+      display: grid;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .map-node{
+      border-radius: 16px;
+      border: 1px solid var(--cs-border);
+      background: #fff;
+      padding: 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .node-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .node-title{
+      font-weight: 900;
+      color: var(--cs-ink);
+      letter-spacing: -.01em;
+      font-size: 1.05rem;
+    }
+
+    .node-tag{
+      font-size: .85rem;
+      font-weight: 850;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--cs-soft);
+      border: 1px solid var(--cs-border);
+      color: var(--cs-ink);
+      white-space: nowrap;
+    }
+
+    .node-text{
+      color: var(--cs-muted);
+      line-height: 1.35;
+      font-size: .96rem;
+    }
+
+    .map-arrow{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(15,47,42,.65);
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: .82rem;
+      justify-content: center;
+      padding: 4px 0;
+    }
+
+    .map-arrow svg{
+      width: 20px;
+      height: 20px;
+      opacity: .8;
+    }
+
+    .list{
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .step{
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 12px;
+      border-radius: 18px;
+      background: rgba(15,47,42,.035);
+      border: 1px solid rgba(15,47,42,.10);
+    }
+
+    .num{
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid var(--cs-border);
+      font-weight: 900;
+      color: var(--cs-ink);
+      flex: none;
+    }
+
+    .step-title{
+      font-weight: 900;
+      color: var(--cs-ink);
+      margin-bottom: 3px;
+      letter-spacing: -.01em;
+    }
+
+    .step-text{
+      color: var(--cs-muted);
+      line-height: 1.4;
+      font-size: .98rem;
+    }
+
+    .seedline{
+      margin-top: 12px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--cs-border);
+      background: #fff;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .seed-badge{
+      flex: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--cs-soft);
+      border: 1px solid var(--cs-border);
+    }
+
+    .seed-badge svg{ width: 20px; height: 20px; }
+
+    .seed-title{
+      font-weight: 950;
+      color: var(--cs-ink);
+      margin: 0 0 3px;
+      letter-spacing: -.01em;
+    }
+
+    .seed-text{
+      margin: 0;
+      color: var(--cs-muted);
+      line-height: 1.45;
+      font-size: .98rem;
+    }
+
+    .mini{
+      font-size: .92rem;
+      color: rgba(15,47,42,.65);
+      line-height: 1.45;
+    }
+
+    .scorebox{
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .score-row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(15,47,42,.12);
+      background: #fff;
+    }
+
+    .score-name{
+      font-weight: 900;
+      color: var(--cs-ink);
+    }
+
+    .score-val{
+      font-weight: 950;
+      color: var(--cs-ink);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--cs-soft);
+      border: 1px solid var(--cs-border);
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .status{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(15,47,42,.12);
+      background: rgba(255,255,255,.85);
+    }
+
+    .status strong{
+      color: var(--cs-ink);
+    }
+
+    .progress-card{
+      margin-top: 14px;
+    }
+
+    .progress-grid{
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .progress-row{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(15,47,42,.12);
+      background: #fff;
+    }
+
+    .progress-label{
+      font-weight: 900;
+      color: var(--cs-ink);
+      letter-spacing: -.01em;
+    }
+
+    .progress-delta{
+      font-weight: 950;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--cs-border);
+      background: var(--cs-soft);
+      color: var(--cs-ink);
+      min-width: 84px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .progress-delta.good{
+      background: rgba(0, 128, 96, .10);
+      border-color: rgba(0, 128, 96, .22);
+    }
+
+    .progress-delta.bad{
+      background: rgba(180, 70, 70, .10);
+      border-color: rgba(180, 70, 70, .22);
+    }
+
+    .muted-note{
+      margin-top: 10px;
+      font-size: .92rem;
+      color: rgba(15,47,42,.62);
+      line-height: 1.45;
+    }
+
+    .empty{
+      padding: 18px;
+      border-radius: var(--cs-radius-lg);
+      border: 1px dashed rgba(15,47,42,.25);
+      background: rgba(255,255,255,.7);
+    }
+
+    .empty h3{
+      margin: 0 0 8px;
+      color: var(--cs-ink);
+      letter-spacing: -.01em;
+    }
+
+    .empty p{
+      margin: 0 0 14px;
+      color: var(--cs-muted);
+      line-height: 1.5;
+    }
+
+    footer{
+      width: min(var(--cs-max), 92vw);
+      margin: 18px auto 40px;
+      padding: 10px 0 0;
+      color: rgba(15,47,42,.60);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    footer a{
+      color: rgba(15,47,42,.70);
+      text-decoration: none;
+      font-weight: 750;
+    }
+  </style>
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <!-- Header should be in your main site index, but we keep a lightweight in-page header for safety -->
+  <main id="main">
+    <section class="hub-hero">
+      <div class="eyebrow">Your personalised resources</div>
+      <h1 class="hub-title">Your Resources Hub</h1>
+      <p class="hub-subtitle">
+        Built from your last household snapshot on <strong>this device</strong>.
+        If you haven’t taken one yet, start here — you’ll get calm next steps within minutes.
+      </p>
 
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="/" aria-label="Cyber Seeds home">
-        <img src="/cyber_seeds_logo.png" class="logo" alt="Cyber Seeds logo" />
-        <span class="brand-name">Cyber Seeds</span>
-      </a>
+      <div class="hub-actions">
+        <a class="btn btn-primary" href="/#snapshot" id="takeSnapshotBtn">Take snapshot</a>
+        <a class="btn" href="/" id="backHomeBtn">Back to home</a>
+      </div>
 
-      <button class="nav-toggle" id="navToggle"
-        aria-label="Open menu" aria-expanded="false" aria-controls="navMenu" type="button">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="nav" id="navMenu" aria-label="Primary">
-        <a href="/#why">Why Clarity</a>
-        <a href="/#lenses">Five Lenses</a>
-        <a href="/#principles">Principles</a>
-        <a href="/resources/" aria-current="page">Resources</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main" class="main">
-    <section class="section">
-      <div class="container">
-        <h1 style="margin:0 0 8px 0;">Your Resources Hub</h1>
-        <p class="muted" style="margin:0 0 14px 0;">
-          Built from your last household snapshot on <b>this device</b>. If you haven’t taken one yet, start here.
-        </p>
-
-        <div class="hero-actions" style="margin-bottom:14px;">
-          <button class="btn primary" data-open-snapshot type="button">Take snapshot</button>
-          <a class="btn ghost" href="/">Back to home</a>
-        </div>
-
-        <div id="resourcesHub" class="resources-hub" aria-live="polite"></div>
+      <div class="pill-row" aria-label="Trust signals">
+        <span class="pill">Runs locally</span>
+        <span class="pill">No accounts</span>
+        <span class="pill">No tracking</span>
+        <span class="pill">Clear next steps</span>
       </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container foot-inner">
-      <p>© <span id="year"></span> Cyber Seeds</p>
-      <a href="/" class="foot-link">Home</a>
-    </div>
-  </footer>
+    <!-- MAIN GRID -->
+    <section class="grid" aria-label="Resources hub content">
 
-  <!-- SNAPSHOT MODAL (shared) -->
-  <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
-    <div class="modal-backdrop" data-close></div>
+      <!-- LEFT COLUMN -->
+      <div class="card">
+        <div class="card-pad">
+          <div class="eyebrow">Your prioritised focus</div>
+          <h2 class="focus-title" id="focusTitle">Loading your focus…</h2>
+          <p class="p" id="focusDesc">We’ll build your next steps from the last snapshot stored on this device.</p>
 
-    <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
-      <div class="modal-head">
-        <div>
-          <p class="modal-eyebrow">Household Snapshot</p>
-          <h2 class="modal-title">A calm signal — not a score</h2>
-          <p class="modal-sub" id="snapshotDesc">Answer as you are. We’ll return clarity + next steps.</p>
+          <div class="divider"></div>
+
+          <!-- HOUSEHOLD MAP -->
+          <div class="eyebrow">Household map</div>
+          <h3 class="h2" style="margin-top:0;">What protects everything else</h3>
+          <p class="p">
+            This is the hidden structure most families never see — but it shapes nearly every online incident.
+          </p>
+
+          <div class="map-wrap" role="group" aria-label="Household map diagram">
+            <div class="map">
+              <div class="map-node">
+                <div class="node-top">
+                  <div class="node-title">Root accounts</div>
+                  <div class="node-tag" id="rootTag">Email • Apple • Google</div>
+                </div>
+                <div class="node-text">
+                  These accounts can reset passwords and restore access to other services.
+                </div>
+              </div>
+
+              <div class="map-arrow" aria-hidden="true">
+                <span>reset access</span>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M7 14l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>spreads fast</span>
+              </div>
+
+              <div class="map-node">
+                <div class="node-top">
+                  <div class="node-title">Everything else</div>
+                  <div class="node-tag">Bank • School • Social • Shopping</div>
+                </div>
+                <div class="node-text">
+                  If the root accounts are compromised, attackers can move through the household quickly.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="divider"></div>
+
+          <h3 class="h2">Small actions you can do today</h3>
+          <div class="list" id="actionList">
+            <!-- JS will render steps -->
+          </div>
+
+          <div class="seedline" aria-label="Digital Seed takeaway">
+            <div class="seed-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21c4-3 7-7 7-12C16 9 12 4 12 4S8 9 5 9c0 5 3 9 7 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <p class="seed-title">Digital Seed</p>
+              <p class="seed-text" id="seedText">
+                Protect the “root accounts” (email + Apple/Google) before everything else.
+              </p>
+            </div>
+          </div>
         </div>
-        <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button">✕</button>
       </div>
 
-      <div class="modal-body">
-        <div class="modal-scroll" id="snapshotScroll">
-          <div class="context-cards" id="snapshotChips"></div>
+      <!-- RIGHT COLUMN -->
+      <aside>
+        <!-- SNAPSHOT OVERVIEW -->
+        <div class="card">
+          <div class="card-pad">
+            <div class="eyebrow">Your snapshot overview</div>
+            <h2 class="h2" id="stageTitle">Loading your stage…</h2>
+            <p class="p" id="stageDesc">This is a calm readout — not judgement. It’s a signal you can act on.</p>
 
-          <form id="snapshotForm" class="quiz" aria-live="polite"></form>
-
-          <section id="snapshotResult" class="result" hidden>
-            <h3>Your Household Signal</h3>
-            <p id="resultHeadline" class="result-headline"></p>
-
-            <div class="result-grid">
-              <div class="result-card">
-                <h4>Strongest lens</h4>
-                <p id="strongestLens"></p>
-              </div>
-              <div class="result-card">
-                <h4>Weakest lens</h4>
-                <p id="weakestLens"></p>
-              </div>
+            <div class="scorebox" aria-label="Lens scores">
+              <div class="score-row"><span class="score-name">Network</span><span class="score-val" id="scoreNetwork">—</span></div>
+              <div class="score-row"><span class="score-name">Devices</span><span class="score-val" id="scoreDevices">—</span></div>
+              <div class="score-row"><span class="score-name">Privacy</span><span class="score-val" id="scorePrivacy">—</span></div>
+              <div class="score-row"><span class="score-name">Scams</span><span class="score-val" id="scoreScams">—</span></div>
+              <div class="score-row"><span class="score-name">Wellbeing</span><span class="score-val" id="scoreWellbeing">—</span></div>
             </div>
 
-            <div class="result-actions">
-              <button class="btn ghost" type="button" id="exportSnapshot">Export snapshot</button>
-              <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
-            </div>
-
-            <p class="micro muted">Runs locally on this device. Nothing is sent anywhere.</p>
-          </section>
-        </div>
-
-        <div class="modal-foot">
-          <div class="snapshot-actions" id="snapshotControls">
-            <button type="button" class="btn ghost" id="snapshotBack">Back</button>
-            <div class="right-actions">
-              <span class="stepmeta" id="stepMeta" aria-live="polite"></span>
-              <button type="button" class="btn primary" id="snapshotNext">Start</button>
+            <div class="status" role="note" aria-label="Snapshot note">
+              <div class="mini" id="fingerprintLine">
+                <strong>Household fingerprint:</strong> building your pattern from the last snapshot…
+              </div>
+              <div class="muted-note" id="lastTakenLine"></div>
             </div>
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
+        <!-- PROGRESS TRACKING -->
+        <div class="card progress-card">
+          <div class="card-pad">
+            <div class="eyebrow">Progress tracking</div>
+            <h2 class="h2">Retest and compare</h2>
+            <p class="p">
+              Cyber Seeds is designed for repeat snapshots. Small changes compound fast — and your progress should be visible.
+            </p>
 
-  <script src="/script.js?v=20260125" defer></script>
+            <div class="progress-grid" id="progressGrid">
+              <!-- JS renders deltas if baseline exists -->
+            </div>
+
+            <p class="muted-note" id="progressNote">
+              Tip: take a snapshot today, then retest in 2–6 weeks. This device remembers your baseline locally.
+            </p>
+
+            <div class="hub-actions" style="margin-top:14px;">
+              <button class="btn btn-primary" id="saveBaselineBtn" type="button">Save as baseline</button>
+              <button class="btn" id="clearBaselineBtn" type="button">Clear baseline</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMPTY STATE (only shown if no snapshot) -->
+        <div class="card" id="emptyStateCard" style="display:none;">
+          <div class="card-pad">
+            <div class="empty">
+              <h3>No snapshot found on this device</h3>
+              <p>
+                That’s completely okay. Take a quick snapshot and this page will build your personalised hub automatically.
+              </p>
+              <a class="btn btn-primary" href="/#snapshot">Take snapshot now</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Cyber Seeds</div>
+    <a href="/">Home</a>
+  </footer>
+
+  <script>
+    // =========================================================
+    // RESOURCES HUB — INTELLIGENCE LAYER
+    // - Works even if snapshot schema changes slightly
+    // - Uses localStorage only
+    // - Builds: Prioritised focus, map interpretation, actions, fingerprint, progress deltas
+    // =========================================================
+
+    (function(){
+      const $ = (sel, root=document) => root.querySelector(sel);
+
+      const YEAR = $("#year");
+      if (YEAR) YEAR.textContent = String(new Date().getFullYear());
+
+      // -------- STORAGE KEYS (best-effort compatibility) --------
+      const KEYS = [
+        "cyberseeds_snapshot_last",
+        "cyberSeeds_snapshot_last",
+        "cs_snapshot_last",
+        "snapshot_last",
+        "cyberseeds_snapshot",
+        "cyberSeedsSnapshot",
+        "cyberSeeds.snapshot"
+      ];
+
+      const BASELINE_KEY = "cyberseeds_snapshot_baseline_v1";
+
+      // -------- HELPERS --------
+      function safeJSONParse(str){
+        try { return JSON.parse(str); } catch { return null; }
+      }
+
+      function getLastSnapshot(){
+        for (const k of KEYS){
+          const raw = localStorage.getItem(k);
+          if (!raw) continue;
+          const parsed = safeJSONParse(raw);
+          if (parsed && typeof parsed === "object") return parsed;
+        }
+        return null;
+      }
+
+      function normScore(v){
+        // Accepts numbers like 3, objects, strings like "3/4"
+        if (typeof v === "number") return `${v}/4`;
+        if (typeof v === "string"){
+          const m = v.match(/(\d)\s*\/\s*(\d)/);
+          if (m) return `${m[1]}/${m[2]}`;
+        }
+        if (v && typeof v === "object"){
+          // {score:3,max:4} or {value:3}
+          if (typeof v.score === "number") return `${v.score}/4`;
+          if (typeof v.value === "number") return `${v.value}/4`;
+        }
+        return "—";
+      }
+
+      function clamp(n, min, max){
+        return Math.max(min, Math.min(max, n));
+      }
+
+      function toNumScore(val){
+        // Turns "3/4" -> 3, "—" -> null
+        if (typeof val === "number") return val;
+        if (typeof val === "string"){
+          const m = val.match(/(\d)\s*\/\s*(\d)/);
+          if (m) return parseInt(m[1], 10);
+          const n = Number(val);
+          if (!Number.isNaN(n)) return n;
+        }
+        return null;
+      }
+
+      function formatDate(ts){
+        if (!ts) return "";
+        const d = new Date(ts);
+        if (Number.isNaN(d.getTime())) return "";
+        return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      }
+
+      // -------- DERIVE SNAPSHOT DATA (flexible schema) --------
+      function extractLensScores(snap){
+        const lens = snap.lenses || snap.scores || snap.subscores || snap.results || {};
+
+        const network   = lens.network   ?? lens.Network   ?? snap.networkScore   ?? snap.network;
+        const devices   = lens.devices   ?? lens.Devices   ?? snap.devicesScore   ?? snap.devices;
+        const privacy   = lens.privacy   ?? lens.Privacy   ?? snap.privacyScore   ?? snap.privacy;
+        const scams     = lens.scams     ?? lens.Scams     ?? snap.scamsScore     ?? snap.scams;
+        const wellbeing = lens.wellbeing ?? lens.Wellbeing ?? snap.wellbeingScore ?? snap.wellbeing;
+
+        return {
+          network: normScore(network),
+          devices: normScore(devices),
+          privacy: normScore(privacy),
+          scams: normScore(scams),
+          wellbeing: normScore(wellbeing)
+        };
+      }
+
+      function extractStage(snap){
+        const stage = snap.stage || snap.stageLabel || snap.band || snap.tier || snap.level || "Emerging";
+        const desc =
+          snap.stageDescription ||
+          snap.summary ||
+          "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
+
+        return { stage, desc };
+      }
+
+      function weakestLens(scores){
+        // returns lens name with lowest numeric score
+        const entries = Object.entries(scores)
+          .map(([k,v]) => [k, toNumScore(v)])
+          .filter(([,n]) => typeof n === "number");
+
+        if (!entries.length) return "privacy";
+
+        entries.sort((a,b) => a[1]-b[1]);
+        const lowest = entries[0][0];
+        return lowest;
+      }
+
+      function buildFingerprint(scores){
+        const n = toNumScore(scores.network);
+        const d = toNumScore(scores.devices);
+        const p = toNumScore(scores.privacy);
+        const s = toNumScore(scores.scams);
+        const w = toNumScore(scores.wellbeing);
+
+        // Determine dominant pattern (non-judgemental)
+        // This is intentionally simple + explainable for parents.
+        let pattern = "Stability Builder";
+        let note = "You’re close — a few small changes will make your system more resilient.";
+
+        const vals = { network:n, devices:d, privacy:p, scams:s, wellbeing:w };
+
+        // Count low lenses (<=2)
+        const lows = Object.entries(vals).filter(([,v]) => typeof v === "number" && v <= 2).map(([k]) => k);
+
+        if (lows.includes("privacy")){
+          pattern = "Root Account Cascade Risk";
+          note = "Email + Apple/Google sit at the centre. Strengthen them first to protect everything else.";
+        } else if (lows.includes("network")){
+          pattern = "Perimeter Drift";
+          note = "The Wi-Fi layer needs tightening so the household has a strong boundary.";
+        } else if (lows.includes("devices")){
+          pattern = "Device Hygiene Drag";
+          note = "Small update + cleanup habits reduce infections, glitches, and stress quickly.";
+        } else if (lows.includes("scams")){
+          pattern = "Pressure-Point Scam Risk";
+          note = "A few guardrails can prevent impulsive clicks turning into money or account loss.";
+        } else if (lows.includes("wellbeing")){
+          pattern = "Attention + Sleep Loop";
+          note = "A calmer rhythm (bedtime boundaries + notifications) reduces risk and conflict.";
+        } else {
+          // If everything is 3+ treat as "Emerging + polishing"
+          pattern = "Emerging Resilience";
+          note = "Your system is functional — focus on one lens and you’ll feel the difference fast.";
+        }
+
+        return { pattern, note };
+      }
+
+      function focusCopyForLens(lensKey){
+        const map = {
+          privacy: {
+            title: "Privacy Lens — protect accounts that protect everything else",
+            desc: "If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere."
+          },
+          network: {
+            title: "Network Lens — strengthen the boundary of your home",
+            desc: "Your Wi-Fi is the front door. Small changes here protect every device inside."
+          },
+          devices: {
+            title: "Device Lens — keep the household healthy and updated",
+            desc: "Out-of-date devices become weak links. Quick hygiene steps reduce risk and chaos."
+          },
+          scams: {
+            title: "Scam Lens — reduce the moments that scams win",
+            desc: "Scams succeed when people are rushed, emotional, or unsure. Guardrails stop damage early."
+          },
+          wellbeing: {
+            title: "Wellbeing Lens — calm routines reduce digital harm",
+            desc: "Healthier rhythms and boundaries reduce exposure, conflict, and impulsive risks."
+          }
+        };
+        return map[lensKey] || map.privacy;
+      }
+
+      function actionsForLens(lensKey){
+        const actions = {
+          privacy: [
+            { t: "Add 2-step verification to your email first", d: "Email is the password-reset key for most services. Protect it like your house keys." },
+            { t: "Use a password manager (optional but powerful)", d: "It reduces reuse and removes mental load. Choose one that feels simple." },
+            { t: "Review account recovery options", d: "Remove old phone numbers and emails. Ensure only you can reset access." },
+            { t: "Reduce public exposure", d: "Audit what’s visible on social profiles; remove address, school details, or routines if present." }
+          ],
+          network: [
+            { t: "Change your router admin password", d: "Default router logins are common. A strong admin password prevents takeover." },
+            { t: "Use WPA2/WPA3 and a strong Wi-Fi password", d: "A longer passphrase is harder to guess. Avoid shared ‘easy’ passwords." },
+            { t: "Turn off WPS", d: "WPS is convenient but increases risk. Disabling it tightens the boundary." },
+            { t: "Create a guest network (if you can)", d: "Keep visitors and smart devices separate from main family devices." }
+          ],
+          devices: [
+            { t: "Turn on automatic updates", d: "Updates fix known vulnerabilities. Set it and forget it wherever possible." },
+            { t: "Remove unused apps", d: "Less software means less exposure. Keep only what you use." },
+            { t: "Install a device screen lock", d: "PIN/FaceID prevents casual access and reduces account compromise." },
+            { t: "Back up the most important data", d: "Photos and documents deserve a recovery plan. Backups reduce panic." }
+          ],
+          scams: [
+            { t: "Use a ‘pause rule’ for links", d: "If it’s urgent, it’s suspicious. Pause, verify, then act." },
+            { t: "Turn on bank/app alerts", d: "Fast notifications mean fast response. It reduces damage windows." },
+            { t: "Teach the household your ‘safe words’", d: "Agree simple phrases: ‘I will check the official app’, ‘I will call back’." },
+            { t: "Review subscriptions and payments", d: "Scams hide as recurring charges. A quick check prevents slow losses." }
+          ],
+          wellbeing: [
+            { t: "Set a calm bedtime boundary", d: "A small cut-off time protects sleep and reduces late-night risk." },
+            { t: "Reduce notification noise", d: "Less noise means more control. Keep only what matters." },
+            { t: "Create a ‘charging home’ for devices", d: "One place for charging reduces midnight scrolling and arguments." },
+            { t: "Use screen time tools gently", d: "Use them as support, not punishment. The goal is calm and consistency." }
+          ]
+        };
+        return actions[lensKey] || actions.privacy;
+      }
+
+      function renderActions(lensKey){
+        const list = $("#actionList");
+        if (!list) return;
+        list.innerHTML = "";
+
+        const items = actionsForLens(lensKey);
+        items.forEach((it, idx) => {
+          const row = document.createElement("div");
+          row.className = "step";
+          row.innerHTML = `
+            <div class="num">${idx+1}</div>
+            <div>
+              <div class="step-title">${it.t}</div>
+              <div class="step-text">${it.d}</div>
+            </div>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      function setText(id, text){
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      function setHTML(id, html){
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      }
+
+      function show(el, yes){
+        if (!el) return;
+        el.style.display = yes ? "" : "none";
+      }
+
+      // -------- PROGRESS --------
+      function getBaseline(){
+        return safeJSONParse(localStorage.getItem(BASELINE_KEY));
+      }
+
+      function setBaseline(snap){
+        localStorage.setItem(BASELINE_KEY, JSON.stringify({
+          ts: Date.now(),
+          scores: extractLensScores(snap),
+          stage: extractStage(snap),
+        }));
+      }
+
+      function clearBaseline(){
+        localStorage.removeItem(BASELINE_KEY);
+      }
+
+      function renderProgress(currentScores){
+        const grid = $("#progressGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+
+        const baseline = getBaseline();
+        if (!baseline || !baseline.scores){
+          // Empty informative state
+          const el = document.createElement("div");
+          el.className = "progress-row";
+          el.innerHTML = `
+            <div>
+              <div class="progress-label">No baseline saved yet</div>
+              <div class="mini">Tap <strong>Save as baseline</strong> to lock your starting point on this device.</div>
+            </div>
+            <div class="progress-delta">—</div>
+          `;
+          grid.appendChild(el);
+          return;
+        }
+
+        const lensNames = [
+          ["network","Network"],
+          ["devices","Devices"],
+          ["privacy","Privacy"],
+          ["scams","Scams"],
+          ["wellbeing","Wellbeing"],
+        ];
+
+        lensNames.forEach(([key, label]) => {
+          const cur = toNumScore(currentScores[key]);
+          const base = toNumScore(baseline.scores[key]);
+
+          let delta = null;
+          if (typeof cur === "number" && typeof base === "number"){
+            delta = cur - base;
+          }
+
+          const row = document.createElement("div");
+          row.className = "progress-row";
+
+          let badge = "—";
+          let cls = "progress-delta";
+          if (delta !== null){
+            if (delta > 0){ badge = `+${delta}`; cls += " good"; }
+            else if (delta < 0){ badge = `${delta}`; cls += " bad"; }
+            else { badge = "0"; }
+          }
+
+          row.innerHTML = `
+            <div>
+              <div class="progress-label">${label}</div>
+              <div class="mini">Baseline ${baseline.scores[key]} → Now ${currentScores[key]}</div>
+            </div>
+            <div class="${cls}">${badge}</div>
+          `;
+          grid.appendChild(row);
+        });
+
+        const note = $("#progressNote");
+        if (note){
+          const when = formatDate(baseline.ts);
+          note.textContent = when
+            ? `Baseline saved locally on this device: ${when}. Retest whenever you like — progress should be visible.`
+            : `Baseline saved locally on this device. Retest whenever you like — progress should be visible.`;
+        }
+      }
+
+      // -------- MAIN RENDER --------
+      const snapshot = getLastSnapshot();
+
+      if (!snapshot){
+        // No snapshot found
+        show($("#emptyStateCard"), true);
+        setText("focusTitle", "Take a snapshot to build your hub");
+        setText("focusDesc", "Cyber Seeds will generate your prioritised focus, map, and next steps from your answers.");
+        setText("stageTitle", "No snapshot yet");
+        setText("stageDesc", "This page becomes personalised once a snapshot exists on this device.");
+        renderActions("privacy");
+        renderProgress({network:"—",devices:"—",privacy:"—",scams:"—",wellbeing:"—"});
+        return;
+      }
+
+      // Snapshot exists → render
+      show($("#emptyStateCard"), false);
+
+      const scores = extractLensScores(snapshot);
+      const stage = extractStage(snapshot);
+
+      // Update lens values
+      setText("scoreNetwork", scores.network);
+      setText("scoreDevices", scores.devices);
+      setText("scorePrivacy", scores.privacy);
+      setText("scoreScams", scores.scams);
+      setText("scoreWellbeing", scores.wellbeing);
+
+      // Stage
+      setText("stageTitle", stage.stage + " —");
+      setText("stageDesc", stage.desc);
+
+      // Weakest lens → focus
+      const wl = weakestLens(scores);
+      const focus = focusCopyForLens(wl);
+
+      setText("focusTitle", focus.title);
+      setText("focusDesc", focus.desc);
+
+      // Actions reflect weakest lens
+      renderActions(wl);
+
+      // Seed line slightly adapts per lens
+      const seedLine = {
+        privacy: "Protect the ‘root accounts’ (email + Apple/Google) before everything else.",
+        network: "Strengthen the Wi-Fi boundary first — it protects every device inside the home.",
+        devices: "Small hygiene steps (updates + cleanup) reduce stress and risk fast.",
+        scams: "Build one calm rule: pause, verify, then act — it stops most damage.",
+        wellbeing: "Stability beats intensity. Calm routines protect the whole household."
+      };
+      setText("seedText", seedLine[wl] || seedLine.privacy);
+
+      // Fingerprint
+      const fp = buildFingerprint(scores);
+      setHTML("fingerprintLine", `<strong>Household fingerprint:</strong> ${fp.pattern} — ${fp.note}`);
+
+      // Last taken line
+      const ts = snapshot.ts || snapshot.timestamp || snapshot.createdAt || snapshot.created_at || null;
+      const when = formatDate(ts);
+      setText("lastTakenLine", when ? `Last snapshot on this device: ${when}` : `Last snapshot found on this device.`);
+
+      // Progress
+      renderProgress(scores);
+
+      // Buttons
+      const saveBtn = $("#saveBaselineBtn");
+      const clearBtn = $("#clearBaselineBtn");
+
+      if (saveBtn){
+        saveBtn.addEventListener("click", () => {
+          setBaseline(snapshot);
+          renderProgress(scores);
+          saveBtn.textContent = "Baseline saved";
+          setTimeout(() => (saveBtn.textContent = "Save as baseline"), 1100);
+        });
+      }
+
+      if (clearBtn){
+        clearBtn.addEventListener("click", () => {
+          clearBaseline();
+          renderProgress(scores);
+          clearBtn.textContent = "Cleared";
+          setTimeout(() => (clearBtn.textContent = "Clear baseline"), 1100);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
