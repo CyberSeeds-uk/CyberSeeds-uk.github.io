@@ -853,7 +853,7 @@ function buildApiPayloadFromLocal(snapshot) {
       </div>
     </div>
 
-    ="card">
+    <div class="card">
       <h2>What to do next</h2>
       <p>
         This snapshot is not a judgement — it’s a starting signal.
