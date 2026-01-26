@@ -5,85 +5,126 @@
    - Reset snapshot (clears local storage)
    - Personalised resources handoff
    - Printable + downloadable HTML report
+   - Server API submit (snapshot_id + PDF)
    ========================================= */
 
 (() => {
   "use strict";
+
+  // === API ===
   const API_BASE = "https://cyberseeds-api.onrender.com";
 
-async function postSnapshot(payload) {
-  const res = await fetch(`${API_BASE}/api/snapshot`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok || !data.ok) throw new Error(data?.error || "Snapshot failed");
-  return data;
-}
+  async function postSnapshot(payload) {
+    const res = await fetch(`${API_BASE}/api/snapshot`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-// Convert your 1–4 lens answers into the boolean payload your API expects
-function buildApiPayloadFromLocal(snapshot) {
-  const n = snapshot.scores.Network || 1;
-  const d = snapshot.scores.Devices || 1;
-  const p = snapshot.scores.Privacy || 1;
-  const s = snapshot.scores.Scams || 1;
-  const w = snapshot.scores.Wellbeing || 1;
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) throw new Error(data?.error || "Snapshot failed");
+    return data;
+  }
 
-  const network = {
-    router_admin_changed: n >= 4,
-    wifi_password_strong: n >= 3,
-    wps_disabled: n >= 4,
-    guest_network: n >= 4,
-    auto_updates_router: n >= 4
-  };
+  // Convert your 1–4 lens answers into the boolean payload your API expects
+  function buildApiPayloadFromLocal(snapshot) {
+    const n = snapshot.scores.Network || 1;
+    const d = snapshot.scores.Devices || 1;
+    const p = snapshot.scores.Privacy || 1;
+    const s = snapshot.scores.Scams || 1;
+    const w = snapshot.scores.Wellbeing || 1;
 
-  const device = {
-    auto_updates_devices: d >= 3,
-    screen_lock_enabled: d >= 3,
-    backups_enabled: d >= 4,
-    antivirus_or_mdm: d >= 4,
-    old_devices_unmanaged: d <= 2
-  };
+    const network = {
+      router_admin_changed: n >= 4,
+      wifi_password_strong: n >= 3,
+      wps_disabled: n >= 4,
+      guest_network: n >= 4,
+      auto_updates_router: n >= 4,
+    };
 
-  const privacy = {
-    password_manager: p >= 4,
-    mfa_enabled: p >= 3,
-    social_profiles_private: p >= 3,
-    data_broker_optout: p >= 4,
-    shared_passwords: p <= 2
-  };
+    const device = {
+      auto_updates_devices: d >= 3,
+      screen_lock_enabled: d >= 3,
+      backups_enabled: d >= 4,
+      antivirus_or_mdm: d >= 4,
+      old_devices_unmanaged: d <= 2,
+    };
 
-  const scams = {
-    scam_rules_in_home: s >= 4,
-    bank_alerts_on: s >= 3,
-    kids_know_red_flags: s >= 4,
-    verified_contacts: s >= 4,
-    clicked_suspicious_links_recently: s <= 2
-  };
+    const privacy = {
+      password_manager: p >= 4,
+      mfa_enabled: p >= 3,
+      social_profiles_private: p >= 3,
+      data_broker_optout: p >= 4,
+      shared_passwords: p <= 2,
+    };
 
-  const wellbeing = {
-    bedtime_boundaries: w >= 4,
-    device_free_meals: w >= 3,
-    age_appropriate_controls: w >= 3,
-    open_talks_weekly: w >= 3,
-    distress_signals_seen: w <= 2
-  };
+    const scams = {
+      scam_rules_in_home: s >= 4,
+      bank_alerts_on: s >= 3,
+      kids_know_red_flags: s >= 4,
+      verified_contacts: s >= 4,
+      clicked_suspicious_links_recently: s <= 2,
+    };
 
-  return {
-    household: {
-      label: "Cyber Seeds Household",
-      adults: 1,
-      children: 0
-    },
-    network, device, privacy, scams, wellbeing,
+    const wellbeing = {
+      bedtime_boundaries: w >= 4,
+      device_free_meals: w >= 3,
+      age_appropriate_controls: w >= 3,
+      open_talks_weekly: w >= 3,
+      distress_signals_seen: w <= 2,
+    };
 
-    // extra (safe): keep your local scores for debugging
-    meta_local: snapshot
-  };
-}
+    return {
+      household: {
+        label: "Cyber Seeds Household",
+        adults: 1,
+        children: 0,
+      },
+      network,
+      device,
+      privacy,
+      scams,
+      wellbeing,
 
-  
+      // Optional: keep local snapshot summary for debugging only
+      meta_local: snapshot,
+    };
+  }
+
+  async function submitSnapshotToAPI(snapshot) {
+    try {
+      const apiPayload = buildApiPayloadFromLocal(snapshot);
+      const out = await postSnapshot(apiPayload);
+
+      // store server id for later use
+      try {
+        localStorage.setItem("seed_snapshot_server_id", out.snapshot_id);
+      } catch {}
+
+      // Build PDF link
+      const pdfLink = `${API_BASE}${out.pdf_url}`;
+
+      // Show the button/link in the modal if it exists
+      const linkEl = document.querySelector("#serverPdfLink");
+      if (linkEl) {
+        linkEl.href = pdfLink;
+        linkEl.style.display = "inline-flex";
+        linkEl.textContent = "Download PDF report";
+      }
+
+      console.log("✅ API snapshot_id:", out.snapshot_id);
+      console.log("✅ PDF URL:", pdfLink);
+    } catch (e) {
+      console.warn("⚠️ API submit failed:", e);
+      // Keep offline experience clean (local HTML report still works)
+      const linkEl = document.querySelector("#serverPdfLink");
+      if (linkEl) {
+        linkEl.style.display = "none";
+      }
+    }
+  }
+
+  // === DOM HELPERS ===
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -110,13 +151,13 @@ function buildApiPayloadFromLocal(snapshot) {
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
 
-    $$("a", navMenu).forEach(a => a.addEventListener("click", closeNav));
+    $$("a", navMenu).forEach((a) => a.addEventListener("click", closeNav));
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeNav();
     });
 
-    document.addEventListener("click", e => {
+    document.addEventListener("click", (e) => {
       if (!navMenu.classList.contains("is-open")) return;
       if (navMenu.contains(e.target) || navToggle.contains(e.target)) return;
       closeNav();
@@ -124,7 +165,7 @@ function buildApiPayloadFromLocal(snapshot) {
   }
 
   // ---------- SMOOTH SCROLL (handles #hash) ----------
-  $$("[data-scroll]").forEach(a => {
+  $$("[data-scroll]").forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href") || "";
       if (!href.startsWith("#")) return;
@@ -174,6 +215,9 @@ function buildApiPayloadFromLocal(snapshot) {
   const dlHtmlBtn = $("#downloadSnapshotHtml");
   const retakeBtn = $("#retakeSnapshot");
 
+  // Server PDF link (optional button)
+  const serverPdfLink = $("#serverPdfLink");
+
   // Resources page container (may exist on /resources/)
   const resourcesEl = $("#resourcesHub");
   const goToResources = $("#goToResources");
@@ -192,8 +236,8 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Locked down", sub: "Router admin password changed • WPS off • guest Wi-Fi used", s: 4 },
         { t: "Mostly protected", sub: "Strong Wi-Fi password but unsure about router settings", s: 3 },
         { t: "Basic / default", sub: "Old/shared password • router never checked", s: 2 },
-        { t: "No idea", sub: "I wouldn’t know where to look", s: 1 }
-      ]
+        { t: "No idea", sub: "I wouldn’t know where to look", s: 1 },
+      ],
     },
     {
       lens: "Devices",
@@ -202,8 +246,8 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Hardened", sub: "Auto-updates • screen locks • backups working", s: 4 },
         { t: "Mostly OK", sub: "Updates usually happen, some lag behind", s: 3 },
         { t: "Patchy", sub: "Old devices or missing locks/backups", s: 2 },
-        { t: "Unsure", sub: "We just use them — no setup", s: 1 }
-      ]
+        { t: "Unsure", sub: "We just use them — no setup", s: 1 },
+      ],
     },
     {
       lens: "Privacy",
@@ -212,8 +256,8 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Strongly protected", sub: "Unique passwords • password manager • 2-step on email", s: 4 },
         { t: "Some protection", sub: "Some 2-step but passwords reused", s: 3 },
         { t: "Weak protection", sub: "Reused passwords or recovery not reviewed", s: 2 },
-        { t: "Overwhelmed", sub: "I avoid account settings", s: 1 }
-      ]
+        { t: "Overwhelmed", sub: "I avoid account settings", s: 1 },
+      ],
     },
     {
       lens: "Scams",
@@ -222,8 +266,8 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Pause + verify", sub: "We check via official app or saved number", s: 4 },
         { t: "Cautious", sub: "We hesitate but sometimes click first", s: 3 },
         { t: "Pressured", sub: "Urgency sometimes wins", s: 2 },
-        { t: "Already affected", sub: "We’ve lost money/data before", s: 1 }
-      ]
+        { t: "Already affected", sub: "We’ve lost money/data before", s: 1 },
+      ],
     },
     {
       lens: "Wellbeing",
@@ -232,17 +276,12 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Balanced", sub: "Boundaries feel calm • sleep mostly protected", s: 4 },
         { t: "A bit noisy", sub: "Some disruption, but manageable", s: 3 },
         { t: "Strained", sub: "Arguments, exhaustion, stress", s: 2 },
-        { t: "Overwhelming", sub: "It regularly feels out of control", s: 1 }
-      ]
-    }
+        { t: "Overwhelming", sub: "It regularly feels out of control", s: 1 },
+      ],
+    },
   ];
 
-  const CHIPS = [
-    "Runs locally on this device",
-    "No accounts • no tracking",
-    "2 minutes • 5 questions",
-    "Clear next steps"
-  ];
+  const CHIPS = ["Runs locally on this device", "No accounts • no tracking", "2 minutes • 5 questions", "Clear next steps"];
 
   // ---------- STATE ----------
   let step = -1; // -1 intro, 0..n-1 question, n result
@@ -259,7 +298,7 @@ function buildApiPayloadFromLocal(snapshot) {
     document.body.style.left = "0";
     document.body.style.right = "0";
     document.body.style.width = "100%";
-    document.body.style.webkitOverflowScrolling = "auto"; 
+    document.body.style.webkitOverflowScrolling = "auto";
   };
 
   const unlockBody = () => {
@@ -270,7 +309,7 @@ function buildApiPayloadFromLocal(snapshot) {
     document.body.style.right = "";
     document.body.style.width = "";
     window.scrollTo(0, scrollY);
-    document.body.style.webkitOverflowScrolling = ""; 
+    document.body.style.webkitOverflowScrolling = "";
   };
 
   // ---------- STORAGE ----------
@@ -341,6 +380,10 @@ function buildApiPayloadFromLocal(snapshot) {
     backBtn.disabled = true;
     nextBtn.textContent = "Start";
     nextBtn.disabled = false;
+
+    // hide server PDF link until a fresh run finishes
+    if (serverPdfLink) serverPdfLink.style.display = "none";
+
     if (scrollEl) scrollEl.scrollTop = 0;
   }
 
@@ -354,7 +397,9 @@ function buildApiPayloadFromLocal(snapshot) {
     form.innerHTML = `
       <h3 class="q-title">${escapeHTML(q.q)}</h3>
       <div class="choices">
-        ${q.a.map(opt => `
+        ${q.a
+          .map(
+            (opt) => `
           <label class="choice" role="button" tabindex="0">
             <input type="radio" name="q${step}" value="${opt.s}" ${current === opt.s ? "checked" : ""} />
             <div>
@@ -362,16 +407,18 @@ function buildApiPayloadFromLocal(snapshot) {
               <span>${escapeHTML(opt.sub)}</span>
             </div>
           </label>
-        `).join("")}
+        `
+          )
+          .join("")}
       </div>
     `;
 
     backBtn.disabled = false;
-    nextBtn.textContent = (step === QUESTIONS.length - 1) ? "Finish" : "Next";
+    nextBtn.textContent = step === QUESTIONS.length - 1 ? "Finish" : "Next";
     nextBtn.disabled = current == null;
 
     // Make entire label clickable/keyboard-selectable
-    $$(".choice", form).forEach(label => {
+    $$(".choice", form).forEach((label) => {
       const activate = () => {
         const input = $("input", label);
         if (!input) return;
@@ -398,33 +445,9 @@ function buildApiPayloadFromLocal(snapshot) {
 
     // Save snapshot for Resources hub
     saveSnapshot(snapshot);
-    	
-    // --- Send to Cyberseeds API (creates snapshot_id + server PDF) ---
-(async () => {
-  try {
-    const apiPayload = buildApiPayloadFromLocal(snapshot);
-    const out = await postSnapshot(apiPayload);
 
-    // store server id so resources page can use it later
-    try { localStorage.setItem("seed_snapshot_server_id", out.snapshot_id); } catch {}
-
-    // If you have a button/link in HTML, fill it. Otherwise log it.
-    const pdfLink = `${API_BASE}${out.pdf_url}`;
-    console.log("Cyberseeds API snapshot_id:", out.snapshot_id);
-    console.log("Cyberseeds PDF:", pdfLink);
-
-    // OPTIONAL: if you have an anchor like <a id="serverPdfLink"></a>
-    const a = document.querySelector("#serverPdfLink");
-    if (a) {
-      a.href = pdfLink;
-      a.textContent = "Download PDF report";
-      a.style.display = "inline-block";
-    }
-  } catch (e) {
-    console.warn("API submit failed:", e);
-  }
-})();
-
+    // ✅ Submit to API ONCE (async, non-blocking)
+    submitSnapshotToAPI(snapshot);
 
     // Update headline + strongest/weakest labels
     if (resultHeadline) resultHeadline.textContent = `${snapshot.stage.name} signal — ${snapshot.stage.desc}`;
@@ -462,7 +485,7 @@ function buildApiPayloadFromLocal(snapshot) {
 
     // Inject chips
     if (chipsWrap) {
-      chipsWrap.innerHTML = CHIPS.map(c => `<div class="chip">${escapeHTML(c)}</div>`).join("");
+      chipsWrap.innerHTML = CHIPS.map((c) => `<div class="chip">${escapeHTML(c)}</div>`).join("");
     }
 
     modal.classList.add("is-open");
@@ -475,11 +498,10 @@ function buildApiPayloadFromLocal(snapshot) {
     render();
 
     // Push state so browser Back closes modal
-    // Use a distinct state marker (avoid stacking duplicates)
     const st = history.state || {};
     if (!st.__seedModal) {
-       history.replaceState(history.state || {}, "", "#");
-       history.pushState({ ...(st || {}), __seedModal: true }, "", "#snapshot");
+      history.replaceState(history.state || {}, "", "#");
+      history.pushState({ ...(st || {}), __seedModal: true }, "", "#snapshot");
     }
   }
 
@@ -498,25 +520,20 @@ function buildApiPayloadFromLocal(snapshot) {
     }
   }
 
-  // Listen for back button
   window.addEventListener("popstate", () => {
     if (!hasSnapshotUI) return;
     if (modal.classList.contains("is-open")) {
-      // Close modal but do not trigger history.back() again
       closeModal({ viaPop: true });
     }
   });
 
   // ---------- BUTTON WIRING ----------
-  // Open modal triggers
-  $$("[data-open-snapshot]").forEach(btn => btn.addEventListener("click", openModal));
+  $$("[data-open-snapshot]").forEach((btn) => btn.addEventListener("click", openModal));
 
-  // Close on close button or backdrop
   if (closeBtn) closeBtn.addEventListener("click", () => closeModal());
   const backdrop = modal ? $("[data-close]", modal) : null;
   if (backdrop) backdrop.addEventListener("click", () => closeModal());
 
-  // Next/Back controls inside modal
   if (hasSnapshotUI) {
     nextBtn.addEventListener("click", () => {
       if (nextBtn.disabled) return;
@@ -532,18 +549,17 @@ function buildApiPayloadFromLocal(snapshot) {
     });
   }
 
-  // Retake within result
   if (retakeBtn) {
     retakeBtn.addEventListener("click", () => {
       step = -1;
       answers = new Array(QUESTIONS.length).fill(null);
       if (controls) controls.style.display = "flex";
       if (resultSection) resultSection.hidden = true;
+      if (serverPdfLink) serverPdfLink.style.display = "none";
       render();
     });
   }
 
-  // Reset snapshot: clears storage + restarts (useful if user wants fresh resources)
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       clearSnapshot();
@@ -551,6 +567,7 @@ function buildApiPayloadFromLocal(snapshot) {
       answers = new Array(QUESTIONS.length).fill(null);
       if (controls) controls.style.display = "flex";
       if (resultSection) resultSection.hidden = true;
+      if (serverPdfLink) serverPdfLink.style.display = "none";
       render();
     });
   }
@@ -571,7 +588,7 @@ function buildApiPayloadFromLocal(snapshot) {
     });
   }
 
-  // Download full HTML report (finalised)
+  // Download full HTML report
   if (dlHtmlBtn) {
     dlHtmlBtn.addEventListener("click", () => {
       const snap = loadSnapshot() || calcSnapshotFromStorageOrNull();
@@ -588,27 +605,8 @@ function buildApiPayloadFromLocal(snapshot) {
       URL.revokeObjectURL(url);
     });
   }
-    (async () => {
-  try {
-    const apiPayload = buildApiPayloadFromLocal(snapshot);
-    const out = await postSnapshot(apiPayload);
 
-    const pdfLink = `${API_BASE}${out.pdf_url}`;
-
-    // show the button + attach the URL
-    const linkEl = document.querySelector("#serverPdfLink");
-    if (linkEl) {
-      linkEl.href = pdfLink;
-      linkEl.style.display = "inline-flex";
-    }
-
-    // store id for later use (resources page / future retrieval)
-    try { localStorage.setItem("seed_snapshot_server_id", out.snapshot_id); } catch {}
-  } catch (e) {
-    console.warn("API submit failed:", e);
-  }
-})();
-  // ---------- RESOURCES HUB CONTENT (Personalised, valuable) ----------
+  // ---------- RESOURCES HUB CONTENT ----------
   const RESOURCES_CONTENT = {
     Network: {
       title: "Network Lens — make the home Wi-Fi trustworthy",
@@ -617,9 +615,9 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Change the router admin password", d: "This is different from the Wi-Fi password. If it’s still the default, anyone with access to the label/manual can guess it." },
         { t: "Disable WPS", d: "WPS (push-button pairing) is convenient, but it reduces the effort needed for unwanted connection attempts." },
         { t: "Create a Guest Wi-Fi", d: "Put visitors, smart TVs, and ‘unknown’ devices on guest Wi-Fi so your main devices stay more protected." },
-        { t: "Check updates (router firmware)", d: "If your ISP router updates automatically, great. If not, check the model page or ISP help page for updates." }
+        { t: "Check updates (router firmware)", d: "If your ISP router updates automatically, great. If not, check the model page or ISP help page for updates." },
       ],
-      seed: "Digital Seed: once a month, spend 2 minutes checking ‘who’s connected’ in your router/app."
+      seed: "Digital Seed: once a month, spend 2 minutes checking ‘who’s connected’ in your router/app.",
     },
     Devices: {
       title: "Devices Lens — keep everyday devices steady",
@@ -628,9 +626,9 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Turn on automatic updates", d: "Security fixes work best when they happen quietly in the background." },
         { t: "Use screen locks on every device", d: "A lost phone shouldn’t become an open door. Prefer PIN + biometrics." },
         { t: "Confirm backups are real", d: "A backup that hasn’t been tested is a hope, not a safety net. Check one photo/file can be restored." },
-        { t: "Remove unused apps & old accounts", d: "Less surface area, less confusion, less risk." }
+        { t: "Remove unused apps & old accounts", d: "Less surface area, less confusion, less risk." },
       ],
-      seed: "Digital Seed: ‘Update + Lock + Backup’ — a 30-second family ritual on Sundays."
+      seed: "Digital Seed: ‘Update + Lock + Backup’ — a 30-second family ritual on Sundays.",
     },
     Privacy: {
       title: "Privacy Lens — protect accounts that protect everything else",
@@ -639,20 +637,20 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Add 2-step verification to your email first", d: "Email is the password-reset key for most services. Protect it like your house keys." },
         { t: "Use a password manager (optional but powerful)", d: "It reduces reuse and removes mental load. Choose one that feels simple." },
         { t: "Review account recovery options", d: "Remove old phone numbers and emails. Ensure only you can reset access." },
-        { t: "Reduce public exposure", d: "Audit what’s visible on social profiles; remove address, school details, or routines if present." }
+        { t: "Reduce public exposure", d: "Audit what’s visible on social profiles; remove address, school details, or routines if present." },
       ],
-      seed: "Digital Seed: protect the ‘root accounts’ (email + Apple/Google) before everything else."
+      seed: "Digital Seed: protect the ‘root accounts’ (email + Apple/Google) before everything else.",
     },
     Scams: {
       title: "Scam Defence Lens — build a calm pause reflex",
       why: "Scams succeed by urgency. The household skill is not ‘never click’ — it’s ‘pause, verify, proceed’.",
       steps: [
-        { t: "Create one household rule: ‘No money moves via links’ ", d: "If a message asks for payment, open the official app/site yourself." },
+        { t: "Create one household rule: ‘No money moves via links’", d: "If a message asks for payment, open the official app/site yourself." },
         { t: "Use saved numbers, not message numbers", d: "If your bank calls, hang up and ring the number from the back of your card/app." },
         { t: "Share scam attempts as a family", d: "A 30-second conversation teaches pattern recognition faster than any poster." },
-        { t: "Report suspicious messages", d: "Forward scam texts to 7726 (UK) and delete; report phishing emails in your mail app." }
+        { t: "Report suspicious messages", d: "Forward scam texts to 7726 (UK) and delete; report phishing emails in your mail app." },
       ],
-      seed: "Digital Seed: teach the ‘PAUSE’ habit: Pause • Ask • Use official route • Save evidence • Exit."
+      seed: "Digital Seed: teach the ‘PAUSE’ habit: Pause • Ask • Use official route • Save evidence • Exit.",
     },
     Wellbeing: {
       title: "Child Digital Wellbeing Lens — reduce friction, protect sleep",
@@ -661,10 +659,10 @@ function buildApiPayloadFromLocal(snapshot) {
         { t: "Protect sleep first", d: "Create one device-down time (e.g., 30–60 minutes before bed). Start gentle, not strict." },
         { t: "Use built-in Screen Time / Digital Wellbeing tools", d: "Not as punishment — as visibility. Children often self-regulate better when they can see patterns." },
         { t: "Make ‘open door’ conversations normal", d: "If something feels weird online, the rule is ‘tell us early’ — no blame." },
-        { t: "Separate ‘private’ from ‘secret’", d: "Children deserve privacy. But secrecy around risk should be discussable with trusted adults." }
+        { t: "Separate ‘private’ from ‘secret’", d: "Children deserve privacy. But secrecy around risk should be discussable with trusted adults." },
       ],
-      seed: "Digital Seed: one weekly ‘digital check-in’ question: “Anything online feel confusing this week?”"
-    }
+      seed: "Digital Seed: one weekly ‘digital check-in’ question: “Anything online feel confusing this week?”",
+    },
   };
 
   function populateResourcesHub(snapshot = null) {
@@ -681,7 +679,7 @@ function buildApiPayloadFromLocal(snapshot) {
       return;
     }
 
-    const focusLens = snap.isAllEqual ? "Privacy" : snap.weakest; // fallback focus if fully balanced
+    const focusLens = snap.isAllEqual ? "Privacy" : snap.weakest;
     const pack = RESOURCES_CONTENT[focusLens];
 
     resourcesEl.innerHTML = `
@@ -694,32 +692,40 @@ function buildApiPayloadFromLocal(snapshot) {
       <div class="card">
         <h3>Small actions you can do today</h3>
         <ol class="steps">
-          ${pack.steps.map(s => `
+          ${pack.steps
+            .map(
+              (s) => `
             <li>
               <b>${escapeHTML(s.t)}</b>
               <div class="muted">${escapeHTML(s.d)}</div>
             </li>
-          `).join("")}
+          `
+            )
+            .join("")}
         </ol>
         <div class="seed-note">
           <b>${escapeHTML(pack.seed.split(":")[0])}:</b> ${escapeHTML(pack.seed.split(":").slice(1).join(":").trim())}
+        </div>
       </div>
 
       <div class="card">
         <h3>Your snapshot overview</h3>
         <p class="muted"><b>${escapeHTML(snap.stage.name)}</b> — ${escapeHTML(snap.stage.desc)}</p>
         <div class="mini-bars">
-          ${Object.keys(snap.scores).map(l => {
-            const pct = Math.round((snap.scores[l] / 4) * 100);
-            return `
-              <div class="mini-row">
-                <span>${escapeHTML(l)}</span>
-                <div class="mini-track"><div class="mini-fill" style="width:${pct}%"></div></div>
-                <span class="mini-val">${snap.scores[l]}/4</span>
-              </div>
-            `;
-          }).join("")}
+          ${Object.keys(snap.scores)
+            .map((l) => {
+              const pct = Math.round((snap.scores[l] / 4) * 100);
+              return `
+                <div class="mini-row">
+                  <span>${escapeHTML(l)}</span>
+                  <div class="mini-track"><div class="mini-fill" style="width:${pct}%"></div></div>
+                  <span class="mini-val">${snap.scores[l]}/4</span>
+                </div>
+              `;
+            })
+            .join("")}
         </div>
+      </div>
     `;
   }
 
@@ -732,14 +738,13 @@ function buildApiPayloadFromLocal(snapshot) {
       "&": "&amp;",
       "<": "&lt;",
       ">": "&gt;",
-      "\"": "&quot;",
-      "'": "&#039;"
+      '"': "&quot;",
+      "'": "&#039;",
     }[m]));
   }
 
   function updateBars(snapshot) {
-    // Each lens max score 4 (single question), so percent = score/4
-    Object.keys(snapshot.scores).forEach(lens => {
+    Object.keys(snapshot.scores).forEach((lens) => {
       const pct = Math.round((snapshot.scores[lens] / 4) * 100);
       if (barEls[lens]) barEls[lens].style.width = `${pct}%`;
       if (valEls[lens]) valEls[lens].textContent = `${snapshot.scores[lens]}/4`;
@@ -747,16 +752,16 @@ function buildApiPayloadFromLocal(snapshot) {
   }
 
   function calcSnapshotFromStorageOrNull() {
-    // If user tries to print/download without taking snapshot, use stored if any.
     const snap = loadSnapshot();
     return snap || null;
   }
 
   function buildReportHTML(snapshot, { forPrint }) {
     const dateStr = new Date().toLocaleString();
-    const lensRows = Object.keys(snapshot.scores).map(l => {
-      const pct = Math.round((snapshot.scores[l] / 4) * 100);
-      return `
+    const lensRows = Object.keys(snapshot.scores)
+      .map((l) => {
+        const pct = Math.round((snapshot.scores[l] / 4) * 100);
+        return `
         <tr>
           <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;"><b>${escapeHTML(l)}</b></td>
           <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;">
@@ -767,7 +772,8 @@ function buildApiPayloadFromLocal(snapshot) {
           <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;text-align:right;">${snapshot.scores[l]}/4</td>
         </tr>
       `;
-    }).join("");
+      })
+      .join("");
 
     const focusLens = snapshot.isAllEqual ? "Privacy" : snapshot.weakest;
     const pack = RESOURCES_CONTENT[focusLens];
@@ -819,7 +825,6 @@ function buildApiPayloadFromLocal(snapshot) {
       <p style="margin-top:10px;"><b>${escapeHTML(snapshot.stage.name)}</b> — ${escapeHTML(snapshot.stage.desc)}</p>
     </div>
 
-
     <div class="card">
       <h2>Snapshot overview</h2>
       <table>
@@ -840,12 +845,16 @@ function buildApiPayloadFromLocal(snapshot) {
       <h2>Your priority focus</h2>
       <p class="muted">${escapeHTML(pack.why)}</p>
       <ol>
-        ${pack.steps.map(s => `
+        ${pack.steps
+          .map(
+            (s) => `
           <li>
             <b>${escapeHTML(s.t)}</b><br>
             <span class="muted">${escapeHTML(s.d)}</span>
           </li>
-        `).join("")}
+        `
+          )
+          .join("")}
       </ol>
       <div class="seed">
         <b>${escapeHTML(pack.seed.split(":")[0])}:</b>
