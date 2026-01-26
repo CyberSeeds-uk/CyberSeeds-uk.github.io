@@ -9,12 +9,7 @@
 
 (() => {
   "use strict";
-<<<<<<< Updated upstream
   const API_BASE = "https://cyberseeds-api.onrender.com";
-=======
-  
-  const API_BASE = "http://localhost:8080"; // e.g. https://cyberseeds-api.onrender.com
->>>>>>> Stashed changes
 
 async function postSnapshot(payload) {
   const res = await fetch(`${API_BASE}/api/snapshot`, {
