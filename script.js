@@ -315,8 +315,15 @@
   // ---------- STORAGE ----------
   const saveSnapshot = (snapshot) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
-      localStorage.setItem(STORAGE_TS_KEY, String(Date.now()));
+       const ts = Date.now();
+       const withTs = { ...snapshot, ts };
+
+       localStorage.setItem(STORAGE_KEY, JSON.stringify(withTs));
+       localStorage.setItem(STORAGE_TS_KEY, String(ts));
+
+       // ✅ compatibility keys for other pages / future migrations
+       localStorage.setItem("cyberseeds_snapshot_last", JSON.stringify(withTs));
+
     } catch (e) {
       console.warn("LocalStorage save failed:", e);
     }
