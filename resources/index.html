@@ -109,6 +109,7 @@
       min-width:150px;
       user-select:none;
       -webkit-tap-highlight-color:transparent;
+      cursor:pointer;
     }
 
     .btn:active{ transform:scale(.985); opacity:.92; }
@@ -595,9 +596,8 @@
                 <!-- track -->
                 <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(15,47,42,.10)" stroke-width="18"></circle>
 
-                <!-- 5 segments (we’ll set opacity per score) -->
+                <!-- 5 segments -->
                 <g id="ringSegments" transform="rotate(-90 100 100)">
-                  <!-- each arc is 72 degrees (360/5). -->
                   <path id="segNetwork" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
                   <path id="segDevices" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
                   <path id="segPrivacy" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
@@ -764,13 +764,15 @@
 
   <script>
     (function(){
+      "use strict";
+
       const $ = (sel, root=document) => root.querySelector(sel);
 
       // Year
       const YEAR = $("#year");
       if (YEAR) YEAR.textContent = String(new Date().getFullYear());
 
-      // -------- Multi-key snapshot compatibility --------
+      // -------- Keys (future-proof) --------
       const SNAPSHOT_KEYS = [
         "seed_snapshot_v2",
         "cyberseeds_snapshot_last",
@@ -790,10 +792,27 @@
         try { return JSON.parse(str); } catch { return null; }
       }
 
-      // iOS-safe: attempt recovery from sessionStorage too
+      function safeGetStorageItem(k){
+        // iOS Safari can behave weirdly when storage is blocked
+        try { return localStorage.getItem(k); } catch {}
+        try { return sessionStorage.getItem(k); } catch {}
+        return null;
+      }
+
+      function safeSetStorageItem(k, v){
+        try { localStorage.setItem(k, v); return true; } catch {}
+        try { sessionStorage.setItem(k, v); return true; } catch {}
+        return false;
+      }
+
+      function safeRemoveStorageItem(k){
+        try { localStorage.removeItem(k); } catch {}
+        try { sessionStorage.removeItem(k); } catch {}
+      }
+
       function getLastSnapshot(){
         for (const k of SNAPSHOT_KEYS){
-          const raw = localStorage.getItem(k) || sessionStorage.getItem(k);
+          const raw = safeGetStorageItem(k);
           if (!raw) continue;
           const parsed = safeJSONParse(raw);
           if (parsed && typeof parsed === "object") return parsed;
@@ -801,11 +820,14 @@
         return null;
       }
 
+      // ----- Normalisation helpers -----
       function normScore(v){
         if (typeof v === "number") return `${v}/4`;
         if (typeof v === "string"){
           const m = v.match(/(\d)\s*\/\s*(\d)/);
           if (m) return `${m[1]}/${m[2]}`;
+          const n = Number(v);
+          if (!Number.isNaN(n) && n >= 0 && n <= 10) return `${n}/4`;
         }
         if (v && typeof v === "object"){
           if (typeof v.score === "number") return `${v.score}/4`;
@@ -822,6 +844,11 @@
           if (m) return parseInt(m[1], 10);
           const n = Number(val);
           if (!Number.isNaN(n)) return n;
+        }
+        if (val && typeof val === "object"){
+          if (typeof val.score === "number") return val.score;
+          if (typeof val.value === "number") return val.value;
+          if (typeof val.points === "number") return val.points;
         }
         return null;
       }
@@ -851,42 +878,47 @@
         };
       }
 
+      // ✅ Bulletproof stage normaliser (fixes [object Object] forever)
       function extractStage(snap){
-  const fallbackDesc =
-    "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
+        const fallbackDesc =
+          "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
 
-  // Prefer snap.stage but normalise whether it's a string OR an object
-  const raw =
-    snap.stage ??
-    snap.stageLabel ??
-    snap.band ??
-    snap.tier ??
-    snap.level ??
-    "Emerging";
+        const raw =
+          snap.stage ??
+          snap.stage_label ??
+          snap.stageLabel ??
+          snap.band ??
+          snap.tier ??
+          snap.level ??
+          "Emerging";
 
-  // If stage is an object (your current snapshot format), pull name/desc safely
-  if (raw && typeof raw === "object") {
-    const label =
-      raw.name ?? raw.stage ?? raw.label ?? raw.tier ?? raw.level ?? "Emerging";
+        // stage object from snapshot engine: { name, desc }
+        if (raw && typeof raw === "object"){
+          const label =
+            raw.name ?? raw.stage ?? raw.label ?? raw.tier ?? raw.level ?? "Emerging";
 
-    const desc =
-      raw.desc ??
-      raw.description ??
-      raw.text ??
-      snap.stageDescription ??
-      snap.summary ??
-      fallbackDesc;
+          const desc =
+            raw.desc ??
+            raw.description ??
+            raw.text ??
+            snap.stage_desc ??
+            snap.stageDescription ??
+            snap.summary ??
+            fallbackDesc;
 
-    return { stage: String(label), desc: String(desc) };
-  }
+          return { stage: String(label), desc: String(desc) };
+        }
 
-  // Otherwise treat it as a string label
-  const label = String(raw || "Emerging");
-  const desc = String(snap.stageDescription || snap.summary || fallbackDesc);
-  return { stage: label, desc };
-}
+        const label = String(raw || "Emerging");
+        const desc = String(
+          snap.stage_desc ||
+          snap.stageDescription ||
+          snap.summary ||
+          fallbackDesc
+        );
 
-
+        return { stage: label, desc };
+      }
 
       function weakestLens(scores){
         const entries = Object.entries(scores)
@@ -932,7 +964,7 @@
           scams: [
             { t:"Use a ‘pause rule’ for links", d:"If it’s urgent, it’s suspicious. Pause, verify, then act." },
             { t:"Turn on bank/app alerts", d:"Fast notifications mean fast response. It reduces damage windows." },
-            { t:"Agree simple household ‘safe words’", d:"Examples: ‘I’ll check the official app’, ‘I’ll call back’, ‘Send it in writing’." },
+            { t:"Agree simple household ‘safe phrases’", d:"Examples: ‘I’ll check the official app’, ‘I’ll call back’, ‘Send it in writing’." },
             { t:"Review subscriptions and payments", d:"Scams hide as recurring charges. A quick check prevents slow losses." }
           ],
           wellbeing: [
@@ -956,10 +988,12 @@
           row.innerHTML = `
             <div class="num">${idx+1}</div>
             <div>
-              <div class="step-title">${it.t}</div>
-              <div class="step-text">${it.d}</div>
+              <div class="step-title"></div>
+              <div class="step-text"></div>
             </div>
           `;
+          row.querySelector(".step-title").textContent = it.t;
+          row.querySelector(".step-text").textContent = it.d;
           list.appendChild(row);
         });
       }
@@ -1016,11 +1050,12 @@
 
       // -------- Progress baseline --------
       function getBaseline(){
-        return safeJSONParse(localStorage.getItem(BASELINE_KEY));
+        const raw = safeGetStorageItem(BASELINE_KEY);
+        return raw ? safeJSONParse(raw) : null;
       }
 
       function setBaseline(snap){
-        localStorage.setItem(BASELINE_KEY, JSON.stringify({
+        safeSetStorageItem(BASELINE_KEY, JSON.stringify({
           ts: Date.now(),
           scores: extractLensScores(snap),
           stage: extractStage(snap),
@@ -1028,7 +1063,7 @@
       }
 
       function clearBaseline(){
-        localStorage.removeItem(BASELINE_KEY);
+        safeRemoveStorageItem(BASELINE_KEY);
       }
 
       function renderProgress(currentScores){
@@ -1112,7 +1147,6 @@
       }
 
       function opacityForScore(n){
-        // n: 0..4 → 0.18..0.95
         if (typeof n !== "number") return 0.18;
         const t = Math.max(0, Math.min(4, n)) / 4;
         return 0.18 + (0.77 * t);
@@ -1142,7 +1176,6 @@
       }
 
       function renderRing(scores, stageLabel, focusKey){
-        // 5 equal arcs, clockwise around circle
         const start = 0;
         const step = 72;
 
@@ -1156,32 +1189,30 @@
 
         order.forEach(([key, segId], idx) => {
           const a0 = start + (idx * step);
-          const a1 = a0 + step - 6; // small gap for clarity
+          const a1 = a0 + step - 6; // gap
           const path = arcPath(100, 100, 70, a0, a1);
           const n = toNumScore(scores[key]);
           setSeg(segId, path, opacityForScore(n));
         });
 
-        // focus glow
         const focusIdx = order.findIndex(([k]) => k === focusKey);
-        if (focusIdx >= 0){
+        const glow = document.getElementById("segFocusGlow");
+
+        if (glow && focusIdx >= 0){
           const a0 = start + (focusIdx * step);
           const a1 = a0 + step - 6;
-          const glowPath = arcPath(100,100,70, a0, a1);
-          const glow = document.getElementById("segFocusGlow");
-          if (glow){
-            glow.setAttribute("d", glowPath);
-            glow.setAttribute("opacity", "0.9");
-          }
-        } else {
-          const glow = document.getElementById("segFocusGlow");
-          if (glow) glow.setAttribute("opacity","0");
+          glow.setAttribute("d", arcPath(100,100,70, a0, a1));
+          glow.setAttribute("opacity", "0.9");
+        } else if (glow){
+          glow.setAttribute("opacity", "0");
         }
 
-        // center labels
         setText("ringStage", (stageLabel || "Emerging").toString().toUpperCase());
-        // compute quick “total” out of 20 if available
-        const nums = ["network","devices","privacy","scams","wellbeing"].map(k => toNumScore(scores[k])).filter(n => typeof n === "number");
+
+        const nums = ["network","devices","privacy","scams","wellbeing"]
+          .map(k => toNumScore(scores[k]))
+          .filter(n => typeof n === "number");
+
         const total = nums.length ? nums.reduce((a,b)=>a+b,0) : null;
         setText("ringScore", total !== null ? `${total}/20` : "—");
         setText("ringHint", "FIVE LENSES");
@@ -1252,13 +1283,13 @@
       const fp = buildFingerprint(scores);
       setHTML("fingerprintLine", `<strong>Household fingerprint:</strong> ${fp.pattern} — ${fp.note}`);
 
-      // Last taken line
+      // Last taken line (multi-field + compatibility)
       const ts =
         snapshot.ts ||
         snapshot.timestamp ||
         snapshot.createdAt ||
         snapshot.created_at ||
-        (localStorage.getItem("seed_snapshot_v2_ts") ? Number(localStorage.getItem("seed_snapshot_v2_ts")) : null);
+        (safeGetStorageItem("seed_snapshot_v2_ts") ? Number(safeGetStorageItem("seed_snapshot_v2_ts")) : null);
 
       const when = formatDate(ts);
       setText("lastTakenLine", when ? `Last snapshot on this device: ${when}` : `Last snapshot found on this device.`);
@@ -1288,11 +1319,19 @@
         });
       }
 
-      // NOTE:
-      // If Safari is still not saving snapshots, the issue is likely on the snapshot page itself
-      // (it may store into sessionStorage only, or never writes localStorage).
-      // This resources hub reads both localStorage and sessionStorage already.
+      // ✅ Nice-to-have: refresh hub when a new snapshot is taken in another tab
+      window.addEventListener("storage", (e) => {
+        if (!e || !e.key) return;
+        if (SNAPSHOT_KEYS.includes(e.key) || e.key === "seed_snapshot_v2_ts") {
+          // hard refresh to rebuild everything safely
+          location.reload();
+        }
+      });
+
     })();
   </script>
+
+  <!-- Your global site script (modal etc) -->
+  <script src="/script.js?v=20260126"></script>
 </body>
 </html>
