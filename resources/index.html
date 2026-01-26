@@ -852,13 +852,41 @@
       }
 
       function extractStage(snap){
-        const stage = snap.stage || snap.stageLabel || snap.band || snap.tier || snap.level || "Emerging";
-        const desc =
-          snap.stageDescription ||
-          snap.summary ||
-          "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
-        return { stage, desc };
-      }
+  const fallbackDesc =
+    "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
+
+  // Prefer snap.stage but normalise whether it's a string OR an object
+  const raw =
+    snap.stage ??
+    snap.stageLabel ??
+    snap.band ??
+    snap.tier ??
+    snap.level ??
+    "Emerging";
+
+  // If stage is an object (your current snapshot format), pull name/desc safely
+  if (raw && typeof raw === "object") {
+    const label =
+      raw.name ?? raw.stage ?? raw.label ?? raw.tier ?? raw.level ?? "Emerging";
+
+    const desc =
+      raw.desc ??
+      raw.description ??
+      raw.text ??
+      snap.stageDescription ??
+      snap.summary ??
+      fallbackDesc;
+
+    return { stage: String(label), desc: String(desc) };
+  }
+
+  // Otherwise treat it as a string label
+  const label = String(raw || "Emerging");
+  const desc = String(snap.stageDescription || snap.summary || fallbackDesc);
+  return { stage: label, desc };
+}
+
+
 
       function weakestLens(scores){
         const entries = Object.entries(scores)
