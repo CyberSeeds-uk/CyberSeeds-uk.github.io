@@ -109,6 +109,14 @@
             margin-top: 0;
             color: #ff8f00;
         }
+        /* Canvas styling */
+        #chartWrapper {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        #lensChart {
+            max-width: 300px;
+        }
         /* Responsive */
         @media (max-width: 600px) {
             .lens-grid {
@@ -160,6 +168,10 @@
         </form>
         <div class="result-card" id="resultCard">
             <h4>Signal & Focus Areas</h4>
+            <!-- Canvas wrapper for visualising the five lenses -->
+            <div id="chartWrapper">
+                <canvas id="lensChart" width="300" height="300"></canvas>
+            </div>
             <p id="reportText"></p>
         </div>
     </section>
@@ -224,6 +236,7 @@
             output.textContent = range.value;
         }
         function generateReport() {
+            // Collect slider scores
             const scores = {
                 network: parseInt(document.getElementById('networkRange').value),
                 device: parseInt(document.getElementById('deviceRange').value),
@@ -238,16 +251,109 @@
             else if (total >= 8) status = 'Good but room for improvement';
             else if (total >= 4) status = 'Unsteady – multiple gaps exist';
             else status = 'Critical – urgent action needed';
-            // Identify strongest and weakest
+            // Identify strongest and weakest domains
             const maxScore = Math.max(...Object.values(scores));
             const minScore = Math.min(...Object.values(scores));
             const strongest = Object.keys(scores).filter(key => scores[key] === maxScore).map(key => titleCase(key));
             const weakest = Object.keys(scores).filter(key => scores[key] === minScore).map(key => titleCase(key));
-            let report = `${status}. Your strongest area${strongest.length>1?'s are':' is'} ${strongest.join(', ')} and your weakest area${weakest.length>1?'s are':' is'} ${weakest.join(', ')}.`;
-            report += ' Focus on bolstering weak areas with simple routines.';
-            document.getElementById('reportText').innerText = report;
+            // Personalised messages per domain
+            const messages = {
+                network: [
+                    'Your network appears unmanaged. Start by changing your router’s admin password and switching off WPS.',
+                    'Your network is partly secured. Consider setting up a guest network and disabling unused services.',
+                    'Your network is fairly well protected. Keep monitoring firmware updates for your router.',
+                    'Your network is rock solid! Maintain this by reviewing settings every few months.'
+                ],
+                device: [
+                    'Device hygiene is lacking. Enable automatic updates and back up important data.',
+                    'Some devices are updated but there are gaps. Ensure every phone, tablet and laptop is up to date.',
+                    'Most devices are secure. Make sure older hardware isn’t forgotten.',
+                    'All devices are healthy and secured. Keep backups and screen locks active.'
+                ],
+                privacy: [
+                    'Identity protection needs work. Use a password manager and enable two‑factor authentication.',
+                    'Some accounts are protected. Audit your passwords and recovery options.',
+                    'Good progress on privacy. Verify that social media privacy settings are tight.',
+                    'Excellent identity hygiene! Keep your password manager up to date.'
+                ],
+                scam: [
+                    'Scam awareness is low. Learn to pause and verify before clicking on links.',
+                    'You exercise caution sometimes. Discuss common scam tactics with the household.',
+                    'You’re fairly savvy. Continue educating yourself about emerging threats.',
+                    'Your scam radar is sharp! Share your knowledge with friends and family.'
+                ],
+                wellbeing: [
+                    'Digital wellbeing needs attention. Set boundaries for device use and create screen‑free zones.',
+                    'Some habits are in place. Consider a family charging station outside bedrooms.',
+                    'Your routines are mostly balanced. Keep watching for creeping screen time.',
+                    'Wellbeing routines are strong. Maintain healthy digital habits.'
+                ]
+            };
+            // Compose personalised feedback
+            let detailedFeedback = `${status}.\n\n`;
+            for (const key in scores) {
+                const scoreVal = scores[key];
+                const title = titleCase(key);
+                detailedFeedback += `${title}: ${messages[key][scoreVal]}\n`;
+            }
+            detailedFeedback += `\nYour strongest area${strongest.length>1?'s are':' is'} ${strongest.join(', ')} and your weakest area${weakest.length>1?'s are':' is'} ${weakest.join(', ')}.`;
+            // Update report text
+            document.getElementById('reportText').innerText = detailedFeedback;
+            // Draw chart
+            drawChart(scores);
+            // Show result card and scroll
             document.getElementById('resultCard').style.display = 'block';
             scrollToSection('resultCard');
+        }
+
+        function drawChart(scores) {
+            const canvas = document.getElementById('lensChart');
+            const ctx = canvas.getContext('2d');
+            // Clear previous drawing
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Define lens names and colors
+            const keys = ['network','device','privacy','scam','wellbeing'];
+            const colors = ['#26a69a','#00897b','#80cbc4','#004d40','#b2dfdb'];
+            const totalSections = keys.length;
+            const radius = Math.min(canvas.width, canvas.height) / 2 - 10;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            // Calculate sum of scores for weighting arc lengths (equal sections when all max)
+            const maxVal = 3;
+            // Draw each slice
+            let startAngle = -Math.PI / 2; // start at top
+            const sliceAngle = (2 * Math.PI) / totalSections;
+            for (let i = 0; i < totalSections; i++) {
+                const score = scores[keys[i]];
+                const innerRadius = radius * (score / maxVal) * 0.8; // scaling inner radius by score
+                const outerRadius = radius;
+                const endAngle = startAngle + sliceAngle;
+                // Draw slice background (light)
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fill();
+                // Draw slice overlay representing score
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, innerRadius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = colors[i];
+                ctx.fill();
+                // Draw label text
+                const textAngle = startAngle + sliceAngle/2;
+                const labelX = centerX + (outerRadius + 15) * Math.cos(textAngle);
+                const labelY = centerY + (outerRadius + 15) * Math.sin(textAngle);
+                ctx.fillStyle = '#004d40';
+                ctx.font = '10px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const shortName = keys[i].charAt(0).toUpperCase();
+                ctx.fillText(shortName, labelX, labelY);
+                startAngle = endAngle;
+            }
         }
         function titleCase(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
