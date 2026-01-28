@@ -1,1 +1,257 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Seeds – Household Digital Security MOT</title>
+    <style>
+        :root {
+            --primary: #004d40;
+            --accent: #26a69a;
+            --light: #e0f2f1;
+            --dark: #00251a;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            font-size: 1.1rem;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .cta-btn {
+            margin-top: 1.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1.3rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        section {
+            padding: 2rem 1.5rem;
+            max-width: 960px;
+            margin: auto;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .lens-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .lens {
+            flex: 1 1 300px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem;
+        }
+        .lens h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        .lens summary {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .mot-form {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .mot-form label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+        .range-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .range-wrapper input[type="range"] {
+            flex: 1;
+        }
+        .range-value {
+            width: 2rem;
+            text-align: center;
+        }
+        .result-card {
+            display: none;
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        .result-card h4 {
+            margin-top: 0;
+            color: #ff8f00;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .lens-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Household Digital Security MOT</h1>
+        <p>Build resilience in your digital habitat. Use our interactive MOT to explore key areas of domestic cyber hygiene and receive an immediate pulse check on your home’s stability. Everything runs right here in your browser.</p>
+        <button class="cta-btn" onclick="scrollToSection('mot-section')">Start the MOT</button>
+    </header>
+    <section id="overview">
+        <h2 class="section-title">Why a Household MOT?</h2>
+        <p>Modern homes aren’t simply physical spaces; they’re complex digital ecosystems. Routers, game consoles, cloud accounts and bedtime scrolling all intertwine. Our MOT distils best practice from national standards and the Cyber Seeds canon into five critical areas. By scanning each area, you can prioritise small changes that produce outsized gains.</p>
+    </section>
+    <section id="mot-section">
+        <h2 class="section-title">Interactive MOT</h2>
+        <p>Adjust the sliders according to how well your household currently manages each area. A value of 0 means you haven’t started; a value of 3 indicates a well‑established routine. You’ll receive personalised feedback when you finish.</p>
+        <form class="mot-form" id="sliderForm">
+            <div class="range-wrapper">
+                <label for="networkRange">Network & Wi‑Fi</label>
+                <input type="range" id="networkRange" min="0" max="3" step="1" value="1" oninput="updateValue('network')">
+                <span class="range-value" id="networkValue">1</span>
+            </div>
+            <div class="range-wrapper">
+                <label for="deviceRange">Devices</label>
+                <input type="range" id="deviceRange" min="0" max="3" step="1" value="1" oninput="updateValue('device')">
+                <span class="range-value" id="deviceValue">1</span>
+            </div>
+            <div class="range-wrapper">
+                <label for="privacyRange">Identity & Privacy</label>
+                <input type="range" id="privacyRange" min="0" max="3" step="1" value="1" oninput="updateValue('privacy')">
+                <span class="range-value" id="privacyValue">1</span>
+            </div>
+            <div class="range-wrapper">
+                <label for="scamRange">Scams & Social Engineering</label>
+                <input type="range" id="scamRange" min="0" max="3" step="1" value="1" oninput="updateValue('scam')">
+                <span class="range-value" id="scamValue">1</span>
+            </div>
+            <div class="range-wrapper">
+                <label for="wellbeingRange">Wellbeing & Boundaries</label>
+                <input type="range" id="wellbeingRange" min="0" max="3" step="1" value="1" oninput="updateValue('wellbeing')">
+                <span class="range-value" id="wellbeingValue">1</span>
+            </div>
+            <button type="button" class="cta-btn" onclick="generateReport()">Generate Report</button>
+        </form>
+        <div class="result-card" id="resultCard">
+            <h4>Signal & Focus Areas</h4>
+            <p id="reportText"></p>
+        </div>
+    </section>
+    <section id="lenses-section">
+        <h2 class="section-title">Explore the Five Areas</h2>
+        <p>Click each area below to learn why it matters and discover one or two high‑impact actions you can take today.</p>
+        <div class="lens-grid">
+            <div class="lens">
+                <details>
+                    <summary>🌐 Network & Wi‑Fi</summary>
+                    <p>Secure the gateway to your home. Change the router’s admin password, disable WPS and set up a separate network for guests and IoT devices.</p>
+                </details>
+            </div>
+            <div class="lens">
+                <details>
+                    <summary>📱 Devices</summary>
+                    <p>Ensure all phones, tablets and laptops are running the latest software. Enable automatic updates, use screen locks and back up important data regularly.</p>
+                </details>
+            </div>
+            <div class="lens">
+                <details>
+                    <summary>🔐 Identity & Privacy</summary>
+                    <p>Make identity theft harder. Use a password manager for unique passwords, enable multi‑factor authentication and audit your social media privacy settings.</p>
+                </details>
+            </div>
+            <div class="lens">
+                <details>
+                    <summary>🎭 Scams & Social Engineering</summary>
+                    <p>Combat manipulation by building a pause habit. Treat unsolicited messages with suspicion, verify through official channels and educate family members about common scam patterns.</p>
+                </details>
+            </div>
+            <div class="lens">
+                <details>
+                    <summary>💤 Wellbeing & Boundaries</summary>
+                    <p>Digital health matters. Establish device‑free zones at night, set boundaries for screen time and involve children in creating balanced tech rituals.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+    <section id="resources">
+        <h2 class="section-title">Resources & Guides</h2>
+        <p>Dive deeper with our free PDFs and practitioner tools, aligned with national guidance and the Cyber Seeds philosophy. These resources help you cultivate a safe and inclusive digital environment for your family.</p>
+        <ul>
+            <li><a href="Cyber_Seeds_Canon.pdf">Cyber Seeds Canon</a></li>
+            <li><a href="DCS_UK_Standard_v1.0_SoftPower.pdf">Domestic Cyber Standard</a></li>
+            <li><a href="HDSS_DDSI_Practitioner_Anchor_Guide_Canon_Aligned.pdf">HDSS & DDSI Anchor Guide</a></li>
+            <li><a href="CyberSeeds_Section4_ExpandedFramework.pdf">Expanded Five‑Point Framework</a></li>
+            <li><a href="Cyber_Seeds_Great_Book_v1.0.pdf">The Great Book</a></li>
+            <li><a href="cyberseeds_quickcheck.py">Advanced QuickCheck Script</a></li>
+        </ul>
+    </section>
+    <footer>
+        <p>&copy; 2026 Cyber Seeds Initiative. This tool stores nothing on our servers. You retain full control of your data.</p>
+    </footer>
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+        function updateValue(name) {
+            const range = document.getElementById(name + 'Range');
+            const output = document.getElementById(name + 'Value');
+            output.textContent = range.value;
+        }
+        function generateReport() {
+            const scores = {
+                network: parseInt(document.getElementById('networkRange').value),
+                device: parseInt(document.getElementById('deviceRange').value),
+                privacy: parseInt(document.getElementById('privacyRange').value),
+                scam: parseInt(document.getElementById('scamRange').value),
+                wellbeing: parseInt(document.getElementById('wellbeingRange').value)
+            };
+            // Determine overall status
+            const total = Object.values(scores).reduce((a,b) => a + b, 0);
+            let status;
+            if (total >= 12) status = 'Excellent stability';
+            else if (total >= 8) status = 'Good but room for improvement';
+            else if (total >= 4) status = 'Unsteady – multiple gaps exist';
+            else status = 'Critical – urgent action needed';
+            // Identify strongest and weakest
+            const maxScore = Math.max(...Object.values(scores));
+            const minScore = Math.min(...Object.values(scores));
+            const strongest = Object.keys(scores).filter(key => scores[key] === maxScore).map(key => titleCase(key));
+            const weakest = Object.keys(scores).filter(key => scores[key] === minScore).map(key => titleCase(key));
+            let report = `${status}. Your strongest area${strongest.length>1?'s are':' is'} ${strongest.join(', ')} and your weakest area${weakest.length>1?'s are':' is'} ${weakest.join(', ')}.`;
+            report += ' Focus on bolstering weak areas with simple routines.';
+            document.getElementById('reportText').innerText = report;
+            document.getElementById('resultCard').style.display = 'block';
+            scrollToSection('resultCard');
+        }
+        function titleCase(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+</body>
+</html>
