@@ -181,7 +181,7 @@
     backBtn.disabled = true;
     result.hidden = true;
   }
-
+   
   function renderSection() {
     const sec = SECTIONS[step];
     answers[sec.id] ??= [];
@@ -288,6 +288,14 @@
     else renderSection();
   }
 
+    const stepMeta = document.getElementById("stepMeta");
+    if (stepMeta) {
+      stepMeta.textContent =
+        step < 0
+          ? ""
+          : `Step ${step + 1} of ${SECTIONS.length}`;
+    }
+
   /* ---------- Controls ---------- */
   nextBtn.addEventListener("click", () => {
     step++;
@@ -299,7 +307,15 @@
     render();
   });
 
-  closeBtn?.addEventListener("click", () => modal.classList.remove("is-open"));
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  closeBtn?.addEventListener("click", closeModal);
+  $$("[data-close]").forEach(el => el.addEventListener("click", closeModal));
+
   resetBtn?.addEventListener("click", () => { clear(); step = -1; render(); });
   retakeBtn?.addEventListener("click", () => { step = -1; render(); });
 
@@ -308,7 +324,10 @@
       step = -1;
       Object.keys(answers).forEach(k => delete answers[k]);
       modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
       render();
+
     })
   );
 
