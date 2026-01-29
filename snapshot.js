@@ -1,6 +1,6 @@
 /* ===========================================================
    Cyber Seeds — Household Snapshot Engine
-   Snapshot v1.0 (Canon-ready)
+   v1.0 Public (Canon-aligned)
    =========================================================== */
 
 (() => {
@@ -23,20 +23,12 @@
     } catch {}
   };
 
-  const load = () => {
-    try {
-      return JSON.parse(localStorage.getItem(STORE));
-    } catch {
-      return null;
-    }
-  };
-
   const clear = () => {
     try { localStorage.removeItem(STORE); } catch {}
   };
 
   /* ---------- Snapshot Model ---------- */
-  const SECTIONS = [
+  let SECTIONS = [
     {
       id: "wifi",
       title: "Home Wi-Fi & Router",
@@ -47,24 +39,16 @@
           a: [
             { t: "Yes, both changed", s: 4 },
             { t: "Only the Wi-Fi password", s: 3 },
-            { t: "Still using default passwords", s: 2 },
+            { t: "Still using defaults", s: 2 },
             { t: "Not sure", s: 1 },
           ],
         },
         {
-          q: "Do you keep your router software (firmware) up to date?",
-          a: [
-            { t: "It updates automatically", s: 4 },
-            { t: "I check occasionally", s: 3 },
-            { t: "Never checked", s: 2 },
-            { t: "Not sure", s: 1 },
-          ],
-        },
-        {
-          q: "Do visitors or smart devices use a separate Wi-Fi or guest network?",
+          q: "Does your router update automatically?",
           a: [
             { t: "Yes", s: 4 },
-            { t: "No", s: 2 },
+            { t: "I check sometimes", s: 3 },
+            { t: "Never", s: 2 },
             { t: "Not sure", s: 1 },
           ],
         },
@@ -73,7 +57,7 @@
 
     {
       id: "devices",
-      title: "Connected Devices & Updates",
+      title: "Devices & Updates",
       purpose: "What lives on the network",
       questions: [
         {
@@ -91,10 +75,10 @@
           ],
         },
         {
-          q: "Do these devices install updates automatically?",
+          q: "Do devices update automatically?",
           a: [
-            { t: "All or most do", s: 4 },
-            { t: "Some do, some don’t", s: 3 },
+            { t: "All or most", s: 4 },
+            { t: "Some", s: 3 },
             { t: "Rarely", s: 2 },
             { t: "Not sure", s: 1 },
           ],
@@ -105,15 +89,24 @@
     {
       id: "accounts",
       title: "Accounts & Passwords",
-      purpose: "Your digital identity",
+      purpose: "Digital identity and recovery",
       questions: [
         {
-          q: "How do you manage passwords?",
+          q: "How are passwords managed?",
           a: [
             { t: "Password manager", s: 4 },
-            { t: "Interested but not using one", s: 3 },
-            { t: "Not sure what that is", s: 2 },
+            { t: "Interested but not using", s: 3 },
+            { t: "Not sure", s: 2 },
             { t: "Reuse passwords", s: 1 },
+          ],
+        },
+        {
+          q: "Is 2-step verification enabled?",
+          a: [
+            { t: "On most accounts", s: 4 },
+            { t: "On one or two", s: 3 },
+            { t: "Not yet", s: 2 },
+            { t: "Not sure", s: 1 },
           ],
         },
       ],
@@ -128,7 +121,7 @@
           q: "When a message asks for money or info, what happens?",
           a: [
             { t: "Pause and verify", s: 4 },
-            { t: "Hesitate but sometimes respond", s: 3 },
+            { t: "Sometimes respond", s: 3 },
             { t: "Feel pressured", s: 2 },
             { t: "Been caught before", s: 1 },
           ],
@@ -138,11 +131,11 @@
 
     {
       id: "wellbeing",
-      title: "Digital Wellbeing",
-      purpose: "Sleep, calm, focus",
+      title: "Digital Habits & Wellbeing",
+      purpose: "Sleep, calm, boundaries",
       questions: [
         {
-          q: "Do you have device-free times (meals / bedtime)?",
+          q: "Do you have device-free times?",
           a: [
             { t: "Yes, daily", s: 4 },
             { t: "Occasionally", s: 3 },
@@ -152,8 +145,56 @@
         },
       ],
     },
+
+    {
+      id: "children",
+      title: "Children’s Online Safety",
+      purpose: "Support, guidance and openness",
+      optional: true,
+      questions: [
+        {
+          q: "Do you use parental controls?",
+          a: [
+            { t: "Yes, regularly", s: 4 },
+            { t: "Tried but inconsistent", s: 3 },
+            { t: "No, but would like help", s: 2 },
+            { t: "Not applicable", s: 4 },
+          ],
+        },
+      ],
+    },
   ];
 
+  /* ---------- Lens Map ---------- */
+  const LENS_MAP = {
+    Network: ["wifi"],
+    Devices: ["devices"],
+    Privacy: ["accounts"],
+    Scams: ["scams"],
+    Wellbeing: ["wellbeing", "children"],
+  };
+
+  /* ---------- Resources ---------- */
+  const RESOURCE_MAP = {
+    Network: [
+      { title: "Secure your Wi-Fi router", link: "/resources/router-basics.html" },
+    ],
+    Devices: [
+      { title: "Keep devices updated", link: "/resources/device-updates.html" },
+    ],
+    Privacy: [
+      { title: "Password managers explained", link: "/resources/passwords.html" },
+      { title: "Turn on 2-step verification", link: "/resources/2fa.html" },
+    ],
+    Scams: [
+      { title: "Pause & verify habit", link: "/resources/scams.html" },
+    ],
+    Wellbeing: [
+      { title: "Digital boundaries at home", link: "/resources/wellbeing.html" },
+    ],
+  };
+
+  /* ---------- State ---------- */
   const answers = {};
   let step = -1;
 
@@ -162,11 +203,47 @@
   const form = $("#snapshotForm");
   const result = $("#snapshotResult");
   const headline = $("#resultHeadline");
+  const strongestEl = $("#strongestLens");
+  const weakestEl = $("#weakestLens");
   const nextBtn = $("#snapshotNext");
   const backBtn = $("#snapshotBack");
-  const closeBtn = $("#closeSnapshot");
-  const resetBtn = $("#resetSnapshot");
-  const retakeBtn = $("#retakeSnapshot");
+  const resourceList = $("#personalResources");
+
+  /* ---------- Scoring ---------- */
+  function scoreMulti(arr) {
+    const c = arr.length;
+    return c <= 2 ? 4 : c <= 4 ? 3 : c <= 6 ? 2 : 1;
+  }
+
+  function computeSectionScores() {
+    const scores = {};
+    Object.entries(answers).forEach(([id, qs]) => {
+      const vals = qs.map(v => Array.isArray(v) ? scoreMulti(v) : v);
+      scores[id] = Math.round(
+        (vals.reduce((a,b)=>a+b,0) / vals.length) * 10
+      ) / 10;
+    });
+    return scores;
+  }
+
+  function computeLensScores(sectionScores) {
+    const lens = {};
+    Object.entries(LENS_MAP).forEach(([k, ids]) => {
+      const vals = ids.map(id => sectionScores[id]).filter(Boolean);
+      if (vals.length)
+        lens[k] = Math.round(
+          (vals.reduce((a,b)=>a+b,0) / vals.length) * 10
+        ) / 10;
+    });
+    return lens;
+  }
+
+  function stageFromLens(lens) {
+    const total = Object.values(lens).reduce((a,b)=>a+b,0);
+    if (total >= 16) return "Clear";
+    if (total >= 11) return "Emerging";
+    return "Vulnerable";
+  }
 
   /* ---------- Rendering ---------- */
   function renderIntro() {
@@ -181,7 +258,7 @@
     backBtn.disabled = true;
     result.hidden = true;
   }
-   
+
   function renderSection() {
     const sec = SECTIONS[step];
     answers[sec.id] ??= [];
@@ -193,28 +270,24 @@
 
     sec.questions.forEach((q, qi) => {
       html += `<p><b>${esc(q.q)}</b></p><div class="choices">`;
-
       if (q.multi) {
         html += `<div class="multi-hint">Tick any that apply</div>`;
-        q.a.forEach((label, oi) => {
+        q.a.forEach((t, oi) => {
           html += `
-            <label class="choice multi" tabindex="0">
+            <label class="choice multi">
               <input type="checkbox" data-q="${qi}" data-o="${oi}">
-              <span>${esc(label)}</span>
-            </label>
-          `;
+              <span>${esc(t)}</span>
+            </label>`;
         });
       } else {
-        q.a.forEach(opt => {
+        q.a.forEach(o => {
           html += `
-            <label class="choice" tabindex="0">
-              <input type="radio" name="${sec.id}_${qi}" value="${opt.s}">
-              <span>${esc(opt.t)}</span>
-            </label>
-          `;
+            <label class="choice">
+              <input type="radio" name="${sec.id}_${qi}" value="${o.s}">
+              <span>${esc(o.t)}</span>
+            </label>`;
         });
       }
-
       html += `</div>`;
     });
 
@@ -230,21 +303,18 @@
     sec.questions.forEach((q, qi) => {
       if (q.multi) {
         answers[sec.id][qi] ??= [];
-
         $$(`input[data-q="${qi}"]`).forEach(cb => {
           cb.addEventListener("change", () => {
-            const idx = Number(cb.dataset.o);
+            const idx = +cb.dataset.o;
             const arr = answers[sec.id][qi];
-            cb.checked
-              ? arr.includes(idx) || arr.push(idx)
-              : answers[sec.id][qi] = arr.filter(i => i !== idx);
-            nextBtn.disabled = answers[sec.id][qi].length === 0;
+            cb.checked ? arr.push(idx) : answers[sec.id][qi] = arr.filter(i=>i!==idx);
+            nextBtn.disabled = arr.length === 0;
           });
         });
       } else {
         $$(`input[name="${sec.id}_${qi}"]`).forEach(r => {
           r.addEventListener("change", () => {
-            answers[sec.id][qi] = Number(r.value);
+            answers[sec.id][qi] = +r.value;
             nextBtn.disabled = false;
           });
         });
@@ -253,34 +323,28 @@
   }
 
   function renderResult() {
-      const sectionScores = computeSectionScores();
-      const lensScores = computeLensScores(sectionScores);
-      const flatScores = [];
+    const sectionScores = computeSectionScores();
+    const lensScores = computeLensScores(sectionScores);
+    const stage = stageFromLens(lensScores);
 
-    Object.values(answers).forEach(sec =>
-      sec.forEach(v => {
-        if (Array.isArray(v)) {
-          const c = v.length;
-          flatScores.push(c <= 2 ? 4 : c <= 4 ? 3 : 2);
-        } else {
-          flatScores.push(v);
-        }
-      })
-    );
-
-    const avg = Math.round((flatScores.reduce((a,b)=>a+b,0) / flatScores.length) * 10) / 10;
-    const stage =
-      avg >= 3.5 ? "Clear" :
-      avg >= 2.5 ? "Emerging" :
-      "Vulnerable";
+    const sorted = Object.entries(lensScores).sort((a,b)=>b[1]-a[1]);
+    strongestEl.textContent = sorted[0][0];
+    weakestEl.textContent = sorted[sorted.length-1][0];
 
     headline.textContent =
-      `${stage} signal — your household has clear next steps, not problems.`;
+      `${stage} signal — start with ${sorted[sorted.length-1][0]}.`;
+
+    // Resources
+    if (resourceList) {
+      resourceList.innerHTML = "";
+      RESOURCE_MAP[sorted[sorted.length-1][0]]?.forEach(r => {
+        resourceList.innerHTML += `<li><a href="${r.link}">${r.title}</a></li>`;
+      });
+    }
 
     result.hidden = false;
-    save({ avg, stage, answers });
+    save({ stage, lensScores, sectionScores });
 
-    // allow resource navigation
     document.dispatchEvent(new CustomEvent("cyberseeds:snapshot-complete"));
   }
 
@@ -290,72 +354,17 @@
     else renderSection();
   }
 
-    const stepMeta = document.getElementById("stepMeta");
-    if (stepMeta) {
-      stepMeta.textContent =
-        step < 0
-          ? ""
-          : `Step ${step + 1} of ${SECTIONS.length}`;
-    }
-
   /* ---------- Controls ---------- */
-  nextBtn.addEventListener("click", () => {
-    step++;
-    render();
-  });
-
-  backBtn.addEventListener("click", () => {
-    step--;
-    render();
-  });
-
-  function closeModal() {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
-  }
-
-  closeBtn?.addEventListener("click", closeModal);
-  $$("[data-close]").forEach(el => el.addEventListener("click", closeModal));
-
-  resetBtn?.addEventListener("click", () => { clear(); step = -1; render(); });
-  retakeBtn?.addEventListener("click", () => { step = -1; render(); });
+  nextBtn.onclick = () => { step++; render(); };
+  backBtn.onclick = () => { step--; render(); };
 
   $$("[data-open-snapshot]").forEach(btn =>
     btn.addEventListener("click", () => {
       step = -1;
       Object.keys(answers).forEach(k => delete answers[k]);
       modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.classList.add("modal-open");
       render();
-
     })
   );
-const LENS_MAP = {
-  Network: ["wifi"],
-  Devices: ["devices"],
-  Privacy: ["accounts"],
-  Scams: ["scams"],
-  Wellbeing: ["children", "wellbeing"]
-};
-
-function computeLensScores(sectionScores) {
-  const lensScores = {};
-
-  Object.entries(LENS_MAP).forEach(([lens, sectionIds]) => {
-    const vals = sectionIds
-      .map(id => sectionScores[id])
-      .filter(v => typeof v === "number");
-
-    if (vals.length) {
-      lensScores[lens] = Math.round(
-        (vals.reduce((a, b) => a + b, 0) / vals.length) * 10
-      ) / 10;
-    }
-  });
-
-  return lensScores;
-}
 
 })();
