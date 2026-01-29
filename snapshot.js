@@ -253,7 +253,9 @@
   }
 
   function renderResult() {
-    const flatScores = [];
+      const sectionScores = computeSectionScores();
+      const lensScores = computeLensScores(sectionScores);
+      const flatScores = [];
 
     Object.values(answers).forEach(sec =>
       sec.forEach(v => {
