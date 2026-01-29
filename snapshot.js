@@ -330,5 +330,30 @@
 
     })
   );
+const LENS_MAP = {
+  Network: ["wifi"],
+  Devices: ["devices"],
+  Privacy: ["accounts"],
+  Scams: ["scams"],
+  Wellbeing: ["children", "wellbeing"]
+};
+
+function computeLensScores(sectionScores) {
+  const lensScores = {};
+
+  Object.entries(LENS_MAP).forEach(([lens, sectionIds]) => {
+    const vals = sectionIds
+      .map(id => sectionScores[id])
+      .filter(v => typeof v === "number");
+
+    if (vals.length) {
+      lensScores[lens] = Math.round(
+        (vals.reduce((a, b) => a + b, 0) / vals.length) * 10
+      ) / 10;
+    }
+  });
+
+  return lensScores;
+}
 
 })();
