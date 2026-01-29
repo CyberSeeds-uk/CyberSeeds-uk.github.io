@@ -1,54 +1,20 @@
-/* =========================================
-   Cyber Seeds — Site Shell
-   - Navigation
-   - Snapshot modal open / close
-   - No snapshot logic here
-========================================= */
+/* ===========================================================
+   Cyber Seeds — Site Controller
+   =========================================================== */
 
 (() => {
   "use strict";
 
   const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-  // ---------- NAV ----------
-  const navToggle = $("#navToggle");
-  const navMenu = $("#navMenu");
+  /* ---------- Year ---------- */
+  const y = $("#year");
+  if (y) y.textContent = new Date().getFullYear();
 
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", () => {
-      const open = navMenu.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-
-    $$("a", navMenu).forEach(a =>
-      a.addEventListener("click", () => {
-        navMenu.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      })
-    );
-  }
-
-  // ---------- SNAPSHOT MODAL ----------
-  const modal = $("#snapshotModal");
-  const closeBtn = $("#closeSnapshot");
-  const backdrop = modal?.querySelector(".modal-backdrop");
-
-  function openModal() {
-    modal?.classList.add("is-open");
-    document.body.classList.add("modal-lock");
-  }
-
-  function closeModal() {
-    modal?.classList.remove("is-open");
-    document.body.classList.remove("modal-lock");
-  }
-
-  $$("[data-open-snapshot]").forEach(btn =>
-    btn.addEventListener("click", openModal)
-  );
-
-  closeBtn?.addEventListener("click", closeModal);
-  backdrop?.addEventListener("click", closeModal);
+  /* ---------- Resources Handoff ---------- */
+  document.addEventListener("cyberseeds:snapshot-complete", () => {
+    const btn = $("#goToResources");
+    if (btn) btn.style.display = "inline-flex";
+  });
 
 })();
