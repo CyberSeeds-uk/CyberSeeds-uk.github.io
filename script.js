@@ -1,5 +1,6 @@
 /* ===========================================================
    Cyber Seeds — Site Controller
+   Calm, minimal, public-facing
    =========================================================== */
 
 (() => {
@@ -8,11 +9,11 @@
   const $ = (s, r = document) => r.querySelector(s);
 
   /* ---------- Year ---------- */
-  const y = $("#year");
-  if (y) y.textContent = new Date().getFullYear();
+  const yearEl = $("#year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Resources Handoff ---------- */
-  document.addEventListener("cyberseeds:snapshot-complete", () => {
+  /* ---------- Snapshot → Resources Handoff ---------- */
+  document.addEventListener("cyberseeds:snapshot-complete", (e) => {
     const btn = $("#goToResources");
     if (btn) btn.style.display = "inline-flex";
   });
