@@ -1,17 +1,16 @@
 /* =========================================
-   Cyber Seeds — robust snapshot + navigation
-   - Modal always opens
-   - Back button closes modal safely
-   - Reset snapshot (clears local storage)
-   - Personalised resources handoff
-   - Printable + downloadable HTML report
-   - Server API submit (snapshot_id + PDF)
+   Cyber Seeds — Household Snapshot v3
+   - 8-section Domestic Cyber Ecology snapshot
+   - Calm, non-judgemental
+   - Priority Areas (1–2 only)
+   - Local-first + optional API submit
    ========================================= */
 
 (() => {
   "use strict";
 
-  // === API ===
+  /* ================= API ================= */
+
   const API_BASE = "https://cyberseeds-api.onrender.com";
 
   async function postSnapshot(payload) {
@@ -20,320 +19,39 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok) throw new Error(data?.error || "Snapshot failed");
     return data;
   }
 
-  // Convert your 1–4 lens answers into the boolean payload your API expects
-  function buildApiPayloadFromLocal(snapshot) {
-    const n = snapshot.scores.Network || 1;
-    const d = snapshot.scores.Devices || 1;
-    const p = snapshot.scores.Privacy || 1;
-    const s = snapshot.scores.Scams || 1;
-    const w = snapshot.scores.Wellbeing || 1;
+  /* =============== HELPERS =============== */
 
-    const network = {
-      router_admin_changed: n >= 4,
-      wifi_password_strong: n >= 3,
-      wps_disabled: n >= 4,
-      guest_network: n >= 4,
-      auto_updates_router: n >= 4,
-    };
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-    const device = {
-      auto_updates_devices: d >= 3,
-      screen_lock_enabled: d >= 3,
-      backups_enabled: d >= 4,
-      antivirus_or_mdm: d >= 4,
-      old_devices_unmanaged: d <= 2,
-    };
+  const escapeHTML = (str) =>
+    String(str).replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;",
+    }[m]));
 
-    const privacy = {
-      password_manager: p >= 4,
-      mfa_enabled: p >= 3,
-      social_profiles_private: p >= 3,
-      data_broker_optout: p >= 4,
-      shared_passwords: p <= 2,
-    };
+  /* =============== STORAGE =============== */
 
-    const scams = {
-      scam_rules_in_home: s >= 4,
-      bank_alerts_on: s >= 3,
-      kids_know_red_flags: s >= 4,
-      verified_contacts: s >= 4,
-      clicked_suspicious_links_recently: s <= 2,
-    };
+  const STORAGE_KEY = "seed_snapshot_v3";
 
-    const wellbeing = {
-      bedtime_boundaries: w >= 4,
-      device_free_meals: w >= 3,
-      age_appropriate_controls: w >= 3,
-      open_talks_weekly: w >= 3,
-      distress_signals_seen: w <= 2,
-    };
-
-    return {
-      household: {
-        label: "Cyber Seeds Household",
-        adults: 1,
-        children: 0,
-      },
-      network,
-      device,
-      privacy,
-      scams,
-      wellbeing,
-
-      // Optional: keep local snapshot summary for debugging only
-      meta_local: snapshot,
-    };
-  }
-
-  async function submitSnapshotToAPI(snapshot) {
+  const saveSnapshot = (snap) => {
     try {
-      const apiPayload = buildApiPayloadFromLocal(snapshot);
-      const out = await postSnapshot(apiPayload);
-
-      // store server id for later use
-      try {
-        localStorage.setItem("seed_snapshot_server_id", out.snapshot_id);
-      } catch {}
-
-      // Build PDF link
-      const pdfLink = `${API_BASE}${out.pdf_url}`;
-
-      // Show the button/link in the modal if it exists
-      const linkEl = document.querySelector("#serverPdfLink");
-      if (linkEl) {
-        linkEl.href = pdfLink;
-        linkEl.style.display = "inline-flex";
-        linkEl.textContent = "Download PDF report";
-      }
-
-      console.log("✅ API snapshot_id:", out.snapshot_id);
-      console.log("✅ PDF URL:", pdfLink);
-    } catch (e) {
-      console.warn("⚠️ API submit failed:", e);
-      // Keep offline experience clean (local HTML report still works)
-      const linkEl = document.querySelector("#serverPdfLink");
-      if (linkEl) {
-        linkEl.style.display = "none";
-      }
-    }
-  }
-
-  // === DOM HELPERS ===
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-
-  const STORAGE_KEY = "seed_snapshot_v2";
-  const STORAGE_TS_KEY = "seed_snapshot_v2_ts";
-
-  // ---------- YEAR ----------
-  const yearEl = $("#year");
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-
-  // ---------- MOBILE NAV ----------
-  const navToggle = $("#navToggle");
-  const navMenu = $("#navMenu");
-
-  const closeNav = () => {
-    if (!navMenu || !navToggle) return;
-    navMenu.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  };
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", () => {
-      const open = navMenu.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-
-    $$("a", navMenu).forEach((a) => a.addEventListener("click", closeNav));
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeNav();
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!navMenu.classList.contains("is-open")) return;
-      if (navMenu.contains(e.target) || navToggle.contains(e.target)) return;
-      closeNav();
-    });
-  }
-
-  // ---------- SMOOTH SCROLL (handles #hash) ----------
-  $$("[data-scroll]").forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const href = a.getAttribute("href") || "";
-      if (!href.startsWith("#")) return;
-      const target = $(href);
-      if (!target) return;
-      e.preventDefault();
-      closeNav();
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      history.replaceState(null, "", href);
-    });
-  });
-
-  // ---------- SNAPSHOT MODAL ELEMENTS ----------
-  const modal = $("#snapshotModal");
-  const form = $("#snapshotForm");
-  const resultSection = $("#snapshotResult");
-  const resultHeadline = $("#resultHeadline");
-  const strongestLensEl = $("#strongestLens");
-  const weakestLensEl = $("#weakestLens");
-  const nextBtn = $("#snapshotNext");
-  const backBtn = $("#snapshotBack");
-  const stepMeta = $("#stepMeta");
-  const controls = $("#snapshotControls");
-  const closeBtn = $("#closeSnapshot");
-  const resetBtn = $("#resetSnapshot");
-  const chipsWrap = $("#snapshotChips");
-  const scrollEl = $("#snapshotScroll");
-
-  // Optional result bars (if you add them in HTML)
-  const barEls = {
-    Network: $("#barNetwork"),
-    Devices: $("#barDevices"),
-    Privacy: $("#barPrivacy"),
-    Scams: $("#barScams"),
-    Wellbeing: $("#barWellbeing"),
-  };
-  const valEls = {
-    Network: $("#valNetwork"),
-    Devices: $("#valDevices"),
-    Privacy: $("#valPrivacy"),
-    Scams: $("#valScams"),
-    Wellbeing: $("#valWellbeing"),
-  };
-
-  const printBtn = $("#printSnapshot");
-  const dlHtmlBtn = $("#downloadSnapshotHtml");
-  const retakeBtn = $("#retakeSnapshot");
-
-  // Server PDF link (optional button)
-  const serverPdfLink = $("#serverPdfLink");
-
-  // Resources page container (may exist on /resources/)
-  const resourcesEl = $("#resourcesHub");
-  const goToResources = $("#goToResources");
-  if (goToResources) {
-    goToResources.addEventListener("click", () => closeModal());
-  }
-
-  const hasSnapshotUI = !!(modal && form && nextBtn && backBtn);
-
-  // ---------- QUESTIONS ----------
-  const QUESTIONS = [
-    {
-      lens: "Network",
-      q: "How protected is your home Wi-Fi beyond the Wi-Fi password?",
-      a: [
-        { t: "Locked down", sub: "Router admin password changed • WPS off • guest Wi-Fi used", s: 4 },
-        { t: "Mostly protected", sub: "Strong Wi-Fi password but unsure about router settings", s: 3 },
-        { t: "Basic / default", sub: "Old/shared password • router never checked", s: 2 },
-        { t: "No idea", sub: "I wouldn’t know where to look", s: 1 },
-      ],
-    },
-    {
-      lens: "Devices",
-      q: "How steady are everyday devices (phones, tablets, laptops)?",
-      a: [
-        { t: "Hardened", sub: "Auto-updates • screen locks • backups working", s: 4 },
-        { t: "Mostly OK", sub: "Updates usually happen, some lag behind", s: 3 },
-        { t: "Patchy", sub: "Old devices or missing locks/backups", s: 2 },
-        { t: "Unsure", sub: "We just use them — no setup", s: 1 },
-      ],
-    },
-    {
-      lens: "Privacy",
-      q: "How protected are key accounts (email, Apple/Google, banking)?",
-      a: [
-        { t: "Strongly protected", sub: "Unique passwords • password manager • 2-step on email", s: 4 },
-        { t: "Some protection", sub: "Some 2-step but passwords reused", s: 3 },
-        { t: "Weak protection", sub: "Reused passwords or recovery not reviewed", s: 2 },
-        { t: "Overwhelmed", sub: "I avoid account settings", s: 1 },
-      ],
-    },
-    {
-      lens: "Scams",
-      q: "If a message creates urgency (bank, parcel, ‘pay now’), what happens?",
-      a: [
-        { t: "Pause + verify", sub: "We check via official app or saved number", s: 4 },
-        { t: "Cautious", sub: "We hesitate but sometimes click first", s: 3 },
-        { t: "Pressured", sub: "Urgency sometimes wins", s: 2 },
-        { t: "Already affected", sub: "We’ve lost money/data before", s: 1 },
-      ],
-    },
-    {
-      lens: "Wellbeing",
-      q: "How is digital life affecting sleep, focus, and calm at home?",
-      a: [
-        { t: "Balanced", sub: "Boundaries feel calm • sleep mostly protected", s: 4 },
-        { t: "A bit noisy", sub: "Some disruption, but manageable", s: 3 },
-        { t: "Strained", sub: "Arguments, exhaustion, stress", s: 2 },
-        { t: "Overwhelming", sub: "It regularly feels out of control", s: 1 },
-      ],
-    },
-  ];
-
-  const CHIPS = ["Runs locally on this device", "No accounts • no tracking", "2 minutes • 5 questions", "Clear next steps"];
-
-  // ---------- STATE ----------
-  let step = -1; // -1 intro, 0..n-1 question, n result
-  let answers = new Array(QUESTIONS.length).fill(null);
-
-  // ---------- iOS BODY LOCK HELPERS ----------
-  let scrollY = 0;
-
-  const lockBody = () => {
-    scrollY = window.scrollY || 0;
-    document.documentElement.classList.add("modal-open");
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-    document.body.style.webkitOverflowScrolling = "auto";
-  };
-
-  const unlockBody = () => {
-    document.documentElement.classList.remove("modal-open");
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-    window.scrollTo(0, scrollY);
-    document.body.style.webkitOverflowScrolling = "";
-  };
-
-  // ---------- STORAGE ----------
-  const saveSnapshot = (snapshot) => {
-    try {
-       const ts = Date.now();
-       const withTs = { ...snapshot, ts };
-
-       localStorage.setItem(STORAGE_KEY, JSON.stringify(withTs));
-       localStorage.setItem(STORAGE_TS_KEY, String(ts));
-
-       // ✅ compatibility keys for other pages / future migrations
-       localStorage.setItem("cyberseeds_snapshot_last", JSON.stringify(withTs));
-
-    } catch (e) {
-      console.warn("LocalStorage save failed:", e);
-    }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...snap, ts: Date.now() }));
+    } catch {}
   };
 
   const loadSnapshot = () => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      return JSON.parse(raw);
+      return raw ? JSON.parse(raw) : null;
     } catch {
       return null;
     }
@@ -342,553 +60,298 @@
   const clearSnapshot = () => {
     try {
       localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(STORAGE_TS_KEY);
-    } catch (e) {
-      console.warn("LocalStorage clear failed:", e);
-    }
+    } catch {}
   };
 
-  // ---------- CALCULATION ----------
+  /* ============= SNAPSHOT MODEL ============= */
+
+  const SECTIONS = [
+    {
+      id: "wifi",
+      title: "Home Wi-Fi & Router",
+      purpose: "The gateway to everything else",
+      questions: [
+        {
+          q: "Have you changed the router’s default Wi-Fi and admin passwords?",
+          a: [
+            { t: "Yes, both changed", s: 4 },
+            { t: "Only the Wi-Fi password", s: 3 },
+            { t: "Still using default passwords", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+        {
+          q: "Do you keep your router software up to date?",
+          a: [
+            { t: "It updates automatically", s: 4 },
+            { t: "I check occasionally", s: 3 },
+            { t: "Never checked", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+        {
+          q: "Do visitors or smart devices use a separate Wi-Fi?",
+          a: [
+            { t: "Yes", s: 4 },
+            { t: "No", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "devices",
+      title: "Connected Devices & Updates",
+      purpose: "What lives on the network, and how healthy it is",
+      questions: [
+        {
+          q: "Do your devices install updates automatically?",
+          a: [
+            { t: "All or most do", s: 4 },
+            { t: "Some do, some don’t", s: 3 },
+            { t: "Rarely", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+        {
+          q: "Do you back up important photos or files?",
+          a: [
+            { t: "Yes, automatically", s: 4 },
+            { t: "Occasionally", s: 3 },
+            { t: "Never", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "accounts",
+      title: "Accounts & Passwords",
+      purpose: "Your digital identity and access",
+      questions: [
+        {
+          q: "How do you manage passwords?",
+          a: [
+            { t: "Password manager with unique passwords", s: 4 },
+            { t: "No manager, but interested", s: 3 },
+            { t: "Not sure what that is", s: 2 },
+            { t: "I reuse the same few passwords", s: 1 },
+          ],
+        },
+        {
+          q: "Is extra sign-in protection enabled on key accounts?",
+          a: [
+            { t: "Yes, on most", s: 4 },
+            { t: "On one or two", s: 3 },
+            { t: "Not yet", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "scams",
+      title: "Scam Awareness & Response",
+      purpose: "How pressure is handled",
+      questions: [
+        {
+          q: "When a message asks for money or info, what happens?",
+          a: [
+            { t: "We verify independently", s: 4 },
+            { t: "We hesitate but sometimes respond", s: 3 },
+            { t: "We feel pressured", s: 2 },
+            { t: "Someone was caught before", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "children",
+      title: "Children’s Online Safety",
+      optional: true,
+      purpose: "Protection plus communication",
+      questions: [
+        {
+          q: "Do you use parental controls or screen-time tools?",
+          a: [
+            { t: "Yes, regularly", s: 4 },
+            { t: "Tried but don’t maintain", s: 3 },
+            { t: "No, but would like help", s: 2 },
+            { t: "Not applicable", s: 4 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "iot",
+      title: "Smart Home & IoT Devices",
+      purpose: "Quiet devices that go unmanaged",
+      questions: [
+        {
+          q: "Do you change default passwords on smart devices?",
+          a: [
+            { t: "Always", s: 4 },
+            { t: "On some devices", s: 3 },
+            { t: "No", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wellbeing",
+      title: "Digital Habits & Wellbeing",
+      purpose: "Calm, sleep, and focus",
+      questions: [
+        {
+          q: "Do you have device-free times?",
+          a: [
+            { t: "Daily", s: 4 },
+            { t: "Occasionally", s: 3 },
+            { t: "Rarely", s: 2 },
+            { t: "Never", s: 1 },
+          ],
+        },
+      ],
+    },
+  ];
+
+  /* ============== STATE ============== */
+
+  let step = -1;
+  let answers = {}; // sectionId -> [scores]
+
+  /* ============== CALCULATION ============== */
+
   function calcSnapshot() {
-    const scores = { Network: 0, Devices: 0, Privacy: 0, Scams: 0, Wellbeing: 0 };
-    QUESTIONS.forEach((q, i) => {
-      if (answers[i] != null) scores[q.lens] += Number(answers[i]);
+    const sectionScores = {};
+
+    SECTIONS.forEach((s) => {
+      if (!answers[s.id] || !answers[s.id].length) return;
+      const avg =
+        answers[s.id].reduce((a, b) => a + b, 0) / answers[s.id].length;
+      sectionScores[s.title] = Math.round(avg * 10) / 10;
     });
 
-    const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-    const total = ranked.reduce((sum, [, val]) => sum + val, 0);
+    const ranked = Object.entries(sectionScores).sort((a, b) => a[1] - b[1]);
 
-    // Stage: 5 questions, each 1..4 => total 5..20
-    let stage;
-    if (total >= 18) stage = { name: "Clear", desc: "Your digital ecosystem feels stable. Keep routines steady and protect the basics." };
-    else if (total >= 13) stage = { name: "Emerging", desc: "A few risk flows need tightening. Small changes will reduce stress and risk quickly." };
-    else stage = { name: "Vulnerable", desc: "This is common, not a failing. Start with one calm fix — you’ll feel the difference fast." };
+    const priorities = ranked.slice(0, 2).map(([title, score]) => ({
+      title,
+      score,
+    }));
 
-    const strongest = ranked[0][0];
-    const weakest = ranked[ranked.length - 1][0];
-
-    // Tie detection
-    const isAllEqual = ranked[0][1] === ranked[ranked.length - 1][1];
-
-    return { stage, strongest, weakest, scores, total, isAllEqual };
+    return {
+      sectionScores,
+      priorities,
+    };
   }
 
-  // ---------- RENDERING ----------
+  /* ============== RENDERING ============== */
+
+  const modal = $("#snapshotModal");
+  const form = $("#snapshotForm");
+  const nextBtn = $("#snapshotNext");
+  const backBtn = $("#snapshotBack");
+  const resultSection = $("#snapshotResult");
+  const resultHeadline = $("#resultHeadline");
+
   function renderIntro() {
-    if (!hasSnapshotUI) return;
-    stepMeta.textContent = "";
     form.innerHTML = `
       <p class="muted">
-        This is a calm signal — not a test. Answer as you are. We only ask what helps you take a useful next step.
-      </p>
-    `;
-    if (resultSection) resultSection.hidden = true;
-    if (controls) controls.style.display = "flex";
-    backBtn.disabled = true;
+        This is a calm reading of your home’s digital ecosystem.
+        There are no right answers — only useful signals.
+      </p>`;
     nextBtn.textContent = "Start";
-    nextBtn.disabled = false;
-
-    // hide server PDF link until a fresh run finishes
-    if (serverPdfLink) serverPdfLink.style.display = "none";
-
-    if (scrollEl) scrollEl.scrollTop = 0;
+    backBtn.disabled = true;
   }
 
-  function renderQuestion() {
-    if (!hasSnapshotUI) return;
-    const q = QUESTIONS[step];
-    const current = answers[step];
+  function renderSection() {
+    const section = SECTIONS[step];
+    answers[section.id] = answers[section.id] || [];
 
-    stepMeta.textContent = `${step + 1} / ${QUESTIONS.length}`;
+    let html = `<h3>${escapeHTML(section.title)}</h3>
+                <p class="muted">${escapeHTML(section.purpose)}</p>`;
 
-    form.innerHTML = `
-      <h3 class="q-title">${escapeHTML(q.q)}</h3>
-      <div class="choices">
-        ${q.a
-          .map(
-            (opt) => `
-          <label class="choice" role="button" tabindex="0">
-            <input type="radio" name="q${step}" value="${opt.s}" ${current === opt.s ? "checked" : ""} />
-            <div>
-              <b>${escapeHTML(opt.t)}</b>
-              <span>${escapeHTML(opt.sub)}</span>
-            </div>
-          </label>
-        `
-          )
-          .join("")}
-      </div>
-    `;
-
-    backBtn.disabled = false;
-    nextBtn.textContent = step === QUESTIONS.length - 1 ? "Finish" : "Next";
-    nextBtn.disabled = current == null;
-
-    // Make entire label clickable/keyboard-selectable
-    $$(".choice", form).forEach((label) => {
-      const activate = () => {
-        const input = $("input", label);
-        if (!input) return;
-        input.checked = true;
-        answers[step] = Number(input.value);
-        nextBtn.disabled = false;
-      };
-      label.addEventListener("click", activate);
-      label.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          activate();
-        }
+    section.questions.forEach((q, qi) => {
+      html += `<p><b>${escapeHTML(q.q)}</b></p>
+        <div class="choices">`;
+      q.a.forEach((opt) => {
+        html += `
+          <label class="choice">
+            <input type="radio" name="${section.id}_${qi}" value="${opt.s}">
+            <span>${escapeHTML(opt.t)}</span>
+          </label>`;
       });
+      html += `</div>`;
     });
 
-    if (scrollEl) scrollEl.scrollTop = 0;
+    form.innerHTML = html;
+    nextBtn.textContent = step === SECTIONS.length - 1 ? "Finish" : "Next";
+    backBtn.disabled = false;
+
+    $$("input[type=radio]", form).forEach((i) =>
+      i.addEventListener("change", () => {
+        const scores = [];
+        section.questions.forEach((_, qi) => {
+          const sel = $(`input[name="${section.id}_${qi}"]:checked`, form);
+          if (sel) scores.push(Number(sel.value));
+        });
+        answers[section.id] = scores;
+      })
+    );
   }
 
   function renderResult() {
-    if (!hasSnapshotUI) return;
-
     const snapshot = calcSnapshot();
-
-    // Save snapshot for Resources hub
     saveSnapshot(snapshot);
 
-    // ✅ Submit to API ONCE (async, non-blocking)
-    submitSnapshotToAPI(snapshot);
-
-    // Update headline + strongest/weakest labels
-    if (resultHeadline) resultHeadline.textContent = `${snapshot.stage.name} signal — ${snapshot.stage.desc}`;
-
-    if (snapshot.isAllEqual) {
-      if (strongestLensEl) strongestLensEl.textContent = "Balanced";
-      if (weakestLensEl) weakestLensEl.textContent = "Balanced";
-    } else {
-      if (strongestLensEl) strongestLensEl.textContent = snapshot.strongest;
-      if (weakestLensEl) weakestLensEl.textContent = snapshot.weakest;
-    }
-
-    // Optional bar UI updates if present
-    updateBars(snapshot);
-
+    resultHeadline.textContent = "Your priority focus areas";
     form.innerHTML = "";
-    if (resultSection) resultSection.hidden = false;
-    if (controls) controls.style.display = "none";
-    if (scrollEl) scrollEl.scrollTop = 0;
 
-    // If we're on resources page, populate immediately
-    if (resourcesEl) populateResourcesHub(snapshot);
+    resultSection.innerHTML = snapshot.priorities
+      .map(
+        (p) => `
+      <div class="card">
+        <h3>${escapeHTML(p.title)}</h3>
+        <p class="muted">This area would benefit from one calm improvement.</p>
+      </div>`
+      )
+      .join("");
+
+    resultSection.hidden = false;
   }
 
   function render() {
-    if (!hasSnapshotUI) return;
     if (step < 0) renderIntro();
-    else if (step >= QUESTIONS.length) renderResult();
-    else renderQuestion();
+    else if (step >= SECTIONS.length) renderResult();
+    else renderSection();
   }
 
-  // ---------- MODAL OPEN/CLOSE + BACK BUTTON ----------
-  function openModal() {
-    if (!hasSnapshotUI) return;
+  /* ============== CONTROLS ============== */
 
-    // Inject chips
-    if (chipsWrap) {
-      chipsWrap.innerHTML = CHIPS.map((c) => `<div class="chip">${escapeHTML(c)}</div>`).join("");
-    }
-
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    lockBody();
-
-    // Reset state each open
-    step = -1;
-    answers = new Array(QUESTIONS.length).fill(null);
+  nextBtn.addEventListener("click", () => {
+    step++;
     render();
-
-    // Push state so browser Back closes modal
-    const st = history.state || {};
-    if (!st.__seedModal) {
-      history.replaceState(history.state || {}, "", "#");
-      history.pushState({ ...(st || {}), __seedModal: true }, "", "#snapshot");
-    }
-  }
-
-  function closeModal({ viaPop = false } = {}) {
-    if (!hasSnapshotUI) return;
-
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    unlockBody();
-
-    // If closed by UI (not popstate), tidy the URL/state
-    if (!viaPop) {
-      const st = history.state || {};
-      if (st.__seedModal) history.back();
-      else history.replaceState(st, "", "#");
-    }
-  }
-
-  window.addEventListener("popstate", () => {
-    if (!hasSnapshotUI) return;
-    if (modal.classList.contains("is-open")) {
-      closeModal({ viaPop: true });
-    }
   });
 
-  // ---------- BUTTON WIRING ----------
-  $$("[data-open-snapshot]").forEach((btn) => btn.addEventListener("click", openModal));
+  backBtn.addEventListener("click", () => {
+    step--;
+    render();
+  });
 
-  if (closeBtn) closeBtn.addEventListener("click", () => closeModal());
-  const backdrop = modal ? $("[data-close]", modal) : null;
-  if (backdrop) backdrop.addEventListener("click", () => closeModal());
-
-  if (hasSnapshotUI) {
-    nextBtn.addEventListener("click", () => {
-      if (nextBtn.disabled) return;
-      if (step < 0) step = 0;
-      else if (answers[step] != null) step++;
-      render();
-    });
-
-    backBtn.addEventListener("click", () => {
-      if (step <= 0) step = -1;
-      else step--;
-      render();
-    });
-  }
-
-  if (retakeBtn) {
-    retakeBtn.addEventListener("click", () => {
+  $$("[data-open-snapshot]").forEach((b) =>
+    b.addEventListener("click", () => {
       step = -1;
-      answers = new Array(QUESTIONS.length).fill(null);
-      if (controls) controls.style.display = "flex";
-      if (resultSection) resultSection.hidden = true;
-      if (serverPdfLink) serverPdfLink.style.display = "none";
+      answers = {};
+      modal.classList.add("is-open");
       render();
-    });
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      clearSnapshot();
-      step = -1;
-      answers = new Array(QUESTIONS.length).fill(null);
-      if (controls) controls.style.display = "flex";
-      if (resultSection) resultSection.hidden = true;
-      if (serverPdfLink) serverPdfLink.style.display = "none";
-      render();
-    });
-  }
-
-  // Print report (opens a print-friendly window)
-  if (printBtn) {
-    printBtn.addEventListener("click", () => {
-      const snap = loadSnapshot() || calcSnapshotFromStorageOrNull();
-      if (!snap) return;
-      const html = buildReportHTML(snap, { forPrint: true });
-      const w = window.open("", "_blank", "noopener,noreferrer");
-      if (!w) return;
-      w.document.open();
-      w.document.write(html);
-      w.document.close();
-      w.focus();
-      w.print();
-    });
-  }
-
-  // Download full HTML report
-  if (dlHtmlBtn) {
-    dlHtmlBtn.addEventListener("click", () => {
-      const snap = loadSnapshot() || calcSnapshotFromStorageOrNull();
-      if (!snap) return;
-      const html = buildReportHTML(snap, { forPrint: false });
-      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Cyber-Seeds-Household-Snapshot-Report.html";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    });
-  }
-
-  // ---------- RESOURCES HUB CONTENT ----------
-  const RESOURCES_CONTENT = {
-    Network: {
-      title: "Network Lens — make the home Wi-Fi trustworthy",
-      why: "Your router is the gateway to everything in the home. A few calm settings reduce risk for everyone.",
-      steps: [
-        { t: "Change the router admin password", d: "This is different from the Wi-Fi password. If it’s still the default, anyone with access to the label/manual can guess it." },
-        { t: "Disable WPS", d: "WPS (push-button pairing) is convenient, but it reduces the effort needed for unwanted connection attempts." },
-        { t: "Create a Guest Wi-Fi", d: "Put visitors, smart TVs, and ‘unknown’ devices on guest Wi-Fi so your main devices stay more protected." },
-        { t: "Check updates (router firmware)", d: "If your ISP router updates automatically, great. If not, check the model page or ISP help page for updates." },
-      ],
-      seed: "Digital Seed: once a month, spend 2 minutes checking ‘who’s connected’ in your router/app.",
-    },
-    Devices: {
-      title: "Devices Lens — keep everyday devices steady",
-      why: "Most household risks arrive through devices people actually touch every day: phones, tablets, laptops.",
-      steps: [
-        { t: "Turn on automatic updates", d: "Security fixes work best when they happen quietly in the background." },
-        { t: "Use screen locks on every device", d: "A lost phone shouldn’t become an open door. Prefer PIN + biometrics." },
-        { t: "Confirm backups are real", d: "A backup that hasn’t been tested is a hope, not a safety net. Check one photo/file can be restored." },
-        { t: "Remove unused apps & old accounts", d: "Less surface area, less confusion, less risk." },
-      ],
-      seed: "Digital Seed: ‘Update + Lock + Backup’ — a 30-second family ritual on Sundays.",
-    },
-    Privacy: {
-      title: "Privacy Lens — protect accounts that protect everything else",
-      why: "If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere.",
-      steps: [
-        { t: "Add 2-step verification to your email first", d: "Email is the password-reset key for most services. Protect it like your house keys." },
-        { t: "Use a password manager (optional but powerful)", d: "It reduces reuse and removes mental load. Choose one that feels simple." },
-        { t: "Review account recovery options", d: "Remove old phone numbers and emails. Ensure only you can reset access." },
-        { t: "Reduce public exposure", d: "Audit what’s visible on social profiles; remove address, school details, or routines if present." },
-      ],
-      seed: "Digital Seed: protect the ‘root accounts’ (email + Apple/Google) before everything else.",
-    },
-    Scams: {
-      title: "Scam Defence Lens — build a calm pause reflex",
-      why: "Scams succeed by urgency. The household skill is not ‘never click’ — it’s ‘pause, verify, proceed’.",
-      steps: [
-        { t: "Create one household rule: ‘No money moves via links’", d: "If a message asks for payment, open the official app/site yourself." },
-        { t: "Use saved numbers, not message numbers", d: "If your bank calls, hang up and ring the number from the back of your card/app." },
-        { t: "Share scam attempts as a family", d: "A 30-second conversation teaches pattern recognition faster than any poster." },
-        { t: "Report suspicious messages", d: "Forward scam texts to 7726 (UK) and delete; report phishing emails in your mail app." },
-      ],
-      seed: "Digital Seed: teach the ‘PAUSE’ habit: Pause • Ask • Use official route • Save evidence • Exit.",
-    },
-    Wellbeing: {
-      title: "Child Digital Wellbeing Lens — reduce friction, protect sleep",
-      why: "Safety isn’t only about attacks; it’s also about attention, mood, rest, and family calm.",
-      steps: [
-        { t: "Protect sleep first", d: "Create one device-down time (e.g., 30–60 minutes before bed). Start gentle, not strict." },
-        { t: "Use built-in Screen Time / Digital Wellbeing tools", d: "Not as punishment — as visibility. Children often self-regulate better when they can see patterns." },
-        { t: "Make ‘open door’ conversations normal", d: "If something feels weird online, the rule is ‘tell us early’ — no blame." },
-        { t: "Separate ‘private’ from ‘secret’", d: "Children deserve privacy. But secrecy around risk should be discussable with trusted adults." },
-      ],
-      seed: "Digital Seed: one weekly ‘digital check-in’ question: “Anything online feel confusing this week?”",
-    },
-  };
-
-  function populateResourcesHub(snapshot = null) {
-    if (!resourcesEl) return;
-
-    const snap = snapshot || loadSnapshot();
-    if (!snap) {
-      resourcesEl.innerHTML = `
-        <div class="card">
-          <h2>Personalised resources appear after a snapshot</h2>
-          <p class="muted">Take the 2-minute snapshot on this device to receive a calm, prioritised action plan.</p>
-        </div>
-      `;
-      return;
-    }
-
-    const focusLens = snap.isAllEqual ? "Privacy" : snap.weakest;
-    const pack = RESOURCES_CONTENT[focusLens];
-
-    resourcesEl.innerHTML = `
-      <div class="card">
-        <p class="eyebrow">Your prioritised focus</p>
-        <h2>${escapeHTML(pack.title)}</h2>
-        <p class="muted">${escapeHTML(pack.why)}</p>
-      </div>
-
-      <div class="card">
-        <h3>Small actions you can do today</h3>
-        <ol class="steps">
-          ${pack.steps
-            .map(
-              (s) => `
-            <li>
-              <b>${escapeHTML(s.t)}</b>
-              <div class="muted">${escapeHTML(s.d)}</div>
-            </li>
-          `
-            )
-            .join("")}
-        </ol>
-        <div class="seed-note">
-          <b>${escapeHTML(pack.seed.split(":")[0])}:</b> ${escapeHTML(pack.seed.split(":").slice(1).join(":").trim())}
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Your snapshot overview</h3>
-        <p class="muted"><b>${escapeHTML(snap.stage.name)}</b> — ${escapeHTML(snap.stage.desc)}</p>
-        <div class="mini-bars">
-          ${Object.keys(snap.scores)
-            .map((l) => {
-              const pct = Math.round((snap.scores[l] / 4) * 100);
-              return `
-                <div class="mini-row">
-                  <span>${escapeHTML(l)}</span>
-                  <div class="mini-track"><div class="mini-fill" style="width:${pct}%"></div></div>
-                  <span class="mini-val">${snap.scores[l]}/4</span>
-                </div>
-              `;
-            })
-            .join("")}
-        </div>
-      </div>
-    `;
-  }
-
-  // Populate resources on load if on that page
-  if (resourcesEl) populateResourcesHub();
-
-  // ---------- HELPERS ----------
-  function escapeHTML(str) {
-    return String(str).replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;",
-    }[m]));
-  }
-
-  function updateBars(snapshot) {
-    Object.keys(snapshot.scores).forEach((lens) => {
-      const pct = Math.round((snapshot.scores[lens] / 4) * 100);
-      if (barEls[lens]) barEls[lens].style.width = `${pct}%`;
-      if (valEls[lens]) valEls[lens].textContent = `${snapshot.scores[lens]}/4`;
-    });
-  }
-
-  function calcSnapshotFromStorageOrNull() {
-    const snap = loadSnapshot();
-    return snap || null;
-  }
-
-  function buildReportHTML(snapshot, { forPrint }) {
-    const dateStr = new Date().toLocaleString();
-    const lensRows = Object.keys(snapshot.scores)
-      .map((l) => {
-        const pct = Math.round((snapshot.scores[l] / 4) * 100);
-        return `
-        <tr>
-          <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;"><b>${escapeHTML(l)}</b></td>
-          <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;">
-            <div style="height:10px;background:#eaf4f3;border-radius:999px;overflow:hidden;">
-              <div style="height:10px;width:${pct}%;background:#0f2f2a;border-radius:999px;"></div>
-            </div>
-          </td>
-          <td style="padding:10px 8px;border-bottom:1px solid #e6eceb;text-align:right;">${snapshot.scores[l]}/4</td>
-        </tr>
-      `;
-      })
-      .join("");
-
-    const focusLens = snapshot.isAllEqual ? "Privacy" : snapshot.weakest;
-    const pack = RESOURCES_CONTENT[focusLens];
-
-    return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cyber Seeds — Household Snapshot Report</title>
-<style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#10201d;margin:0;background:#f6fbfa}
-  .wrap{max-width:900px;margin:0 auto;padding:28px}
-  .card{background:#fff;border:1px solid #e6eceb;border-radius:14px;padding:18px 18px;margin:14px 0;box-shadow:0 10px 30px rgba(10,30,25,.06)}
-  h1{font-size:28px;margin:0 0 6px}
-  h2{font-size:18px;margin:0 0 10px}
-  p{margin:8px 0;line-height:1.55}
-  .muted{color:#4e6a63}
-  .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#eaf4f3;color:#0f2f2a;font-size:12px;margin-right:8px}
-  table{width:100%;border-collapse:collapse}
-  .seed{margin-top:12px;padding:12px;border-radius:12px;background:#f2fbf9;border:1px solid #e0efec}
-  ol{padding-left:18px}
-  li{margin:10px 0}
-  @media print {
-    body{background:#fff}
-    .wrap{padding:0}
-    .noprint{display:none !important}
-    .card{box-shadow:none}
-  }
-</style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-end;">
-        <div>
-          <h1>Cyber Seeds — Household Snapshot Report</h1>
-          <div class="muted">Generated: ${escapeHTML(dateStr)} • Runs locally • No data sent</div>
-        </div>
-        ${forPrint ? "" : `<div class="noprint">
-          <button onclick="window.print()" style="background:#0f2f2a;color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;">Print</button>
-        </div>`}
-      </div>
-      <div style="margin-top:12px;">
-        <span class="tag">${escapeHTML(snapshot.stage.name)} signal</span>
-        <span class="tag">Strongest: ${escapeHTML(snapshot.isAllEqual ? "Balanced" : snapshot.strongest)}</span>
-        <span class="tag">Focus: ${escapeHTML(focusLens)}</span>
-      </div>
-      <p style="margin-top:10px;"><b>${escapeHTML(snapshot.stage.name)}</b> — ${escapeHTML(snapshot.stage.desc)}</p>
-    </div>
-
-    <div class="card">
-      <h2>Snapshot overview</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:8px;border-bottom:2px solid #e6eceb;">Lens</th>
-            <th style="padding:8px;border-bottom:2px solid #e6eceb;">Strength</th>
-            <th style="text-align:right;padding:8px;border-bottom:2px solid #e6eceb;">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${lensRows}
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <h2>Your priority focus</h2>
-      <p class="muted">${escapeHTML(pack.why)}</p>
-      <ol>
-        ${pack.steps
-          .map(
-            (s) => `
-          <li>
-            <b>${escapeHTML(s.t)}</b><br>
-            <span class="muted">${escapeHTML(s.d)}</span>
-          </li>
-        `
-          )
-          .join("")}
-      </ol>
-      <div class="seed">
-        <b>${escapeHTML(pack.seed.split(":")[0])}:</b>
-        ${escapeHTML(pack.seed.split(":").slice(1).join(":").trim())}
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>What to do next</h2>
-      <p>
-        This snapshot is not a judgement — it’s a starting signal.
-        Pick <b>one small action</b> from the focus lens above and do it this week.
-      </p>
-      <p class="muted">
-        Cyber safety improves through calm routines, not fear or perfection.
-      </p>
-    </div>
-
-    <div class="card noprint">
-      <p class="muted">
-        Generated locally on your device. No accounts. No tracking.
-      </p>
-    </div>
-
-  </div>
-</body>
-</html>`;
-  }
+    })
+  );
 
 })();
