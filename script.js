@@ -738,22 +738,30 @@
           if (!cb) return;
 
           cb.addEventListener("change", () => {
-            const selected = [];
-            q.a.forEach((__, idx) => {
-              const el = $(`input[name="${sec.id}_${qi}_${idx}"]`, formEl);
-              if (el && el.checked) selected.push(idx);
+              // Ensure array exists
+              if (!Array.isArray(answers[sec.id][qi])) {
+                answers[sec.id][qi] = [];
+              }
+            
+              const idx = oi;
+            
+              if (cb.checked) {
+                if (!answers[sec.id][qi].includes(idx)) {
+                  answers[sec.id][qi].push(idx);
+                }
+              } else {
+                answers[sec.id][qi] = answers[sec.id][qi].filter(i => i !== idx);
+              }
+            
+              // Enforce max selection if defined
+              if (q.max && answers[sec.id][qi].length > q.max) {
+                cb.checked = false;
+                answers[sec.id][qi].pop();
+              }
+            
+              setNextEnabled();
             });
-
-            // enforce max if present
-            if (q.max && selected.length > q.max) {
-              // calm enforcement: undo the last tick
-              cb.checked = false;
-              return;
-            }
-
-            answers[sec.id][qi] = selected;
-            setNextEnabled();
-          });
+ 
         });
       } else {
         $$(`input[name="${sec.id}_${qi}"]`, formEl).forEach((inp) => {
