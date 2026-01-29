@@ -1,23 +1,80 @@
-/* ===================================================
-   Cyber Seeds — Household Snapshot v4
-   Calm, non-judgemental, 8-section system
-=================================================== */
+/* ===========================================================
+   Cyber Seeds — Household Snapshot Engine
+   Snapshot v1.0 (Canon-ready)
+   =========================================================== */
 
 (() => {
   "use strict";
 
+  /* ---------- Helpers ---------- */
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = (s) =>
+    String(s).replace(/[&<>"']/g, m =>
+      ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m])
+    );
 
-  const STORAGE_KEY = "seed_snapshot_v4";
+  /* ---------- Storage ---------- */
+  const STORE = "cyberseeds_snapshot_v1";
 
-  /* ---------- DATA MODEL ---------- */
+  const save = (data) => {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ ...data, ts: Date.now() }));
+    } catch {}
+  };
 
+  const load = () => {
+    try {
+      return JSON.parse(localStorage.getItem(STORE));
+    } catch {
+      return null;
+    }
+  };
+
+  const clear = () => {
+    try { localStorage.removeItem(STORE); } catch {}
+  };
+
+  /* ---------- Snapshot Model ---------- */
   const SECTIONS = [
+    {
+      id: "wifi",
+      title: "Home Wi-Fi & Router",
+      purpose: "The gateway to everything else",
+      questions: [
+        {
+          q: "Have you changed the router’s default Wi-Fi and admin passwords?",
+          a: [
+            { t: "Yes, both changed", s: 4 },
+            { t: "Only the Wi-Fi password", s: 3 },
+            { t: "Still using default passwords", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+        {
+          q: "Do you keep your router software (firmware) up to date?",
+          a: [
+            { t: "It updates automatically", s: 4 },
+            { t: "I check occasionally", s: 3 },
+            { t: "Never checked", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+        {
+          q: "Do visitors or smart devices use a separate Wi-Fi or guest network?",
+          a: [
+            { t: "Yes", s: 4 },
+            { t: "No", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
+        },
+      ],
+    },
+
     {
       id: "devices",
       title: "Connected Devices & Updates",
-      purpose: "What lives on the network, and how healthy it is",
+      purpose: "What lives on the network",
       questions: [
         {
           q: "Which devices are used in your home?",
@@ -34,63 +91,127 @@
           ],
         },
         {
-          q: "Do devices install updates automatically?",
-          a: ["All or most", "Some", "Rarely", "Not sure"],
+          q: "Do these devices install updates automatically?",
+          a: [
+            { t: "All or most do", s: 4 },
+            { t: "Some do, some don’t", s: 3 },
+            { t: "Rarely", s: 2 },
+            { t: "Not sure", s: 1 },
+          ],
         },
       ],
     },
-    // (Other sections continue here unchanged)
+
+    {
+      id: "accounts",
+      title: "Accounts & Passwords",
+      purpose: "Your digital identity",
+      questions: [
+        {
+          q: "How do you manage passwords?",
+          a: [
+            { t: "Password manager", s: 4 },
+            { t: "Interested but not using one", s: 3 },
+            { t: "Not sure what that is", s: 2 },
+            { t: "Reuse passwords", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "scams",
+      title: "Scam Awareness",
+      purpose: "Handling urgency and pressure",
+      questions: [
+        {
+          q: "When a message asks for money or info, what happens?",
+          a: [
+            { t: "Pause and verify", s: 4 },
+            { t: "Hesitate but sometimes respond", s: 3 },
+            { t: "Feel pressured", s: 2 },
+            { t: "Been caught before", s: 1 },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wellbeing",
+      title: "Digital Wellbeing",
+      purpose: "Sleep, calm, focus",
+      questions: [
+        {
+          q: "Do you have device-free times (meals / bedtime)?",
+          a: [
+            { t: "Yes, daily", s: 4 },
+            { t: "Occasionally", s: 3 },
+            { t: "Rarely", s: 2 },
+            { t: "Never", s: 1 },
+          ],
+        },
+      ],
+    },
   ];
 
-  /* ---------- STATE ---------- */
-
-  let step = 0;
   const answers = {};
+  let step = -1;
 
-  /* ---------- SCORING ---------- */
-
-  function scoreMulti(count) {
-    if (count <= 2) return 4;
-    if (count <= 4) return 3;
-    if (count <= 6) return 2;
-    return 1;
-  }
-
-  /* ---------- RENDER ---------- */
-
+  /* ---------- DOM ---------- */
+  const modal = $("#snapshotModal");
   const form = $("#snapshotForm");
+  const result = $("#snapshotResult");
+  const headline = $("#resultHeadline");
   const nextBtn = $("#snapshotNext");
   const backBtn = $("#snapshotBack");
-  const result = $("#snapshotResult");
+  const closeBtn = $("#closeSnapshot");
+  const resetBtn = $("#resetSnapshot");
+  const retakeBtn = $("#retakeSnapshot");
 
-  function render() {
+  /* ---------- Rendering ---------- */
+  function renderIntro() {
+    form.innerHTML = `
+      <p class="muted">
+        This is a calm reading of your household’s digital ecosystem.
+        There are no right answers — only useful signals.
+      </p>
+    `;
+    nextBtn.textContent = "Start";
+    nextBtn.disabled = false;
+    backBtn.disabled = true;
+    result.hidden = true;
+  }
+
+  function renderSection() {
     const sec = SECTIONS[step];
-    if (!sec) return renderResult();
+    answers[sec.id] ??= [];
 
     let html = `
-      <h3>${sec.title}</h3>
-      <p class="muted">${sec.purpose}</p>
+      <h3>${esc(sec.title)}</h3>
+      <p class="muted">${esc(sec.purpose)}</p>
     `;
 
     sec.questions.forEach((q, qi) => {
-      html += `<p><b>${q.q}</b></p><div class="choices">`;
+      html += `<p><b>${esc(q.q)}</b></p><div class="choices">`;
 
       if (q.multi) {
-        q.a.forEach((t, oi) => {
+        html += `<div class="multi-hint">Tick any that apply</div>`;
+        q.a.forEach((label, oi) => {
           html += `
-            <label class="choice multi">
+            <label class="choice multi" tabindex="0">
               <input type="checkbox" data-q="${qi}" data-o="${oi}">
-              <span>${t}</span>
-            </label>`;
+              <span>${esc(label)}</span>
+            </label>
+          `;
         });
-        html += `<div class="multi-hint muted">Select any that apply</div>`;
       } else {
-        q.a.forEach((t, oi) => {
+        q.a.forEach(opt => {
           html += `
-            <label class="choice">
-              <input type="radio" name="q${qi}" value="${oi}">
-              <span>${t}</span>
-            </label>`;
+            <label class="choice" tabindex="0">
+              <input type="radio" name="${sec.id}_${qi}" value="${opt.s}">
+              <span>${esc(opt.t)}</span>
+            </label>
+          `;
         });
       }
 
@@ -98,48 +219,97 @@
     });
 
     form.innerHTML = html;
+    nextBtn.textContent = step === SECTIONS.length - 1 ? "Finish" : "Next";
+    nextBtn.disabled = true;
+    backBtn.disabled = step === 0;
+
     bindInputs(sec);
   }
 
   function bindInputs(sec) {
     sec.questions.forEach((q, qi) => {
       if (q.multi) {
-        answers[qi] = answers[qi] || [];
+        answers[sec.id][qi] ??= [];
+
         $$(`input[data-q="${qi}"]`).forEach(cb => {
           cb.addEventListener("change", () => {
             const idx = Number(cb.dataset.o);
-            answers[qi] = cb.checked
-              ? [...new Set([...answers[qi], idx])]
-              : answers[qi].filter(i => i !== idx);
+            const arr = answers[sec.id][qi];
+            cb.checked
+              ? arr.includes(idx) || arr.push(idx)
+              : answers[sec.id][qi] = arr.filter(i => i !== idx);
+            nextBtn.disabled = answers[sec.id][qi].length === 0;
           });
         });
       } else {
-        $$(`input[name="q${qi}"]`).forEach(r =>
+        $$(`input[name="${sec.id}_${qi}"]`).forEach(r => {
           r.addEventListener("change", () => {
-            answers[qi] = Number(r.value) + 1;
-          })
-        );
+            answers[sec.id][qi] = Number(r.value);
+            nextBtn.disabled = false;
+          });
+        });
       }
     });
   }
 
   function renderResult() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+    const flatScores = [];
+
+    Object.values(answers).forEach(sec =>
+      sec.forEach(v => {
+        if (Array.isArray(v)) {
+          const c = v.length;
+          flatScores.push(c <= 2 ? 4 : c <= 4 ? 3 : 2);
+        } else {
+          flatScores.push(v);
+        }
+      })
+    );
+
+    const avg = Math.round((flatScores.reduce((a,b)=>a+b,0) / flatScores.length) * 10) / 10;
+    const stage =
+      avg >= 3.5 ? "Clear" :
+      avg >= 2.5 ? "Emerging" :
+      "Vulnerable";
+
+    headline.textContent =
+      `${stage} signal — your household has clear next steps, not problems.`;
+
     result.hidden = false;
-    form.innerHTML = "";
+    save({ avg, stage, answers });
+
+    // allow resource navigation
+    document.dispatchEvent(new CustomEvent("cyberseeds:snapshot-complete"));
   }
 
-  /* ---------- CONTROLS ---------- */
+  function render() {
+    if (step < 0) renderIntro();
+    else if (step >= SECTIONS.length) renderResult();
+    else renderSection();
+  }
 
-  nextBtn?.addEventListener("click", () => {
+  /* ---------- Controls ---------- */
+  nextBtn.addEventListener("click", () => {
     step++;
     render();
   });
 
-  backBtn?.addEventListener("click", () => {
-    step = Math.max(0, step - 1);
+  backBtn.addEventListener("click", () => {
+    step--;
     render();
   });
 
-  render();
+  closeBtn?.addEventListener("click", () => modal.classList.remove("is-open"));
+  resetBtn?.addEventListener("click", () => { clear(); step = -1; render(); });
+  retakeBtn?.addEventListener("click", () => { step = -1; render(); });
+
+  $$("[data-open-snapshot]").forEach(btn =>
+    btn.addEventListener("click", () => {
+      step = -1;
+      Object.keys(answers).forEach(k => delete answers[k]);
+      modal.classList.add("is-open");
+      render();
+    })
+  );
+
 })();
