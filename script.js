@@ -17,5 +17,5 @@
     const btn = $("#goToResources");
     if (btn) btn.style.display = "inline-flex";
   });
-
+<script src="/snapshot.js" defer></script>
 })();
