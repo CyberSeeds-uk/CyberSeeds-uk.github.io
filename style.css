@@ -499,3 +499,39 @@ h1{
   .nav.is-open{ display:flex; }
   .nav a{ padding:10px 12px; }
 }
+
+/* Snapshot spacing cleanup */
+
+.modal-body {
+  max-width: 720px;
+  margin: auto;
+  padding: 32px;
+}
+
+.choices {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.choice {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e6eceb;
+  background: #fff;
+  cursor: pointer;
+}
+
+.choice:hover {
+  border-color: #0f2f2a;
+}
+
+.multi-hint {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.modal-lock {
+  overflow: hidden;
+}
+
