@@ -524,3 +524,48 @@ body.modal-open{
   width:100%;
   overflow:hidden;
 }
+
+/* ---------- Result Reveal Animation ---------- */
+#snapshotResult{
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .3s ease, transform .3s ease;
+}
+
+#snapshotResult.reveal{
+  opacity:1;
+  transform:none;
+}
+
+/* ---------- Lens Explanation Cards ---------- */
+.lens-explain{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:14px 0;
+}
+
+.lens-explain div{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+}
+
+.lens-explain h4{
+  margin:0 0 6px;
+  color:var(--brand);
+  font-size:.95rem;
+}
+
+/* ---------- Saved Confirmation ---------- */
+.saved-line{
+  margin-top:10px;
+  color:var(--brand2);
+  font-weight:600;
+}
+
+/* ---------- Mobile ---------- */
+@media(max-width:700px){
+  .lens-explain{ grid-template-columns:1fr; }
+}
