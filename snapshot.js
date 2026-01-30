@@ -291,15 +291,54 @@
 
   backBtn.onclick = () => { step--; render(); };
 
-  $$("[data-open-snapshot]").forEach(b => b.onclick = () => {
-    step = -1;
-    Object.keys(answers).forEach(k=>delete answers[k]);
-    modal.classList.add("is-open");
-    lockBody();
-    nextBtn.style.display = "";
-    backBtn.style.display = "";
-    render();
-  });
+  function openSnapshot() {
+  step = -1;
+  Object.keys(answers).forEach(k => delete answers[k]);
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+
+  lockBody();
+
+  nextBtn.style.display = "";
+  backBtn.style.display = "";
+  nextBtn.disabled = false;
+
+  render();
+
+  // iOS/Safari: force focus into modal for reliable interaction
+  setTimeout(() => {
+    const focusTarget = $("#snapshotNext") || $("#snapshotForm");
+    focusTarget?.focus?.();
+  }, 30);
+}
+
+// 1) Direct binding for your main CTA IDs if present
+["takeSnapshot", "startSnapshot", "snapshotBtn"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("click", openSnapshot, { passive: true });
+});
+
+// 2) Attribute binding (your intended method)
+document.addEventListener("click", (e) => {
+  const t = e.target.closest?.("[data-open-snapshot]");
+  if (t) {
+    e.preventDefault();
+    openSnapshot();
+  }
+}, true);
+
+// 3) Failsafe: any button/link with matching text (last resort, harmless)
+document.addEventListener("click", (e) => {
+  const t = e.target.closest?.("button,a");
+  if (!t) return;
+  const label = (t.textContent || "").toLowerCase();
+  if (label.includes("snapshot") && label.includes("take")) {
+    e.preventDefault();
+    openSnapshot();
+  }
+}, true);
+ 
 
   $("#closeSnapshot")?.onclick = () => {
     modal.classList.remove("is-open");
