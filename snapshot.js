@@ -5,6 +5,7 @@
 
 (() => {
   "use strict";
+console.log("[Cyber Seeds] snapshot.js loaded");
 
   /* ---------- Helpers ---------- */
   const $ = (s, r = document) => r.querySelector(s);
@@ -339,7 +340,21 @@ document.addEventListener("click", (e) => {
   }
 }, true);
  
+function closeSnapshot() {
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  unlockBody();
+}
 
+$("#closeSnapshot")?.addEventListener("click", closeSnapshot);
+$$("#snapshotModal [data-close], #snapshotModal .modal-backdrop").forEach(el => {
+  el.addEventListener("click", closeSnapshot);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("is-open")) closeSnapshot();
+});
+
+   
   $("#closeSnapshot")?.onclick = () => {
     modal.classList.remove("is-open");
     unlockBody();
