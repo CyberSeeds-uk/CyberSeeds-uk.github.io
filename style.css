@@ -476,3 +476,51 @@ h1{
     padding-right:14px;
   }
 }
+
+/* ---------- Choice Highlight (Desktop + Mobile) ---------- */
+.choice{
+  position:relative;
+  cursor:pointer;
+}
+
+.choice.is-selected{
+  border-color: var(--brand);
+  background:#f2fbf9;
+  box-shadow: 0 0 0 2px rgba(15,47,42,.08);
+}
+
+.choice.is-selected span{
+  color:var(--ink);
+}
+
+/* ---------- Multi-select reliability ---------- */
+.choice input{
+  pointer-events:auto;
+}
+
+/* ---------- Final Result Panel Polish ---------- */
+#snapshotResult{
+  margin-top:12px;
+  padding:18px;
+  background:linear-gradient(180deg,#fff,#f6fbfa);
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+#snapshotResult h4{
+  margin:0 0 6px;
+  font-size:1.1rem;
+  color:var(--brand);
+}
+
+#snapshotResult ul{
+  margin:10px 0 0;
+  padding-left:18px;
+}
+
+/* ---------- Absolute scroll lock ---------- */
+body.modal-open{
+  position:fixed;
+  width:100%;
+  overflow:hidden;
+}
