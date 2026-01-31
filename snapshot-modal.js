@@ -6,7 +6,7 @@
 (function(){
 "use strict";
 
-const SNAP_KEY = "seed_snapshot_v2";
+const SNAP_KEY = "cyberseeds_snapshot_v2";
 
 /* ---------- helpers ---------- */
 
