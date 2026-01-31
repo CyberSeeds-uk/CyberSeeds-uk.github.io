@@ -1,0 +1,44 @@
+{
+  "seeds": [
+    {
+      "id": "seed_network_frontdoor",
+      "lens": "network",
+      "title": "Secure the digital front door",
+      "today": "Change Wi-Fi admin password (router login), and store it safely.",
+      "this_week": "Turn on a guest Wi-Fi network for visitors and smart gadgets.",
+      "this_month": "Check router firmware + disable remote admin if it’s on."
+    },
+    {
+      "id": "seed_devices_autoupdate",
+      "lens": "devices",
+      "title": "Make updates automatic",
+      "today": "Enable auto-updates on phones and laptops.",
+      "this_week": "Turn on device lock (PIN/FaceID) and auto-lock timer.",
+      "this_month": "Set up a simple backup for the most important device."
+    },
+    {
+      "id": "seed_privacy_root_accounts",
+      "lens": "privacy",
+      "title": "Protect the root accounts",
+      "today": "Enable 2SV on your main email.",
+      "this_week": "Update recovery options (backup email/number) and remove old ones.",
+      "this_month": "Use a password manager for the top 5 accounts."
+    },
+    {
+      "id": "seed_scams_household_script",
+      "lens": "scams",
+      "title": "Create a household scam script",
+      "today": "Agree one rule: ‘No clicks when urgent. Verify first.’",
+      "this_week": "Pick verification routes (bank card number, official site, known contact).",
+      "this_month": "Teach children a simple ‘Stop / Tell / Check’ routine."
+    },
+    {
+      "id": "seed_wellbeing_sleep_guard",
+      "lens": "wellbeing",
+      "title": "Protect sleep and attention",
+      "today": "Charge phones away from beds tonight.",
+      "this_week": "Set one ‘screen off’ time that is realistic.",
+      "this_month": "Create a calm app/notification tidy-up (just 10 minutes)."
+    }
+  ]
+}
