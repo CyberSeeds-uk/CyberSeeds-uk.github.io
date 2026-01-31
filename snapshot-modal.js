@@ -18,14 +18,19 @@ function getSnap(){
   }catch{ return null; }
 }
 
+const BASELINE_KEY = "cyberseeds_snapshot_baseline_v2";
+
 function saveBaseline(){
   const s = getSnap();
   if(!s) return;
-  localStorage.setItem("cyberseeds_snapshot_baseline_v2", JSON.stringify({
-    ts:Date.now(),
-    lensScores:s.lensScores
+
+  // store as baseline snapshot (full object)
+  localStorage.setItem(BASELINE_KEY, JSON.stringify({
+    ...s,
+    baseline_ts: Date.now()
   }));
 }
+
 
 function lensRowsHTML(scores){
   return Object.entries(scores).map(([k,v]) =>
