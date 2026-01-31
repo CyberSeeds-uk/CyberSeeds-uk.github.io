@@ -1110,7 +1110,7 @@
 
         lensNames.forEach(([key, label]) => {
           const cur = toNumScore(currentScores[key]);
-          const base = toNumScorebaseline.lensScores[key]);
+          const base = toNumScore(baseline.scores[key]);
 
           let delta = null;
           if (typeof cur === "number" && typeof base === "number"){
