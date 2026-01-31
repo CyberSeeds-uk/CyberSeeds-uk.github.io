@@ -926,7 +926,13 @@ window.CSSeedForge = (() => {
     saveSnapshotV2(snapshotV2);
     mirrorSnapshotToV1(snapshotV2);
 
-    renderResult(scored, snapshotV2.seed, snapshotV2);
+    // Open the unified Signal Modal (snapshot + seed + hub handoff)
+    if (typeof window.CSOpenSnapshotResult === "function") {
+      window.CSOpenSnapshotResult();
+    }
+
+    renderResult(scored, snapshotV2.seed);
+
   }
 
   function render() {
