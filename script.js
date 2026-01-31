@@ -323,7 +323,7 @@ window.CSSeedForge = (() => {
   /* ----------------- Storage ----------------- */
   const STORE_V2 = "cyberseeds_snapshot_v2";
   const STORE_V1 = "cyberseeds_snapshot_v1"; // mirror for compatibility
-  const BASELINE_V2 = "cyberseeds_baseline_v2";
+  const BASELINE_V2 = "cyberseeds_snapshot_baseline_v2";
 
   function safeGet(key) {
     try { return localStorage.getItem(key); } catch { return null; }
@@ -931,7 +931,7 @@ window.CSSeedForge = (() => {
       window.CSOpenSnapshotResult();
     }
 
-    renderResult(scored, snapshotV2.seed);
+    renderResult(scored, snapshotV2.seed, snapshotV2);
 
   }
 
