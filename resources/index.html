@@ -958,36 +958,101 @@
       function actionsForLens(lensKey){
         const actions = {
           privacy: [
-            { t:"Add 2-step verification to your email first", d:"Email is the password-reset key for most services. Protect it like your house keys." },
-            { t:"Use a password manager (optional but powerful)", d:"It reduces reuse and removes mental load. Choose one that feels simple." },
-            { t:"Review account recovery options", d:"Remove old phone numbers and emails. Ensure only you can reset access." },
-            { t:"Reduce public exposure", d:"Audit what’s visible on social profiles; remove address, school details, or routines if present." }
+            {
+              t:"Harden your root email account",
+              d:"Your email can reset passwords for most services. If it falls, everything connected can follow. Enable 2-step verification and review recovery options."
+            },
+            {
+              t:"Protect Apple / Google identity",
+              d:"These accounts often unlock devices, backups, and app stores. Add 2SV and remove any old recovery numbers or emails."
+            },
+            {
+              t:"Eliminate password reuse at the top",
+              d:"Start with your top 5 accounts. Unique passwords here dramatically reduce cascade risk across the household."
+            },
+            {
+              t:"Reduce public personal data",
+              d:"Remove address, school, birthday, and routine details from public profiles where possible. Less exposure = less targeting."
+            }
           ],
+      
           network: [
-            { t:"Change your router admin password", d:"Default router logins are common. A strong admin password prevents takeover." },
-            { t:"Use WPA2/WPA3 and a strong Wi-Fi password", d:"A longer passphrase is harder to guess. Avoid shared ‘easy’ passwords." },
-            { t:"Turn off WPS", d:"WPS is convenient but increases risk. Disabling it tightens the boundary." },
-            { t:"Create a guest network (if you can)", d:"Keep visitors and smart devices separate from main family devices." }
+            {
+              t:"Secure router admin access",
+              d:"Router control is household control. Change the admin password and store it safely."
+            },
+            {
+              t:"Upgrade Wi-Fi protection mode",
+              d:"Use WPA2 or WPA3 with a long passphrase. This protects every device using your network."
+            },
+            {
+              t:"Disable WPS quick-connect",
+              d:"WPS is convenient but easier to abuse. Turning it off tightens your perimeter."
+            },
+            {
+              t:"Separate guests and smart devices",
+              d:"A guest network reduces cross-device exposure and keeps family devices safer."
+            }
           ],
+      
           devices: [
-            { t:"Turn on automatic updates", d:"Updates fix known vulnerabilities. Set it and forget it wherever possible." },
-            { t:"Remove unused apps", d:"Less software means less exposure. Keep only what you use." },
-            { t:"Install a device screen lock", d:"PIN/FaceID prevents casual access and reduces account compromise." },
-            { t:"Back up the most important data", d:"Photos and documents deserve a recovery plan. Backups reduce panic." }
+            {
+              t:"Turn on automatic updates everywhere",
+              d:"Updates close known security holes. Automation removes the need to remember."
+            },
+            {
+              t:"Remove unused apps and accounts",
+              d:"Every unused app is an unnecessary doorway. Clean devices are safer devices."
+            },
+            {
+              t:"Add device lock screens",
+              d:"PIN, fingerprint, or FaceID prevents casual access turning into account takeover."
+            },
+            {
+              t:"Back up irreplaceable data",
+              d:"Photos and documents deserve a recovery path. Backups reduce panic and loss."
+            }
           ],
+      
           scams: [
-            { t:"Use a ‘pause rule’ for links", d:"If it’s urgent, it’s suspicious. Pause, verify, then act." },
-            { t:"Turn on bank/app alerts", d:"Fast notifications mean fast response. It reduces damage windows." },
-            { t:"Agree simple household ‘safe phrases’", d:"Examples: ‘I’ll check the official app’, ‘I’ll call back’, ‘Send it in writing’." },
-            { t:"Review subscriptions and payments", d:"Scams hide as recurring charges. A quick check prevents slow losses." }
+            {
+              t:"Adopt the household pause rule",
+              d:"Urgent + emotional messages are a scam pattern. Pause, verify, then act."
+            },
+            {
+              t:"Verify through official channels",
+              d:"Never trust links in messages for banks or delivery firms. Use official apps or saved bookmarks."
+            },
+            {
+              t:"Enable transaction alerts",
+              d:"Fast alerts shrink damage windows and increase recovery success."
+            },
+            {
+              t:"Create family safe phrases",
+              d:"Short phrases like “I’ll check the official app” build shared defence habits."
+            }
           ],
+      
           wellbeing: [
-            { t:"Set a calm bedtime boundary", d:"A small cut-off time protects sleep and reduces late-night risk." },
-            { t:"Reduce notification noise", d:"Less noise means more control. Keep only what matters." },
-            { t:"Create a ‘charging home’ for devices", d:"One place for charging reduces midnight scrolling and arguments." },
-            { t:"Use screen time tools gently", d:"Use them as support, not punishment. The goal is calm and consistency." }
+            {
+              t:"Set a calm device cut-off time",
+              d:"A small nightly boundary improves sleep and reduces late-night risk decisions."
+            },
+            {
+              t:"Reduce notification overload",
+              d:"Fewer alerts = more control. Keep only what truly matters."
+            },
+            {
+              t:"Create a shared charging place",
+              d:"Central charging reduces overnight scrolling and household tension."
+            },
+            {
+              t:"Use screen tools as support",
+              d:"Use limits as guidance, not punishment. Consistency beats strictness."
+            }
           ]
         };
+      
         return actions[lensKey] || actions.privacy;
       }
 
