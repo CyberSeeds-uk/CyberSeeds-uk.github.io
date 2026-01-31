@@ -152,7 +152,12 @@ window.CSSeedForge = (() => {
   });
 
   // Optional: if a snapshot already exists, reveal resources immediately
-  document.addEventListener("DOMContentLoaded", () => {
+ 
+   CSSeedForge.load().catch(err => {
+     console.warn("SeedForge failed to load, using built-in questions if present.", err);
+   });
+
+   document.addEventListener("DOMContentLoaded", () => {
     try {
       const raw = localStorage.getItem("cyberseeds_snapshot_v1");
       if (!raw) return;
