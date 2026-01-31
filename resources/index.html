@@ -12,8 +12,8 @@
 
   <style>
     :root{
-      --cs-ink:#0f2f2a;
-      --cs-ink-2:#184a43;
+      --cs-ink:#1a6a5d;        /* Cyber Seeds primary green */
+      --cs-ink-2:#0f4f45;
       --cs-muted:rgba(15,47,42,.72);
       --cs-muted-2:rgba(15,47,42,.58);
       --cs-soft:rgba(15,47,42,.06);
@@ -32,6 +32,13 @@
       --good-b: rgba(0,128,96,.25);
       --bad: rgba(180,70,70,.12);
       --bad-b: rgba(180,70,70,.25);
+      .h2,
+      .node-title,
+      .step-title,
+      .seed-title{
+        color: #1a6a5d;
+       }
+
     }
 
     *{ box-sizing:border-box; }
@@ -598,14 +605,14 @@
 
                 <!-- 5 segments -->
                 <g id="ringSegments" transform="rotate(-90 100 100)">
-                  <path id="segNetwork" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segDevices" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segPrivacy" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segScams" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segWellbeing" d="" stroke="#0f2f2a" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segNetwork" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segDevices" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segPrivacy" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segScams" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
+                  <path id="segWellbeing" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
 
                   <!-- focus glow -->
-                  <path id="segFocusGlow" d="" stroke="rgba(24,116,102,.55)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0"></path>
+                  <path id="segFocusGlow" d="" stroke="rgba(26,106,93,.65)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0"></path>
                 </g>
 
                 <!-- center -->
@@ -860,23 +867,30 @@
         return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
       }
 
-      function extractLensScores(snap){
-        const lens = snap.lenses || snap.scores || snap.subscores || snap.results || {};
+        function extractLensScores(snap){
+          // ✅ V2 primary
+          if (snap.lensScores && typeof snap.lensScores === "object"){
+            return {
+              network:   snap.lensScores.network,
+              devices:   snap.lensScores.devices,
+              privacy:   snap.lensScores.privacy,
+              scams:     snap.lensScores.scams,
+              wellbeing: snap.lensScores.wellbeing
+            };
+          }
 
-        const network   = lens.network   ?? lens.Network   ?? snap.networkScore   ?? snap.network;
-        const devices   = lens.devices   ?? lens.Devices   ?? snap.devicesScore   ?? snap.devices;
-        const privacy   = lens.privacy   ?? lens.Privacy   ?? snap.privacyScore   ?? snap.privacy;
-        const scams     = lens.scams     ?? lens.Scams     ?? snap.scamsScore     ?? snap.scams;
-        const wellbeing = lens.wellbeing ?? lens.Wellbeing ?? snap.wellbeingScore ?? snap.wellbeing;
+            // fallback legacy shapes
+            const lens = snap.lenses || snap.scores || snap.subscores || {};
+          
+            return {
+              network:   normScore(lens.network   ?? snap.networkScore),
+              devices:   normScore(lens.devices   ?? snap.devicesScore),
+              privacy:   normScore(lens.privacy   ?? snap.privacyScore),
+              scams:     normScore(lens.scams     ?? snap.scamsScore),
+              wellbeing: normScore(lens.wellbeing ?? snap.wellbeingScore)
+            };
+          }
 
-        return {
-          network: normScore(network),
-          devices: normScore(devices),
-          privacy: normScore(privacy),
-          scams: normScore(scams),
-          wellbeing: normScore(wellbeing)
-        };
-      }
 
       // ✅ Bulletproof stage normaliser (fixes [object Object] forever)
       function extractStage(snap){
@@ -1096,7 +1110,7 @@
 
         lensNames.forEach(([key, label]) => {
           const cur = toNumScore(currentScores[key]);
-          const base = toNumScore(baseline.scores[key]);
+          const base = toNumScorebaseline.lensScores[key]);
 
           let delta = null;
           if (typeof cur === "number" && typeof base === "number"){
