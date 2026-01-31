@@ -85,6 +85,55 @@ window.CSSeedForge = (() => {
         // Could be index or points. If it matches an option index, prefer that.
         if (Number.isInteger(raw) && q.options && q.options[raw]) pts = q.options[raw].points;
         else pts = raw;
+      } else if (typeof raw === "string") {
+        const opt = (q.options || []).find(o => String(o.label).trim() === raw.trim());
+        pts = opt ? opt.points : null;
+      }
+
+      if (typeof pts !== "number") pts = 0;
+
+      if (lensBuckets[lens]) lensBuckets[lens].push(pts);
+    }
+
+    // Lens score = round(average points) on a 0..20 scale
+    const lensScores = {};
+    for (const [lens, arr] of Object.entries(lensBuckets)) {
+      const avg = arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
+      lensScores[lens] = Math.max(0, Math.min(20, Math.round(avg)));
+    }
+
+    // HDSS = sum(lensScores) scaled to 0..100 (5 lenses * 20 = 100)
+    const hdss =
+      lensScores.network +
+      lensScores.devices +
+      lensScores.privacy +
+      lensScores.scams +
+      lensScores.wellbeing;
+
+    // strongest / weakest
+    const entries = Object.entries(lensScores);
+    entries.sort((a, b) => b[1] - a[1]);
+    const strongest = entries[0]?.[0] || "network";
+    const weakest = entries[entries.length - 1]?.[0] || "network";
+
+    return {
+      lensScores,
+      hdss,
+      stage: stageFor(hdss, scoringYaml),
+      strongest,
+      weakest,
+    };
+  }
+
+  function seedsForLens(lens, seedsYaml) {
+    const key = normalizeLens(lens);
+    const all = (seedsYaml && seedsYaml.seeds) || [];
+    return all.filter(s => normalizeLens(s.lens) === key);
+  }
+
+  return { load, scoreAnswers, seedsForLens, normalizeLens, stageFor };
+})();
+
 
 
 (() => {
