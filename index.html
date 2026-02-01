@@ -123,6 +123,114 @@
       </div>
     </section>
 
+	  <!-- ================================
+     CYBER SEEDS — VISIBLE / INVISIBLE SYSTEM MAP
+     Paste this section into index.html
+================================== -->
+<section class="cs-systems" id="systems" aria-labelledby="systemsTitle">
+  <div class="cs-systems__wrap">
+    <header class="cs-systems__head">
+      <h2 id="systemsTitle">See your household as a system</h2>
+      <p class="cs-systems__sub">
+        Modern homes rely on invisible digital systems — Wi-Fi, devices, accounts, habits, and routines.
+        Cyber Seeds makes these systems visible so you can understand what’s shaping daily life online.
+      </p>
+    </header>
+
+    <div class="cs-systems__grid">
+      <!-- LEFT: Visual map -->
+      <div class="cs-systems__map" role="group" aria-label="Household digital system map">
+        <svg
+          class="cs-systems__svg"
+          viewBox="0 0 900 560"
+          aria-hidden="false"
+          role="img"
+        >
+          <title>Household Digital System Map</title>
+          <desc>
+            A calm system view of five connected household digital systems. Tap a system to reveal insight and suggested next step.
+          </desc>
+
+          <!-- Soft home container -->
+          <rect x="35" y="35" width="830" height="490" rx="32" class="cs-home" />
+          <text x="450" y="92" text-anchor="middle" class="cs-home__title">Your Home</text>
+
+          <!-- Connection flows -->
+          <path d="M 250 190 C 360 140, 540 140, 650 190" class="cs-flow" />
+          <path d="M 250 190 C 280 260, 300 300, 350 335" class="cs-flow" />
+          <path d="M 650 190 C 620 260, 600 300, 550 335" class="cs-flow" />
+          <path d="M 350 335 C 430 380, 470 410, 450 460" class="cs-flow" />
+          <path d="M 550 335 C 470 380, 430 410, 450 460" class="cs-flow" />
+
+          <!-- Nodes (clickable groups) -->
+          <g class="cs-node" tabindex="0" data-node="network" aria-label="Network and Wi-Fi">
+            <rect x="120" y="140" width="260" height="110" rx="22" class="cs-node__card" />
+            <text x="250" y="182" text-anchor="middle" class="cs-node__title">Network &amp; Wi-Fi</text>
+            <text x="250" y="214" text-anchor="middle" class="cs-node__tag">Circulation system</text>
+          </g>
+
+          <g class="cs-node" tabindex="0" data-node="devices" aria-label="Devices">
+            <rect x="520" y="140" width="260" height="110" rx="22" class="cs-node__card" />
+            <text x="650" y="182" text-anchor="middle" class="cs-node__title">Devices</text>
+            <text x="650" y="214" text-anchor="middle" class="cs-node__tag">Organs</text>
+          </g>
+
+          <g class="cs-node" tabindex="0" data-node="privacy" aria-label="Privacy and Accounts">
+            <rect x="250" y="300" width="300" height="110" rx="22" class="cs-node__card" />
+            <text x="400" y="342" text-anchor="middle" class="cs-node__title">Privacy &amp; Accounts</text>
+            <text x="400" y="374" text-anchor="middle" class="cs-node__tag">Immune system</text>
+          </g>
+
+          <g class="cs-node" tabindex="0" data-node="scams" aria-label="Scams and External Pressure">
+            <rect x="570" y="300" width="260" height="110" rx="22" class="cs-node__card" />
+            <text x="700" y="342" text-anchor="middle" class="cs-node__title">Scams &amp; Pressure</text>
+            <text x="700" y="374" text-anchor="middle" class="cs-node__tag">Exposure layer</text>
+          </g>
+
+          <g class="cs-node" tabindex="0" data-node="children" aria-label="Children and Wellbeing">
+            <rect x="300" y="430" width="300" height="80" rx="22" class="cs-node__card" />
+            <text x="450" y="476" text-anchor="middle" class="cs-node__title">Children &amp; Wellbeing</text>
+          </g>
+        </svg>
+
+        <p class="cs-systems__hint" aria-hidden="true">
+          Tip: tap a system to reveal why it matters and what strengthens it.
+        </p>
+      </div>
+
+      <!-- RIGHT: Insight panel -->
+      <aside class="cs-systems__panel" aria-live="polite">
+        <div class="cs-insight">
+          <div class="cs-insight__kicker" id="csInsightKicker">Household view</div>
+          <h3 class="cs-insight__title" id="csInsightTitle">The invisible becomes visible</h3>
+          <p class="cs-insight__body" id="csInsightBody">
+            Tap any system in the map to see what it means in real life — calmly and proportionately.
+          </p>
+
+          <div class="cs-insight__meta" id="csInsightMeta" hidden>
+            <div class="cs-pill" id="csInsightState">Stable</div>
+            <div class="cs-pill" id="csInsightLeverage">High leverage</div>
+          </div>
+
+          <div class="cs-insight__next" id="csInsightNext" hidden>
+            <div class="cs-insight__nextLabel">Next Digital Seed</div>
+            <div class="cs-insight__nextText" id="csInsightNextText"></div>
+          </div>
+
+          <div class="cs-insight__actions">
+            <a class="btn" href="#snapshot">Take the Household Snapshot</a>
+            <button class="btn ghost" type="button" id="csResetSystems">Reset view</button>
+          </div>
+
+          <p class="cs-insight__foot">
+            Cyber Seeds doesn’t judge households. It helps them see what’s already there.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+ 
     <!-- LENSES -->
     <section class="section alt" id="lenses">
       <div class="container">
