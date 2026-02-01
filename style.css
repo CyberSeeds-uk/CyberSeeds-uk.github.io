@@ -875,3 +875,133 @@ body.modal-open{
   }
 }
 
+/* =========================================================
+   RESOURCES HUB (/resources/) — STYLE BRIDGE + POLISH
+   Fixes: btn-primary class, ring sizing, hub grid layout
+   ========================================================= */
+
+/* Alias hub tokens (if the hub uses --cs-* anywhere) */
+:root{
+  --cs-ink: var(--ink);
+  --cs-muted: var(--muted);
+  --cs-brand: var(--brand);
+  --cs-brand2: var(--brand2);
+  --cs-mint: var(--mint);
+  --cs-mint2: var(--mint2);
+  --cs-line: var(--line);
+  --cs-card: var(--card);
+}
+
+/* Button class aliases used by resources hub */
+.btn.btn-primary{
+  background: var(--brand);
+  color:#fff;
+  border-color: transparent;
+}
+.btn.btn-primary:hover{ background:#0b241f; }
+
+.btn.btn-ghost{
+  background:#fff;
+  color: var(--brand);
+  border-color: var(--brand);
+}
+.btn.btn-ghost:hover{ background: var(--mint2); }
+
+/* Basic hub layout */
+.hub-shell{
+  padding: 22px 0 34px;
+}
+
+.hub-hero{
+  padding: 28px 0 18px;
+  background: radial-gradient(900px 520px at 20% 10%, var(--mint), #fff 60%);
+}
+
+.hub-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin: 14px 0 10px;
+}
+
+.pill-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin: 10px 0 0;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: var(--mint2);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: .92rem;
+}
+
+.card-pad{ padding: 20px; }
+
+.hub-grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 16px;
+  align-items:start;
+}
+
+.hub-col{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+}
+
+/* Ring sizing + preventing the “giant clipped circle” */
+.ring-wrap{
+  border:1px solid var(--line);
+  border-radius: var(--radius2);
+  background: linear-gradient(180deg,#fff,#f6fbfa);
+  padding: 14px;
+  overflow:hidden;
+}
+
+.ring-grid{
+  display:grid;
+  gap: 10px;
+  align-items:center;
+}
+
+.ring-svg{
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display:block;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.ring-center{
+  text-anchor: middle;
+  dominant-baseline: middle;
+  fill: var(--brand);
+  font-weight: 800;
+}
+
+.ring-stage{ font-size: 10px; fill: var(--muted); font-weight: 800; letter-spacing:.12em; }
+.ring-score{ font-size: 18px; fill: var(--brand); font-weight: 900; }
+
+/* Mobile */
+@media (max-width: 900px){
+  .hub-grid{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px){
+  .hub-hero{ padding: 22px 0 12px; }
+  .card-pad{ padding: 16px; }
+  .ring-wrap{ padding: 12px; border-radius: 18px; }
+  .pill{ padding: 7px 9px; font-size: .88rem; }
+  .hub-actions .btn{ width: 100%; justify-content:center; }
+}
