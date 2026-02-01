@@ -784,3 +784,94 @@ body.modal-open{
   color: var(--muted);
   font-size: .95rem;
 }
+
+/* =========================================
+   Cyber Seeds — Mobile Polish for System Map
+   ========================================= */
+
+@media (max-width: 720px){
+
+  /* Section padding: tighter + calmer */
+  .cs-systems{
+    padding: 26px 0 22px;
+  }
+
+  .cs-systems__wrap{
+    width: min(100%, calc(100% - 24px));
+  }
+
+  /* Head text: narrower for readability */
+  .cs-systems__head{
+    padding: 0 2px;
+  }
+
+  .cs-systems__sub{
+    max-width: 38ch;
+    font-size: 0.98rem;
+  }
+
+  /* Map card: reduce visual bulk */
+  .cs-systems__map{
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  /* SVG: slightly shorter on mobile */
+  .cs-systems__svg{
+    height: 360px;
+    max-height: none;
+  }
+
+  /* Tip text: softer + closer */
+  .cs-systems__hint{
+    font-size: 0.9rem;
+    margin: 8px 6px 0;
+  }
+
+  /* Insight panel: visually nest under map */
+  .cs-systems__panel{
+    margin-top: 10px;
+    padding: 14px 14px 12px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #f6fbfa);
+  }
+
+  /* Insight text rhythm */
+  .cs-insight__title{
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .cs-insight__body{
+    max-width: 36ch;
+    font-size: 0.95rem;
+  }
+
+  /* Pills: less dominant */
+  .cs-pill{
+    padding: 6px 9px;
+    font-size: 0.88rem;
+  }
+
+  /* Actions: full-width buttons feel intentional */
+  .cs-insight__actions{
+    gap: 8px;
+  }
+
+  .cs-insight__actions .btn{
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Reset button feels secondary */
+  #csResetSystems{
+    opacity: 0.9;
+  }
+
+  /* Footnote: quieter close */
+  .cs-insight__foot{
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+}
+
