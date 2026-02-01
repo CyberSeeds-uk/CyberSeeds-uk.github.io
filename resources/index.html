@@ -4,557 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0f2f2a" />
-  <title>Cyber Seeds — Resources Hub</title>
-  <meta name="description" content="Your personalised Cyber Seeds resources hub, built from your last household snapshot on this device." />
+  <title>Cyber Seeds — Personalised Resources Hub</title>
+  <meta name="description" content="Your personalised Cyber Seeds resources hub, crafted from your latest household snapshot." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
   <link rel="stylesheet" href="/style.css?v=20260126" />
-
+  <!-- custom style tweaks for personalised feel -->
   <style>
-    :root{
-      --cs-ink:#1a6a5d;        /* Cyber Seeds primary green */
-      --cs-ink-2:#0f4f45;
-      --cs-muted:rgba(15,47,42,.72);
-      --cs-muted-2:rgba(15,47,42,.58);
-      --cs-soft:rgba(15,47,42,.06);
-      --cs-soft-2:rgba(15,47,42,.10);
-      --cs-border:rgba(15,47,42,.14);
-      --cs-card:#ffffff;
-      --cs-bg:#f6fbfa;
-      --cs-shadow:0 10px 35px rgba(15,47,42,.10);
-      --cs-radius:22px;
-      --cs-radius-lg:28px;
-      --cs-gap:16px;
-      --cs-gap-lg:22px;
-      --cs-max:1120px;
-
-      --good: rgba(0,128,96,.12);
-      --good-b: rgba(0,128,96,.25);
-      --bad: rgba(180,70,70,.12);
-      --bad-b: rgba(180,70,70,.25);
-      .h2,
-      .node-title,
-      .step-title,
-      .seed-title{
-        color: #1a6a5d;
-       }
-
-    }
-
-    *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      color:var(--cs-ink);
-      background:
-        radial-gradient(1200px 600px at 20% 0%, rgba(24,116,102,.11), transparent 55%),
-        radial-gradient(900px 500px at 82% 12%, rgba(60,171,150,.10), transparent 50%),
-        var(--cs-bg);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
-    }
-
-    main{
-      width:min(var(--cs-max), 92vw);
-      margin:0 auto;
-      padding:22px 0 56px;
-    }
-
-    /* Hero */
-    .hub-hero{
-      margin-top:6px;
-      padding:22px 18px 18px;
-    }
-
-    .eyebrow{
-      font-size:.90rem;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(15,47,42,.60);
-      font-weight:850;
-      margin-bottom:8px;
-    }
-
-    .hub-title{
-      font-size:clamp(2.05rem, 6vw, 3.2rem);
-      line-height:1.03;
-      letter-spacing:-0.03em;
-      margin:6px 0 10px;
-      color:var(--cs-ink);
-    }
-
-    .hub-subtitle{
-      font-size:1.05rem;
-      line-height:1.5;
+    /* preserve original palette and layout */
+    .hub-contact{
+      margin-top:12px;
+      font-size:0.96rem;
       color:var(--cs-muted);
-      max-width:62ch;
-      margin:0 0 16px;
     }
-
-    .hub-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:8px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:14px 18px;
-      border-radius:999px;
-      font-weight:800;
-      text-decoration:none;
-      border:2px solid var(--cs-ink);
-      color:var(--cs-ink);
-      background:transparent;
-      transition:transform .12s ease, opacity .12s ease, background .12s ease;
-      min-width:150px;
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
-      cursor:pointer;
-    }
-
-    .btn:active{ transform:scale(.985); opacity:.92; }
-    .btn-primary{ background:var(--cs-ink); color:#fff; border-color:var(--cs-ink); }
-
-    .pill-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
-
-    .pill{
-      padding:10px 12px;
-      border-radius:999px;
-      background:var(--cs-soft);
-      border:1px solid var(--cs-border);
+    .hub-contact a{
       color:var(--cs-ink);
       font-weight:700;
-      font-size:.95rem;
-    }
-
-    /* Grid */
-    .grid{
-      display:grid;
-      gap:var(--cs-gap);
-      margin-top:18px;
-    }
-
-    @media (min-width: 960px){
-      .grid{
-        grid-template-columns: 1.18fr .82fr;
-        gap:var(--cs-gap-lg);
-      }
-    }
-
-    .card{
-      background:var(--cs-card);
-      border-radius:var(--cs-radius-lg);
-      border:1px solid var(--cs-border);
-      box-shadow:var(--cs-shadow);
-      overflow:hidden;
-    }
-
-    .card-pad{ padding:18px; }
-
-    .h2{
-      font-size:1.55rem;
-      line-height:1.15;
-      margin:0 0 10px;
-      color:var(--cs-ink);
-      letter-spacing:-.01em;
-    }
-
-    .p{
-      margin:0;
-      color:var(--cs-muted);
-      line-height:1.55;
-      font-size:1rem;
-    }
-
-    .divider{
-      height:1px;
-      background:var(--cs-soft-2);
-      margin:16px 0;
-    }
-
-    /* Lens ring module */
-    .ring-wrap{
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid var(--cs-border);
-      background:linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
-    }
-
-    .ring-grid{
-      display:grid;
-      gap:12px;
-      align-items:center;
-    }
-
-    @media (min-width: 480px){
-      .ring-grid{
-        grid-template-columns: 180px 1fr;
-        gap:16px;
-      }
-    }
-
-    .ring-svg{
-      width:180px;
-      height:180px;
-      display:block;
-      margin:0 auto;
-    }
-
-    .ring-center{
-      font-weight:950;
-      text-anchor:middle;
-      dominant-baseline:middle;
-      fill:var(--cs-ink);
-    }
-
-    .ring-stage{
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      fill:rgba(15,47,42,.62);
-      font-weight:850;
-    }
-
-    .ring-score{
-      font-size:20px;
-      font-weight:950;
-      letter-spacing:-.02em;
-    }
-
-    .ring-help{
-      color:var(--cs-muted);
-      font-size:.98rem;
-      line-height:1.5;
-    }
-
-    .legend{
-      display:grid;
-      gap:8px;
-      margin-top:10px;
-    }
-
-    .legend-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
-      border:1px solid rgba(15,47,42,.12);
-      background:#fff;
-    }
-
-    .legend-left{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      background:var(--cs-ink);
-      opacity:.18;
-      flex:none;
-    }
-
-    .legend-name{
-      font-weight:900;
-      letter-spacing:-.01em;
-      color:var(--cs-ink);
-      white-space:nowrap;
-    }
-
-    .legend-val{
-      font-weight:950;
-      padding:6px 10px;
-      border-radius:999px;
-      background:var(--cs-soft);
-      border:1px solid var(--cs-border);
-      min-width:72px;
-      text-align:center;
-      flex:none;
-    }
-
-    .legend-row.is-focus{
-      border-color: rgba(24,116,102,.35);
-      box-shadow:0 0 0 3px rgba(24,116,102,.08) inset;
-    }
-
-    /* Household map */
-    .map-wrap{
-      margin-top:12px;
-      padding:14px;
-      background:linear-gradient(180deg, rgba(15,47,42,.04), rgba(15,47,42,.02));
-      border:1px solid var(--cs-border);
-      border-radius:18px;
-    }
-
-    .map{ display:grid; gap:10px; }
-
-    .map-node{
-      border-radius:16px;
-      border:1px solid var(--cs-border);
-      background:#fff;
-      padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-
-    .node-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .node-title{
-      font-weight:950;
-      color:var(--cs-ink);
-      letter-spacing:-.01em;
-      font-size:1.05rem;
-    }
-
-    .node-tag{
-      font-size:.85rem;
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:999px;
-      background:var(--cs-soft);
-      border:1px solid var(--cs-border);
-      color:var(--cs-ink);
-      white-space:nowrap;
-    }
-
-    .node-text{
-      color:var(--cs-muted);
-      line-height:1.35;
-      font-size:.96rem;
-    }
-
-    .map-arrow{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color:rgba(15,47,42,.62);
-      font-weight:850;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      font-size:.82rem;
-      justify-content:center;
-      padding:4px 0;
-      flex-wrap:wrap;
-    }
-
-    .map-arrow svg{ width:20px; height:20px; opacity:.8; }
-
-    /* Actions */
-    .list{ display:grid; gap:10px; margin-top:14px; }
-
-    .step{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding:12px;
-      border-radius:18px;
-      background:rgba(15,47,42,.035);
-      border:1px solid rgba(15,47,42,.10);
-    }
-
-    .num{
-      width:32px;
-      height:32px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:#fff;
-      border:1px solid var(--cs-border);
-      font-weight:950;
-      color:var(--cs-ink);
-      flex:none;
-    }
-
-    .step-title{
-      font-weight:950;
-      color:var(--cs-ink);
-      margin-bottom:3px;
-      letter-spacing:-.01em;
-    }
-
-    .step-text{
-      color:var(--cs-muted);
-      line-height:1.4;
-      font-size:.98rem;
-    }
-
-    .seedline{
-      margin-top:12px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid var(--cs-border);
-      background:#fff;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .seed-badge{
-      flex:none;
-      width:36px;
-      height:36px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      background:var(--cs-soft);
-      border:1px solid var(--cs-border);
-    }
-
-    .seed-badge svg{ width:20px; height:20px; }
-
-    .seed-title{
-      font-weight:950;
-      color:var(--cs-ink);
-      margin:0 0 3px;
-      letter-spacing:-.01em;
-    }
-
-    .seed-text{
-      margin:0;
-      color:var(--cs-muted);
-      line-height:1.45;
-      font-size:.98rem;
-    }
-
-    /* Overview / progress */
-    .mini{
-      font-size:.92rem;
-      color:rgba(15,47,42,.62);
-      line-height:1.45;
-    }
-
-    .status{
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(15,47,42,.12);
-      background:rgba(255,255,255,.85);
-    }
-
-    .status strong{ color:var(--cs-ink); }
-
-    .progress-grid{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .progress-row{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-      align-items:center;
-      padding:12px;
-      border-radius:18px;
-      border:1px solid rgba(15,47,42,.12);
-      background:#fff;
-    }
-
-    .progress-label{
-      font-weight:950;
-      color:var(--cs-ink);
-      letter-spacing:-.01em;
-    }
-
-    .progress-delta{
-      font-weight:950;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--cs-border);
-      background:var(--cs-soft);
-      color:var(--cs-ink);
-      min-width:84px;
-      text-align:center;
-      white-space:nowrap;
-    }
-
-    .progress-delta.good{ background:var(--good); border-color:var(--good-b); }
-    .progress-delta.bad{ background:var(--bad); border-color:var(--bad-b); }
-
-    .muted-note{
-      margin-top:10px;
-      font-size:.92rem;
-      color:rgba(15,47,42,.62);
-      line-height:1.45;
-    }
-
-    .empty{
-      padding:18px;
-      border-radius:var(--cs-radius-lg);
-      border:1px dashed rgba(15,47,42,.25);
-      background:rgba(255,255,255,.7);
-    }
-
-    .empty h3{
-      margin:0 0 8px;
-      color:var(--cs-ink);
-      letter-spacing:-.01em;
-    }
-
-    .empty p{
-      margin:0 0 14px;
-      color:var(--cs-muted);
-      line-height:1.5;
-    }
-
-    footer{
-      width:min(var(--cs-max), 92vw);
-      margin:18px auto 40px;
-      padding:10px 0 0;
-      color:rgba(15,47,42,.60);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    footer a{
-      color:rgba(15,47,42,.70);
-      text-decoration:none;
-      font-weight:800;
-    }
-
-    /* iPhone portrait tightening */
-    @media (max-width: 420px){
-      main{ width: 94vw; }
-      .hub-hero{ padding:18px 14px 16px; }
-      .hub-subtitle{ font-size:1.02rem; }
-      .btn{ min-width: 145px; padding:13px 16px; }
-      .card-pad{ padding:16px; }
-      .ring-svg{ width:168px; height:168px; }
-      .legend-val{ min-width:66px; }
-    }
-
-    /* Reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .btn{ transition:none; }
     }
   </style>
 </head>
@@ -563,10 +28,9 @@
   <main id="main">
     <section class="hub-hero">
       <div class="eyebrow">Your personalised resources</div>
-      <h1 class="hub-title">Your Resources Hub</h1>
+      <h1 class="hub-title">Your Personalised Resources Hub</h1>
       <p class="hub-subtitle">
-        Built from your last household snapshot on <strong>this device</strong>.
-        If you haven’t taken one yet, start here — you’ll get calm next steps within minutes.
+        This page transforms after your household snapshot. It adapts to your unique digital ecology, offering calm, actionable guidance built just for you.
       </p>
 
       <div class="hub-actions">
@@ -580,8 +44,14 @@
         <span class="pill">No tracking</span>
         <span class="pill">Clear next steps</span>
       </div>
+      <!-- personalised contact callout -->
+      <p class="hub-contact">
+        Have a question or need guidance? Feel free to reach out via
+        <a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a> — I read every message.
+      </p>
     </section>
 
+    <!-- rest of the page copied from original resources hub -->
     <section class="grid" aria-label="Resources hub content">
       <!-- LEFT -->
       <div class="card">
@@ -632,15 +102,15 @@
                     <div class="legend-val" id="valDevices">—</div>
                   </div>
                   <div class="legend-row" id="legendPrivacy">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Accounts & Privacy</span></div>
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Accounts &amp; Privacy</span></div>
                     <div class="legend-val" id="valPrivacy">—</div>
                   </div>
                   <div class="legend-row" id="legendScams">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Scams & Messages</span></div>
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Scams &amp; Messages</span></div>
                     <div class="legend-val" id="valScams">—</div>
                   </div>
                   <div class="legend-row" id="legendWellbeing">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Children & Wellbeing</span></div>
+                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Children &amp; Wellbeing</span></div>
                     <div class="legend-val" id="valWellbeing">—</div>
                   </div>
                 </div>
@@ -769,6 +239,7 @@
     <a href="/">Home</a>
   </footer>
 
+  <!-- Inline snapshot engine and resources hub logic (copied from original resources page) -->
   <script>
     (function(){
       "use strict";
@@ -867,36 +338,31 @@
         return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
       }
 
-        function extractLensScores(snap){
-          // ✅ V2 primary
-          if (snap.lensScores && typeof snap.lensScores === "object"){
-            return {
-              network:   snap.lensScores.network,
-              devices:   snap.lensScores.devices,
-              privacy:   snap.lensScores.privacy,
-              scams:     snap.lensScores.scams,
-              wellbeing: snap.lensScores.wellbeing
-            };
-          }
+      function extractLensScores(snap){
+        // V2 primary
+        if (snap.lensScores && typeof snap.lensScores === "object"){
+          return {
+            network:   snap.lensScores.network,
+            devices:   snap.lensScores.devices,
+            privacy:   snap.lensScores.privacy,
+            scams:     snap.lensScores.scams,
+            wellbeing: snap.lensScores.wellbeing
+          };
+        }
+        // fallback legacy shapes
+        const lens = snap.lenses || snap.scores || snap.subscores || {};
+        return {
+          network:   normScore(lens.network   ?? snap.networkScore),
+          devices:   normScore(lens.devices   ?? snap.devicesScore),
+          privacy:   normScore(lens.privacy   ?? snap.privacyScore),
+          scams:     normScore(lens.scams     ?? snap.scamsScore),
+          wellbeing: normScore(lens.wellbeing ?? snap.wellbeingScore)
+        };
+      }
 
-            // fallback legacy shapes
-            const lens = snap.lenses || snap.scores || snap.subscores || {};
-          
-            return {
-              network:   normScore(lens.network   ?? snap.networkScore),
-              devices:   normScore(lens.devices   ?? snap.devicesScore),
-              privacy:   normScore(lens.privacy   ?? snap.privacyScore),
-              scams:     normScore(lens.scams     ?? snap.scamsScore),
-              wellbeing: normScore(lens.wellbeing ?? snap.wellbeingScore)
-            };
-          }
-
-
-      // ✅ Bulletproof stage normaliser (fixes [object Object] forever)
       function extractStage(snap){
         const fallbackDesc =
           "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
-
         const raw =
           snap.stage ??
           snap.stage_label ??
@@ -905,12 +371,9 @@
           snap.tier ??
           snap.level ??
           "Emerging";
-
-        // stage object from snapshot engine: { name, desc }
         if (raw && typeof raw === "object"){
           const label =
             raw.name ?? raw.stage ?? raw.label ?? raw.tier ?? raw.level ?? "Emerging";
-
           const desc =
             raw.desc ??
             raw.description ??
@@ -919,10 +382,8 @@
             snap.stageDescription ??
             snap.summary ??
             fallbackDesc;
-
           return { stage: String(label), desc: String(desc) };
         }
-
         const label = String(raw || "Emerging");
         const desc = String(
           snap.stage_desc ||
@@ -930,7 +391,6 @@
           snap.summary ||
           fallbackDesc
         );
-
         return { stage: label, desc };
       }
 
@@ -938,7 +398,6 @@
         const entries = Object.entries(scores)
           .map(([k,v]) => [k, toNumScore(v)])
           .filter(([,n]) => typeof n === "number");
-
         if (!entries.length) return "privacy";
         entries.sort((a,b) => a[1]-b[1]);
         return entries[0][0];
@@ -947,7 +406,7 @@
       function focusCopyForLens(lensKey){
         const map = {
           privacy: { title:"Privacy Lens — protect accounts that protect everything else", desc:"If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere." },
-          network: { title:"Network Lens — strengthen the boundary of your home", desc:"Your Wi-Fi is the front door. Small changes here protect every device inside." },
+          network: { title:"Network Lens — strengthen the boundary of your home", desc:"Your Wi‑Fi is the front door. Small changes here protect every device inside." },
           devices: { title:"Device Lens — keep the household healthy and updated", desc:"Out-of-date devices become weak links. Quick hygiene steps reduce risk and chaos." },
           scams: { title:"Scam Lens — reduce the moments that scams win", desc:"Scams succeed when people are rushed, emotional, or unsure. Guardrails stop damage early." },
           wellbeing:{ title:"Wellbeing Lens — calm routines reduce digital harm", desc:"Healthier rhythms and boundaries reduce exposure, conflict, and impulsive risks." }
@@ -975,26 +434,24 @@
               d:"Remove address, school, birthday, and routine details from public profiles where possible. Less exposure = less targeting."
             }
           ],
-      
           network: [
             {
               t:"Secure router admin access",
               d:"Router control is household control. Change the admin password and store it safely."
             },
             {
-              t:"Upgrade Wi-Fi protection mode",
+              t:"Upgrade Wi‑Fi protection mode",
               d:"Use WPA2 or WPA3 with a long passphrase. This protects every device using your network."
             },
             {
-              t:"Disable WPS quick-connect",
+              t:"Disable WPS quick‑connect",
               d:"WPS is convenient but easier to abuse. Turning it off tightens your perimeter."
             },
             {
               t:"Separate guests and smart devices",
-              d:"A guest network reduces cross-device exposure and keeps family devices safer."
+              d:"A guest network reduces cross‑device exposure and keeps family devices safer."
             }
           ],
-      
           devices: [
             {
               t:"Turn on automatic updates everywhere",
@@ -1013,7 +470,6 @@
               d:"Photos and documents deserve a recovery path. Backups reduce panic and loss."
             }
           ],
-      
           scams: [
             {
               t:"Adopt the household pause rule",
@@ -1032,11 +488,10 @@
               d:"Short phrases like “I’ll check the official app” build shared defence habits."
             }
           ],
-      
           wellbeing: [
             {
-              t:"Set a calm device cut-off time",
-              d:"A small nightly boundary improves sleep and reduces late-night risk decisions."
+              t:"Set a calm device cut‑off time",
+              d:"A small nightly boundary improves sleep and reduces late‑night risk decisions."
             },
             {
               t:"Reduce notification overload",
@@ -1052,7 +507,6 @@
             }
           ]
         };
-      
         return actions[lensKey] || actions.privacy;
       }
 
@@ -1081,18 +535,16 @@
         const el = document.getElementById(id);
         if (el) el.textContent = text;
       }
-
       function setHTML(id, html){
         const el = document.getElementById(id);
         if (el) el.innerHTML = html;
       }
-
       function show(el, yes){
         if (!el) return;
         el.style.display = yes ? "" : "none";
       }
 
-      // -------- Fingerprint (calm + explainable) --------
+      // Fingerprint (calm + explainable)
       function buildFingerprint(scores){
         const vals = {
           network: toNumScore(scores.network),
@@ -1101,38 +553,33 @@
           scams: toNumScore(scores.scams),
           wellbeing: toNumScore(scores.wellbeing),
         };
-
         let pattern = "Emerging Resilience";
         let note = "Your system is functional — focus on one lens and you’ll feel the difference fast.";
-
         const lows = Object.entries(vals).filter(([,v]) => typeof v === "number" && v <= 2).map(([k]) => k);
-
         if (lows.includes("privacy")){
           pattern = "Root Account Cascade Risk";
           note = "Email + Apple/Google sit at the centre. Strengthen them first to protect everything else.";
         } else if (lows.includes("network")){
           pattern = "Perimeter Drift";
-          note = "The Wi-Fi boundary needs tightening so the household has a stronger edge.";
+          note = "The Wi‑Fi boundary needs tightening so the household has a stronger edge.";
         } else if (lows.includes("devices")){
           pattern = "Device Hygiene Drag";
           note = "A few update + cleanup habits reduce risk and stress quickly.";
         } else if (lows.includes("scams")){
-          pattern = "Pressure-Point Scam Risk";
+          pattern = "Pressure‑Point Scam Risk";
           note = "One calm rule can prevent impulsive clicks turning into money or account loss.";
         } else if (lows.includes("wellbeing")){
           pattern = "Attention + Sleep Loop";
           note = "Stabilising routines reduces exposure, conflict, and risk moments.";
         }
-
         return { pattern, note };
       }
 
-      // -------- Progress baseline --------
+      // Progress baseline
       function getBaseline(){
         const raw = safeGetStorageItem(BASELINE_KEY);
         return raw ? safeJSONParse(raw) : null;
       }
-
       function setBaseline(snap){
         safeSetStorageItem(BASELINE_KEY, JSON.stringify({
           ts: Date.now(),
@@ -1140,16 +587,13 @@
           stage: extractStage(snap),
         }));
       }
-
       function clearBaseline(){
         safeRemoveStorageItem(BASELINE_KEY);
       }
-
       function renderProgress(currentScores){
         const grid = $("#progressGrid");
         if (!grid) return;
         grid.innerHTML = "";
-
         const baseline = getBaseline();
         if (!baseline || !baseline.scores){
           const el = document.createElement("div");
@@ -1164,7 +608,6 @@
           grid.appendChild(el);
           return;
         }
-
         const lensNames = [
           ["network","Network"],
           ["devices","Devices"],
@@ -1172,19 +615,15 @@
           ["scams","Scams"],
           ["wellbeing","Wellbeing"],
         ];
-
         lensNames.forEach(([key, label]) => {
           const cur = toNumScore(currentScores[key]);
           const base = toNumScore(baseline.scores[key]);
-
           let delta = null;
           if (typeof cur === "number" && typeof base === "number"){
             delta = cur - base;
           }
-
           const row = document.createElement("div");
           row.className = "progress-row";
-
           let badge = "—";
           let cls = "progress-delta";
           if (delta !== null){
@@ -1192,7 +631,6 @@
             else if (delta < 0){ badge = `${delta}`; cls += " bad"; }
             else { badge = "0"; }
           }
-
           row.innerHTML = `
             <div>
               <div class="progress-label">${label}</div>
@@ -1202,7 +640,6 @@
           `;
           grid.appendChild(row);
         });
-
         const note = $("#progressNote");
         if (note){
           const when = formatDate(baseline.ts);
@@ -1212,32 +649,28 @@
         }
       }
 
-      // -------- SVG ring helpers --------
+      // SVG ring helpers
       function polarToCartesian(cx, cy, r, angleDeg){
         const rad = (angleDeg * Math.PI) / 180;
         return { x: cx + (r * Math.cos(rad)), y: cy + (r * Math.sin(rad)) };
       }
-
       function arcPath(cx, cy, r, startAngle, endAngle){
         const start = polarToCartesian(cx, cy, r, endAngle);
         const end = polarToCartesian(cx, cy, r, startAngle);
         const largeArc = (endAngle - startAngle) <= 180 ? "0" : "1";
         return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}`;
       }
-
       function opacityForScore(n){
         if (typeof n !== "number") return 0.18;
         const t = Math.max(0, Math.min(4, n)) / 4;
         return 0.18 + (0.77 * t);
       }
-
       function setSeg(id, d, op){
         const el = document.getElementById(id);
         if (!el) return;
         el.setAttribute("d", d);
         if (typeof op === "number") el.setAttribute("opacity", String(op));
       }
-
       function highlightLegend(focusKey){
         const ids = {
           network:"legendNetwork",
@@ -1253,11 +686,9 @@
         const active = document.getElementById(ids[focusKey]);
         if (active) active.classList.add("is-focus");
       }
-
       function renderRing(scores, stageLabel, focusKey){
         const start = 0;
         const step = 72;
-
         const order = [
           ["network","segNetwork"],
           ["devices","segDevices"],
@@ -1265,7 +696,6 @@
           ["scams","segScams"],
           ["wellbeing","segWellbeing"]
         ];
-
         order.forEach(([key, segId], idx) => {
           const a0 = start + (idx * step);
           const a1 = a0 + step - 6; // gap
@@ -1273,10 +703,8 @@
           const n = toNumScore(scores[key]);
           setSeg(segId, path, opacityForScore(n));
         });
-
         const focusIdx = order.findIndex(([k]) => k === focusKey);
         const glow = document.getElementById("segFocusGlow");
-
         if (glow && focusIdx >= 0){
           const a0 = start + (focusIdx * step);
           const a1 = a0 + step - 6;
@@ -1285,102 +713,69 @@
         } else if (glow){
           glow.setAttribute("opacity", "0");
         }
-
         setText("ringStage", (stageLabel || "Emerging").toString().toUpperCase());
-
         const nums = ["network","devices","privacy","scams","wellbeing"]
           .map(k => toNumScore(scores[k]))
           .filter(n => typeof n === "number");
-
         const total = nums.length ? nums.reduce((a,b)=>a+b,0) : null;
         setText("ringScore", total !== null ? `${total}/20` : "—");
         setText("ringHint", "FIVE LENSES");
       }
 
-      // -------- Main render --------
+      // Main render
       const snapshot = getLastSnapshot();
-
-      // Empty state
       if (!snapshot){
         show($("#emptyStateCard"), true);
         setText("focusTitle", "Take a snapshot to build your hub");
         setText("focusDesc", "Cyber Seeds will generate your prioritised focus, map, and next steps from your answers.");
         setText("stageTitle", "No snapshot yet");
         setText("stageDesc", "This page becomes personalised once a snapshot exists on this device.");
-
         const emptyScores = {network:"—",devices:"—",privacy:"—",scams:"—",wellbeing:"—"};
         setText("valNetwork","—"); setText("valDevices","—"); setText("valPrivacy","—"); setText("valScams","—"); setText("valWellbeing","—");
-
         renderRing(emptyScores, "Stage", "privacy");
         highlightLegend("privacy");
         renderActions("privacy");
         renderProgress(emptyScores);
         return;
       }
-
-      // Snapshot exists
       show($("#emptyStateCard"), false);
-
       const scores = extractLensScores(snapshot);
       const stage = extractStage(snapshot);
-
-      // Legend values
       setText("valNetwork", scores.network);
       setText("valDevices", scores.devices);
       setText("valPrivacy", scores.privacy);
       setText("valScams", scores.scams);
       setText("valWellbeing", scores.wellbeing);
-
-      // Stage block
       setText("stageTitle", `${stage.stage} —`);
       setText("stageDesc", stage.desc);
-
-      // Weakest lens = focus
       const wl = weakestLens(scores);
       const focus = focusCopyForLens(wl);
-
       setText("focusTitle", focus.title);
       setText("focusDesc", focus.desc);
-
       highlightLegend(wl);
       renderRing(scores, stage.stage, wl);
-
-      // Actions
       renderActions(wl);
-
-      // Seed line adapts
       const seedLine = {
         privacy: "Root accounts act like master keys. Strengthen them first and the rest of your digital household becomes easier to protect.",
-        network: "Your Wi-Fi boundary is your digital front door. Small changes here protect every connected device.",
+        network: "Your Wi‑Fi boundary is your digital front door. Small changes here protect every connected device.",
         devices: "Healthy, updated devices reduce both risk and stress across the household.",
         scams: "One calm verification habit prevents most scam damage before it starts.",
         wellbeing: "Stable routines quietly reduce exposure, conflict, and impulsive online risk."
       };
-
       setText("seedText", seedLine[wl] || seedLine.privacy);
-
-      // Fingerprint
       const fp = buildFingerprint(scores);
       setHTML("fingerprintLine", `<strong>Household fingerprint:</strong> ${fp.pattern} — ${fp.note}`);
-
-      // Last taken line (multi-field + compatibility)
       const ts =
         snapshot.ts ||
         snapshot.timestamp ||
         snapshot.createdAt ||
         snapshot.created_at ||
         (safeGetStorageItem("seed_snapshot_v2_ts") ? Number(safeGetStorageItem("seed_snapshot_v2_ts")) : null);
-
       const when = formatDate(ts);
       setText("lastTakenLine", when ? `Last snapshot on this device: ${when}` : `Last snapshot found on this device.`);
-
-      // Progress
       renderProgress(scores);
-
-      // Baseline buttons
       const saveBtn = $("#saveBaselineBtn");
       const clearBtn = $("#clearBaselineBtn");
-
       if (saveBtn){
         saveBtn.addEventListener("click", () => {
           setBaseline(snapshot);
@@ -1389,7 +784,6 @@
           setTimeout(() => (saveBtn.textContent = "Save as baseline"), 1100);
         });
       }
-
       if (clearBtn){
         clearBtn.addEventListener("click", () => {
           clearBaseline();
@@ -1398,20 +792,15 @@
           setTimeout(() => (clearBtn.textContent = "Clear baseline"), 1100);
         });
       }
-
-      // ✅ Nice-to-have: refresh hub when a new snapshot is taken in another tab
       window.addEventListener("storage", (e) => {
         if (!e || !e.key) return;
         if (SNAPSHOT_KEYS.includes(e.key) || e.key === "seed_snapshot_v2_ts") {
-          // hard refresh to rebuild everything safely
           location.reload();
         }
       });
-
     })();
   </script>
-
-  <!-- Your global site script (modal etc) -->
+  <!-- global site script (modal etc) -->
   <script src="/script.js?v=20260131"></script>
 </body>
 </html>
