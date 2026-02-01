@@ -569,3 +569,215 @@ body.modal-open{
 @media(max-width:700px){
   .lens-explain{ grid-template-columns:1fr; }
 }
+
+/* ================================
+   CYBER SEEDS — VISIBLE/INVISIBLE SYSTEM MAP
+================================== */
+
+.cs-systems{
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--mint2), #fff);
+}
+
+.cs-systems__wrap{
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.cs-systems__head h2{
+  margin: 0 0 10px 0;
+  letter-spacing: -0.01em;
+}
+
+.cs-systems__sub{
+  margin: 0 0 20px 0;
+  color: var(--muted);
+  max-width: 78ch;
+  line-height: 1.55;
+}
+
+.cs-systems__grid{
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 920px){
+  .cs-systems__grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+.cs-systems__map{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow-sm);
+  padding: 14px;
+  overflow: hidden;
+}
+
+.cs-systems__svg{
+  width: 100%;
+  height: auto;
+  display: block;
+  touch-action: manipulation;
+}
+
+.cs-systems__hint{
+  margin: 10px 6px 2px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* SVG styling */
+.cs-home{
+  fill: #fff;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.cs-home__title{
+  fill: var(--muted);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cs-flow{
+  fill: none;
+  stroke: rgba(26,106,93,.22);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 9 10;
+  animation: csFlow 6.5s linear infinite;
+}
+
+@keyframes csFlow{
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -190; }
+}
+
+.cs-node{
+  cursor: pointer;
+  outline: none;
+}
+
+.cs-node__card{
+  fill: rgba(232,246,245,.75);
+  stroke: rgba(26,106,93,.25);
+  stroke-width: 2;
+  transition: transform .18s ease, fill .18s ease, stroke .18s ease, opacity .18s ease;
+}
+
+.cs-node__title{
+  fill: var(--ink);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.cs-node__tag{
+  fill: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cs-node:focus .cs-node__card{
+  stroke: rgba(26,106,93,.55);
+}
+
+.cs-node:hover .cs-node__card{
+  transform: translateY(-2px);
+  stroke: rgba(26,106,93,.55);
+}
+
+/* Active / dim states controlled by JS */
+.cs-node.is-active .cs-node__card{
+  fill: rgba(26,106,93,.12);
+  stroke: rgba(26,106,93,.75);
+}
+
+.cs-node.is-dim{
+  opacity: .45;
+}
+
+/* Insight panel */
+.cs-systems__panel{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow-sm);
+  padding: 16px 16px 14px;
+}
+
+.cs-insight__kicker{
+  color: var(--brand2);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+}
+
+.cs-insight__title{
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.cs-insight__body{
+  margin: 0 0 14px 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.cs-insight__meta{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 12px 0;
+}
+
+.cs-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--mint2);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: .92rem;
+}
+
+.cs-insight__next{
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  margin-top: 10px;
+}
+
+.cs-insight__nextLabel{
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.cs-insight__nextText{
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.cs-insight__actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.cs-insight__foot{
+  margin: 14px 0 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
