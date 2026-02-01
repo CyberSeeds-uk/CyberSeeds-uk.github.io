@@ -388,6 +388,137 @@ window.CSSeedForge = (() => {
   document.addEventListener("DOMContentLoaded", () => {
     injectV2Styles();
 
+     /* ================================
+   CYBER SEEDS — VISIBLE/INVISIBLE SYSTEM MAP
+================================== */
+(function(){
+  function ready(fn){
+    if(document.readyState === "loading"){
+      document.addEventListener("DOMContentLoaded", fn, { once:true });
+    } else {
+      fn();
+    }
+  }
+
+  ready(function(){
+    const root = document.querySelector("#systems");
+    if(!root) return;
+
+    const nodes = Array.from(root.querySelectorAll(".cs-node"));
+    const resetBtn = root.querySelector("#csResetSystems");
+
+    const kicker = root.querySelector("#csInsightKicker");
+    const title = root.querySelector("#csInsightTitle");
+    const body = root.querySelector("#csInsightBody");
+    const meta = root.querySelector("#csInsightMeta");
+    const stateEl = root.querySelector("#csInsightState");
+    const leverageEl = root.querySelector("#csInsightLeverage");
+    const nextWrap = root.querySelector("#csInsightNext");
+    const nextText = root.querySelector("#csInsightNextText");
+
+    const CONTENT = {
+      network: {
+        kicker: "Network & Wi-Fi",
+        title: "The circulation system of your home",
+        body: "This is how internet access flows through daily life — stability here reduces friction everywhere else. Even small improvements can make the whole household feel calmer.",
+        state: "Foundation",
+        leverage: "High leverage",
+        next: "Change the Wi-Fi password (if it’s still default) and confirm the router admin login isn’t a shared household password."
+      },
+      devices: {
+        kicker: "Devices",
+        title: "The organs — shared, personal, and in-between",
+        body: "Devices shape attention, routines, and boundaries. The question isn’t ‘good or bad devices’ — it’s whether the household has clear, calm patterns.",
+        state: "Daily life",
+        leverage: "Medium–High",
+        next: "Choose one ‘quiet upgrade’: remove unused apps for one child/device, or set a simple bedtime charging location for the household."
+      },
+      privacy: {
+        kicker: "Privacy & Accounts",
+        title: "The immune system",
+        body: "Passwords, logins, and settings quietly determine how resilient the household is to mistakes and misuse. Strong habits here reduce harm elsewhere without adding stress.",
+        state: "Resilience",
+        leverage: "High leverage",
+        next: "Turn on passkeys or 2FA for the top 3 accounts (email, Apple/Google, banking). Use a password manager only if it feels doable."
+      },
+      scams: {
+        kicker: "Scams & Pressure",
+        title: "The exposure layer",
+        body: "Scams target attention, urgency, and trust — not intelligence. Cyber Seeds treats this as a household environment issue, not a personal failure.",
+        state: "External pressure",
+        leverage: "Medium",
+        next: "Agree one household phrase: ‘Pause. Verify. Then act.’ Set a rule: no payments or password resets during urgency."
+      },
+      children: {
+        kicker: "Children & Wellbeing",
+        title: "The developing system",
+        body: "This system is shaped by everything else: routines, devices, settings, and social experiences. Small changes here often create the biggest long-term outcomes.",
+        state: "Long-term",
+        leverage: "High leverage",
+        next: "Pick one protection that feels kind: a calmer bedtime routine, a weekly check-in, or changing one setting together — not in secret."
+      }
+    };
+
+    function setActive(key){
+      // Visual highlight
+      nodes.forEach(n => {
+        const isMatch = n.dataset.node === key;
+        n.classList.toggle("is-active", isMatch);
+        n.classList.toggle("is-dim", !isMatch);
+        n.setAttribute("aria-pressed", isMatch ? "true" : "false");
+      });
+
+      // Content
+      const c = CONTENT[key];
+      if(!c) return;
+
+      kicker.textContent = c.kicker;
+      title.textContent = c.title;
+      body.textContent = c.body;
+
+      meta.hidden = false;
+      nextWrap.hidden = false;
+
+      stateEl.textContent = c.state;
+      leverageEl.textContent = c.leverage;
+      nextText.textContent = c.next;
+    }
+
+    function reset(){
+      nodes.forEach(n => {
+        n.classList.remove("is-active", "is-dim");
+        n.removeAttribute("aria-pressed");
+      });
+
+      kicker.textContent = "Household view";
+      title.textContent = "The invisible becomes visible";
+      body.textContent = "Tap any system in the map to see what it means in real life — calmly and proportionately.";
+      meta.hidden = true;
+      nextWrap.hidden = true;
+      nextText.textContent = "";
+    }
+
+    // Click + keyboard support
+    nodes.forEach(n => {
+      n.addEventListener("click", () => setActive(n.dataset.node));
+      n.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          setActive(n.dataset.node);
+        }
+      });
+    });
+
+    if(resetBtn){
+      resetBtn.addEventListener("click", reset);
+    }
+
+    // Start in neutral mode
+    reset();
+  });
+})();
+
+
     CSSeedForge.load().catch(err => {
       console.warn("SeedForge failed to load.", err);
     });
