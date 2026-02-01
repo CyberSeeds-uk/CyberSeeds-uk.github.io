@@ -617,15 +617,18 @@ body.modal-open{
   border-radius: var(--radius2);
   box-shadow: var(--shadow-sm);
   padding: 14px;
-  overflow: hidden;
+  overflow: visible;   /* ← REQUIRED for SVG paint on iOS */
 }
 
 .cs-systems__svg{
   width: 100%;
-  height: auto;
+  height: 420px;          /* ← REQUIRED for iOS Safari */
+  max-height: 65vh;
   display: block;
+  background: transparent;
   touch-action: manipulation;
 }
+
 
 .cs-systems__hint{
   margin: 10px 6px 2px;
