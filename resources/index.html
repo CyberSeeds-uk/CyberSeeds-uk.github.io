@@ -294,6 +294,12 @@
         try { sessionStorage.removeItem(k); } catch {}
       }
 
+      if (localStorage.getItem("cs_snapshot_updated")) {
+        localStorage.removeItem("cs_snapshot_updated");
+        location.reload();
+      }
+
+      
       function getLastSnapshot(){
         for (const k of SNAPSHOT_KEYS){
           const raw = safeGetStorageItem(k);
