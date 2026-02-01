@@ -25,11 +25,10 @@ function saveBaseline(){
   if(!s) return;
 
   // store as baseline snapshot (full object)
-  localStorage.setItem(BASELINE_KEY, JSON.stringify({
-    ...s,
-    baseline_ts: Date.now()
-  }));
-}
+  localStorage.setItem("cyberseeds_snapshot_v2", JSON.stringify(snapshot));
+
+  localStorage.setItem("cs_snapshot_updated", Date.now().toString());
+  window.location.href = "/resources/";
 
 
 function lensRowsHTML(scores){
