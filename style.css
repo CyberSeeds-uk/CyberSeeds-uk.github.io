@@ -1241,3 +1241,71 @@ footer > div, footer a{
   padding:18px 0;
   background:#fff;
 }
+
+/* ===== Lens Ring (High-Quality, Calm) ===== */
+
+.lens-ring{
+  display:flex;
+  justify-content:center;
+  margin: 24px 0 18px;
+}
+
+.lens-ring svg{
+  width: min(320px, 70vw);
+  height: auto;
+}
+
+.ring-track{
+  fill:none;
+  stroke: rgba(15,47,42,.08);
+  stroke-width:18;
+}
+
+.ring-seg{
+  fill:none;
+  stroke: var(--brand2);
+  stroke-width:18;
+  stroke-linecap:round;
+  opacity:.25;
+  transition:
+    opacity .4s ease,
+    stroke-width .3s ease,
+    filter .3s ease;
+}
+
+.ring-seg.is-strong{
+  opacity:.75;
+}
+
+.ring-seg.is-weak{
+  opacity:.35;
+}
+
+.ring-focus{
+  fill:none;
+  stroke: var(--brand);
+  stroke-width:22;
+  stroke-linecap:round;
+  filter: drop-shadow(0 0 10px rgba(26,106,93,.45));
+  animation: focusPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes focusPulse{
+  0%,100%{ opacity:.75 }
+  50%{ opacity:1 }
+}
+
+.ring-label{
+  font-size:10px;
+  letter-spacing:.14em;
+  fill: var(--muted);
+  text-anchor:middle;
+  font-weight:800;
+}
+
+.ring-score{
+  font-size:22px;
+  fill: var(--brand);
+  text-anchor:middle;
+  font-weight:900;
+}
