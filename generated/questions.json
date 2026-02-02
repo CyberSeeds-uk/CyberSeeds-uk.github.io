@@ -5,18 +5,19 @@
       "lens": "network",
       "type": "single",
       "prompt": "If you ever needed to change your home Wi-Fi settings, would you know where to start?",
+      "reassurance": "Most households don’t access these settings often — awareness matters more than expertise.",
       "options": [
         {
-          "label": "Yes (I know how)",
+          "label": "Yes — I’m comfortable with this",
           "points": 18
         },
         {
-          "label": "Maybe / I could figure it out",
-          "points": 10
+          "label": "I’d need a moment to figure it out",
+          "points": 12
         },
         {
-          "label": "No (and that’s okay)",
-          "points": 4
+          "label": "Not yet — I’d need help",
+          "points": 6
         }
       ]
     },
@@ -24,19 +25,20 @@
       "id": "q2_updates",
       "lens": "devices",
       "type": "single",
-      "prompt": "Do your main devices install updates automatically?",
+      "prompt": "In your household, do most devices update themselves without needing reminders?",
+      "reassurance": "It’s common for updates to be a mix of automatic and manual.",
       "options": [
         {
-          "label": "Yes (most devices)",
+          "label": "Yes — most update on their own",
           "points": 18
         },
         {
-          "label": "Some do, some don’t",
-          "points": 10
+          "label": "Some do, some need reminders",
+          "points": 12
         },
         {
-          "label": "Not sure / rarely",
-          "points": 4
+          "label": "I’m not sure how updates are handled",
+          "points": 6
         }
       ]
     },
@@ -45,18 +47,19 @@
       "lens": "privacy",
       "type": "single",
       "prompt": "For your main email account, is there an extra step to protect it when signing in?",
+      "reassurance": "You don’t need to know the name of the setting — just whether it exists.",
       "options": [
         {
-          "label": "Yes",
+          "label": "Yes — there’s an extra sign-in step",
           "points": 20
         },
         {
-          "label": "Not sure",
-          "points": 8
+          "label": "I think so, but I’m not certain",
+          "points": 13
         },
         {
-          "label": "No",
-          "points": 3
+          "label": "No — it’s just a password",
+          "points": 5
         }
       ]
     },
@@ -64,19 +67,20 @@
       "id": "q4_scam_pause",
       "lens": "scams",
       "type": "single",
-      "prompt": "If a message creates urgency, do you have a ‘pause + verify’ habit?",
+      "prompt": "When a message feels urgent, does your household usually pause before acting?",
+      "reassurance": "Scams rely on pressure, not intelligence — pausing is a learned habit.",
       "options": [
         {
-          "label": "Yes (we follow a routine)",
+          "label": "Yes — we usually pause first",
           "points": 18
         },
         {
-          "label": "Sometimes",
-          "points": 10
+          "label": "Sometimes — it depends on the situation",
+          "points": 12
         },
         {
-          "label": "Not yet",
-          "points": 4
+          "label": "Not yet — we’re still figuring this out",
+          "points": 6
         }
       ]
     },
@@ -85,18 +89,19 @@
       "lens": "wellbeing",
       "type": "single",
       "prompt": "Are there any routines in your household that help protect sleep from screens?",
+      "reassurance": "Routines don’t have to be perfect to be protective.",
       "options": [
         {
-          "label": "Yes (consistent enough)",
+          "label": "Yes — most nights are protected",
           "points": 16
         },
         {
-          "label": "Sometimes",
-          "points": 9
+          "label": "Sometimes — it varies",
+          "points": 11
         },
         {
-          "label": "Not yet",
-          "points": 4
+          "label": "Not yet — routines are still forming",
+          "points": 6
         }
       ]
     }
