@@ -2,6 +2,8 @@
    Cyber Seeds — Snapshot Modal Engine (FINAL CANON)
    ========================================================= */
 
+delete window.__CS_SNAPSHOT_BOUND__;
+
 (() => {
   "use strict";
 
