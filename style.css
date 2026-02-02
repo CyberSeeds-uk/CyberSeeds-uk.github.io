@@ -1427,3 +1427,25 @@ footer > div, footer a{
 .hub-actions .btn {
   border-radius: 999px;
 }
+
+/* Snapshot choice highlighting */
+#snapshotForm .choice {
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+#snapshotForm .choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#snapshotForm .choice:has(input:checked) {
+  background: #e8f6f5;
+  border-color: #1a6a5d;
+  box-shadow: 0 0 0 2px rgba(26,106,93,.15);
+}
+
+#snapshotForm .choice:has(input:checked) span {
+  font-weight: 600;
+  color: #0f2f2a;
+}
