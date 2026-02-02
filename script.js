@@ -7,14 +7,6 @@ delete window.__CS_SNAPSHOT_BOUND__;
 (() => {
   "use strict";
 
-  if (window.__CS_SNAPSHOT_BOUND__) return;
-  window.__CS_SNAPSHOT_BOUND__ = true;
-
-  const $ = (s, r=document) => r.querySelector(s);
-  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
-
-  const SNAP_KEY = "cyberseeds_snapshot_v2";
-
   const modal     = $("#snapshotModal");
   const backdrop  = modal?.querySelector(".modal-backdrop");
   const panel     = modal?.querySelector(".modal-panel");
@@ -25,6 +17,12 @@ delete window.__CS_SNAPSHOT_BOUND__;
   const backBtn   = $("#snapshotBack");
   const closeBtn  = $("#closeSnapshot");
   const resetBtn  = $("#resetSnapshot");
+
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+   
+  const SNAP_KEY = "cyberseeds_snapshot_v2";
+ 
 
   if (!modal || !panel || !form || !nextBtn || !backBtn) {
     console.warn("[Cyber Seeds] Snapshot modal missing DOM elements");
