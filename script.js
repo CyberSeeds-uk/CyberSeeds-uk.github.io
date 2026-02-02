@@ -1,9 +1,12 @@
 /* =========================================================
    Cyber Seeds — SeedForge + Snapshot Engine (V2 FINAL)
-   - Config-driven questions (generated/*.json)
-   - Enforced deterministic question order (fixes “opens on Q5”)
-   - Hard reset on open (fixes stale state + Finish appearing early)
-   - Safe localStorage guards (iOS friendly)
+   FIXES:
+   ✅ Mobile open reliability (click + touch + pointer)
+   ✅ aria-hidden toggled correctly (CSS-safe)
+   ✅ Backdrop click closes
+   ✅ Next/Back restored on every open
+   ✅ Choice layout polished (desktop + mobile)
+   ✅ Hard reset on open
    ========================================================= */
 
 /* =========================================================
@@ -17,14 +20,7 @@ window.CSSeedForge = (() => {
     seeds: "seeds.json",
   };
 
-  const BASE_CANDIDATES = [
-    "/generated",
-    "generated",
-    "./generated",
-    "../generated",
-    "../../generated",
-  ];
-
+  const BASE_CANDIDATES = ["/generated", "generated", "./generated", "../generated", "../../generated"];
   let _cache = null;
   let _base = null;
 
@@ -36,15 +32,13 @@ window.CSSeedForge = (() => {
 
   async function detectBase() {
     if (_base) return _base;
-
     const stamp = Date.now();
+
     for (const base of BASE_CANDIDATES) {
       try {
         const res = await fetch(`${base}/${FILES.manifest}?v=${stamp}`, { cache: "no-store" });
         if (res.ok) return (_base = base);
-      } catch {
-        // keep trying
-      }
+      } catch {}
     }
     return (_base = "/generated");
   }
@@ -53,10 +47,7 @@ window.CSSeedForge = (() => {
     if (_cache) return _cache;
 
     const base = await detectBase();
-
-    const manifest = await fetchJson(`${base}/${FILES.manifest}?v=${Date.now()}`)
-      .catch(() => ({ built_at: Date.now() }));
-
+    const manifest = await fetchJson(`${base}/${FILES.manifest}?v=${Date.now()}`).catch(() => ({ built_at: Date.now() }));
     const v = encodeURIComponent(manifest.built_at || Date.now());
 
     const [questions, scoring, seeds] = await Promise.all([
@@ -66,6 +57,7 @@ window.CSSeedForge = (() => {
     ]);
 
     _cache = { manifest, questions, scoring, seeds, base };
+    window.__CS_SEEDFORGE__ = _cache; // debug handle
     return _cache;
   }
 
@@ -85,35 +77,25 @@ window.CSSeedForge = (() => {
   }
 
   function pickFocusLens(lensScores, cfg) {
-    const floor = cfg?.focus_lens?.healthy_floor ?? 75;               // percent
-    const threshold = Math.round((floor / 100) * 20);                 // 0..20
+    const floor = cfg?.focus_lens?.healthy_floor ?? 75;
+    const threshold = Math.round((floor / 100) * 20);
     const pool = cfg?.focus_lens?.rotation_pool_when_healthy ?? [];
-
     const allStrong = Object.values(lensScores).every(v => v >= threshold);
 
-    if (allStrong && pool.length) {
-      // deterministic-ish rotation
-      return pool[Date.now() % pool.length];
-    }
-
-    // true weakest
+    if (allStrong && pool.length) return pool[Date.now() % pool.length];
     return Object.entries(lensScores).sort((a, b) => a[1] - b[1])[0][0];
   }
 
   function buildRationale(focusLens, questions, answers) {
     for (const q of questions) {
       if (normalizeLens(q.lens) !== focusLens) continue;
-
       const raw = answers[q.id];
       if (typeof raw !== "number") continue;
 
       const opt = q.options?.[raw];
-      // If you use opt.key like low/mid/high:
       if (opt?.key === "low" || opt?.key === "mid") {
         return `You mentioned that ${String(q.prompt || "").toLowerCase()} — that’s why we’re starting here.`;
       }
-
-      // fallback: if user picked anything other than first option, treat as “needs support”
       if (raw > 0 && q.prompt) {
         return `You mentioned that ${String(q.prompt).toLowerCase()} — that’s why we’re starting here.`;
       }
@@ -146,11 +128,8 @@ window.CSSeedForge = (() => {
 
       if (typeof raw === "number") {
         const opt = q.options?.[raw];
-        if (opt?.key && v2.answer_weights) {
-          earned = (v2.answer_weights[opt.key] ?? 0) * maxPts;
-        } else {
-          earned = opt?.points ?? 0;
-        }
+        if (opt?.key && v2.answer_weights) earned = (v2.answer_weights[opt.key] ?? 0) * maxPts;
+        else earned = opt?.points ?? 0;
       }
 
       totals[lens] += earned * importance;
@@ -163,9 +142,7 @@ window.CSSeedForge = (() => {
       lensScores[l] = Math.round(Math.max(0, Math.min(20, norm * 20)));
     });
 
-    // HDSS is sum of lenses (0..100)
     const hdss = lenses.reduce((sum, l) => sum + (lensScores[l] ?? 0), 0);
-
     const stage = stageFor(hdss, sYaml);
 
     const strongest = [...lenses].sort((a, b) => lensScores[b] - lensScores[a])[0];
@@ -189,13 +166,17 @@ window.CSSeedForge = (() => {
 (() => {
   "use strict";
 
+  // Prevent double-binding if another script tries to init again
+  if (window.__CS_SNAPSHOT_ENGINE_BOUND__) return;
+  window.__CS_SNAPSHOT_ENGINE_BOUND__ = true;
+
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
   const SNAP_KEY = "cyberseeds_snapshot_v2";
-  const BASELINE_KEY = "cyberseeds_snapshot_baseline_v2";
 
   const modal = $("#snapshotModal");
+  const backdrop = modal ? modal.querySelector(".modal-backdrop") : null; // your HTML has .modal-backdrop
   const form = $("#snapshotForm");
   const result = $("#snapshotResult");
   const nextBtn = $("#snapshotNext");
@@ -205,66 +186,100 @@ window.CSSeedForge = (() => {
 
   if (!modal || !form || !nextBtn || !backBtn) return;
 
-  // ---------- Storage guards ----------
-  function safeGet(key) {
-    try { return localStorage.getItem(key); } catch { return null; }
-  }
-  function safeSet(key, value) {
-    try { localStorage.setItem(key, value); return true; } catch { return false; }
-  }
-  function safeRemove(key) {
-    try { localStorage.removeItem(key); return true; } catch { return false; }
+  /* ---------- Small injected polish layer (desktop + mobile) ---------- */
+  function injectModalPolish() {
+    if (document.getElementById("cs-snapshot-polish")) return;
+
+    const css = `
+      /* Snapshot modal polish */
+      .modal.is-open{ display:block; }
+      .modal[aria-hidden="true"]{ display:none; }
+
+      /* Make choices wrap cleanly */
+      #snapshotForm .choices,
+      #snapshotForm .quiz,
+      #snapshotForm{
+        width:100%;
+      }
+
+      /* Your markup uses labels.choice already */
+      #snapshotForm .choices{ display:flex; flex-wrap:wrap; gap:.5rem; }
+
+      /* If .choices wrapper doesn't exist, we still make .choice behave nicely */
+      #snapshotForm .choice{
+        display:inline-flex;
+        align-items:center;
+        gap:.5rem;
+        border-radius:999px;
+        border:1px solid rgba(15,47,42,.18);
+        background:#fff;
+        padding:.55rem .75rem;
+        line-height:1.25;
+        max-width:100%;
+        cursor:pointer;
+        user-select:none;
+      }
+
+      #snapshotForm .choice span{
+        display:block;
+        white-space:normal;
+      }
+
+      #snapshotForm .choice input{
+        margin:0;
+        width:18px;
+        height:18px;
+        flex:0 0 auto;
+      }
+
+      /* Make question text breathe */
+      #snapshotForm p{ margin:.2rem 0 .75rem 0; }
+      #snapshotForm p.muted{ margin-top:.75rem; }
+
+      /* Mobile: stack choices (cleaner) */
+      @media (max-width: 520px){
+        #snapshotForm .choices{ display:grid; grid-template-columns:1fr; gap:.55rem; }
+        #snapshotForm .choice{ border-radius:16px; padding:.7rem .8rem; }
+      }
+    `;
+
+    const style = document.createElement("style");
+    style.id = "cs-snapshot-polish";
+    style.textContent = css;
+    document.head.appendChild(style);
   }
 
-  function saveSnapshot(payload) {
-    safeSet(SNAP_KEY, JSON.stringify(payload));
-  }
+  /* ---------- Storage guards ---------- */
+  function safeGet(key) { try { return localStorage.getItem(key); } catch { return null; } }
+  function safeSet(key, value) { try { localStorage.setItem(key, value); return true; } catch { return false; } }
+  function safeRemove(key) { try { localStorage.removeItem(key); return true; } catch { return false; } }
+
   function loadSnapshot() {
     const raw = safeGet(SNAP_KEY);
     if (!raw) return null;
     try { return JSON.parse(raw); } catch { return null; }
   }
 
-  function saveBaseline(payload) {
-    if (!payload) return;
-    safeSet(BASELINE_KEY, JSON.stringify(payload));
-  }
-  function loadBaseline() {
-    const raw = safeGet(BASELINE_KEY);
-    if (!raw) return null;
-    try { return JSON.parse(raw); } catch { return null; }
-  }
-
-  // ---------- App state ----------
-  let step = -1;              // -1 intro, 0..n-1 questions
+  /* ---------- State ---------- */
+  let step = -1;
   let sf = null;
   let QUESTIONS = [];
   const answers = {};
 
-  // ---------- Deterministic order helper (IMPORTANT FIX) ----------
   function orderQuestionsDeterministically(list) {
-    // prefer explicit "order" field if present, else stable id sort
     const hasOrder = list.some(q => typeof q.order === "number");
-    if (hasOrder) {
-      return [...list].sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
-    }
+    if (hasOrder) return [...list].sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
     return [...list].sort((a, b) => String(a.id).localeCompare(String(b.id)));
   }
 
   async function ensureReady() {
     if (sf && QUESTIONS.length) return;
-    sf = await CSSeedForge.load();
-
+    sf = await window.CSSeedForge.load();
     const raw = sf?.questions?.questions || [];
-    if (!Array.isArray(raw) || raw.length === 0) {
-      throw new Error("SeedForge questions missing/empty.");
-    }
-
-    // ✅ FIX: enforce deterministic order
+    if (!Array.isArray(raw) || !raw.length) throw new Error("SeedForge questions missing/empty.");
     QUESTIONS = orderQuestionsDeterministically(raw);
   }
 
-  // ---------- UI helpers ----------
   function escapeHtml(str) {
     return String(str)
       .replaceAll("&", "&amp;")
@@ -274,24 +289,36 @@ window.CSSeedForge = (() => {
       .replaceAll("'", "&#039;");
   }
 
-  // ---------- Hard reset (IMPORTANT FIX) ----------
   function hardResetState() {
     step = -1;
     for (const k in answers) delete answers[k];
+
+    // restore controls every time
+    nextBtn.style.display = "";
+    backBtn.style.display = "";
+    nextBtn.textContent = "Start";
     nextBtn.disabled = false;
     backBtn.disabled = true;
+
     if (result) result.hidden = true;
-    // clear any checked inputs that might remain in DOM
-    if (form) form.innerHTML = "";
+    form.innerHTML = "";
   }
 
   function openModal() {
+    injectModalPolish();
+
+    // ✅ critical: aria-hidden must be false or CSS may keep it hidden on mobile
     modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+
+    // focus management (helps iOS)
+    nextBtn.focus({ preventScroll: true });
   }
 
   function closeModal() {
     modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
   }
 
@@ -301,8 +328,8 @@ window.CSSeedForge = (() => {
       <p class="muted">You’ll get one clear focus and simple next steps.</p>
     `;
     nextBtn.textContent = "Start";
-    backBtn.disabled = true;
     nextBtn.disabled = false;
+    backBtn.disabled = true;
     if (result) result.hidden = true;
   }
 
@@ -312,14 +339,17 @@ window.CSSeedForge = (() => {
 
     const reassurance = q.reassurance ? `<p class="muted">${escapeHtml(q.reassurance)}</p>` : "";
 
+    // Wrap options in .choices so your CSS can style it nicely
     form.innerHTML = `
       <p><strong>${escapeHtml(q.prompt || "")}</strong></p>
-      ${(q.options || []).map((o, i) => `
-        <label class="choice">
-          <input type="radio" name="q_${escapeHtml(q.id)}" value="${i}">
-          <span>${escapeHtml(o.label || "")}</span>
-        </label>
-      `).join("")}
+      <div class="choices">
+        ${(q.options || []).map((o, i) => `
+          <label class="choice">
+            <input type="radio" name="q_${escapeHtml(q.id)}" value="${i}">
+            <span>${escapeHtml(o.label || "")}</span>
+          </label>
+        `).join("")}
+      </div>
       ${reassurance}
     `;
 
@@ -327,7 +357,7 @@ window.CSSeedForge = (() => {
     backBtn.disabled = (step === 0);
     nextBtn.disabled = true;
 
-    // restore selection if any
+    // restore prior selection
     const prev = answers[q.id];
     if (typeof prev === "number") {
       const input = form.querySelector(`input[type="radio"][value="${prev}"]`);
@@ -335,7 +365,6 @@ window.CSSeedForge = (() => {
       nextBtn.disabled = false;
     }
 
-    // bind changes
     $$("input[type=radio]", form).forEach(r => {
       r.addEventListener("change", () => {
         answers[q.id] = Number(r.value);
@@ -348,7 +377,6 @@ window.CSSeedForge = (() => {
     if (!result) return;
     result.hidden = false;
 
-    // If your HTML already contains result sub-elements, keep it simple:
     const strongestEl = $("#strongestLens");
     const weakestEl = $("#weakestLens");
     const headlineEl = $("#resultHeadline");
@@ -358,29 +386,23 @@ window.CSSeedForge = (() => {
     if (headlineEl) headlineEl.textContent =
       `Your ecosystem is strongest in ${scored.strongest} and needs the most support in ${scored.weakest}.`;
 
-    // If you want to print a minimal card inside result:
+    // keep your existing result section; just add a clean seed/rationale block
     const extra = document.createElement("div");
     extra.className = "cs-card";
     extra.style.padding = "1rem";
     extra.style.marginTop = "1rem";
     extra.innerHTML = `
-      <h3 style="margin:.1rem 0 .4rem 0;">Start with ${escapeHtml(scored.weakest)}</h3>
-      <p style="margin:.1rem 0;">Strongest: <strong>${escapeHtml(scored.strongest)}</strong></p>
-      <p style="margin:.1rem 0;">HDSS: <strong>${escapeHtml(scored.hdss)}</strong> / 100</p>
-      <p style="margin:.35rem 0 0 0;">Stage: <strong>${escapeHtml(scored.stage?.label || "Snapshot")}</strong></p>
-      ${rationale ? `<p style="margin:.6rem 0 0 0;"><strong>Why this lens —</strong> ${escapeHtml(rationale)}</p>` : ""}
+      ${rationale ? `<p style="margin:0 0 .75rem 0;"><strong>Why this lens —</strong> ${escapeHtml(rationale)}</p>` : ""}
       ${seed ? `
-        <hr style="margin:1rem 0; border:none; height:1px; background:#dfecea;">
         <p style="margin:.1rem 0 .5rem 0;"><strong>${escapeHtml(seed.title || "")}</strong></p>
         <ul style="margin:.25rem 0 0 1.1rem;">
           <li><strong>Today:</strong> ${escapeHtml(seed.today || "")}</li>
           <li><strong>This week:</strong> ${escapeHtml(seed.this_week || "")}</li>
           <li><strong>This month:</strong> ${escapeHtml(seed.this_month || "")}</li>
         </ul>
-      ` : ""}
+      ` : `<p class="muted" style="margin:0;">Your snapshot saved — seed content will appear here once available.</p>`}
     `;
 
-    // clear any previous appended extra card
     const old = result.querySelector(".cs-card");
     if (old) old.remove();
     result.appendChild(extra);
@@ -389,9 +411,9 @@ window.CSSeedForge = (() => {
   async function finish() {
     await ensureReady();
 
-    const scored = CSSeedForge.scoreAnswers(answers, sf.questions, sf.scoring);
-    const rationale = CSSeedForge.buildRationale(scored.weakest, QUESTIONS, answers);
-    const seed = CSSeedForge.seedsForLens(scored.weakest, sf.seeds)[0] || null;
+    const scored = window.CSSeedForge.scoreAnswers(answers, sf.questions, sf.scoring);
+    const rationale = window.CSSeedForge.buildRationale(scored.weakest, QUESTIONS, answers);
+    const seed = window.CSSeedForge.seedsForLens(scored.weakest, sf.seeds)[0] || null;
 
     const snapshotV2 = {
       v: 2,
@@ -415,27 +437,25 @@ window.CSSeedForge = (() => {
       } : null
     };
 
-    saveSnapshot(snapshotV2);
+    safeSet(SNAP_KEY, JSON.stringify(snapshotV2));
 
-    // render output
     renderResult(scored, seed, rationale);
 
-    // hide nav controls in-modal if you want
+    // hide controls after finishing (your UX choice)
     nextBtn.style.display = "none";
     backBtn.style.display = "none";
 
-    // show resources button if exists
     const go = document.getElementById("goToResources");
     if (go) go.style.display = "inline-flex";
 
-    // Optional hook if you also have unified result modal elsewhere
+    // Optional: if you have a unified result modal elsewhere
     if (typeof window.CSOpenSnapshotResult === "function") {
       window.CSOpenSnapshotResult();
     }
   }
 
-  // ---------- Controls ----------
-  nextBtn.onclick = async () => {
+  /* ---------- Controls ---------- */
+  nextBtn.addEventListener("click", async () => {
     if (step < 0) {
       try {
         nextBtn.disabled = true;
@@ -460,9 +480,9 @@ window.CSSeedForge = (() => {
 
     step++;
     renderQuestion();
-  };
+  });
 
-  backBtn.onclick = () => {
+  backBtn.addEventListener("click", () => {
     if (step <= 0) {
       step = -1;
       renderIntro();
@@ -470,45 +490,62 @@ window.CSSeedForge = (() => {
     }
     step--;
     renderQuestion();
-  };
+  });
 
-  // ✅ IMPORTANT FIX: Hard reset + open
-  document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-open-snapshot]");
+  /* ---------- OPEN handlers (mobile-safe) ---------- */
+  function handleOpen(e) {
+    const t = e.target?.closest?.("[data-open-snapshot]");
     if (!t) return;
 
     e.preventDefault();
-
-    // HARD RESET to prevent “opens on Q5 / Finish early”
     hardResetState();
     openModal();
     renderIntro();
-  });
+  }
 
-  // Close
+  // Click (desktop)
+  document.addEventListener("click", handleOpen, { passive: false });
+
+  // Touchend (mobile Safari)
+  document.addEventListener("touchend", handleOpen, { passive: false });
+
+  // Pointerup (newer mobile browsers)
+  document.addEventListener("pointerup", handleOpen, { passive: false });
+
+  /* ---------- Close handlers ---------- */
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  // Backdrop click closes (your HTML uses .modal-backdrop with data-close)
+  if (backdrop) {
+    backdrop.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+  }
+
+  // ESC closes
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
 
   // Reset snapshot (clears stored result + resets flow)
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       safeRemove(SNAP_KEY);
-      // keep baseline; you can also clear baseline if desired:
-      // safeRemove(BASELINE_KEY);
       hardResetState();
       renderIntro();
     });
   }
 
-  // ESC closes modal
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-  });
-
-  // If you want: reveal “resources hub” CTA when existing snapshot exists
+  // On load: if snapshot exists, reveal resources button
   document.addEventListener("DOMContentLoaded", () => {
     const snap = loadSnapshot();
     const btn = document.getElementById("goToResources");
     if (btn && snap) btn.style.display = "inline-flex";
+
+    // Ensure modal is initially hidden properly
+    modal.setAttribute("aria-hidden", "true");
+    modal.classList.remove("is-open");
   });
 
 })();
