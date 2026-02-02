@@ -312,6 +312,11 @@ h1{
   -webkit-overflow-scrolling:touch;
 }
 
+/* === Canon modal compatibility === */
+.cs-modal-backdrop{ display:none; }
+.modal.is-open .modal-backdrop{ display:block; }
+.modal.is-open{ display:block; }
+
 /* ---------- SNAPSHOT QUIZ ---------- */
 
 .quiz-block{
