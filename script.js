@@ -178,8 +178,10 @@ window.CSSeedForge = (() => {
   async function ensureReady() {
     if (sf) return;
     sf = await CSSeedForge.load();
-    QUESTIONS = sf.questions.questions;
-  }
+    QUESTIONS = [...sf.questions.questions].sort((a, b) => {
+      return a.id.localeCompare(b.id);
+    });
+
 
   function renderIntro() {
     form.innerHTML = `
@@ -254,11 +256,16 @@ window.CSSeedForge = (() => {
     renderQuestion();
   };
 
-  document.addEventListener("click", e => {
-    if (e.target.closest("[data-open-snapshot]")) {
-      modal.classList.add("is-open");
-      step = -1;
-      renderIntro();
-    }
-  });
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-open-snapshot]")) {
+    modal.classList.add("is-open");
+
+    // HARD RESET
+    step = -1;
+    for (const k in answers) delete answers[k];
+
+    renderIntro();
+  }
+});
+
 })();
