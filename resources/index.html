@@ -14,21 +14,44 @@
   <link rel="stylesheet" href="/style.css?v=20260201" />
 
   <!-- Resources logic -->
-  <script src="/resources/resources.js" defer></script>
+  <script src="/resources/resources.js?v=20260201" defer></script>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Optional: if your home page has a sticky header, keep this.
+       If you already inject a header elsewhere, you can remove it safely. -->
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Cyber Seeds home">
+        <img class="logo" src="/cyber_seeds_logo.png" alt="" />
+        <span class="brand-name">Cyber Seeds</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" data-nav>
+        <a href="/#why">Why Clarity</a>
+        <a href="/#lenses">Five Lenses</a>
+        <a href="/#benefits">Benefits</a>
+        <a href="/#about">About</a>
+        <a href="/#faqs">FAQs</a>
+        <a href="/resources/" aria-current="page">Resources</a>
+      </nav>
+    </div>
+  </header>
+
   <main id="main">
 
     <!-- ===============================
-         HERO (IDENTICAL TO HOME)
+         HERO (MATCH HOME)
          =============================== -->
-    <section class="hero">
+    <section class="hero hub-hero">
       <div class="container">
-
-        <div class="hero-grid">
+        <div class="hero-grid hub-hero-grid">
           <div>
             <p class="eyebrow">Your personalised resources</p>
 
@@ -40,11 +63,16 @@
             </p>
 
             <div class="hub-actions">
-              <button class="btn primary" data-open-snapshot>Take snapshot</button>
+              <button class="btn primary" type="button" data-open-snapshot>Take snapshot</button>
               <a class="btn ghost" href="/">Back to home</a>
             </div>
 
-
+            <!-- NOTE: pills removed as requested -->
+            <p class="hub-subnote">
+              Your results are created on this device. Nothing is uploaded.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -53,7 +81,6 @@
          =============================== -->
     <section class="hub-main">
       <div class="container">
-
         <div class="hub-grid">
 
           <!-- LEFT COLUMN -->
@@ -65,77 +92,153 @@
                 <p class="eyebrow">Your prioritised focus</p>
                 <h2 id="focusTitle">Loading…</h2>
                 <p class="section-lead" id="focusDesc"></p>
+
+                <div class="hub-chips" id="focusChips" aria-label="Focus tags"></div>
               </div>
             </div>
 
-            <!-- Lens Ring (IDENTICAL SCALE + STYLE AS HOME) -->
+            <!-- Lens Ring (Premium + personalised) -->
             <div class="card card-strong">
               <div class="card-pad">
                 <p class="eyebrow">Lens map</p>
                 <h2>Your five-lens safety ring</h2>
                 <p class="section-lead">
                   A single view of your household’s digital ecosystem.
-                  One highlighted lens shows your fastest improvement path.
+                  The highlighted lens is your fastest improvement path.
+                  Tap any lens to get guidance.
                 </p>
 
-                <div class="lens-ring">
-                  <svg viewBox="0 0 200 200" aria-label="Five lens ring">
+                <div class="lens-ring" role="group" aria-label="Five lens ring">
+                  <svg viewBox="0 0 200 200" class="ring-svg" aria-label="Five lens ring">
+                    <defs>
+                      <filter id="csGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2.2" result="blur"/>
+                        <feColorMatrix in="blur" type="matrix"
+                          values="1 0 0 0 0
+                                  0 1 0 0 0
+                                  0 0 1 0 0
+                                  0 0 0 0.9 0" result="glow"/>
+                        <feMerge>
+                          <feMergeNode in="glow"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                      </filter>
+                    </defs>
+
+                    <!-- track -->
                     <circle cx="100" cy="100" r="70" class="ring-track"></circle>
 
-                    <g id="ringSegments" transform="rotate(-90 100 100)">
-                      <path id="segNetwork" class="ring-seg"></path>
-                      <path id="segDevices" class="ring-seg"></path>
-                      <path id="segPrivacy" class="ring-seg"></path>
-                      <path id="segScams" class="ring-seg"></path>
-                      <path id="segWellbeing" class="ring-seg"></path>
-                      <path id="segFocusGlow" class="ring-focus"></path>
+                    <!-- segments -->
+                    <g transform="rotate(-90 100 100)">
+                      <path id="segNetwork" class="ring-seg" tabindex="0" role="button" aria-label="Network lens"></path>
+                      <path id="segDevices" class="ring-seg" tabindex="0" role="button" aria-label="Devices lens"></path>
+                      <path id="segPrivacy" class="ring-seg" tabindex="0" role="button" aria-label="Accounts and privacy lens"></path>
+                      <path id="segScams" class="ring-seg" tabindex="0" role="button" aria-label="Scams lens"></path>
+                      <path id="segWellbeing" class="ring-seg" tabindex="0" role="button" aria-label="Wellbeing lens"></path>
+
+                      <!-- focus glow -->
+                      <path id="segFocusGlow" class="ring-focus" filter="url(#csGlow)" aria-hidden="true"></path>
                     </g>
 
-                    <text x="100" y="92" class="ring-label" id="ringStage"></text>
+                    <!-- center -->
+                    <text x="100" y="90" class="ring-label" id="ringStage"></text>
                     <text x="100" y="118" class="ring-score" id="ringScore"></text>
                     <text x="100" y="140" class="ring-hint">FIVE LENSES</text>
                   </svg>
                 </div>
 
-                <div class="legend" id="legendBox">
-                  <div class="legend-row" id="legendNetwork"><span>Network</span><b id="valNetwork"></b></div>
-                  <div class="legend-row" id="legendDevices"><span>Devices</span><b id="valDevices"></b></div>
-                  <div class="legend-row" id="legendPrivacy"><span>Accounts & Privacy</span><b id="valPrivacy"></b></div>
-                  <div class="legend-row" id="legendScams"><span>Scams & Messages</span><b id="valScams"></b></div>
-                  <div class="legend-row" id="legendWellbeing"><span>Children & Wellbeing</span><b id="valWellbeing"></b></div>
+                <!-- Legend (clickable) -->
+                <div class="legend" id="legendBox" aria-label="Lens legend">
+                  <button class="legend-row" id="legendNetwork" type="button" data-lens="network">
+                    <span>Network</span><b id="valNetwork">—</b>
+                  </button>
+                  <button class="legend-row" id="legendDevices" type="button" data-lens="devices">
+                    <span>Devices</span><b id="valDevices">—</b>
+                  </button>
+                  <button class="legend-row" id="legendPrivacy" type="button" data-lens="privacy">
+                    <span>Accounts &amp; Privacy</span><b id="valPrivacy">—</b>
+                  </button>
+                  <button class="legend-row" id="legendScams" type="button" data-lens="scams">
+                    <span>Scams &amp; Messages</span><b id="valScams">—</b>
+                  </button>
+                  <button class="legend-row" id="legendWellbeing" type="button" data-lens="wellbeing">
+                    <span>Children &amp; Wellbeing</span><b id="valWellbeing">—</b>
+                  </button>
+                </div>
+
+                <!-- Lens insight (expands) -->
+                <div class="card lens-insight" id="lensInsightCard">
+                  <div class="card-pad">
+                    <p class="eyebrow" id="lensKicker">Focus lens</p>
+                    <h3 id="lensInsightTitle">Loading…</h3>
+                    <p class="section-lead" id="lensInsightBody"></p>
+
+                    <details class="cs-accordion" open>
+                      <summary>Why this lens matters in a real household</summary>
+                      <div class="cs-accordion__content" id="lensWhy"></div>
+                    </details>
+
+                    <details class="cs-accordion">
+                      <summary>What a “good” version of this looks like</summary>
+                      <div class="cs-accordion__content" id="lensGood"></div>
+                    </details>
+
+                    <details class="cs-accordion">
+                      <summary>Common traps (and how to avoid them)</summary>
+                      <div class="cs-accordion__content" id="lensTraps"></div>
+                    </details>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Small actions (stronger + structured + personalised) -->
+            <div class="card">
+              <div class="card-pad">
+                <p class="eyebrow">Small actions</p>
+                <h2>Small actions you can do</h2>
+                <p class="section-lead" id="actionsIntro">
+                  Calm steps, not a checklist. Pick one and you’ll feel the difference fast.
+                </p>
+
+                <div class="actions-3up">
+                  <section class="action-block" aria-label="Today actions">
+                    <h3>Today</h3>
+                    <ul id="actionsToday" class="action-list"></ul>
+                  </section>
+
+                  <section class="action-block" aria-label="This week actions">
+                    <h3>This week</h3>
+                    <ul id="actionsWeek" class="action-list"></ul>
+                  </section>
+
+                  <section class="action-block" aria-label="This month actions">
+                    <h3>This month</h3>
+                    <ul id="actionsMonth" class="action-list"></ul>
+                  </section>
+                </div>
+
+                <div class="seedline">
+                  <div class="seed-badge" aria-hidden="true">🌱</div>
+                  <div>
+                    <p class="seed-title">Digital Seed</p>
+                    <p id="seedText"></p>
+                  </div>
+                </div>
+
+                <div class="help-strip">
+                  <div>
+                    <p class="help-title">Want help applying this at home?</p>
+                    <p class="help-sub">If you benefited from the snapshot, you can ask a question or book a full audit.</p>
+                  </div>
+                  <div class="help-actions">
+                    <a class="btn ghost" href="mailto:info@cyberseeds.co.uk?subject=Cyber%20Seeds%20question">Email Cyber Seeds</a>
+                    <a class="btn primary" href="/#audit">Book a full audit</a>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="card" id="lensInsight">
-              <div class="card-pad">
-                <h3></h3>
-                <p></p>
-              </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="action-block">
-              <h3>Today</h3>
-              <ul id="actionsToday"></ul>
-            </div>
-            
-            <div class="action-block">
-              <h3>This week</h3>
-              <ul id="actionsWeek"></ul>
-            </div>
-            
-            <div class="action-block">
-              <h3>This month</h3>
-              <ul id="actionsMonth"></ul>
-            </div>
-
-
-          <p class="muted-note">
-            Need reassurance or help applying this at home?
-            <a href="mailto:info@cyberseeds.co.uk">Email us</a>.
-          </p>
-            
 
           </section>
 
@@ -145,11 +248,13 @@
             <div class="card">
               <div class="card-pad">
                 <p class="eyebrow">Snapshot overview</p>
-                <h2 id="stageTitle"></h2>
+                <h2 id="stageTitle">Loading…</h2>
                 <p class="section-lead" id="stageDesc"></p>
 
-                <p class="mini" id="fingerprintLine"></p>
-                <p class="muted-note" id="lastTakenLine"></p>
+                <div class="status">
+                  <p class="mini" id="fingerprintLine"></p>
+                  <p class="muted-note" id="lastTakenLine"></p>
+                </div>
               </div>
             </div>
 
@@ -157,19 +262,26 @@
               <div class="card-pad">
                 <p class="eyebrow">Progress tracking</p>
                 <h2>Retest and compare</h2>
+                <p class="section-lead">
+                  Save a baseline, then retest in 2–6 weeks. Progress should be visible — and encouraging.
+                </p>
+
                 <div id="progressGrid"></div>
 
                 <div class="hub-actions">
-                  <button class="btn primary" id="saveBaselineBtn">Save baseline</button>
-                  <button class="btn" id="clearBaselineBtn">Clear baseline</button>
+                  <button class="btn primary" id="saveBaselineBtn" type="button">Save baseline</button>
+                  <button class="btn" id="clearBaselineBtn" type="button">Clear baseline</button>
                 </div>
               </div>
             </div>
 
             <div class="card" id="emptyStateCard" style="display:none">
               <div class="card-pad">
-                <h2>No snapshot yet</h2>
-                <p>Take a snapshot and this page will personalise automatically.</p>
+                <p class="eyebrow">No data yet</p>
+                <h2>No snapshot on this device</h2>
+                <p class="section-lead">
+                  That’s completely okay. Take a snapshot and this page will personalise automatically.
+                </p>
                 <a class="btn primary" href="/#snapshot">Take snapshot</a>
               </div>
             </div>
@@ -183,12 +295,13 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p>© <span id="year"></span> Cyber Seeds</p>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Cyber Seeds</div>
       <a href="/">Home</a>
     </div>
   </footer>
 
+  <!-- Global site script (modal etc) -->
   <script src="/script.js?v=20260201"></script>
 </body>
 </html>
