@@ -208,6 +208,7 @@ delete window.__CS_SNAPSHOT_BOUND__;
     const btn = e.target.closest("[data-open-snapshot]");
     if (!btn) return;
 
+    console.log("[Cyber Seeds] Snapshot trigger clicked"); // 👈 ADD THIS 
     e.preventDefault();
     hardReset();
     openModal();
