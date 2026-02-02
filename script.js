@@ -110,64 +110,93 @@ window.CSSeedForge = (() => {
    * Each option contains points 0..20
    */
   function scoreAnswers(answers, questionsYaml, scoringYaml) {
-    const questions = (questionsYaml && questionsYaml.questions) || [];
-    const lensBuckets = { network: [], devices: [], privacy: [], scams: [], wellbeing: [] };
-
-    for (const q of questions) {
-      const qid = q.id;
-      const lens = normalizeLens(q.lens);
-      const raw = answers ? answers[qid] : null;
-
-      if (!lensBuckets[lens]) continue;
-
-      if (typeof raw === "number") {
-        const opt = q.options && q.options[raw];
-        const pts = opt && typeof opt.points === "number" ? opt.points : 0;
-        lensBuckets[lens].push(pts);
-        continue;
-      }
-
-      if (Array.isArray(raw)) {
-        for (const idx of raw) {
-          const opt = q.options && q.options[idx];
-          const pts = opt && typeof opt.points === "number" ? opt.points : 0;
-          lensBuckets[lens].push(pts);
-        }
-        continue;
-      }
-
-      // unanswered
-      lensBuckets[lens].push(0);
-    }
-
-    // Lens score = round(average points) clamped 0..20
-    const lensScores = {};
-    for (const lens of Object.keys(lensBuckets)) {
-      const arr = lensBuckets[lens];
-      const avg = arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
-      lensScores[lens] = Math.max(0, Math.min(20, Math.round(avg)));
-    }
-
-    // HDSS = sum of 5 lenses (0..100)
-    const hdss =
-      lensScores.network +
-      lensScores.devices +
-      lensScores.privacy +
-      lensScores.scams +
-      lensScores.wellbeing;
-
-    const entries = Object.entries(lensScores).sort((a, b) => b[1] - a[1]);
-    const strongest = entries[0] ? entries[0][0] : "network";
-    const weakest = entries[entries.length - 1] ? entries[entries.length - 1][0] : "network";
-
-    return {
-      lensScores,
-      hdss,
-      stage: stageFor(hdss, scoringYaml),
-      strongest,
-      weakest,
-    };
-  }
+     const questions = (questionsYaml && questionsYaml.questions) || [];
+     const cfg = scoringYaml?.scoring_v2 || {};
+   
+     const lensTotals = {};
+     const lensMax = {};
+     const lensMin = {};
+   
+     const lenses = ["network","devices","privacy","scams","wellbeing"];
+     lenses.forEach(l => {
+       lensTotals[l] = 0;
+       lensMax[l] = 0;
+       lensMin[l] = 0;
+     });
+   
+     for (const q of questions) {
+       const lens = normalizeLens(q.lens);
+       if (!lensTotals[lens]) continue;
+   
+       const v2 = q.scoring_v2 || {};
+       const importance = v2.importance ?? 1.0;
+       const maxPts = v2.max_points ?? 20;
+       const minPts = v2.min_points ?? 0;
+   
+       lensMax[lens] += maxPts * importance;
+       lensMin[lens] += minPts * importance;
+   
+       const raw = answers?.[q.id];
+       let earned = 0;
+   
+       if (typeof raw === "number") {
+         const opt = q.options?.[raw];
+         if (opt?.key && v2.answer_weights) {
+           earned = (v2.answer_weights[opt.key] ?? 0) * maxPts;
+         } else {
+           earned = opt?.points ?? 0;
+         }
+       }
+   
+       if (Array.isArray(raw)) {
+         for (const idx of raw) {
+           const opt = q.options?.[idx];
+           if (opt?.key && v2.answer_weights) {
+             earned += (v2.answer_weights[opt.key] ?? 0) * maxPts;
+           } else {
+             earned += opt?.points ?? 0;
+           }
+         }
+       }
+   
+       lensTotals[lens] += earned * importance;
+     }
+   
+     // Normalise lenses to 0–20
+     const lensScores = {};
+     for (const lens of lenses) {
+       const span = lensMax[lens] - lensMin[lens];
+       const norm = span > 0
+         ? (lensTotals[lens] - lensMin[lens]) / span
+         : 0;
+       lensScores[lens] = Math.max(0, Math.min(20, Math.round(norm * 20)));
+     }
+   
+     // HDSS = mean of lens percentages
+     const hdss = Math.round(
+       lenses.reduce((sum, l) => sum + lensScores[l], 0)
+     );
+   
+     const stage = stageFor(hdss, scoringYaml);
+   
+     // Sorted lens list (low → high)
+     const ordered = [...lenses].sort((a, b) => lensScores[a] - lensScores[b]);
+   
+     const weakest = ordered[0];
+     const strongest = ordered[ordered.length - 1];
+   
+     // Pick focus lens (smart rotation if healthy)
+     const focus = pickFocusLens(lensScores, cfg);
+   
+     return {
+       lensScores,
+       hdss,
+       stage,
+       strongest,
+       weakest: focus, // ← IMPORTANT CHANGE
+       rawWeakest: weakest
+     };
+   }
 
   function seedsForLens(lens, seedsYaml) {
     const key = normalizeLens(lens);
@@ -177,6 +206,23 @@ window.CSSeedForge = (() => {
 
   return { load, scoreAnswers, seedsForLens, normalizeLens, stageFor };
 })();
+
+function pickFocusLens(lensScores, cfg) {
+  const floor = cfg.focus_lens?.healthy_floor ?? 75;
+  const pool = cfg.focus_lens?.rotation_pool_when_healthy ?? [];
+
+  const allStrong = Object.values(lensScores).every(v => v >= 15); // 15/20 ≈ 75%
+
+  if (allStrong && pool.length) {
+    // Deterministic rotation using timestamp or local seed
+    const seed = Date.now();
+    return pool[seed % pool.length];
+  }
+
+  // Otherwise: true weakest
+  return Object.entries(lensScores)
+    .sort((a, b) => a[1] - b[1])[0][0];
+}
 
 /* =========================================================
    App + Snapshot Modal (Cyber Seeds upgrades + progress view)
