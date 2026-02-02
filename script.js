@@ -198,6 +198,22 @@ window.CSSeedForge = (() => {
      };
    }
 
+   function buildRationale(focusLens, questions, answers) {
+  const hits = [];
+
+  for (const q of questions) {
+    if (normalizeLens(q.lens) !== focusLens) continue;
+    const raw = answers[q.id];
+    if (typeof raw === "number" && raw > 0) {
+      hits.push(q.prompt);
+    }
+  }
+
+  if (!hits.length) return null;
+
+  return `You mentioned that ${hits[0].toLowerCase()} — that’s why we’re starting here.`;
+}
+
   function seedsForLens(lens, seedsYaml) {
     const key = normalizeLens(lens);
     const all = (seedsYaml && seedsYaml.seeds) || [];
@@ -1073,6 +1089,12 @@ function pickFocusLens(lensScores, cfg) {
     await ensureSeedForgeReady();
 
     const scored = CSSeedForge.scoreAnswers(answers, sf.questions, sf.scoring);
+    scored.rationale = buildRationale(
+      scored.weakest,
+      sf.questions.questions,
+      answers
+    );
+
     const focusSeeds = CSSeedForge.seedsForLens(scored.weakest, sf.seeds);
     const seed = focusSeeds && focusSeeds.length ? focusSeeds[0] : null;
 
@@ -1111,6 +1133,8 @@ function pickFocusLens(lensScores, cfg) {
     renderResult(scored, snapshotV2.seed, snapshotV2);
 
   }
+
+   ${scored.rationale ? `<p class="cs-eco"><strong>Why this lens —</strong> ${escapeHtml(scored.rationale)}</p>` : ""}
 
   function render() {
     if (step < 0) renderIntro();
