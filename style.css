@@ -525,9 +525,8 @@ h1{
 
 /* ---------- Absolute scroll lock ---------- */
 body.modal-open{
-  position:fixed;
-  width:100%;
-  overflow:hidden;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* ---------- Result Reveal Animation ---------- */
@@ -1495,15 +1494,21 @@ footer > div, footer a{
   text-align: center;
 }
 
-/* === SNAPSHOT MODAL CANON LOCK === */
-.modal {
+/* === SNAPSHOT MODAL FINAL CANON === */
+.modal{
+  position: fixed;
+  inset: 0;
   display: none;
+  z-index: 1000;
 }
 
-.modal.is-open {
+.modal.is-open{
   display: block;
 }
 
-.modal.is-open .modal-backdrop {
-  display: block;
+.modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(12,18,17,.55);
 }
+
