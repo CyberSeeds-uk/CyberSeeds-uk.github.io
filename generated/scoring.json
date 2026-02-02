@@ -3,27 +3,32 @@
     {
       "min": 0,
       "max": 30,
-      "label": "Fragile"
+      "label": "Fragile",
+      "message": "This household is carrying more digital strain than it should. That’s not a failure — it’s a starting point."
     },
     {
       "min": 31,
       "max": 50,
-      "label": "At-risk"
+      "label": "Vulnerable",
+      "message": "Some protections exist, but gaps could cause stress or harm under pressure. Small changes here make a big difference."
     },
     {
       "min": 51,
       "max": 70,
-      "label": "Stabilising"
+      "label": "Stabilising",
+      "message": "The foundations are forming. With a few focused improvements, this household can move into a calmer, safer rhythm."
     },
     {
       "min": 71,
       "max": 85,
-      "label": "Healthy"
+      "label": "Healthy",
+      "message": "This household has strong digital habits. Protection is mostly in place, with only minor areas to refine."
     },
     {
       "min": 86,
       "max": 100,
-      "label": "Flourishing"
+      "label": "Flourishing",
+      "message": "Digital life here supports calm, safety, and wellbeing. The focus now is maintenance and gentle growth."
     }
   ]
 }
