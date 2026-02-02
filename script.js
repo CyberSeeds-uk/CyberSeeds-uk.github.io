@@ -374,76 +374,71 @@ window.CSSeedForge = (() => {
   }
 
   function renderResult(scored, seed, rationale) {
-    if (!result) return;
-    result.hidden = false;
+     if (!result) return;
+     result.hidden = false;
+   
+     result.innerHTML = `
+       <div class="snapshot-summary">
+         <h3>Your household snapshot</h3>
+   
+         <p class="lead">
+           This is not a judgement — it’s a signal.
+           Your household already has strengths, and a clear next place to focus.
+         </p>
+   
+         <div class="snapshot-insight">
+           <p>
+             <strong>Strongest area:</strong>
+             <span>${scored.strongest}</span>
+           </p>
+   
+           <p>
+             <strong>Best place to start:</strong>
+             <span>${scored.weakest}</span>
+           </p>
+   
+           <p class="muted">
+             Overall signal: <strong>${scored.stage.label}</strong>
+           </p>
+         </div>
+   
+         ${rationale ? `
+           <div class="snapshot-why">
+             <p><strong>Why this focus?</strong></p>
+             <p>${rationale}</p>
+           </div>
+         ` : ""}
+   
+         ${seed ? `
+           <div class="snapshot-seed">
+             <h4>${seed.title}</h4>
+   
+             <ul>
+               <li><strong>Today:</strong> ${seed.today}</li>
+               <li><strong>This week:</strong> ${seed.this_week}</li>
+               <li><strong>This month:</strong> ${seed.this_month}</li>
+             </ul>
+   
+             <p class="muted">
+               You don’t need to do everything at once.
+               One small step is enough.
+             </p>
+           </div>
+         ` : ""}
+   
+         <div class="snapshot-next">
+           <p class="muted">
+             Your snapshot stays on this device.
+             You can revisit it or explore the Family Pack when you’re ready.
+           </p>
+         </div>
+       </div>
+     `;
+   
+     nextBtn.style.display = "none";
+     backBtn.style.display = "none";
+   }
 
-    const strongestEl = $("#strongestLens");
-    const weakestEl = $("#weakestLens");
-    const headlineEl = $("#resultHeadline");
-
-    if (strongestEl) strongestEl.textContent = scored.strongest;
-    if (weakestEl) weakestEl.textContent = scored.weakest;
-    if (headlineEl) headlineEl.textContent =
-      `Your ecosystem is strongest in ${scored.strongest} and needs the most support in ${scored.weakest}.`;
-
-    // keep your existing result section; just add a clean seed/rationale block
-    const extra = document.createElement("div");
-    extra.className = "cs-card";
-    extra.style.padding = "1rem";
-    extra.style.marginTop = "1rem";
-    extra.innerHTML = `
-      ${rationale ? `<p style="margin:0 0 .75rem 0;"><strong>Why this lens —</strong> ${escapeHtml(rationale)}</p>` : ""}
-      ${seed ? `
-        <p style="margin:.1rem 0 .5rem 0;"><strong>${escapeHtml(seed.title || "")}</strong></p>
-        <ul style="margin:.25rem 0 0 1.1rem;">
-          <li><strong>Today:</strong> ${escapeHtml(seed.today || "")}</li>
-          <li><strong>This week:</strong> ${escapeHtml(seed.this_week || "")}</li>
-          <li><strong>This month:</strong> ${escapeHtml(seed.this_month || "")}</li>
-        </ul>
-      ` : `<p class="muted" style="margin:0;">Your snapshot saved — seed content will appear here once available.</p>`}
-    `;
-
-    const old = result.querySelector(".cs-card");
-    if (old) old.remove();
-    result.appendChild(extra);
-  }
-
-  async function finish() {
-    await ensureReady();
-
-    const scored = window.CSSeedForge.scoreAnswers(answers, sf.questions, sf.scoring);
-    const rationale = window.CSSeedForge.buildRationale(scored.weakest, QUESTIONS, answers);
-    const seed = window.CSSeedForge.seedsForLens(scored.weakest, sf.seeds)[0] || null;
-
-    const snapshotV2 = {
-      v: 2,
-      ts: Date.now(),
-      engine: { built_at: sf.manifest?.built_at || null, base: sf.base || null },
-      answers: { ...answers },
-      hdss: scored.hdss,
-      stage: scored.stage?.label || "Snapshot",
-      band: scored.stage || null,
-      lensScores: scored.lensScores,
-      strongest: scored.strongest,
-      weakest: scored.weakest,
-      rationale: rationale || null,
-      seed: seed ? {
-        id: seed.id,
-        lens: seed.lens,
-        title: seed.title,
-        today: seed.today,
-        this_week: seed.this_week,
-        this_month: seed.this_month
-      } : null
-    };
-
-    safeSet(SNAP_KEY, JSON.stringify(snapshotV2));
-
-    renderResult(scored, seed, rationale);
-
-    // hide controls after finishing (your UX choice)
-    nextBtn.style.display = "none";
-    backBtn.style.display = "none";
 
     const go = document.getElementById("goToResources");
     if (go) go.style.display = "inline-flex";
