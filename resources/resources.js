@@ -88,3 +88,37 @@
   });
 
 })();
+
+const lensInfo = {
+  network: {
+    title: "Network — the boundary of your home",
+    text: "Your Wi-Fi protects every device inside your household. Weak boundaries expose everything else."
+  },
+  devices: {
+    title: "Devices — daily health",
+    text: "Out-of-date or unmanaged devices quietly accumulate risk."
+  },
+  privacy: {
+    title: "Accounts & Privacy — master keys",
+    text: "Email and Apple/Google accounts can reset almost everything else."
+  },
+  scams: {
+    title: "Scams & Messages — pressure points",
+    text: "Most damage happens when people are rushed or unsure."
+  },
+  wellbeing: {
+    title: "Children & Wellbeing — rhythm matters",
+    text: "Fatigue and overload increase risk across the household."
+  }
+};
+
+document.querySelectorAll(".legend-row").forEach(row => {
+  row.addEventListener("click", () => {
+    const key = row.id.replace("legend","");
+    const panel = document.getElementById("lensInsight");
+
+    panel.querySelector("h3").textContent = lensInfo[key].title;
+    panel.querySelector("p").textContent = lensInfo[key].text;
+    panel.classList.add("is-open");
+  });
+});
