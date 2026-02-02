@@ -1,13 +1,16 @@
 /* =========================================================
-   Cyber Seeds — Snapshot Modal Engine (FINAL CANON)
+   Cyber Seeds — Household Snapshot Engine
+   Calm • Deterministic • Canon
    ========================================================= */
-  
 
-   (() => {
+(() => {
   "use strict";
-  const $ = (s, r=document) => r.querySelector(s);
+
+  /* ---------- HELPERS ---------- */
+  const $  = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
+  /* ---------- DOM ---------- */
   const modal     = $("#snapshotModal");
   const backdrop  = modal?.querySelector(".modal-backdrop");
   const panel     = modal?.querySelector(".modal-panel");
@@ -17,23 +20,19 @@
   const nextBtn   = $("#snapshotNext");
   const backBtn   = $("#snapshotBack");
   const closeBtn  = $("#closeSnapshot");
-  const resetBtn  = $("#resetSnapshot");
-
-
-   
-  const SNAP_KEY = "cyberseeds_snapshot_v2";
- 
 
   if (!modal || !panel || !form || !nextBtn || !backBtn) {
-    console.warn("[Cyber Seeds] Snapshot modal missing DOM elements");
+    console.warn("[Cyber Seeds] Snapshot modal missing elements");
     return;
   }
 
   /* ---------- STATE ---------- */
   let step = -1;
   let QUESTIONS = [];
-  let sf = null;
+  let seedForge = null;
   const answers = {};
+
+  const SNAP_KEY = "cyberseeds_snapshot_v3";
 
   /* ---------- STORAGE ---------- */
   const safeGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
@@ -54,43 +53,49 @@
   }
 
   /* ---------- RESET ---------- */
-  function hardReset(){
+  function resetFlow(){
     step = -1;
     Object.keys(answers).forEach(k => delete answers[k]);
-
     form.innerHTML = "";
     if (result) result.hidden = true;
 
     nextBtn.textContent = "Start";
-    nextBtn.style.display = "";
-    backBtn.style.display = "";
     nextBtn.disabled = false;
+    nextBtn.style.display = "";
     backBtn.disabled = true;
+    backBtn.style.display = "";
   }
 
   /* ---------- LOAD QUESTIONS ---------- */
   async function ensureReady(){
-    if (sf && QUESTIONS.length) return;
+    if (seedForge && QUESTIONS.length) return;
 
-    sf = await window.CSSeedForge.load();
-    QUESTIONS = sf.questions.questions.slice()
+    seedForge = await window.CSSeedForge.load();
+    QUESTIONS = seedForge.questions.questions
+      .slice()
       .sort((a,b) => (a.order ?? 9999) - (b.order ?? 9999));
   }
 
-  /* ---------- RENDER ---------- */
+  /* ---------- RENDER: INTRO ---------- */
   function renderIntro(){
     form.innerHTML = `
-      <p class="muted">This is a calm check-in — not a test.</p>
-      <p class="muted">You’ll get one clear focus and simple next steps.</p>
+      <p class="muted">
+        This is a calm check-in — not a test.
+      </p>
+      <p class="muted">
+        Answer honestly. You’ll get one clear focus and simple next steps.
+      </p>
     `;
   }
 
+  /* ---------- RENDER: QUESTION ---------- */
   function renderQuestion(){
     const q = QUESTIONS[step];
     if (!q) return;
 
     form.innerHTML = `
       <p><strong>${q.prompt}</strong></p>
+
       <div class="choices">
         ${q.options.map((o,i)=>`
           <label class="choice">
@@ -99,26 +104,42 @@
           </label>
         `).join("")}
       </div>
-      ${q.reassurance ? `<p class="muted">${q.reassurance}</p>` : ""}
+
+      ${q.reassurance ? `
+        <p class="muted">${q.reassurance}</p>
+      ` : ""}
     `;
 
     nextBtn.textContent = step === QUESTIONS.length - 1 ? "Finish" : "Next";
     nextBtn.disabled = true;
     backBtn.disabled = step === 0;
 
-    $$("input", form).forEach(r => {
-      r.addEventListener("change", () => {
-        answers[q.id] = Number(r.value);
+    $$("input", form).forEach(radio => {
+      radio.addEventListener("change", () => {
+        answers[q.id] = Number(radio.value);
         nextBtn.disabled = false;
       });
     });
   }
 
   /* ---------- FINISH ---------- */
-  async function finish(){
-    const scored = sf.scoreAnswers(answers, sf.questions, sf.scoring);
-    const rationale = sf.buildRationale(scored.weakest, QUESTIONS, answers);
-    const seed = sf.seedsForLens(scored.weakest, sf.seeds)[0] || null;
+  function finish(){
+    const scored = seedForge.scoreAnswers(
+      answers,
+      seedForge.questions,
+      seedForge.scoring
+    );
+
+    const rationale = seedForge.buildRationale(
+      scored.weakest,
+      QUESTIONS,
+      answers
+    );
+
+    const seed = seedForge.seedsForLens(
+      scored.weakest,
+      seedForge.seeds
+    )[0] || null;
 
     const snapshot = {
       ts: Date.now(),
@@ -131,6 +152,7 @@
     renderResult(scored, seed, rationale);
   }
 
+  /* ---------- RENDER: RESULT ---------- */
   function renderResult(scored, seed, rationale){
     result.hidden = false;
     result.classList.add("reveal");
@@ -146,7 +168,9 @@
         <div class="snapshot-insight">
           <p><strong>Strongest area:</strong> ${scored.strongest}</p>
           <p><strong>Best place to start:</strong> ${scored.weakest}</p>
-          <p class="muted">Overall signal: <strong>${scored.stage.label}</strong></p>
+          <p class="muted">
+            Overall signal: <strong>${scored.stage.label}</strong>
+          </p>
         </div>
 
         ${rationale ? `
@@ -183,7 +207,7 @@
     }
 
     if (step === QUESTIONS.length - 1){
-      await finish();
+      finish();
       return;
     }
 
@@ -195,29 +219,32 @@
     if (step <= 0){
       step = -1;
       renderIntro();
+      backBtn.disabled = true;
       return;
     }
     step--;
     renderQuestion();
   });
 
-  /* ---------- OPEN HANDLER ---------- */
+  /* ---------- OPEN ---------- */
   document.addEventListener("click", e => {
     const btn = e.target.closest("[data-open-snapshot]");
     if (!btn) return;
 
-    console.log("[Cyber Seeds] Snapshot trigger clicked"); // 👈 ADD THIS 
     e.preventDefault();
-    hardReset();
+    resetFlow();
     openModal();
     renderIntro();
   });
 
+  /* ---------- CLOSE ---------- */
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
   if (backdrop) backdrop.addEventListener("click", closeModal);
 
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    if (e.key === "Escape" && modal.classList.contains("is-open")) {
+      closeModal();
+    }
   });
 
 })();
