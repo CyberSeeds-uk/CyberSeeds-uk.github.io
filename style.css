@@ -1309,3 +1309,121 @@ footer > div, footer a{
   text-anchor:middle;
   font-weight:900;
 }
+
+/* =========================================
+   Resources — Small Actions (Polished)
+   ========================================= */
+
+.action-block {
+  margin-top: 1.25rem;
+}
+
+.action-block h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--brand2);
+  margin-bottom: .5rem;
+}
+
+/* Reset list */
+.action-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Action card */
+.action-item {
+  background: var(--mint2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: .75rem .9rem;
+  margin-bottom: .6rem;
+  transition: background .15s ease, box-shadow .15s ease;
+}
+
+.action-item:hover {
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Details wrapper */
+.action-detail {
+  cursor: pointer;
+}
+
+.action-detail summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.action-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Expand icon */
+.action-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand2);
+  flex-shrink: 0;
+}
+
+/* Expanded body */
+.action-detail__body {
+  margin-top: .6rem;
+  padding-left: 1.6rem;
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Open state */
+.action-detail[open] {
+  background: #fff;
+}
+
+/* Digital seed footer */
+.seedline {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.seed-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--mint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.seed-title {
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Call-to-action buttons */
+.hub-actions {
+  display: flex;
+  gap: .6rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.hub-actions .btn {
+  border-radius: 999px;
+}
