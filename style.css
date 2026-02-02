@@ -1494,3 +1494,16 @@ footer > div, footer a{
   margin-top: 1.5rem;
   text-align: center;
 }
+
+/* === SNAPSHOT MODAL CANON LOCK === */
+.modal {
+  display: none;
+}
+
+.modal.is-open {
+  display: block;
+}
+
+.modal.is-open .modal-backdrop {
+  display: block;
+}
