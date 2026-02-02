@@ -294,6 +294,101 @@
 
   </main>
 
+  <!-- SNAPSHOT MODAL -->
+  <div class="modal" id="snapshotModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Household Snapshot">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="modal-panel" role="document" aria-describedby="snapshotDesc">
+      <div class="modal-head">
+        <div class="modal-head-left">
+          <p class="modal-eyebrow">Household Snapshot</p>
+          <h2 class="modal-title">A calm signal - not a score</h2>
+          <p class="modal-sub" id="snapshotDesc">Answer honestly. You’ll receive clarity and next steps.</p>
+        </div>
+
+        <div class="modal-head-right">
+          <button class="icon-btn" id="resetSnapshot" aria-label="Reset snapshot" type="button" title="Reset snapshot">↺</button>
+          <button class="icon-btn" id="closeSnapshot" aria-label="Close snapshot" type="button" title="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-scroll" id="snapshotScroll">
+          <div class="context-cards" id="snapshotChips"></div>
+
+          <form id="snapshotForm" class="quiz" aria-live="polite"></form>
+
+          <section id="snapshotResult" class="result" hidden>
+            <h3>Your Household Signal</h3>
+            <p id="resultHeadline" class="result-headline"></p>
+
+            <div class="result-grid">
+              <div class="result-card">
+                <h4>Strongest lens</h4>
+                <p id="strongestLens"></p>
+              </div>
+              <div class="result-card">
+                <h4>Weakest lens</h4>
+                <p id="weakestLens"></p>
+              </div>
+            </div>
+
+            <div class="chart" aria-label="Lens strength chart">
+              <div class="chart-row">
+                <span>Network</span>
+                <div class="bar"><div id="barNetwork" class="bar-fill"></div></div>
+                <em id="valNetwork"></em>
+              </div>
+              <div class="chart-row">
+                <span>Devices</span>
+                <div class="bar"><div id="barDevices" class="bar-fill"></div></div>
+                <em id="valDevices"></em>
+              </div>
+              <div class="chart-row">
+                <span>Privacy</span>
+                <div class="bar"><div id="barPrivacy" class="bar-fill"></div></div>
+                <em id="valPrivacy"></em>
+              </div>
+              <div class="chart-row">
+                <span>Scams</span>
+                <div class="bar"><div id="barScams" class="bar-fill"></div></div>
+                <em id="valScams"></em>
+              </div>
+              <div class="chart-row">
+                <span>Wellbeing</span>
+                <div class="bar"><div id="barWellbeing" class="bar-fill"></div></div>
+                <em id="valWellbeing"></em>
+              </div>
+            </div>
+
+           <div class="result-actions">
+             <a id="serverPdfLink" class="btn" style="display:none" target="_blank" rel="noopener">
+               Download PDF report
+             </a>
+
+              <button class="btn ghost" type="button" id="printSnapshot">Print / Save as PDF</button>
+              <button class="btn ghost" type="button" id="downloadSnapshotHtml">Download report (HTML)</button>
+              <a class="btn primary" id="goToResources" href="/resources/">Open my resources hub</a>
+              <button class="btn subtle" type="button" id="retakeSnapshot">Retake</button>
+            </div>
+
+            <p class="micro muted">Runs locally on this device. Nothing is sent anywhere.</p>
+          </section>
+        </div>
+
+        <div class="modal-foot">
+          <div class="snapshot-actions" id="snapshotControls">
+            <button type="button" class="btn ghost" id="snapshotBack">Back</button>
+            <div class="right-actions">
+              <span class="stepmeta" id="stepMeta" aria-live="polite"></span>
+              <button type="button" class="btn primary" id="snapshotNext">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="container footer-inner">
       <div>© <span id="year"></span> Cyber Seeds</div>
