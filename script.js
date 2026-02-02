@@ -1,11 +1,12 @@
 /* =========================================================
    Cyber Seeds — Snapshot Modal Engine (FINAL CANON)
    ========================================================= */
+  
 
-delete window.__CS_SNAPSHOT_BOUND__;
-
-(() => {
+   (() => {
   "use strict";
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
   const modal     = $("#snapshotModal");
   const backdrop  = modal?.querySelector(".modal-backdrop");
@@ -18,8 +19,7 @@ delete window.__CS_SNAPSHOT_BOUND__;
   const closeBtn  = $("#closeSnapshot");
   const resetBtn  = $("#resetSnapshot");
 
-  const $ = (s, r=document) => r.querySelector(s);
-  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
    
   const SNAP_KEY = "cyberseeds_snapshot_v2";
  
@@ -218,29 +218,6 @@ delete window.__CS_SNAPSHOT_BOUND__;
 
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-  });
-
-})();
-
-
-  // Reset snapshot (clears stored result + resets flow)
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      safeRemove(SNAP_KEY);
-      hardResetState();
-      renderIntro();
-    });
-  }
-
-  // On load: if snapshot exists, reveal resources button
-  document.addEventListener("DOMContentLoaded", () => {
-    const snap = loadSnapshot();
-    const btn = document.getElementById("goToResources");
-    if (btn && snap) btn.style.display = "inline-flex";
-
-    // Ensure modal is initially hidden properly
-    modal.setAttribute("aria-hidden", "true");
-    modal.classList.remove("is-open");
   });
 
 })();
