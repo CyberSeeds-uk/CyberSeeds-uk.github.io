@@ -6,19 +6,21 @@
       "type": "single",
       "prompt": "If you ever needed to change your home Wi-Fi settings, would you know where to start?",
       "reassurance": "Most households don’t access these settings often — awareness matters more than expertise.",
+      "scoring_v2": {
+        "importance": 1.0,
+        "max_points": 18,
+        "min_points": 6,
+        "answer_weights": {
+          "high": 1.0,
+          "mid": 0.66,
+          "low": 0.33
+        },
+        "rationale_tags": ["router_admin_access", "wifi_confidence"]
+      },
       "options": [
-        {
-          "label": "Yes — I’m comfortable with this",
-          "points": 18
-        },
-        {
-          "label": "I’d need a moment to figure it out",
-          "points": 12
-        },
-        {
-          "label": "Not yet — I’d need help",
-          "points": 6
-        }
+        { "key": "high", "label": "Yes — I’m comfortable with this", "points": 18 },
+        { "key": "mid", "label": "I’d need a moment to figure it out", "points": 12 },
+        { "key": "low", "label": "Not yet — I’d need help", "points": 6 }
       ]
     },
     {
@@ -27,19 +29,21 @@
       "type": "single",
       "prompt": "In your household, do most devices update themselves without needing reminders?",
       "reassurance": "It’s common for updates to be a mix of automatic and manual.",
+      "scoring_v2": {
+        "importance": 1.0,
+        "max_points": 18,
+        "min_points": 6,
+        "answer_weights": {
+          "high": 1.0,
+          "mid": 0.66,
+          "low": 0.33
+        },
+        "rationale_tags": ["auto_updates", "patch_hygiene"]
+      },
       "options": [
-        {
-          "label": "Yes — most update on their own",
-          "points": 18
-        },
-        {
-          "label": "Some do, some need reminders",
-          "points": 12
-        },
-        {
-          "label": "I’m not sure how updates are handled",
-          "points": 6
-        }
+        { "key": "high", "label": "Yes — most update on their own", "points": 18 },
+        { "key": "mid", "label": "Some do, some need reminders", "points": 12 },
+        { "key": "low", "label": "I’m not sure how updates are handled", "points": 6 }
       ]
     },
     {
@@ -48,19 +52,21 @@
       "type": "single",
       "prompt": "For your main email account, is there an extra step to protect it when signing in?",
       "reassurance": "You don’t need to know the name of the setting — just whether it exists.",
+      "scoring_v2": {
+        "importance": 1.15,
+        "max_points": 20,
+        "min_points": 5,
+        "answer_weights": {
+          "high": 1.0,
+          "mid": 0.65,
+          "low": 0.25
+        },
+        "rationale_tags": ["2sv_enabled", "root_account_protection"]
+      },
       "options": [
-        {
-          "label": "Yes — there’s an extra sign-in step",
-          "points": 20
-        },
-        {
-          "label": "I think so, but I’m not certain",
-          "points": 13
-        },
-        {
-          "label": "No — it’s just a password",
-          "points": 5
-        }
+        { "key": "high", "label": "Yes — there’s an extra sign-in step", "points": 20 },
+        { "key": "mid", "label": "I think so, but I’m not certain", "points": 13 },
+        { "key": "low", "label": "No — it’s just a password", "points": 5 }
       ]
     },
     {
@@ -69,19 +75,21 @@
       "type": "single",
       "prompt": "When a message feels urgent, does your household usually pause before acting?",
       "reassurance": "Scams rely on pressure, not intelligence — pausing is a learned habit.",
+      "scoring_v2": {
+        "importance": 1.0,
+        "max_points": 18,
+        "min_points": 6,
+        "answer_weights": {
+          "high": 1.0,
+          "mid": 0.66,
+          "low": 0.33
+        },
+        "rationale_tags": ["pause_habit", "pressure_resistance"]
+      },
       "options": [
-        {
-          "label": "Yes — we usually pause first",
-          "points": 18
-        },
-        {
-          "label": "Sometimes — it depends on the situation",
-          "points": 12
-        },
-        {
-          "label": "Not yet — we’re still figuring this out",
-          "points": 6
-        }
+        { "key": "high", "label": "Yes — we usually pause first", "points": 18 },
+        { "key": "mid", "label": "Sometimes — it depends on the situation", "points": 12 },
+        { "key": "low", "label": "Not yet — we’re still figuring this out", "points": 6 }
       ]
     },
     {
@@ -90,19 +98,21 @@
       "type": "single",
       "prompt": "Are there any routines in your household that help protect sleep from screens?",
       "reassurance": "Routines don’t have to be perfect to be protective.",
+      "scoring_v2": {
+        "importance": 0.9,
+        "max_points": 16,
+        "min_points": 6,
+        "answer_weights": {
+          "high": 1.0,
+          "mid": 0.69,
+          "low": 0.38
+        },
+        "rationale_tags": ["sleep_protection", "screen_routines"]
+      },
       "options": [
-        {
-          "label": "Yes — most nights are protected",
-          "points": 16
-        },
-        {
-          "label": "Sometimes — it varies",
-          "points": 11
-        },
-        {
-          "label": "Not yet — routines are still forming",
-          "points": 6
-        }
+        { "key": "high", "label": "Yes — most nights are protected", "points": 16 },
+        { "key": "mid", "label": "Sometimes — it varies", "points": 11 },
+        { "key": "low", "label": "Not yet — routines are still forming", "points": 6 }
       ]
     }
   ]
