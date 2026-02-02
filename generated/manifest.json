@@ -1,8 +1,12 @@
 {
+  "schema_version": "2.0.0",
   "built_at": "2026-01-31T03:02:03.670Z",
   "counts": {
     "questions": 5,
     "seeds": 5,
     "bands": 5
+  },
+  "notes": {
+    "compat": "Keeps option.points for v1 UI. Adds scoring_v2 fields for stronger/weakest accuracy, deterministic focus lens rotation, and rationale generation."
   }
 }
