@@ -44,20 +44,6 @@
               <a class="btn ghost" href="/">Back to home</a>
             </div>
 
-            <div class="pill-row" aria-label="Trust signals">
-              <span class="pill">Runs locally</span>
-              <span class="pill">No accounts</span>
-              <span class="pill">No tracking</span>
-              <span class="pill">Clear next steps</span>
-            </div>
-
-            <p class="hub-contact">
-              Need guidance? Email
-              <a href="mailto:info@cyberseeds.co.uk">info@cyberseeds.co.uk</a>
-              — every message is read.
-            </p>
-          </div>
-        </div>
 
       </div>
     </section>
@@ -121,21 +107,35 @@
               </div>
             </div>
 
-            <!-- Actions -->
-            <div class="card">
+            <div class="card" id="lensInsight">
               <div class="card-pad">
-                <h2>Small actions you can do today</h2>
-                <div id="actionList"></div>
-
-                <div class="seedline">
-                  <div class="seed-badge">🌱</div>
-                  <div>
-                    <p class="seed-title">Digital Seed</p>
-                    <p id="seedText"></p>
-                  </div>
-                </div>
+                <h3></h3>
+                <p></p>
               </div>
             </div>
+
+            <!-- Actions -->
+            <div class="action-block">
+              <h3>Today</h3>
+              <ul id="actionsToday"></ul>
+            </div>
+            
+            <div class="action-block">
+              <h3>This week</h3>
+              <ul id="actionsWeek"></ul>
+            </div>
+            
+            <div class="action-block">
+              <h3>This month</h3>
+              <ul id="actionsMonth"></ul>
+            </div>
+
+
+          <p class="muted-note">
+            Need reassurance or help applying this at home?
+            <a href="mailto:info@cyberseeds.co.uk">Email us</a>.
+          </p>
+            
 
           </section>
 
