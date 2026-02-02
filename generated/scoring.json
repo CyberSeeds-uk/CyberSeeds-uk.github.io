@@ -1,34 +1,66 @@
 {
-  "bands": [
-    {
-      "min": 0,
-      "max": 30,
-      "label": "Fragile",
-      "message": "This household is carrying more digital strain than it should. That’s not a failure — it’s a starting point."
+  "scoring_v2": {
+    "hdss": {
+      "method": "mean_of_lens_percentages",
+      "rounding": "nearest_int",
+      "lens_weights": {
+        "network": 1.0,
+        "devices": 1.0,
+        "privacy": 1.0,
+        "scams": 1.0,
+        "wellbeing": 1.0
+      }
     },
-    {
-      "min": 31,
-      "max": 50,
-      "label": "Vulnerable",
-      "message": "Some protections exist, but gaps could cause stress or harm under pressure. Small changes here make a big difference."
+
+    "lens_normalisation": {
+      "mode": "per_lens_max_from_questions",
+      "use_question_importance": true
     },
-    {
-      "min": 51,
-      "max": 70,
-      "label": "Stabilising",
-      "message": "The foundations are forming. With a few focused improvements, this household can move into a calmer, safer rhythm."
+
+    "strongest_weakest": {
+      "tie_breaker": "prefer_more_recently_improved",
+      "fallback": "stable_order"
     },
-    {
-      "min": 71,
-      "max": 85,
-      "label": "Healthy",
-      "message": "This household has strong digital habits. Protection is mostly in place, with only minor areas to refine."
+
+    "focus_lens": {
+      "strategy": "weakest_else_rotate_when_healthy",
+      "healthy_floor": 75,
+      "rotation_pool_when_healthy": ["network", "devices", "privacy", "scams"],
+      "rotation_mode": "deterministic_by_snapshot_id",
+      "note": "Prevents defaulting to wellbeing when all lenses are strong."
     },
-    {
-      "min": 86,
-      "max": 100,
-      "label": "Flourishing",
-      "message": "Digital life here supports calm, safety, and wellbeing. The focus now is maintenance and gentle growth."
+
+    "rationale": {
+      "enabled": true,
+      "max_points_to_explain": 2,
+      "templates": {
+        "network": [
+          "You mentioned that Wi-Fi settings don’t feel fully clear yet. That’s why we’re starting with the home’s digital front door.",
+          "Because router access feels uncertain, small network steps will protect everything behind it."
+        ],
+        "devices": [
+          "Updates and device upkeep sounded mixed. That’s why we’re starting with steady, automatic protection.",
+          "Because updates aren’t fully clear, we’re focusing on making devices look after themselves."
+        ],
+        "privacy": [
+          "Your main email is the key to almost everything else. That’s why we’re starting with core account protection.",
+          "Because sign-in protection isn’t fully confirmed, we’re focusing on the accounts that protect everything else."
+        ],
+        "scams": [
+          "Urgent messages rely on pressure. That’s why we’re starting with a calm pause-and-check habit.",
+          "Because urgency can push decisions, we’re focusing on a household response routine."
+        ],
+        "wellbeing": [
+          "Sleep and attention are part of safety. That’s why we’re starting with gentle screen routines that protect rest.",
+          "Because routines are still forming, we’re focusing on calm boundaries that actually stick."
+        ]
+      }
+    },
+
+    "reporting": {
+      "enable_download_notice": true,
+      "planned_actions_format": ["today", "this_week", "this_month"],
+      "baseline_tip_once": true
     }
-  ]
+  }
 }
