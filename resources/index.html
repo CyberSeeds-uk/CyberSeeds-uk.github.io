@@ -4,817 +4,191 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0f2f2a" />
-  <title>Cyber Seeds — Personalised Resources Hub</title>
-  <meta name="description" content="Your personalised Cyber Seeds resources hub, crafted from your latest household snapshot." />
+
+  <title>Cyber Seeds — Personalised Resources</title>
+  <meta name="description" content="Your personalised Cyber Seeds resources, built locally from your household snapshot." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-  <link rel="stylesheet" href="/style.css?v=20260126" />
-  <!-- custom style tweaks for personalised feel -->
-  <style>
-    /* preserve original palette and layout */
-    .hub-contact{
-      margin-top:12px;
-      font-size:0.96rem;
-      color:var(--cs-muted);
-    }
-    .hub-contact a{
-      color:var(--cs-ink);
-      font-weight:700;
-    }
-  </style>
+
+  <!-- Global site styles -->
+  <link rel="stylesheet" href="/style.css?v=20260201" />
+
+  <!-- Resources logic -->
+  <script src="/resources/resources.js" defer></script>
 </head>
 
-<script src="/resources/resources.js" defer></script>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <main id="main">
-    <section class="hub-hero">
-      <div class="container">Your personalised resources</div>
-      <h1 class="hub-title">Your Personalised Resources Hub</h1>
-      <p class="hub-subtitle">
-        This page transforms after your household snapshot. It adapts to your unique digital ecology, offering calm, actionable guidance built just for you.
-      </p>
 
-      <div class="hub-actions">
-        <button class="btn primary" type="button" data-open-snapshot>Take snapshot</button>
-        <a class="btn ghost" href="/" id="backHomeBtn">Back to home</a>
+    <!-- ===============================
+         HERO (IDENTICAL TO HOME)
+         =============================== -->
+    <section class="hero">
+      <div class="container">
+
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Your personalised resources</p>
+
+            <h1>Your Personalised Resources Hub</h1>
+
+            <p class="lead">
+              This page adapts to your household snapshot. It offers calm,
+              practical guidance built specifically for your digital ecology.
+            </p>
+
+            <div class="hub-actions">
+              <button class="btn primary" data-open-snapshot>Take snapshot</button>
+              <a class="btn ghost" href="/">Back to home</a>
+            </div>
+
+            <div class="pill-row" aria-label="Trust signals">
+              <span class="pill">Runs locally</span>
+              <span class="pill">No accounts</span>
+              <span class="pill">No tracking</span>
+              <span class="pill">Clear next steps</span>
+            </div>
+
+            <p class="hub-contact">
+              Need guidance? Email
+              <a href="mailto:info@cyberseeds.co.uk">info@cyberseeds.co.uk</a>
+              — every message is read.
+            </p>
+          </div>
+        </div>
+
       </div>
-
-
-      <div class="pill-row" aria-label="Trust signals">
-        <span class="pill">Runs locally</span>
-        <span class="pill">No accounts</span>
-        <span class="pill">No tracking</span>
-        <span class="pill">Clear next steps</span>
-      </div>
-      <!-- personalised contact callout -->
-      <p class="hub-contact">
-        Have a question or need guidance? Feel free to reach out via
-        <a href="mailto:info@cyberseeds.co.uk">info@cyberseeds.co.uk</a> — I read every message.
-      </p>
     </section>
 
-    <!-- rest of the page copied from original resources hub -->
-    <section class="grid" aria-label="Resources hub content">
-      <!-- LEFT -->
-      <div class="card">
-        <div class="card-pad">
-          <div class="eyebrow">Your prioritised focus</div>
-          <h2 class="h2" id="focusTitle">Loading your focus…</h2>
-          <p class="p" id="focusDesc">We’ll build your next steps from the last snapshot stored on this device.</p>
+    <!-- ===============================
+         MAIN CONTENT
+         =============================== -->
+    <section class="hub-main">
+      <div class="container">
 
-          <div class="divider"></div>
+        <div class="hub-grid">
 
-          <!-- Lens Ring -->
-          <div class="eyebrow">Lens map</div>
-          <h3 class="h2" style="margin-top:0;">Your five-lens safety ring</h3>
-          <p class="p">This is your household’s digital ecology at a glance. One highlighted lens = your fastest improvement path.</p>
+          <!-- LEFT COLUMN -->
+          <section class="hub-col">
 
-          <div class="ring-wrap" role="group" aria-label="Five lens ring">
-            <div class="ring-grid">
-              <svg class="ring-svg" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-label="Lens ring diagram">
-                <!-- track -->
-                <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(15,47,42,.10)" stroke-width="18"></circle>
+            <!-- Focus -->
+            <div class="card">
+              <div class="card-pad">
+                <p class="eyebrow">Your prioritised focus</p>
+                <h2 id="focusTitle">Loading…</h2>
+                <p class="section-lead" id="focusDesc"></p>
+              </div>
+            </div>
 
-                <!-- 5 segments -->
-                <g id="ringSegments" transform="rotate(-90 100 100)">
-                  <path id="segNetwork" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segDevices" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segPrivacy" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segScams" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-                  <path id="segWellbeing" d="" stroke="#1a6a5d" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.25"></path>
-
-                  <!-- focus glow -->
-                  <path id="segFocusGlow" d="" stroke="rgba(26,106,93,.65)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0"></path>
-                </g>
-
-                <!-- center -->
-                <text x="100" y="92" class="ring-center ring-stage" id="ringStage">STAGE</text>
-                <text x="100" y="116" class="ring-center ring-score" id="ringScore">—</text>
-                <text x="100" y="138" class="ring-center ring-stage" id="ringHint">FIVE LENSES</text>
-              </svg>
-
-              <div class="ring-help">
-                <div class="legend" id="legendBox">
-                  <div class="legend-row" id="legendNetwork">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Network</span></div>
-                    <div class="legend-val" id="valNetwork">—</div>
-                  </div>
-                  <div class="legend-row" id="legendDevices">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Devices</span></div>
-                    <div class="legend-val" id="valDevices">—</div>
-                  </div>
-                  <div class="legend-row" id="legendPrivacy">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Accounts &amp; Privacy</span></div>
-                    <div class="legend-val" id="valPrivacy">—</div>
-                  </div>
-                  <div class="legend-row" id="legendScams">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Scams &amp; Messages</span></div>
-                    <div class="legend-val" id="valScams">—</div>
-                  </div>
-                  <div class="legend-row" id="legendWellbeing">
-                    <div class="legend-left"><span class="dot"></span><span class="legend-name">Children &amp; Wellbeing</span></div>
-                    <div class="legend-val" id="valWellbeing">—</div>
-                  </div>
-                </div>
-
-                <p class="muted-note" id="ringNote">
-                  A darker segment means stronger protection in that lens. Your focus lens is highlighted.
+            <!-- Lens Ring (IDENTICAL SCALE + STYLE AS HOME) -->
+            <div class="card card-strong">
+              <div class="card-pad">
+                <p class="eyebrow">Lens map</p>
+                <h2>Your five-lens safety ring</h2>
+                <p class="section-lead">
+                  A single view of your household’s digital ecosystem.
+                  One highlighted lens shows your fastest improvement path.
                 </p>
-              </div>
-            </div>
-          </div>
 
-          <div class="divider"></div>
+                <div class="lens-ring">
+                  <svg viewBox="0 0 200 200" aria-label="Five lens ring">
+                    <circle cx="100" cy="100" r="70" class="ring-track"></circle>
 
-          <!-- Household Map -->
-          <div class="eyebrow">Household map</div>
-          <h3 class="h2" style="margin-top:0;">What protects everything else</h3>
-          <p class="p">
-            This is the structure most families never see — but it shapes nearly every online incident.
-          </p>
+                    <g id="ringSegments" transform="rotate(-90 100 100)">
+                      <path id="segNetwork" class="ring-seg"></path>
+                      <path id="segDevices" class="ring-seg"></path>
+                      <path id="segPrivacy" class="ring-seg"></path>
+                      <path id="segScams" class="ring-seg"></path>
+                      <path id="segWellbeing" class="ring-seg"></path>
+                      <path id="segFocusGlow" class="ring-focus"></path>
+                    </g>
 
-          <div class="map-wrap" role="group" aria-label="Household map diagram">
-            <div class="map">
-              <div class="map-node">
-                <div class="node-top">
-                  <div class="node-title">Root accounts</div>
-                  <div class="node-tag" id="rootTag">Email • Apple • Google</div>
+                    <text x="100" y="92" class="ring-label" id="ringStage"></text>
+                    <text x="100" y="118" class="ring-score" id="ringScore"></text>
+                    <text x="100" y="140" class="ring-hint">FIVE LENSES</text>
+                  </svg>
                 </div>
-                <div class="node-text">
-                  These accounts can reset passwords and restore access to other services.
-                </div>
-              </div>
 
-              <div class="map-arrow" aria-hidden="true">
-                <span>reset access</span>
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M7 14l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>spreads fast</span>
-              </div>
-
-              <div class="map-node">
-                <div class="node-top">
-                  <div class="node-title">Everything else</div>
-                  <div class="node-tag">Bank • School • Social • Shopping</div>
-                </div>
-                <div class="node-text">
-                  If the root accounts are compromised, attackers can move through the household quickly.
+                <div class="legend" id="legendBox">
+                  <div class="legend-row" id="legendNetwork"><span>Network</span><b id="valNetwork"></b></div>
+                  <div class="legend-row" id="legendDevices"><span>Devices</span><b id="valDevices"></b></div>
+                  <div class="legend-row" id="legendPrivacy"><span>Accounts & Privacy</span><b id="valPrivacy"></b></div>
+                  <div class="legend-row" id="legendScams"><span>Scams & Messages</span><b id="valScams"></b></div>
+                  <div class="legend-row" id="legendWellbeing"><span>Children & Wellbeing</span><b id="valWellbeing"></b></div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="divider"></div>
+            <!-- Actions -->
+            <div class="card">
+              <div class="card-pad">
+                <h2>Small actions you can do today</h2>
+                <div id="actionList"></div>
 
-          <h3 class="h2">Small actions you can do today</h3>
-          <div class="list" id="actionList"></div>
-
-          <div class="seedline" aria-label="Digital Seed takeaway">
-            <div class="seed-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21c4-3 7-7 7-12C16 9 12 4 12 4S8 9 5 9c0 5 3 9 7 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
+                <div class="seedline">
+                  <div class="seed-badge">🌱</div>
+                  <div>
+                    <p class="seed-title">Digital Seed</p>
+                    <p id="seedText"></p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <p class="seed-title">Digital Seed</p>
-              <p class="seed-text" id="seedText">Protect the “root accounts” (email + Apple/Google) before everything else.</p>
+
+          </section>
+
+          <!-- RIGHT COLUMN -->
+          <aside class="hub-col">
+
+            <div class="card">
+              <div class="card-pad">
+                <p class="eyebrow">Snapshot overview</p>
+                <h2 id="stageTitle"></h2>
+                <p class="section-lead" id="stageDesc"></p>
+
+                <p class="mini" id="fingerprintLine"></p>
+                <p class="muted-note" id="lastTakenLine"></p>
+              </div>
             </div>
-          </div>
+
+            <div class="card">
+              <div class="card-pad">
+                <p class="eyebrow">Progress tracking</p>
+                <h2>Retest and compare</h2>
+                <div id="progressGrid"></div>
+
+                <div class="hub-actions">
+                  <button class="btn primary" id="saveBaselineBtn">Save baseline</button>
+                  <button class="btn" id="clearBaselineBtn">Clear baseline</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="emptyStateCard" style="display:none">
+              <div class="card-pad">
+                <h2>No snapshot yet</h2>
+                <p>Take a snapshot and this page will personalise automatically.</p>
+                <a class="btn primary" href="/#snapshot">Take snapshot</a>
+              </div>
+            </div>
+
+          </aside>
+
         </div>
       </div>
-
-      <!-- RIGHT -->
-      <aside>
-        <div class="card">
-          <div class="card-pad">
-            <div class="eyebrow">Your snapshot overview</div>
-            <h2 class="h2" id="stageTitle">Loading your stage…</h2>
-            <p class="p" id="stageDesc">This is a calm readout — not judgement. It’s a signal you can act on.</p>
-
-            <div class="status" role="note" aria-label="Snapshot note">
-              <div class="mini" id="fingerprintLine">
-                <strong>Household fingerprint:</strong> building your pattern from the last snapshot…
-              </div>
-              <div class="muted-note" id="lastTakenLine"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:14px;">
-          <div class="card-pad">
-            <div class="eyebrow">Progress tracking</div>
-            <h2 class="h2">Retest and compare</h2>
-            <p class="p">
-              Cyber Seeds is designed for repeat snapshots. Small changes compound fast — and your progress should be visible.
-            </p>
-
-            <div class="progress-grid" id="progressGrid"></div>
-
-            <p class="muted-note" id="progressNote">
-              Tip: take a snapshot today, then retest in 2–6 weeks. This device remembers your baseline locally.
-            </p>
-
-            <div class="hub-actions" style="margin-top:14px;">
-              <button class="btn primary" id="saveBaselineBtn" type="button">Save as baseline</button>
-              <button class="btn" id="clearBaselineBtn" type="button">Clear baseline</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" id="emptyStateCard" style="display:none; margin-top:14px;">
-          <div class="card-pad">
-            <div class="empty">
-              <h3>No snapshot found on this device</h3>
-              <p>That’s completely okay. Take a quick snapshot and this page will build your personalised hub automatically.</p>
-              <a class="btn primary" href="/#snapshot">Take snapshot now</a>
-            </div>
-          </div>
-        </div>
-      </aside>
     </section>
+
   </main>
 
-  <footer>
-    <div>© <span id="year"></span> Cyber Seeds</div>
-    <a href="/">Home</a>
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Cyber Seeds</p>
+      <a href="/">Home</a>
+    </div>
   </footer>
 
-  <!-- Inline snapshot engine and resources hub logic (copied from original resources page) -->
-  <script>
-    (function(){
-      "use strict";
-
-      const $ = (sel, root=document) => root.querySelector(sel);
-
-      // Year
-      const YEAR = $("#year");
-      if (YEAR) YEAR.textContent = String(new Date().getFullYear());
-
-      // -------- Keys (future-proof) --------
-      const SNAPSHOT_KEYS = [
-        "cyberseeds_snapshot_v2",
-        "cyberseeds_snapshot_v1",
-      
-        // fallbacks / legacy
-        "seed_snapshot_v2",
-        "cyberseeds_snapshot_last",
-        "cyberSeeds_snapshot_last",
-        "cs_snapshot_last",
-        "snapshot_last",
-        "cyberseeds_snapshot",
-        "cyberSeedsSnapshot",
-        "cyberSeeds.snapshot",
-        "cs.snapshot.last",
-        "cs:lastSnapshot"
-      ];
-
-
-      const BASELINE_KEY = "cyberseeds_snapshot_baseline_v2";
-
-      function safeJSONParse(str){
-        try { return JSON.parse(str); } catch { return null; }
-      }
-
-      function safeGetStorageItem(k){
-        // iOS Safari can behave weirdly when storage is blocked
-        try { return localStorage.getItem(k); } catch {}
-        try { return sessionStorage.getItem(k); } catch {}
-        return null;
-      }
-
-      function safeSetStorageItem(k, v){
-        try { localStorage.setItem(k, v); return true; } catch {}
-        try { sessionStorage.setItem(k, v); return true; } catch {}
-        return false;
-      }
-
-      function safeRemoveStorageItem(k){
-        try { localStorage.removeItem(k); } catch {}
-        try { sessionStorage.removeItem(k); } catch {}
-      }
-
-      if (localStorage.getItem("cs_snapshot_updated")) {
-        localStorage.removeItem("cs_snapshot_updated");
-        location.reload();
-      }
-
-      
-      function getLastSnapshot(){
-        for (const k of SNAPSHOT_KEYS){
-          const raw = safeGetStorageItem(k);
-          if (!raw) continue;
-          const parsed = safeJSONParse(raw);
-          if (parsed && typeof parsed === "object") return parsed;
-        }
-        return null;
-      }
-
-      // ----- Normalisation helpers -----
-      function normScore(v){
-        if (typeof v === "number") return `${v}/4`;
-        if (typeof v === "string"){
-          const m = v.match(/(\d)\s*\/\s*(\d)/);
-          if (m) return `${m[1]}/${m[2]}`;
-          const n = Number(v);
-          if (!Number.isNaN(n) && n >= 0 && n <= 10) return `${n}/4`;
-        }
-        if (v && typeof v === "object"){
-          if (typeof v.score === "number") return `${v.score}/4`;
-          if (typeof v.value === "number") return `${v.value}/4`;
-          if (typeof v.points === "number") return `${v.points}/4`;
-        }
-        return "—";
-      }
-
-      function toNumScore(val){
-        if (typeof val === "number") return val;
-        if (typeof val === "string"){
-          const m = val.match(/(\d)\s*\/\s*(\d)/);
-          if (m) return parseInt(m[1], 10);
-          const n = Number(val);
-          if (!Number.isNaN(n)) return n;
-        }
-        if (val && typeof val === "object"){
-          if (typeof val.score === "number") return val.score;
-          if (typeof val.value === "number") return val.value;
-          if (typeof val.points === "number") return val.points;
-        }
-        return null;
-      }
-
-      function formatDate(ts){
-        if (!ts) return "";
-        const d = new Date(ts);
-        if (Number.isNaN(d.getTime())) return "";
-        return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-      }
-
-      function extractLensScores(snap){
-        // V2 primary
-        if (snap.lensScores && typeof snap.lensScores === "object"){
-          return {
-            network:   snap.lensScores.network,
-            devices:   snap.lensScores.devices,
-            privacy:   snap.lensScores.privacy,
-            scams:     snap.lensScores.scams,
-            wellbeing: snap.lensScores.wellbeing
-          };
-        }
-        // fallback legacy shapes
-        const lens = snap.lenses || snap.scores || snap.subscores || {};
-        return {
-          network:   normScore(lens.network   ?? snap.networkScore),
-          devices:   normScore(lens.devices   ?? snap.devicesScore),
-          privacy:   normScore(lens.privacy   ?? snap.privacyScore),
-          scams:     normScore(lens.scams     ?? snap.scamsScore),
-          wellbeing: normScore(lens.wellbeing ?? snap.wellbeingScore)
-        };
-      }
-
-      function extractStage(snap){
-        const fallbackDesc =
-          "A few risk flows need tightening. Small changes will reduce stress and risk quickly.";
-        const raw =
-          snap.stage ??
-          snap.stage_label ??
-          snap.stageLabel ??
-          snap.band ??
-          snap.tier ??
-          snap.level ??
-          "Emerging";
-        if (raw && typeof raw === "object"){
-          const label =
-            raw.name ?? raw.stage ?? raw.label ?? raw.tier ?? raw.level ?? "Emerging";
-          const desc =
-            raw.desc ??
-            raw.description ??
-            raw.text ??
-            snap.stage_desc ??
-            snap.stageDescription ??
-            snap.summary ??
-            fallbackDesc;
-          return { stage: String(label), desc: String(desc) };
-        }
-        const label = String(raw || "Emerging");
-        const desc = String(
-          snap.stage_desc ||
-          snap.stageDescription ||
-          snap.summary ||
-          fallbackDesc
-        );
-        return { stage: label, desc };
-      }
-
-      function weakestLens(scores){
-        const entries = Object.entries(scores)
-          .map(([k,v]) => [k, toNumScore(v)])
-          .filter(([,n]) => typeof n === "number");
-        if (!entries.length) return "privacy";
-        entries.sort((a,b) => a[1]-b[1]);
-        return entries[0][0];
-      }
-
-      function focusCopyForLens(lensKey){
-        const map = {
-          privacy: { title:"Privacy Lens — protect accounts that protect everything else", desc:"If email or Apple/Google accounts are compromised, attackers can reset passwords elsewhere." },
-          network: { title:"Network Lens — strengthen the boundary of your home", desc:"Your Wi‑Fi is the front door. Small changes here protect every device inside." },
-          devices: { title:"Device Lens — keep the household healthy and updated", desc:"Out-of-date devices become weak links. Quick hygiene steps reduce risk and chaos." },
-          scams: { title:"Scam Lens — reduce the moments that scams win", desc:"Scams succeed when people are rushed, emotional, or unsure. Guardrails stop damage early." },
-          wellbeing:{ title:"Wellbeing Lens — calm routines reduce digital harm", desc:"Healthier rhythms and boundaries reduce exposure, conflict, and impulsive risks." }
-        };
-        return map[lensKey] || map.privacy;
-      }
-
-      function actionsForLens(lensKey){
-        const actions = {
-          privacy: [
-            {
-              t:"Harden your root email account",
-              d:"Your email can reset passwords for most services. If it falls, everything connected can follow. Enable 2-step verification and review recovery options."
-            },
-            {
-              t:"Protect Apple / Google identity",
-              d:"These accounts often unlock devices, backups, and app stores. Add 2SV and remove any old recovery numbers or emails."
-            },
-            {
-              t:"Eliminate password reuse at the top",
-              d:"Start with your top 5 accounts. Unique passwords here dramatically reduce cascade risk across the household."
-            },
-            {
-              t:"Reduce public personal data",
-              d:"Remove address, school, birthday, and routine details from public profiles where possible. Less exposure = less targeting."
-            }
-          ],
-          network: [
-            {
-              t:"Secure router admin access",
-              d:"Router control is household control. Change the admin password and store it safely."
-            },
-            {
-              t:"Upgrade Wi‑Fi protection mode",
-              d:"Use WPA2 or WPA3 with a long passphrase. This protects every device using your network."
-            },
-            {
-              t:"Disable WPS quick‑connect",
-              d:"WPS is convenient but easier to abuse. Turning it off tightens your perimeter."
-            },
-            {
-              t:"Separate guests and smart devices",
-              d:"A guest network reduces cross‑device exposure and keeps family devices safer."
-            }
-          ],
-          devices: [
-            {
-              t:"Turn on automatic updates everywhere",
-              d:"Updates close known security holes. Automation removes the need to remember."
-            },
-            {
-              t:"Remove unused apps and accounts",
-              d:"Every unused app is an unnecessary doorway. Clean devices are safer devices."
-            },
-            {
-              t:"Add device lock screens",
-              d:"PIN, fingerprint, or FaceID prevents casual access turning into account takeover."
-            },
-            {
-              t:"Back up irreplaceable data",
-              d:"Photos and documents deserve a recovery path. Backups reduce panic and loss."
-            }
-          ],
-          scams: [
-            {
-              t:"Adopt the household pause rule",
-              d:"Urgent + emotional messages are a scam pattern. Pause, verify, then act."
-            },
-            {
-              t:"Verify through official channels",
-              d:"Never trust links in messages for banks or delivery firms. Use official apps or saved bookmarks."
-            },
-            {
-              t:"Enable transaction alerts",
-              d:"Fast alerts shrink damage windows and increase recovery success."
-            },
-            {
-              t:"Create family safe phrases",
-              d:"Short phrases like “I’ll check the official app” build shared defence habits."
-            }
-          ],
-          wellbeing: [
-            {
-              t:"Set a calm device cut‑off time",
-              d:"A small nightly boundary improves sleep and reduces late‑night risk decisions."
-            },
-            {
-              t:"Reduce notification overload",
-              d:"Fewer alerts = more control. Keep only what truly matters."
-            },
-            {
-              t:"Create a shared charging place",
-              d:"Central charging reduces overnight scrolling and household tension."
-            },
-            {
-              t:"Use screen tools as support",
-              d:"Use limits as guidance, not punishment. Consistency beats strictness."
-            }
-          ]
-        };
-        return actions[lensKey] || actions.privacy;
-      }
-
-      function renderActions(lensKey){
-        const list = $("#actionList");
-        if (!list) return;
-        list.innerHTML = "";
-        const items = actionsForLens(lensKey);
-        items.forEach((it, idx) => {
-          const row = document.createElement("div");
-          row.className = "step";
-          row.innerHTML = `
-            <div class="num">${idx+1}</div>
-            <div>
-              <div class="step-title"></div>
-              <div class="step-text"></div>
-            </div>
-          `;
-          row.querySelector(".step-title").textContent = it.t;
-          row.querySelector(".step-text").textContent = it.d;
-          list.appendChild(row);
-        });
-      }
-
-      function setText(id, text){
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-      }
-      function setHTML(id, html){
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-      }
-      function show(el, yes){
-        if (!el) return;
-        el.style.display = yes ? "" : "none";
-      }
-
-      // Fingerprint (calm + explainable)
-      function buildFingerprint(scores){
-        const vals = {
-          network: toNumScore(scores.network),
-          devices: toNumScore(scores.devices),
-          privacy: toNumScore(scores.privacy),
-          scams: toNumScore(scores.scams),
-          wellbeing: toNumScore(scores.wellbeing),
-        };
-        let pattern = "Emerging Resilience";
-        let note = "Your system is functional — focus on one lens and you’ll feel the difference fast.";
-        const lows = Object.entries(vals).filter(([,v]) => typeof v === "number" && v <= 2).map(([k]) => k);
-        if (lows.includes("privacy")){
-          pattern = "Root Account Cascade Risk";
-          note = "Email + Apple/Google sit at the centre. Strengthen them first to protect everything else.";
-        } else if (lows.includes("network")){
-          pattern = "Perimeter Drift";
-          note = "The Wi‑Fi boundary needs tightening so the household has a stronger edge.";
-        } else if (lows.includes("devices")){
-          pattern = "Device Hygiene Drag";
-          note = "A few update + cleanup habits reduce risk and stress quickly.";
-        } else if (lows.includes("scams")){
-          pattern = "Pressure‑Point Scam Risk";
-          note = "One calm rule can prevent impulsive clicks turning into money or account loss.";
-        } else if (lows.includes("wellbeing")){
-          pattern = "Attention + Sleep Loop";
-          note = "Stabilising routines reduces exposure, conflict, and risk moments.";
-        }
-        return { pattern, note };
-      }
-
-      // Progress baseline
-      function getBaseline(){
-        const raw = safeGetStorageItem(BASELINE_KEY);
-        return raw ? safeJSONParse(raw) : null;
-      }
-      function setBaseline(snap){
-        safeSetStorageItem(BASELINE_KEY, JSON.stringify({
-          ts: Date.now(),
-          scores: extractLensScores(snap),
-          stage: extractStage(snap),
-        }));
-      }
-      function clearBaseline(){
-        safeRemoveStorageItem(BASELINE_KEY);
-      }
-      function renderProgress(currentScores){
-        const grid = $("#progressGrid");
-        if (!grid) return;
-        grid.innerHTML = "";
-        const baseline = getBaseline();
-        if (!baseline || !baseline.scores){
-          const el = document.createElement("div");
-          el.className = "progress-row";
-          el.innerHTML = `
-            <div>
-              <div class="progress-label">No baseline saved yet</div>
-              <div class="mini">Tap <strong>Save as baseline</strong> to lock your starting point on this device.</div>
-            </div>
-            <div class="progress-delta">—</div>
-          `;
-          grid.appendChild(el);
-          return;
-        }
-        const lensNames = [
-          ["network","Network"],
-          ["devices","Devices"],
-          ["privacy","Privacy"],
-          ["scams","Scams"],
-          ["wellbeing","Wellbeing"],
-        ];
-        lensNames.forEach(([key, label]) => {
-          const cur = toNumScore(currentScores[key]);
-          const base = toNumScore(baseline.scores[key]);
-          let delta = null;
-          if (typeof cur === "number" && typeof base === "number"){
-            delta = cur - base;
-          }
-          const row = document.createElement("div");
-          row.className = "progress-row";
-          let badge = "—";
-          let cls = "progress-delta";
-          if (delta !== null){
-            if (delta > 0){ badge = `+${delta}`; cls += " good"; }
-            else if (delta < 0){ badge = `${delta}`; cls += " bad"; }
-            else { badge = "0"; }
-          }
-          row.innerHTML = `
-            <div>
-              <div class="progress-label">${label}</div>
-              <div class="mini">Baseline ${baseline.scores[key]} → Now ${currentScores[key]}</div>
-            </div>
-            <div class="${cls}">${badge}</div>
-          `;
-          grid.appendChild(row);
-        });
-        const note = $("#progressNote");
-        if (note){
-          const when = formatDate(baseline.ts);
-          note.textContent = when
-            ? `Baseline saved locally on this device: ${when}. Retest whenever you like — progress should be visible.`
-            : `Baseline saved locally on this device. Retest whenever you like — progress should be visible.`;
-        }
-      }
-
-      // SVG ring helpers
-      function polarToCartesian(cx, cy, r, angleDeg){
-        const rad = (angleDeg * Math.PI) / 180;
-        return { x: cx + (r * Math.cos(rad)), y: cy + (r * Math.sin(rad)) };
-      }
-      function arcPath(cx, cy, r, startAngle, endAngle){
-        const start = polarToCartesian(cx, cy, r, endAngle);
-        const end = polarToCartesian(cx, cy, r, startAngle);
-        const largeArc = (endAngle - startAngle) <= 180 ? "0" : "1";
-        return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 0 ${end.x} ${end.y}`;
-      }
-      function opacityForScore(n){
-        if (typeof n !== "number") return 0.18;
-        const t = Math.max(0, Math.min(4, n)) / 4;
-        return 0.18 + (0.77 * t);
-      }
-      function setSeg(id, d, op){
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.setAttribute("d", d);
-        if (typeof op === "number") el.setAttribute("opacity", String(op));
-      }
-      function highlightLegend(focusKey){
-        const ids = {
-          network:"legendNetwork",
-          devices:"legendDevices",
-          privacy:"legendPrivacy",
-          scams:"legendScams",
-          wellbeing:"legendWellbeing"
-        };
-        Object.values(ids).forEach(x => {
-          const el = document.getElementById(x);
-          if (el) el.classList.remove("is-focus");
-        });
-        const active = document.getElementById(ids[focusKey]);
-        if (active) active.classList.add("is-focus");
-      }
-      function renderRing(scores, stageLabel, focusKey){
-        const start = 0;
-        const step = 72;
-        const order = [
-          ["network","segNetwork"],
-          ["devices","segDevices"],
-          ["privacy","segPrivacy"],
-          ["scams","segScams"],
-          ["wellbeing","segWellbeing"]
-        ];
-        order.forEach(([key, segId], idx) => {
-          const a0 = start + (idx * step);
-          const a1 = a0 + step - 6; // gap
-          const path = arcPath(100, 100, 70, a0, a1);
-          const n = toNumScore(scores[key]);
-          setSeg(segId, path, opacityForScore(n));
-        });
-        const focusIdx = order.findIndex(([k]) => k === focusKey);
-        const glow = document.getElementById("segFocusGlow");
-        if (glow && focusIdx >= 0){
-          const a0 = start + (focusIdx * step);
-          const a1 = a0 + step - 6;
-          glow.setAttribute("d", arcPath(100,100,70, a0, a1));
-          glow.setAttribute("opacity", "0.9");
-        } else if (glow){
-          glow.setAttribute("opacity", "0");
-        }
-        setText("ringStage", (stageLabel || "Emerging").toString().toUpperCase());
-        const nums = ["network","devices","privacy","scams","wellbeing"]
-          .map(k => toNumScore(scores[k]))
-          .filter(n => typeof n === "number");
-        const total = nums.length ? nums.reduce((a,b)=>a+b,0) : null;
-        setText("ringScore", total !== null ? `${total}/20` : "—");
-        setText("ringHint", "FIVE LENSES");
-      }
-
-      // Main render
-      const snapshot = getLastSnapshot();
-      if (!snapshot){
-        show($("#emptyStateCard"), true);
-        setText("focusTitle", "Take a snapshot to build your hub");
-        setText("focusDesc", "Cyber Seeds will generate your prioritised focus, map, and next steps from your answers.");
-        setText("stageTitle", "No snapshot yet");
-        setText("stageDesc", "This page becomes personalised once a snapshot exists on this device.");
-        const emptyScores = {network:"—",devices:"—",privacy:"—",scams:"—",wellbeing:"—"};
-        setText("valNetwork","—"); setText("valDevices","—"); setText("valPrivacy","—"); setText("valScams","—"); setText("valWellbeing","—");
-        renderRing(emptyScores, "Stage", "privacy");
-        highlightLegend("privacy");
-        renderActions("privacy");
-        renderProgress(emptyScores);
-        return;
-      }
-      show($("#emptyStateCard"), false);
-      const scores = extractLensScores(snapshot);
-      const stage = extractStage(snapshot);
-      setText("valNetwork", scores.network);
-      setText("valDevices", scores.devices);
-      setText("valPrivacy", scores.privacy);
-      setText("valScams", scores.scams);
-      setText("valWellbeing", scores.wellbeing);
-      setText("stageTitle", `${stage.stage} —`);
-      setText("stageDesc", stage.desc);
-      const wl = weakestLens(scores);
-      const focus = focusCopyForLens(wl);
-      setText("focusTitle", focus.title);
-      setText("focusDesc", focus.desc);
-      highlightLegend(wl);
-      renderRing(scores, stage.stage, wl);
-      renderActions(wl);
-      const seedLine = {
-        privacy: "Root accounts act like master keys. Strengthen them first and the rest of your digital household becomes easier to protect.",
-        network: "Your Wi‑Fi boundary is your digital front door. Small changes here protect every connected device.",
-        devices: "Healthy, updated devices reduce both risk and stress across the household.",
-        scams: "One calm verification habit prevents most scam damage before it starts.",
-        wellbeing: "Stable routines quietly reduce exposure, conflict, and impulsive online risk."
-      };
-      setText("seedText", seedLine[wl] || seedLine.privacy);
-      const fp = buildFingerprint(scores);
-      setHTML("fingerprintLine", `<strong>Household fingerprint:</strong> ${fp.pattern} — ${fp.note}`);
-      const ts =
-        snapshot.ts ||
-        snapshot.timestamp ||
-        snapshot.createdAt ||
-        snapshot.created_at ||
-        (safeGetStorageItem("seed_snapshot_v2_ts") ? Number(safeGetStorageItem("seed_snapshot_v2_ts")) : null);
-      const when = formatDate(ts);
-      setText("lastTakenLine", when ? `Last snapshot on this device: ${when}` : `Last snapshot found on this device.`);
-      renderProgress(scores);
-      const saveBtn = $("#saveBaselineBtn");
-      const clearBtn = $("#clearBaselineBtn");
-      if (saveBtn){
-        saveBtn.addEventListener("click", () => {
-          setBaseline(snapshot);
-          renderProgress(scores);
-          saveBtn.textContent = "Baseline saved";
-          setTimeout(() => (saveBtn.textContent = "Save as baseline"), 1100);
-        });
-      }
-      if (clearBtn){
-        clearBtn.addEventListener("click", () => {
-          clearBaseline();
-          renderProgress(scores);
-          clearBtn.textContent = "Cleared";
-          setTimeout(() => (clearBtn.textContent = "Clear baseline"), 1100);
-        });
-      }
-      window.addEventListener("storage", (e) => {
-        if (!e || !e.key) return;
-        if (SNAPSHOT_KEYS.includes(e.key) || e.key === "seed_snapshot_v2_ts") {
-          location.reload();
-        }
-      });
-    })();
-  </script>
-  <!-- global site script (modal etc) -->
-  <script src="/script.js?v=20260131"></script>
+  <script src="/script.js?v=20260201"></script>
 </body>
 </html>
