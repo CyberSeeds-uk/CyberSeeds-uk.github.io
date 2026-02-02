@@ -4,7 +4,7 @@
       "id": "q1_router_access",
       "lens": "network",
       "type": "single",
-      "prompt": "Could you log into your Wi-Fi router settings if you needed to?",
+      "prompt": "If you ever needed to change your home Wi-Fi settings, would you know where to start?",
       "options": [
         {
           "label": "Yes (I know how)",
@@ -44,7 +44,7 @@
       "id": "q3_root_account_2sv",
       "lens": "privacy",
       "type": "single",
-      "prompt": "Is your main email protected with two-step verification (2SV)?",
+      "prompt": "For your main email account, is there an extra step to protect it when signing in?",
       "options": [
         {
           "label": "Yes",
@@ -84,7 +84,7 @@
       "id": "q5_sleep_focus",
       "lens": "wellbeing",
       "type": "single",
-      "prompt": "Does your household have any screen boundaries that protect sleep?",
+      "prompt": "Are there any routines in your household that help protect sleep from screens?",
       "options": [
         {
           "label": "Yes (consistent enough)",
