@@ -1100,3 +1100,144 @@ footer > div, footer a{
   .ring-wrap{ padding:12px; border-radius:18px; }
   .pill{ padding:7px 9px; font-size:.88rem; }
 }
+
+/* =========================================
+   RESOURCES HUB — HOME CONTINUATION
+   ========================================= */
+
+.hub-main{
+  padding:56px 0 72px;
+}
+
+.hub-grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap:16px;
+  align-items:start;
+}
+
+@media (max-width:900px){
+  .hub-grid{ grid-template-columns:1fr; }
+}
+
+/* Lens ring — IDENTICAL to homepage */
+.lens-ring{
+  display:flex;
+  justify-content:center;
+  margin:18px 0 10px;
+}
+
+.lens-ring svg{
+  width:100%;
+  max-width:320px;
+  height:auto;
+}
+
+.ring-track{
+  fill:none;
+  stroke:rgba(15,47,42,.10);
+  stroke-width:18;
+}
+
+.ring-seg{
+  fill:none;
+  stroke:var(--brand2);
+  stroke-width:18;
+  stroke-linecap:round;
+  opacity:.22;
+}
+
+.ring-focus{
+  fill:none;
+  stroke:rgba(26,106,93,.75);
+  stroke-width:22;
+  stroke-linecap:round;
+  opacity:0;
+}
+
+.ring-label{
+  text-anchor:middle;
+  fill:var(--muted);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+
+.ring-score{
+  text-anchor:middle;
+  fill:var(--brand);
+  font-size:18px;
+  font-weight:900;
+}
+
+.ring-hint{
+  text-anchor:middle;
+  fill:var(--muted);
+  font-size:9px;
+  letter-spacing:.14em;
+}
+
+/* Legend */
+.legend{
+  margin-top:12px;
+  display:grid;
+  gap:6px;
+}
+
+.legend-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 8px;
+  border-radius:10px;
+}
+
+.legend-row.is-focus{
+  background:var(--mint2);
+  font-weight:800;
+}
+
+/* Actions */
+#actionList .step{
+  display:flex;
+  gap:12px;
+  padding:12px 0;
+  border-top:1px solid var(--line);
+}
+
+#actionList .num{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:var(--mint2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:var(--brand);
+}
+
+/* Seed line */
+.seedline{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+
+.seed-badge{
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  background:var(--mint2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Footer continuity */
+.footer{
+  border-top:1px solid var(--line);
+  padding:18px 0;
+  background:#fff;
+}
