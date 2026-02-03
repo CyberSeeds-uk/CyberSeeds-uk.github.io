@@ -355,19 +355,19 @@
   const insights = {
     network: {
       kicker: "Network lens",
-      title: "Wi-Fi is the home’s circulation system",
-      body: "When the network is steady, every other system breathes. It keeps updates smooth, accounts safer, and daily routines calmer.",
+      title: "Your Wi-Fi is the home’s circulation system",
+      body: "Stable router settings make everything else steadier — devices update cleanly, accounts stay protected, and stress reduces.",
       state: "Forming",
       leverage: "High leverage",
-      next: "Name who owns the router settings and separate guest access from the main network."
+      next: "Check who can access the router settings and ensure guest access is separate."
     },
     devices: {
       kicker: "Devices lens",
-      title: "Devices are the working organs",
-      body: "Small maintenance keeps everyday life running. Updates, locks, and backups prevent avoidable shocks.",
+      title: "Devices are the organs of the household system",
+      body: "Simple upkeep — updates, locks, backups — keeps daily life running without sudden breakage or loss.",
       state: "Steady",
       leverage: "High leverage",
-      next: "Choose one device to update today and set auto-updates for the rest."
+      next: "Pick one device to update and turn on auto-updates for the rest."
     },
     privacy: {
       kicker: "Privacy lens",

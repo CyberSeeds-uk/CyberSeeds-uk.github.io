@@ -343,17 +343,6 @@ h1{
   stroke-width:2;
 }
 
-.cs-flow-strong{
-  stroke:#88c5ba;
-  stroke-width:3;
-}
-
-.cs-flow__label{
-  fill:#6a7d79;
-  font-size:13px;
-  font-weight:600;
-}
-
 .cs-node__card{
   fill:#ffffff;
   stroke:#d7e6e2;
@@ -525,10 +514,13 @@ h1{
   display:grid;
   gap:8px;
   min-height:100%;
+  cursor:pointer;
+  appearance:none;
+  font:inherit;
 }
 
-.lens:hover,
-.lens:focus-within{
+.lens:focus-visible,
+.lens:hover{
   border-color:#1a6a5d;
   box-shadow:0 12px 30px rgba(15,47,42,.12);
   transform:translateY(-1px);
@@ -552,14 +544,6 @@ h1{
   font-weight:700;
   color:#1a6a5d;
   font-size:.88rem;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-
-.lens-cta::after{
-  content:"→";
-  display:inline-block;
 }
 
 /* =========================
@@ -961,18 +945,6 @@ body.modal-open{
 
   .cs-node__tag{
     font-size:13px;
-  }
-
-  .lens{
-    padding:18px;
-  }
-
-  .lens p{
-    font-size:.95rem;
-  }
-
-  .lens-cta{
-    font-size:.9rem;
   }
 }
 
