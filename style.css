@@ -1056,3 +1056,47 @@ body.modal-open{
   display:grid;
   gap:6px;
 }
+
+/* =========================
+   LENSES — COLLAPSED BY DEFAULT
+   ========================= */
+
+.lens{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s ease, transform .2s ease;
+}
+
+/* Summary = pill */
+.lens-summary{
+  padding:16px;
+  display:grid;
+  gap:8px;
+}
+
+.lens-summary p{
+  margin:0;
+  color:var(--muted);
+}
+
+/* Body = hidden area */
+.lens-body{
+  border-top:1px solid var(--line);
+  padding:14px 16px 16px;
+  display:grid;
+  gap:8px;
+  color:var(--muted);
+}
+
+/* No body = true pill */
+.lens-body[hidden]{
+  display:none;
+}
+
+/* Hover stays calm */
+.lens:hover{
+  box-shadow:0 12px 28px rgba(15,47,42,.12);
+  transform:translateY(-1px);
+}
