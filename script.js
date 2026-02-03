@@ -168,13 +168,19 @@
   const backBtn = $("#snapshotBack");
   const closeBtn= $("#closeSnapshot");
   const resetBtn= $("#resetSnapshot");
+  const compareSelect = $("#snapshotCompareSelect");
+  const compareOutput = $("#snapshotCompareOutput");
+  const downloadPassportBtn = $("#downloadPassport");
 
   if (!modal||!panel||!form||!nextBtn||!backBtn) return;
 
   let step=-1, QUESTIONS=[], seedForge=null;
   const answers={};
   const SNAP_KEY="cyberseeds_snapshot_v3";
+  const HISTORY_KEY="cyberseeds_snapshots_v1";
+  const PASSPORT_KEY="cyberseeds_digital_passport_v1";
 
+  const LENS_ORDER = ["network", "devices", "privacy", "scams", "wellbeing"];
   const LENS_LABELS={
     network:"Network",
     devices:"Devices",
@@ -184,7 +190,56 @@
   };
 
   const safeSet=(k,v)=>{try{localStorage.setItem(k,v);}catch{}};
+  const safeGet=k=>{try{return localStorage.getItem(k);}catch{} return null;};
   const safeRemove=k=>{try{localStorage.removeItem(k);}catch{}};
+
+  const safeParse = (value, fallback) => {
+    try { return JSON.parse(value); } catch { return fallback; }
+  };
+
+  const formatDate = (ts) => {
+    const date = new Date(ts);
+    return Number.isNaN(date.getTime()) ? "Unknown date" : date.toLocaleDateString();
+  };
+
+  function loadHistory(){
+    const raw = safeGet(HISTORY_KEY);
+    const parsed = safeParse(raw, []);
+    return Array.isArray(parsed) ? parsed : [];
+  }
+
+  function saveHistory(history){
+    safeSet(HISTORY_KEY, JSON.stringify(history));
+  }
+
+  function buildPassport(history){
+    return {
+      schema: "cs.digital.passport.v1",
+      updated_at: new Date().toISOString(),
+      snapshots: history.map(entry => ({
+        id: entry.id,
+        snapshot_id: entry.snapshotId,
+        saved_at: new Date(entry.ts).toISOString(),
+        hdss: Math.round(entry.hdss ?? 0),
+        focus: entry.focus,
+        strongest: entry.strongest,
+        weakest: entry.weakest,
+        lensPercents: entry.lensPercents || {}
+      }))
+    };
+  }
+
+  function downloadJSON(filename, payload){
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
 
   function openModal(){
     modal.classList.add("is-open");
@@ -207,6 +262,56 @@
     backBtn.disabled=true;
     nextBtn.style.display="";
     backBtn.style.display="";
+  }
+
+  function renderComparison(currentEntry){
+    if (!compareSelect || !compareOutput) return;
+    const history = loadHistory().slice().sort((a,b)=>b.ts-a.ts);
+    const options = history.filter(entry => entry.id !== currentEntry.id);
+
+    if (!options.length){
+      compareSelect.innerHTML = `<option value="">No earlier snapshot yet</option>`;
+      compareSelect.disabled = true;
+      compareOutput.innerHTML = `<p class="muted">Take another snapshot later to compare changes.</p>`;
+      return;
+    }
+
+    compareSelect.disabled = false;
+    compareSelect.innerHTML = `
+      <option value="">Choose an earlier snapshot</option>
+      ${options.map(entry => `<option value="${entry.id}">${formatDate(entry.ts)}</option>`).join("")}
+    `;
+    compareOutput.innerHTML = `<p class="muted">Choose a snapshot to see what has shifted over time.</p>`;
+
+    compareSelect.onchange = () => {
+      const selected = options.find(entry => entry.id === compareSelect.value);
+      if (!selected){
+        compareOutput.innerHTML = `<p class="muted">Choose a snapshot to see what has shifted over time.</p>`;
+        return;
+      }
+
+      const nowScore = Math.round(currentEntry.hdss ?? 0);
+      const thenScore = Math.round(selected.hdss ?? 0);
+      const diff = nowScore - thenScore;
+      const diffText = diff === 0 ? "no change" : diff > 0 ? `+${diff}` : `${diff}`;
+
+      const deltas = LENS_ORDER.map(lens => {
+        const now = Math.round(currentEntry.lensPercents?.[lens] ?? 0);
+        const then = Math.round(selected.lensPercents?.[lens] ?? 0);
+        const delta = now - then;
+        const label = LENS_LABELS[lens] || lens;
+        const deltaText = delta === 0 ? "no change" : delta > 0 ? `+${delta}` : `${delta}`;
+        return `<li><strong>${label}:</strong> ${deltaText} points</li>`;
+      }).join("");
+
+      compareOutput.innerHTML = `
+        <div class="compare-card">
+          <p><strong>From ${formatDate(selected.ts)} to ${formatDate(currentEntry.ts)}</strong></p>
+          <p>This suggests an overall shift from ${thenScore}% to ${nowScore}% (${diffText} points).</p>
+          <ul class="compare-list">${deltas}</ul>
+        </div>
+      `;
+    };
   }
 
   async function ensureReady(){
@@ -293,7 +398,22 @@
     if (seedWeekEl) seedWeekEl.textContent = seed?.this_week || " ";
     if (seedMonthEl) seedMonthEl.textContent = seed?.this_month || " ";
 
-    safeSet(SNAP_KEY,JSON.stringify({ts:Date.now(),answers,...scored,seed}));
+    const timestamp = Date.now();
+    const entry = {
+      id: `${scored.snapshotId}-${timestamp}`,
+      ts: timestamp,
+      snapshotId: scored.snapshotId,
+      answers,
+      ...scored,
+      seed
+    };
+
+    safeSet(SNAP_KEY,JSON.stringify(entry));
+    const history = loadHistory();
+    history.unshift(entry);
+    saveHistory(history.slice(0, 24));
+    safeSet(PASSPORT_KEY, JSON.stringify(buildPassport(history.slice(0, 24))));
+    renderComparison(entry);
 
     result.hidden=false;
     result.classList.add("reveal");
@@ -320,7 +440,18 @@
 
   closeBtn?.addEventListener("click",closeModal);
   backdrop?.addEventListener("click",closeModal);
-  resetBtn?.addEventListener("click",()=>{safeRemove(SNAP_KEY);resetFlow();renderIntro();});
+  resetBtn?.addEventListener("click",()=>{
+    safeRemove(SNAP_KEY);
+    safeRemove(HISTORY_KEY);
+    safeRemove(PASSPORT_KEY);
+    resetFlow();
+    renderIntro();
+  });
+  downloadPassportBtn?.addEventListener("click", () => {
+    const history = loadHistory();
+    const passport = buildPassport(history);
+    downloadJSON("cyber-seeds-digital-passport.json", passport);
+  });
   document.addEventListener("keydown",e=>{
     if(e.key==="Escape"&&modal.classList.contains("is-open"))closeModal();
   });
@@ -467,5 +598,3 @@
        });
      });
    })();
-
-

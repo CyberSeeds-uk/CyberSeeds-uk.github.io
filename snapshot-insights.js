@@ -378,7 +378,7 @@
     const why = [
       `Your best place to start is <strong>${focusLabel}</strong>.`,
       `That doesn’t mean anything is “wrong” — it marks the fastest improvement path.`,
-      `Your strongest area is <strong>${strongestLabel}</strong>, which can support progress elsewhere.`
+      `Your most supported lens is <strong>${strongestLabel}</strong>, which can support progress elsewhere.`
     ].join(" ");
 
     // What now (signal + actionable stance)
@@ -478,7 +478,7 @@
     // Institutional-safe one paragraph summary
     const summary = [
       `Your snapshot shows an overall signal of ${safeText(band.label)}.`,
-      `Your strongest area is ${safeText(LENS_LABELS[strongestLens] || strongestLens)}.`,
+      `Your most supported lens is ${safeText(LENS_LABELS[strongestLens] || strongestLens)}.`,
       `Your best place to start is ${safeText(LENS_LABELS[focusLens] || focusLens)}.`,
       `This is not a judgement — it’s a signal you can act on with small, repeatable steps.`
     ].join(" ");
