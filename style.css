@@ -479,17 +479,16 @@ h1{
   gap:18px;
 }
 
-.grid-3{
+/* =========================
+   CONTENT GRID — CANON
+   ========================= */
+
+.grid-content{
   display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
   gap:18px;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.grid-5{
-  display:grid;
-  grid-template-columns:repeat(5, minmax(0,1fr));
-  gap:16px;
-}
 
 .callout{
   margin-top:24px;
@@ -877,11 +876,6 @@ body.modal-open{
   .modal-scroll{ padding:14px; }
 
   .snapshot-section-grid{
-    grid-template-columns:1fr;
-  }
-
-  .grid-3,
-  .grid-5{
     grid-template-columns:1fr;
   }
 
