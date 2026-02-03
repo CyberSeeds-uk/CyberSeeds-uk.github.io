@@ -377,6 +377,152 @@ body.modal-open{
   transform:none;
 }
 
+.snapshot-section{
+  margin-top:20px;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+
+.snapshot-section-head h4{
+  margin:0 0 6px;
+  color:var(--brand);
+}
+
+.snapshot-section-head p{
+  margin:0;
+  color:var(--muted);
+}
+
+.snapshot-section-grid{
+  margin-top:14px;
+  display:grid;
+  gap:16px;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:start;
+}
+
+.snapshot-list{
+  margin:0;
+  padding-left:18px;
+  display:grid;
+  gap:8px;
+  color:var(--muted);
+}
+
+.snapshot-list strong{
+  color:var(--brand);
+}
+
+.snapshot-diagram{
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#fbfdfc,#f1f8f6);
+  padding:12px;
+}
+
+.snapshot-diagram h5{
+  margin:0 0 10px;
+  color:var(--brand2);
+  font-size:.95rem;
+}
+
+.snapshot-flow,
+.snapshot-diff{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.flow-shell{
+  fill:url(#flowGlow);
+  stroke:rgba(20,74,67,.25);
+}
+
+.flow-line{
+  stroke:#1f6b5f;
+  stroke-width:2;
+  stroke-dasharray:6 6;
+}
+
+.flow-node circle{
+  fill:#ffffff;
+  stroke:#1f6b5f;
+  stroke-width:2;
+}
+
+.flow-node text{
+  font-size:12px;
+  font-weight:700;
+  fill:#0f2f2a;
+}
+
+.flow-caption{
+  font-size:12px;
+  fill:#315e56;
+}
+
+.diff-box{
+  fill:#ffffff;
+  stroke:rgba(20,74,67,.2);
+  stroke-width:1.5;
+}
+
+.diff-box-strong{
+  fill:#e8f6f5;
+  stroke:#1f6b5f;
+}
+
+.diff-title{
+  font-size:13px;
+  font-weight:700;
+  fill:#0f2f2a;
+}
+
+.diff-item{
+  font-size:12px;
+  fill:#2a544d;
+}
+
+.snapshot-invite{
+  margin-top:18px;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#f7fbfa,#ffffff);
+}
+
+.snapshot-invite h4{
+  margin:0 0 6px;
+  color:var(--brand);
+}
+
+.snapshot-invite p{
+  margin:0;
+  color:var(--muted);
+}
+
+.seed-steps{
+  margin-top:12px;
+  display:grid;
+  gap:8px;
+  color:var(--muted);
+}
+
+.seed-steps ul{
+  margin:0;
+  padding-left:18px;
+  display:grid;
+  gap:6px;
+}
+
+.seed-title{
+  margin:0;
+  font-weight:700;
+  color:var(--brand);
+}
+
 /* =========================
    RESPONSIVE
    ========================= */
@@ -407,6 +553,10 @@ body.modal-open{
   }
 
   .modal-scroll{ padding:14px; }
+
+  .snapshot-section-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 /* =========================
