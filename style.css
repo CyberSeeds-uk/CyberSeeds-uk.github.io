@@ -1030,31 +1030,3 @@ body.modal-open{
   border:1px solid var(--line);
   box-shadow:var(--shadow-sm);
 }
-
-/* =========================
-   CONTENT GRIDS — CONTROLLED
-   ========================= */
-
-.section h2{
-  scroll-margin-top:96px; /* fixes anchor jumps */
-}
-
-.section h2::after{
-  content:"";
-  display:block;
-  width:48px;
-  height:3px;
-  background:var(--brand2);
-  margin-top:10px;
-  border-radius:3px;
-}
-
-@media (max-width:760px){
-  #lenses .container{
-    padding:16px;
-  }
-
-  .section{
-    padding:44px 0;
-  }
-}
