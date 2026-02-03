@@ -436,39 +436,36 @@
    Canon behaviour: closed by default
    ========================================================= */
 
-(() => {
-  "use strict";
+   (() => {
+     "use strict";
+   
+     const toggles = Array.from(document.querySelectorAll("[data-lens-toggle]"));
+   
+     function closeAll(exceptBtn = null){
+       toggles.forEach(btn => {
+         if (btn === exceptBtn) return;
+         const id = btn.getAttribute("aria-controls");
+         const panel = id && document.getElementById(id);
+         btn.setAttribute("aria-expanded","false");
+         if (panel) panel.hidden = true;
+       });
+     }
+   
+     toggles.forEach(btn => {
+       const id = btn.getAttribute("aria-controls");
+       const panel = id && document.getElementById(id);
+   
+       // hard reset
+       btn.setAttribute("aria-expanded","false");
+       if (panel) panel.hidden = true;
+   
+       btn.addEventListener("click", () => {
+         const isOpen = btn.getAttribute("aria-expanded") === "true";
+         closeAll(btn);
+         btn.setAttribute("aria-expanded", String(!isOpen));
+         if (panel) panel.hidden = isOpen;
+       });
+     });
+   })();
 
-  const toggles = Array.from(
-    document.querySelectorAll("[data-lens-toggle]")
-  );
-
-  if (!toggles.length) return;
-
-  function closeAll(except = null){
-    toggles.forEach(btn => {
-      if (btn === except) return;
-      const id = btn.getAttribute("aria-controls");
-      const panel = id ? document.getElementById(id) : null;
-      btn.setAttribute("aria-expanded","false");
-      if (panel) panel.hidden = true;
-    });
-  }
-
-  toggles.forEach(btn => {
-    const id = btn.getAttribute("aria-controls");
-    const panel = id ? document.getElementById(id) : null;
-
-    // Hard guarantee: start closed
-    btn.setAttribute("aria-expanded","false");
-    if (panel) panel.hidden = true;
-
-    btn.addEventListener("click", () => {
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      closeAll(btn);
-      btn.setAttribute("aria-expanded", String(!isOpen));
-      if (panel) panel.hidden = isOpen;
-    });
-  });
-})();
 
