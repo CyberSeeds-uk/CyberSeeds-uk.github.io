@@ -432,33 +432,43 @@
 })();
 
 /* =========================================================
-   Lens Guidance Toggles
+   Cyber Seeds — Lens Guidance Toggles
+   Canon behaviour: closed by default
    ========================================================= */
 
 (() => {
   "use strict";
 
-  const toggles = Array.from(document.querySelectorAll("[data-lens-toggle]"));
+  const toggles = Array.from(
+    document.querySelectorAll("[data-lens-toggle]")
+  );
+
   if (!toggles.length) return;
 
-  const closeOthers = (current) => {
+  function closeAll(except = null){
     toggles.forEach(btn => {
-      if (btn === current) return;
-      const panelId = btn.getAttribute("aria-controls");
-      const panel = panelId ? document.getElementById(panelId) : null;
-      btn.setAttribute("aria-expanded", "false");
+      if (btn === except) return;
+      const id = btn.getAttribute("aria-controls");
+      const panel = id ? document.getElementById(id) : null;
+      btn.setAttribute("aria-expanded","false");
       if (panel) panel.hidden = true;
     });
-  };
+  }
 
   toggles.forEach(btn => {
-    const panelId = btn.getAttribute("aria-controls");
-    const panel = panelId ? document.getElementById(panelId) : null;
+    const id = btn.getAttribute("aria-controls");
+    const panel = id ? document.getElementById(id) : null;
+
+    // Hard guarantee: start closed
+    btn.setAttribute("aria-expanded","false");
+    if (panel) panel.hidden = true;
+
     btn.addEventListener("click", () => {
-      const isExpanded = btn.getAttribute("aria-expanded") === "true";
-      closeOthers(btn);
-      btn.setAttribute("aria-expanded", String(!isExpanded));
-      if (panel) panel.hidden = isExpanded;
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      closeAll(btn);
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      if (panel) panel.hidden = isOpen;
     });
   });
 })();
+
