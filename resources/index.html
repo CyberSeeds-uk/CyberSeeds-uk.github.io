@@ -36,9 +36,9 @@
       <nav class="nav" data-nav>
         <a href="/#why">Why Clarity</a>
         <a href="/#lenses">Five Lenses</a>
-        <a href="/#benefits">Benefits</a>
+        <a href="/#snapshot">Snapshot</a>
         <a href="/#about">About</a>
-        <a href="/#faqs">FAQs</a>
+        <a href="/#faq">FAQs</a>
         <a href="/resources/" aria-current="page">Resources</a>
       </nav>
     </div>
@@ -259,11 +259,10 @@
                 <div class="help-strip">
                   <div>
                     <p class="help-title">Want help applying this at home?</p>
-                    <p class="help-sub">If you benefited from the snapshot, you can ask a question or book a full audit.</p>
+                    <p class="help-sub">If you have a question, send us a note and we’ll reply with calm guidance.</p>
                   </div>
                   <div class="help-actions">
-                    <a class="btn ghost" href="mailto:info@cyberseeds.co.uk?subject=Cyber%20Seeds%20question">Email Cyber Seeds</a>
-                    <a class="btn primary" href="/#audit">Book a full audit</a>
+                    <a class="btn ghost" href="mailto:cyberseeds.uk@gmail.com?subject=Cyber%20Seeds%20question">Email Cyber Seeds</a>
                   </div>
                 </div>
               </div>
@@ -351,18 +350,69 @@
             <h3>Your Household Signal</h3>
             <p id="resultHeadline" class="result-headline"></p>
 
+            <p class="muted" id="resultStage"></p>
+
             <div class="result-grid">
               <div class="result-card">
-                <h4>Strongest lens</h4>
+                <h4>Most supported lens</h4>
                 <p id="strongestLens"></p>
               </div>
               <div class="result-card">
-                <h4>Weakest lens</h4>
+                <h4>Lens to support next</h4>
                 <p id="weakestLens"></p>
               </div>
             </div>
 
-            <div class="chart" aria-label="Lens strength chart">
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>How to read this snapshot</h4>
+                <p>A gentle flow from signal to next step — always calm, always in your control.</p>
+              </div>
+              <div class="snapshot-section-grid">
+                <ul class="snapshot-list">
+                  <li><strong>A clear household signal</strong> to reduce uncertainty.</li>
+                  <li><strong>Lens-specific insight</strong> for a focused, human next step.</li>
+                  <li><strong>Digital Seeds</strong> that are small, repeatable actions.</li>
+                  <li><strong>Local-first storage</strong> so you can track change over time.</li>
+                  <li><strong>Zero pressure</strong> — nothing is pushed or judged.</li>
+                </ul>
+
+                <div class="snapshot-diagram">
+                  <h5>Snapshot flow</h5>
+                  <svg class="snapshot-flow" viewBox="0 0 520 170" role="img" aria-label="Snapshot flow from signal to local save">
+                    <title>Snapshot flow</title>
+                    <desc>Signal, lens insight, digital seeds, and local saving.</desc>
+                    <defs>
+                      <linearGradient id="flowGlow" x1="0" x2="1">
+                        <stop offset="0%" stop-color="#cfeee7" />
+                        <stop offset="100%" stop-color="#e8f6f5" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="16" y="18" width="488" height="134" rx="20" class="flow-shell" />
+                    <line x1="120" y1="85" x2="400" y2="85" class="flow-line" />
+                    <g class="flow-node">
+                      <circle cx="120" cy="85" r="30" />
+                      <text x="120" y="90" text-anchor="middle">Signal</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="250" cy="85" r="30" />
+                      <text x="250" y="90" text-anchor="middle">Lens</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="340" cy="85" r="30" />
+                      <text x="340" y="90" text-anchor="middle">Seeds</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="430" cy="85" r="30" />
+                      <text x="430" y="90" text-anchor="middle">Save</text>
+                    </g>
+                    <text x="260" y="140" text-anchor="middle" class="flow-caption">Everything stays calm, optional, and local to your device.</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart" aria-label="Lens signal chart">
               <div class="chart-row">
                 <span>Network</span>
                 <div class="bar"><div id="barNetwork" class="bar-fill"></div></div>
@@ -388,6 +438,32 @@
                 <div class="bar"><div id="barWellbeing" class="bar-fill"></div></div>
                 <em id="valWellbeing"></em>
               </div>
+            </div>
+
+            <div class="snapshot-section snapshot-compare">
+              <div class="snapshot-section-head">
+                <h4>Compare with an earlier snapshot</h4>
+                <p>Notice changes over time without judgement. Everything stays on your device.</p>
+              </div>
+              <div class="snapshot-compare-controls">
+                <label class="micro" for="snapshotCompareSelect">Choose a saved snapshot</label>
+                <select id="snapshotCompareSelect" class="compare-select" aria-describedby="snapshotCompareHelp">
+                  <option value="">No earlier snapshot yet</option>
+                </select>
+                <p class="micro muted" id="snapshotCompareHelp">Only snapshots saved on this device appear here.</p>
+              </div>
+              <div class="snapshot-compare-output" id="snapshotCompareOutput" aria-live="polite"></div>
+            </div>
+
+            <div class="snapshot-section snapshot-passport">
+              <div class="snapshot-section-head">
+                <h4>Digital Passport</h4>
+                <p>A local, downloadable record of your snapshots — never shared unless you choose.</p>
+              </div>
+              <div class="snapshot-passport-actions">
+                <button class="btn ghost" type="button" id="downloadPassport">Download Digital Passport (JSON)</button>
+              </div>
+              <p class="micro muted">Your passport lives only in local storage and the files you download.</p>
             </div>
 
            <div class="result-actions">
