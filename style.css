@@ -991,3 +991,68 @@ body.modal-open{
   padding:18px 0;
   background:#fff;
 }
+
+/* =========================
+   LENSES — CLOSED BY DEFAULT
+   ========================= */
+
+.lens{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:var(--shadow-sm);
+  display:grid;
+  gap:8px;
+}
+
+.lens-icon{
+  font-size:1.35rem;
+}
+
+.lens h3{
+  margin:0;
+  color:var(--brand);
+}
+
+.lens p{
+  margin:0;
+  color:var(--muted);
+}
+
+/* CTA */
+.lens-cta{
+  margin-top:6px;
+  font-weight:700;
+  font-size:.9rem;
+  color:#1a6a5d;
+  background:none;
+  border:none;
+  padding:0;
+  cursor:pointer;
+  text-align:left;
+}
+
+.lens-cta:focus-visible{
+  outline:2px solid rgba(26,106,93,.4);
+  outline-offset:4px;
+  border-radius:6px;
+}
+
+/* DETAILS — NEVER SHOWN UNTIL CLICKED */
+.lens-details{
+  border-top:1px solid var(--line);
+  padding-top:12px;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:.92rem;
+  display:grid;
+  gap:8px;
+}
+
+.lens-details ul{
+  margin:0;
+  padding-left:18px;
+  display:grid;
+  gap:6px;
+}
