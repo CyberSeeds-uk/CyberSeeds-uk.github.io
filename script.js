@@ -202,8 +202,11 @@
     Object.keys(answers).forEach(k=>delete answers[k]);
     form.innerHTML="";
     result.hidden=true;
+    result.classList.remove("reveal");
     nextBtn.textContent="Start";
     backBtn.disabled=true;
+    nextBtn.style.display="";
+    backBtn.style.display="";
   }
 
   async function ensureReady(){
@@ -248,27 +251,52 @@
     const scored = seedForge.scoreAnswers(answers);
     const focusLabel = LENS_LABELS[scored.focus];
     const strongestLabel = LENS_LABELS[scored.strongest];
+    const weakestLabel = LENS_LABELS[scored.weakest];
     const rationale = seedForge.buildRationale(scored.focus,answers);
     const seed = seedForge.seedsForLens(scored.focus)[0]||null;
+
+    const headlineEl = $("#resultHeadline");
+    const stageEl = $("#resultStage");
+    const strongestEl = $("#strongestLens");
+    const weakestEl = $("#weakestLens");
+    const rationaleEl = $("#resultRationale");
+    const seedTitleEl = $("#resultSeedTitle");
+    const seedTodayEl = $("#resultSeedToday");
+    const seedWeekEl = $("#resultSeedWeek");
+    const seedMonthEl = $("#resultSeedMonth");
+
+    if (headlineEl) headlineEl.textContent = `Best place to start: ${focusLabel}.`;
+    if (stageEl) stageEl.textContent = `Overall signal: ${scored.stage.label} — ${scored.stage.message}`;
+    if (strongestEl) strongestEl.textContent = strongestLabel;
+    if (weakestEl) weakestEl.textContent = weakestLabel;
+    if (rationaleEl) rationaleEl.textContent = rationale || `Focus on ${focusLabel} for the fastest, calmest improvement.`;
+
+    const lensPercents = scored.lensPercents || {};
+    const lensMap = {
+      network: { bar: "#barNetwork", val: "#valNetwork" },
+      devices: { bar: "#barDevices", val: "#valDevices" },
+      privacy: { bar: "#barPrivacy", val: "#valPrivacy" },
+      scams: { bar: "#barScams", val: "#valScams" },
+      wellbeing: { bar: "#barWellbeing", val: "#valWellbeing" }
+    };
+
+    Object.entries(lensMap).forEach(([lens, ids]) => {
+      const bar = $(ids.bar);
+      const val = $(ids.val);
+      const pct = Math.round(lensPercents[lens] ?? 0);
+      if (bar) bar.style.width = `${pct}%`;
+      if (val) val.textContent = `${pct}%`;
+    });
+
+    if (seedTitleEl) seedTitleEl.textContent = seed?.title || "Your next Digital Seed";
+    if (seedTodayEl) seedTodayEl.textContent = seed?.today || "Complete your snapshot to receive a clear next step.";
+    if (seedWeekEl) seedWeekEl.textContent = seed?.this_week || " ";
+    if (seedMonthEl) seedMonthEl.textContent = seed?.this_month || " ";
 
     safeSet(SNAP_KEY,JSON.stringify({ts:Date.now(),answers,...scored,seed}));
 
     result.hidden=false;
-    result.innerHTML=`
-      <h3>Your household snapshot</h3>
-      <p class="lead">This is not a judgement — it’s a signal.</p>
-      <p><strong>Strongest area:</strong> ${strongestLabel}</p>
-      <p><strong>Best place to start:</strong> ${focusLabel}</p>
-      <p class="muted">Overall signal: <strong>${scored.stage.label}</strong></p>
-      ${rationale?`<p>${rationale}</p>`:""}
-      ${seed?`
-        <h4>${seed.title}</h4>
-        <ul>
-          <li><strong>Today:</strong> ${seed.today}</li>
-          <li><strong>This week:</strong> ${seed.this_week}</li>
-          <li><strong>This month:</strong> ${seed.this_month}</li>
-        </ul>`:""}
-    `;
+    result.classList.add("reveal");
     nextBtn.style.display="none";
     backBtn.style.display="none";
   }

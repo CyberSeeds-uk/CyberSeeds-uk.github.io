@@ -440,6 +440,7 @@
           <section id="snapshotResult" class="result" hidden>
             <h3>Your Household Signal</h3>
             <p id="resultHeadline" class="result-headline"></p>
+            <p class="muted" id="resultStage"></p>
 	
             <div class="result-grid">
               <div class="result-card">
@@ -449,6 +450,55 @@
               <div class="result-card">
                 <h4>Weakest lens</h4>
                 <p id="weakestLens"></p>
+              </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>What users receive</h4>
+                <p>Clear, calm outputs you can act on immediately — nothing performative, nothing hidden.</p>
+              </div>
+              <div class="snapshot-section-grid">
+                <ul class="snapshot-list">
+                  <li><strong>A clear household signal</strong> — stable, improving, or needs attention.</li>
+                  <li><strong>Lens-specific insights</strong> that are short, plain, and easy to understand.</li>
+                  <li><strong>A small number of Digital Seeds</strong> — achievable, non-technical next steps.</li>
+                  <li><strong>Risk reduction without panic</strong> — calm, practical, resilience-focused.</li>
+                  <li><strong>Zero pressure</strong> — nothing pushed, nothing shamed, nothing locked.</li>
+                </ul>
+
+                <div class="snapshot-diagram">
+                  <h5>Snapshot flow</h5>
+                  <svg class="snapshot-flow" viewBox="0 0 520 170" role="img" aria-label="Snapshot flow from signal to invitation">
+                    <title>Snapshot flow</title>
+                    <desc>Signal, lens insight, digital seeds, and an optional invitation.</desc>
+                    <defs>
+                      <linearGradient id="flowGlow" x1="0" x2="1">
+                        <stop offset="0%" stop-color="#cfeee7" />
+                        <stop offset="100%" stop-color="#e8f6f5" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="16" y="18" width="488" height="134" rx="20" class="flow-shell" />
+                    <line x1="120" y1="85" x2="400" y2="85" class="flow-line" />
+                    <g class="flow-node">
+                      <circle cx="120" cy="85" r="30" />
+                      <text x="120" y="90" text-anchor="middle">Signal</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="250" cy="85" r="30" />
+                      <text x="250" y="90" text-anchor="middle">Lens</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="340" cy="85" r="30" />
+                      <text x="340" y="90" text-anchor="middle">Seeds</text>
+                    </g>
+                    <g class="flow-node">
+                      <circle cx="430" cy="85" r="30" />
+                      <text x="430" y="90" text-anchor="middle">Invite</text>
+                    </g>
+                    <text x="260" y="140" text-anchor="middle" class="flow-caption">Everything stays calm, optional, and in your control.</text>
+                  </svg>
+                </div>
               </div>
             </div>
 
@@ -478,6 +528,72 @@
                 <div class="bar"><div id="barWellbeing" class="bar-fill"></div></div>
                 <em id="valWellbeing"></em>
               </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>Lens insight</h4>
+                <p id="resultRationale"></p>
+              </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>Digital Seeds</h4>
+                <p>Small steps that reduce risk without panic.</p>
+              </div>
+              <div class="seed-steps">
+                <p class="seed-title" id="resultSeedTitle"></p>
+                <ul>
+                  <li><strong>Today:</strong> <span id="resultSeedToday"></span></li>
+                  <li><strong>This week:</strong> <span id="resultSeedWeek"></span></li>
+                  <li><strong>This month:</strong> <span id="resultSeedMonth"></span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>What makes it different</h4>
+                <p>Cyber Seeds is designed for homes, children, and long-term resilience — not short-term tech fixes.</p>
+              </div>
+              <div class="snapshot-section-grid">
+                <ul class="snapshot-list">
+                  <li><strong>Behaviour is infrastructure.</strong> Habits are treated like safety systems.</li>
+                  <li><strong>Children are designed in from day one.</strong> No bolt-on afterthoughts.</li>
+                  <li><strong>Public-sector logic over hype.</strong> Calm, neutral, trust-first.</li>
+                  <li><strong>Institution-ready.</strong> Built to scale into councils, schools, and safeguarding bodies.</li>
+                  <li><strong>Long-term by design.</strong> It mirrors public health, fire safety, and building standards.</li>
+                </ul>
+
+                <div class="snapshot-diagram">
+                  <h5>Why Cyber Seeds is different</h5>
+                  <svg class="snapshot-diff" viewBox="0 0 520 190" role="img" aria-label="Comparison between typical tools and Cyber Seeds">
+                    <title>What makes it different</title>
+                    <desc>Typical tools focus on control and alerts, while Cyber Seeds focuses on infrastructure and resilience.</desc>
+                    <rect x="18" y="20" width="220" height="150" rx="18" class="diff-box" />
+                    <rect x="282" y="20" width="220" height="150" rx="18" class="diff-box diff-box-strong" />
+                    <text x="128" y="48" text-anchor="middle" class="diff-title">Typical tools</text>
+                    <text x="392" y="48" text-anchor="middle" class="diff-title">Cyber Seeds</text>
+                    <text x="128" y="78" text-anchor="middle" class="diff-item">Antivirus</text>
+                    <text x="128" y="100" text-anchor="middle" class="diff-item">Parental control</text>
+                    <text x="128" y="122" text-anchor="middle" class="diff-item">One-off advice</text>
+                    <text x="128" y="144" text-anchor="middle" class="diff-item">Business audits</text>
+                    <text x="392" y="78" text-anchor="middle" class="diff-item">Behaviour systems</text>
+                    <text x="392" y="100" text-anchor="middle" class="diff-item">Children-first</text>
+                    <text x="392" y="122" text-anchor="middle" class="diff-item">Public-sector aligned</text>
+                    <text x="392" y="144" text-anchor="middle" class="diff-item">Institution-ready</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="snapshot-invite">
+              <h4>If this was useful, you’re invited</h4>
+              <p>
+                If you felt value here, you can explore a deeper Cyber Seeds audit, personalised guidance, or practitioner-led support.
+                It’s an invitation, not a funnel — nothing is pushed, and no one is judged.
+              </p>
             </div>
 
            <div class="result-actions">
