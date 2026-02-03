@@ -995,3 +995,73 @@ body.modal-open{
   box-shadow:0 12px 28px rgba(15,47,42,.12);
   transform:translateY(-1px);
 }
+/* =========================
+   SECTION BANDING — CANON
+   ========================= */
+
+.section{
+  position:relative;
+}
+
+.section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#fff;
+  z-index:-1;
+}
+
+.section.alt::before{
+  background:linear-gradient(180deg,#f9fbfa,#ffffff);
+}
+
+/* Add breathing space between major ideas */
+.section + .section{
+  margin-top:12px;
+}
+/* =========================
+   FIVE LENSES — CONTAINMENT
+   ========================= */
+
+#lenses .container{
+  padding:24px;
+  border-radius:24px;
+  background:linear-gradient(180deg,#ffffff,#f7fbfa);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+}
+
+/* =========================
+   CONTENT GRIDS — CONTROLLED
+   ========================= */
+
+#benefits .grid-content,
+#about .grid-content,
+#why .grid-content{
+  max-width:900px;
+  margin:0 auto;
+}
+
+.section h2{
+  scroll-margin-top:96px; /* fixes anchor jumps */
+}
+
+.section h2::after{
+  content:"";
+  display:block;
+  width:48px;
+  height:3px;
+  background:var(--brand2);
+  margin-top:10px;
+  border-radius:3px;
+}
+
+@media (max-width:760px){
+  #lenses .container{
+    padding:16px;
+  }
+
+  .section{
+    padding:44px 0;
+  }
+}
