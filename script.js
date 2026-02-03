@@ -325,3 +325,108 @@
     if(e.key==="Escape"&&modal.classList.contains("is-open"))closeModal();
   });
 })();
+
+/* =========================================================
+   Systems Map Insight Panel
+   ========================================================= */
+
+(() => {
+  "use strict";
+
+  const nodes = Array.from(document.querySelectorAll(".cs-node"));
+  if (!nodes.length) return;
+
+  const kicker = document.getElementById("csInsightKicker");
+  const title = document.getElementById("csInsightTitle");
+  const body = document.getElementById("csInsightBody");
+  const meta = document.getElementById("csInsightMeta");
+  const state = document.getElementById("csInsightState");
+  const leverage = document.getElementById("csInsightLeverage");
+  const next = document.getElementById("csInsightNext");
+  const nextText = document.getElementById("csInsightNextText");
+  const resetBtn = document.getElementById("csResetSystems");
+
+  const defaults = {
+    kicker: "Household view",
+    title: "The invisible becomes visible",
+    body: "Tap any system in the map to see what it means in real life — calmly and proportionately."
+  };
+
+  const insights = {
+    network: {
+      kicker: "Network lens",
+      title: "Your Wi-Fi is the home’s circulation system",
+      body: "Stable router settings make everything else steadier — devices update cleanly, accounts stay protected, and stress reduces.",
+      state: "Forming",
+      leverage: "High leverage",
+      next: "Check who can access the router settings and ensure guest access is separate."
+    },
+    devices: {
+      kicker: "Devices lens",
+      title: "Devices are the organs of the household system",
+      body: "Simple upkeep — updates, locks, backups — keeps daily life running without sudden breakage or loss.",
+      state: "Steady",
+      leverage: "High leverage",
+      next: "Pick one device to update and turn on auto-updates for the rest."
+    },
+    privacy: {
+      kicker: "Privacy lens",
+      title: "Accounts are the immune system",
+      body: "Boundaries around passwords and recovery routes reduce unwanted access and calm the household response.",
+      state: "Forming",
+      leverage: "Critical",
+      next: "Protect the main email account with two-step verification."
+    },
+    scams: {
+      kicker: "Scams lens",
+      title: "Scams are the exposure layer",
+      body: "Pause-and-verify habits neutralise urgency tactics before they turn into pressure or loss.",
+      state: "Emerging",
+      leverage: "High leverage",
+      next: "Agree a single household rule: never act on payment requests without a quick check."
+    },
+    children: {
+      kicker: "Wellbeing lens",
+      title: "Wellbeing protects focus, sleep, and development",
+      body: "Simple routines around screens and downtime create calm boundaries for children and adults.",
+      state: "Steady",
+      leverage: "Foundational",
+      next: "Choose one shared calm time each day that is device-light or device-free."
+    }
+  };
+
+  function resetInsight(){
+    nodes.forEach(node => node.classList.remove("is-active"));
+    if (kicker) kicker.textContent = defaults.kicker;
+    if (title) title.textContent = defaults.title;
+    if (body) body.textContent = defaults.body;
+    if (meta) meta.hidden = true;
+    if (next) next.hidden = true;
+  }
+
+  function setInsight(key){
+    const entry = insights[key];
+    if (!entry) return;
+    nodes.forEach(node => node.classList.toggle("is-active", node.dataset.node === key));
+    if (kicker) kicker.textContent = entry.kicker;
+    if (title) title.textContent = entry.title;
+    if (body) body.textContent = entry.body;
+    if (state) state.textContent = entry.state;
+    if (leverage) leverage.textContent = entry.leverage;
+    if (nextText) nextText.textContent = entry.next;
+    if (meta) meta.hidden = false;
+    if (next) next.hidden = false;
+  }
+
+  nodes.forEach(node => {
+    node.addEventListener("click", () => setInsight(node.dataset.node));
+    node.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setInsight(node.dataset.node);
+      }
+    });
+  });
+
+  resetBtn?.addEventListener("click", resetInsight);
+})();
