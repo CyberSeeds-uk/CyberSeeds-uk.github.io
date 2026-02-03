@@ -430,3 +430,35 @@
 
   resetBtn?.addEventListener("click", resetInsight);
 })();
+
+/* =========================================================
+   Lens Guidance Toggles
+   ========================================================= */
+
+(() => {
+  "use strict";
+
+  const toggles = Array.from(document.querySelectorAll("[data-lens-toggle]"));
+  if (!toggles.length) return;
+
+  const closeOthers = (current) => {
+    toggles.forEach(btn => {
+      if (btn === current) return;
+      const panelId = btn.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      btn.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+    });
+  };
+
+  toggles.forEach(btn => {
+    const panelId = btn.getAttribute("aria-controls");
+    const panel = panelId ? document.getElementById(panelId) : null;
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+      closeOthers(btn);
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      if (panel) panel.hidden = isExpanded;
+    });
+  });
+})();
