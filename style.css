@@ -316,6 +316,7 @@ h1{
   border-radius:24px;
   padding:18px;
   box-shadow:var(--shadow-sm);
+  position:relative;
 }
 
 .cs-systems__svg{

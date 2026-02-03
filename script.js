@@ -372,26 +372,26 @@
     privacy: {
       kicker: "Privacy lens",
       title: "Accounts are the immune system",
-      body: "Boundaries around passwords and recovery routes reduce unwanted access and calm the household response.",
+      body: "Boundaries reduce surprises. Strong recovery routes keep the household in control when pressure hits.",
       state: "Forming",
       leverage: "Critical",
-      next: "Protect the main email account with two-step verification."
+      next: "Secure the main email account with two-step verification."
     },
     scams: {
       kicker: "Scams lens",
-      title: "Scams are the exposure layer",
-      body: "Pause-and-verify habits neutralise urgency tactics before they turn into pressure or loss.",
+      title: "Scams test the household perimeter",
+      body: "A calm pause protects everyone. Simple verification routines stop urgency from turning into loss.",
       state: "Emerging",
       leverage: "High leverage",
-      next: "Agree a single household rule: never act on payment requests without a quick check."
+      next: "Set one rule: no payments or logins without a quick double-check."
     },
     children: {
       kicker: "Wellbeing lens",
-      title: "Wellbeing protects focus, sleep, and development",
-      body: "Simple routines around screens and downtime create calm boundaries for children and adults.",
+      title: "Wellbeing keeps the system calm",
+      body: "Small routines around screens, sleep, and focus protect development and reduce friction at home.",
       state: "Steady",
       leverage: "Foundational",
-      next: "Choose one shared calm time each day that is device-light or device-free."
+      next: "Pick one shared calm time each day that is device-light or device-free."
     }
   };
 

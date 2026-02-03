@@ -157,11 +157,14 @@
           <text x="450" y="92" text-anchor="middle" class="cs-home__title">Your Home</text>
 
           <!-- Connection flows -->
-          <path d="M 250 190 C 360 140, 540 140, 650 190" class="cs-flow" />
+          <path d="M 250 190 C 360 140, 540 140, 650 190" class="cs-flow cs-flow-strong" />
           <path d="M 250 190 C 280 260, 300 300, 350 335" class="cs-flow" />
           <path d="M 650 190 C 620 260, 600 300, 550 335" class="cs-flow" />
-          <path d="M 350 335 C 430 380, 470 410, 450 460" class="cs-flow" />
+          <path d="M 350 335 C 430 380, 470 410, 450 460" class="cs-flow cs-flow-strong" />
           <path d="M 550 335 C 470 380, 430 410, 450 460" class="cs-flow" />
+
+          <text x="450" y="132" text-anchor="middle" class="cs-flow__label">Connected systems</text>
+          <text x="450" y="505" text-anchor="middle" class="cs-flow__label">Shared household rhythms</text>
 
           <!-- Nodes (clickable groups) -->
           <g class="cs-node" tabindex="0" data-node="network" aria-label="Network and Wi-Fi">
@@ -219,7 +222,6 @@
           </div>
 
           <div class="cs-insight__actions">
-            <a class="btn" href="#snapshot">Take the Household Snapshot</a>
             <button class="btn ghost" type="button" id="csResetSystems">Reset view</button>
           </div>
 
@@ -241,36 +243,36 @@
         </p>
 
         <div class="grid-5">
-          <button class="lens" type="button" data-open-snapshot data-lens="network">
+          <article class="lens">
             <div class="lens-icon" aria-hidden="true">📶</div>
             <h3>Network</h3>
             <p>Wi-Fi and router settings — the home’s digital front door.</p>
-            <span class="lens-cta">Explore this lens →</span>
-          </button>
-          <button class="lens" type="button" data-open-snapshot data-lens="devices">
+            <a class="lens-cta" href="/resources/">Explore Network guidance →</a>
+          </article>
+          <article class="lens">
             <div class="lens-icon" aria-hidden="true">🧩</div>
             <h3>Devices</h3>
             <p>Updates, locks, backups — keeping everyday devices steady.</p>
-            <span class="lens-cta">Explore this lens →</span>
-          </button>
-          <button class="lens" type="button" data-open-snapshot data-lens="privacy">
+            <a class="lens-cta" href="/resources/">Explore Devices guidance →</a>
+          </article>
+          <article class="lens">
             <div class="lens-icon" aria-hidden="true">🫧</div>
             <h3>Privacy</h3>
             <p>Passwords, recovery routes, oversharing, and account protection.</p>
-            <span class="lens-cta">Explore this lens →</span>
-          </button>
-          <button class="lens" type="button" data-open-snapshot data-lens="scams">
+            <a class="lens-cta" href="/resources/">Explore Privacy guidance →</a>
+          </article>
+          <article class="lens">
             <div class="lens-icon" aria-hidden="true">🛑</div>
             <h3>Scams</h3>
             <p>Urgency, impersonation, and manipulation — the household response plan.</p>
-            <span class="lens-cta">Explore this lens →</span>
-          </button>
-          <button class="lens" type="button" data-open-snapshot data-lens="wellbeing">
+            <a class="lens-cta" href="/resources/">Explore Scams guidance →</a>
+          </article>
+          <article class="lens">
             <div class="lens-icon" aria-hidden="true">🌙</div>
             <h3>Wellbeing</h3>
             <p>Sleep, focus, calm boundaries, and children’s online development.</p>
-            <span class="lens-cta">Explore this lens →</span>
-          </button>
+            <a class="lens-cta" href="/resources/">Explore Wellbeing guidance →</a>
+          </article>
         </div>
       </div>
     </section>
