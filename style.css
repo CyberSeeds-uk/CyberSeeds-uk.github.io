@@ -1035,13 +1035,6 @@ body.modal-open{
    CONTENT GRIDS — CONTROLLED
    ========================= */
 
-#benefits .grid-content,
-#about .grid-content,
-#why .grid-content{
-  max-width:900px;
-  margin:0 auto;
-}
-
 .section h2{
   scroll-margin-top:96px; /* fixes anchor jumps */
 }
