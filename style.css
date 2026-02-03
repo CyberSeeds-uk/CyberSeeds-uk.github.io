@@ -501,82 +501,6 @@ h1{
 }
 
 /* =========================
-   LENSES
-   ========================= */
-
-.lens{
-  text-align:left;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
-  box-shadow:var(--shadow-sm);
-  display:grid;
-  gap:8px;
-  min-height:100%;
-  cursor:pointer;
-  appearance:none;
-  font:inherit;
-}
-
-.lens:focus-visible,
-.lens:hover{
-  border-color:#1a6a5d;
-  box-shadow:0 12px 30px rgba(15,47,42,.12);
-  transform:translateY(-1px);
-}
-
-.lens-icon{
-  font-size:1.3rem;
-}
-
-.lens h3{
-  margin:0;
-  color:var(--brand);
-}
-
-.lens p{
-  margin:0;
-  color:var(--muted);
-}
-
-.lens-cta{
-  font-weight:700;
-  color:#1a6a5d;
-  font-size:.88rem;
-  background:none;
-  border:none;
-  padding:0;
-  cursor:pointer;
-  text-align:left;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-
-.lens-cta:focus-visible{
-  outline:2px solid rgba(26,106,93,.4);
-  outline-offset:4px;
-  border-radius:6px;
-}
-
-.lens-details{
-  border-top:1px solid var(--line);
-  padding-top:10px;
-  color:var(--muted);
-  font-size:.92rem;
-  display:grid;
-  gap:8px;
-}
-
-.lens-details ul{
-  margin:0;
-  padding-left:18px;
-  display:grid;
-  gap:6px;
-}
-
-/* =========================
    FAQ + FINAL CTA
    ========================= */
 
@@ -993,15 +917,28 @@ body.modal-open{
 }
 
 /* =========================
-   LENSES — CLOSED BY DEFAULT
+   LENSES — FINAL CANON
    ========================= */
 
+/* Responsive grid for lenses */
+.grid-lenses{
+  display:grid;
+  gap:16px;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Lens card */
 .lens{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
+  border-radius:18px;
   box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s ease, transform .2s ease;
+}
+
+/* Summary = pill */
+.lens-summary{
+  padding:16px;
   display:grid;
   gap:8px;
 }
@@ -1010,12 +947,12 @@ body.modal-open{
   font-size:1.35rem;
 }
 
-.lens h3{
+.lens-summary h3{
   margin:0;
   color:var(--brand);
 }
 
-.lens p{
+.lens-summary p{
   margin:0;
   color:var(--muted);
 }
@@ -1039,58 +976,24 @@ body.modal-open{
   border-radius:6px;
 }
 
-/* DETAILS — NEVER SHOWN UNTIL CLICKED */
-.lens-details{
-  border-top:1px solid var(--line);
-  padding-top:12px;
-  margin-top:8px;
-  color:var(--muted);
-  font-size:.92rem;
-  display:grid;
-  gap:8px;
-}
-
-.lens-details ul{
-  margin:0;
-  padding-left:18px;
-  display:grid;
-  gap:6px;
-}
-
-/* =========================
-   LENSES — COLLAPSED BY DEFAULT
-   ========================= */
-
-.lens{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  box-shadow:var(--shadow-sm);
-  transition:box-shadow .2s ease, transform .2s ease;
-}
-
-/* Summary = pill */
-.lens-summary{
-  padding:16px;
-  display:grid;
-  gap:8px;
-}
-
-.lens-summary p{
-  margin:0;
-  color:var(--muted);
-}
-
-/* Body = hidden area */
+/* Body = revealed only when opened */
 .lens-body{
   border-top:1px solid var(--line);
   padding:14px 16px 16px;
   display:grid;
   gap:8px;
   color:var(--muted);
+  font-size:.92rem;
 }
 
-/* No body = true pill */
+.lens-body ul{
+  margin:0;
+  padding-left:18px;
+  display:grid;
+  gap:6px;
+}
+
+/* Hidden means truly gone */
 .lens-body[hidden]{
   display:none;
 }
