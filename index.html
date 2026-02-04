@@ -604,6 +604,33 @@
             <h3>Your Household Signal</h3>
             <p id="resultHeadline" class="result-headline"></p>
             <p class="muted" id="resultStage"></p>
+
+            <section class="signal-panel" id="signalPanel" aria-label="Household signal panel">
+              <div class="signal-summary">
+                <p class="eyebrow">Overall signal</p>
+                <h3 id="signalOverall">—</h3>
+                <p class="muted" id="signalSummary"></p>
+              </div>
+              <div class="signal-metrics">
+                <div class="signal-metric">
+                  <span>Signal indicator</span>
+                  <strong id="signalScore">—</strong>
+                </div>
+                <div class="signal-metric">
+                  <span>Trajectory</span>
+                  <strong id="signalTrajectory">—</strong>
+                </div>
+                <div class="signal-metric">
+                  <span>Risk pressure</span>
+                  <strong id="signalRisk">—</strong>
+                </div>
+                <div class="signal-metric">
+                  <span>Resilience index</span>
+                  <strong id="signalResilience">—</strong>
+                </div>
+              </div>
+              <p class="micro muted" id="signalChange"></p>
+            </section>
 	
             <div class="result-grid">
               <div class="result-card">
@@ -613,6 +640,35 @@
               <div class="result-card">
                 <h4>Lens to support next</h4>
                 <p id="weakestLens"></p>
+              </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>Five-lens system map</h4>
+                <p>Tap a lens to jump to its detail. Each dot shows the current signal.</p>
+              </div>
+              <div class="lens-map" id="lensMap">
+                <button class="lens-chip" type="button" data-lens-target="lens-network">
+                  <span class="lens-chip-name">Network</span>
+                  <span class="lens-chip-status" id="statusNetwork" aria-label="Network status">—</span>
+                </button>
+                <button class="lens-chip" type="button" data-lens-target="lens-devices">
+                  <span class="lens-chip-name">Devices</span>
+                  <span class="lens-chip-status" id="statusDevices" aria-label="Devices status">—</span>
+                </button>
+                <button class="lens-chip" type="button" data-lens-target="lens-privacy">
+                  <span class="lens-chip-name">Accounts &amp; Privacy</span>
+                  <span class="lens-chip-status" id="statusPrivacy" aria-label="Accounts and privacy status">—</span>
+                </button>
+                <button class="lens-chip" type="button" data-lens-target="lens-scams">
+                  <span class="lens-chip-name">Scams &amp; Messages</span>
+                  <span class="lens-chip-status" id="statusScams" aria-label="Scams and messages status">—</span>
+                </button>
+                <button class="lens-chip" type="button" data-lens-target="lens-wellbeing">
+                  <span class="lens-chip-name">Children &amp; Wellbeing</span>
+                  <span class="lens-chip-status" id="statusWellbeing" aria-label="Children and wellbeing status">—</span>
+                </button>
               </div>
             </div>
 
@@ -693,11 +749,69 @@
               </div>
             </div>
 
+            <section class="snapshot-section" id="lensDetails">
+              <div class="snapshot-section-head">
+                <h4>Lens notes</h4>
+                <p>Each lens is a normal part of daily life. These notes explain what the signal means.</p>
+              </div>
+              <div class="lens-detail-grid">
+                <article class="lens-detail-card" id="lens-network">
+                  <h5>Network</h5>
+                  <p class="lens-detail-status" id="lensNetworkStatus"></p>
+                  <p class="muted" id="lensNetworkNote"></p>
+                </article>
+                <article class="lens-detail-card" id="lens-devices">
+                  <h5>Devices</h5>
+                  <p class="lens-detail-status" id="lensDevicesStatus"></p>
+                  <p class="muted" id="lensDevicesNote"></p>
+                </article>
+                <article class="lens-detail-card" id="lens-privacy">
+                  <h5>Accounts &amp; Privacy</h5>
+                  <p class="lens-detail-status" id="lensPrivacyStatus"></p>
+                  <p class="muted" id="lensPrivacyNote"></p>
+                </article>
+                <article class="lens-detail-card" id="lens-scams">
+                  <h5>Scams &amp; Messages</h5>
+                  <p class="lens-detail-status" id="lensScamsStatus"></p>
+                  <p class="muted" id="lensScamsNote"></p>
+                </article>
+                <article class="lens-detail-card" id="lens-wellbeing">
+                  <h5>Children &amp; Wellbeing</h5>
+                  <p class="lens-detail-status" id="lensWellbeingStatus"></p>
+                  <p class="muted" id="lensWellbeingNote"></p>
+                </article>
+              </div>
+            </section>
+
             <div class="snapshot-section">
               <div class="snapshot-section-head">
                 <h4>Lens insight</h4>
                 <p id="resultRationale"></p>
               </div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>What you’re doing well</h4>
+                <p>Strengths are the foundation. Keep these steady and build from them.</p>
+              </div>
+              <ul class="strengths-list" id="strengthsList"></ul>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>Pattern check</h4>
+                <p>These patterns are common in households. They’re signals, not labels.</p>
+              </div>
+              <div class="pattern-list" id="patternList"></div>
+            </div>
+
+            <div class="snapshot-section">
+              <div class="snapshot-section-head">
+                <h4>Priority Seed Pathways</h4>
+                <p>Three phases, built around your most supported improvements.</p>
+              </div>
+              <div class="phase-plan" id="phasePlan"></div>
             </div>
 
             <div class="snapshot-section">
@@ -713,6 +827,18 @@
                   <li><strong>This month:</strong> <span id="resultSeedMonth"></span></li>
                 </ul>
               </div>
+            </div>
+
+            <div class="snapshot-section snapshot-history" id="snapshotHistorySection" hidden>
+              <div class="snapshot-section-head">
+                <h4>Snapshot history</h4>
+                <p>Recent snapshots from this device only.</p>
+              </div>
+              <div class="history-summary">
+                <p class="micro muted" id="historyChange"></p>
+                <p class="micro muted" id="historyTrend"></p>
+              </div>
+              <ul class="history-list" id="snapshotHistory"></ul>
             </div>
             <div class="snapshot-section snapshot-compare">
               <div class="snapshot-section-head">
@@ -736,7 +862,9 @@
               </div>
               <div class="snapshot-passport-actions">
                 <button class="btn ghost" type="button" id="downloadPassport">Download Digital Passport (JSON)</button>
+                <button class="btn ghost" type="button" id="downloadSummary">Download Plain-English Summary</button>
               </div>
+              <p class="micro muted">This file is for backup and sharing. You do not need to read it.</p>
               <p class="micro muted">Your passport lives only in local storage and the files you download.</p>
             </div>
 

@@ -206,6 +206,17 @@ h1{
   color:var(--brand2);
 }
 
+.hub-chip{
+  background:#eef6f4;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:.82rem;
+  font-weight:650;
+  color:var(--brand);
+  display:inline-flex;
+}
+
 .download-row{
   display:flex;
   flex-wrap:wrap;
@@ -693,12 +704,175 @@ body.modal-open{
   transform:none;
 }
 
+.signal-panel{
+  margin:16px 0 18px;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#f4faf9,#ffffff);
+  display:grid;
+  gap:12px;
+}
+
+.signal-summary h3{
+  margin:0;
+  color:var(--brand);
+  font-size:1.4rem;
+}
+
+.signal-metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+}
+
+.signal-metric{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fff;
+  display:grid;
+  gap:4px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+.signal-metric strong{
+  color:var(--brand);
+  font-size:1rem;
+}
+
 .snapshot-section{
   margin-top:20px;
   padding:16px;
   border-radius:16px;
   border:1px solid var(--line);
   background:#fff;
+}
+
+.lens-map{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+
+.lens-chip{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#f8fbfa;
+  font-weight:700;
+  color:var(--text);
+  cursor:pointer;
+}
+
+.lens-chip:focus{
+  outline:2px solid var(--brand);
+  outline-offset:2px;
+}
+
+.lens-chip-status{
+  font-size:1.05rem;
+}
+
+.lens-detail-grid{
+  margin-top:14px;
+  display:grid;
+  gap:12px;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+}
+
+.lens-detail-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+}
+
+.lens-detail-status{
+  font-weight:700;
+  color:var(--brand);
+  margin:6px 0;
+}
+
+.strengths-list{
+  margin:12px 0 0;
+  padding-left:18px;
+  display:grid;
+  gap:8px;
+  color:var(--muted);
+}
+
+.pattern-list{
+  margin-top:12px;
+  display:grid;
+  gap:12px;
+}
+
+.pattern-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#f9fbfb;
+}
+
+.pattern-card h5{
+  margin:0 0 6px;
+  color:var(--brand);
+}
+
+.phase-plan{
+  margin-top:12px;
+  display:grid;
+  gap:12px;
+}
+
+.phase-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+}
+
+.phase-card h5{
+  margin:0 0 6px;
+  color:var(--brand);
+}
+
+.phase-card ul{
+  margin:8px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+}
+
+.snapshot-history .history-list{
+  margin:12px 0 0;
+  padding-left:18px;
+  display:grid;
+  gap:8px;
+  color:var(--muted);
+}
+
+.personalised-banner{
+  margin:12px 0 0;
+  padding:10px 12px;
+  border-radius:999px;
+  background:#e8f6f5;
+  color:var(--brand);
+  display:inline-flex;
+  font-weight:700;
+}
+
+.progress-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  color:var(--muted);
+  font-weight:600;
 }
 
 .snapshot-section-head h4{
