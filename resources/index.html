@@ -112,21 +112,115 @@
                 </p>
 
                 <div class="lens-ring" role="group" aria-label="Five lens ring">
-                  <svg viewBox="0 0 200 200" class="ring-svg" aria-label="Five lens ring">
-                    <defs>
-                      <filter id="csGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2.2" result="blur"/>
-                        <feColorMatrix in="blur" type="matrix"
-                          values="1 0 0 0 0
-                                  0 1 0 0 0
-                                  0 0 1 0 0
-                                  0 0 0 0.9 0" result="glow"/>
-                        <feMerge>
-                          <feMergeNode in="glow"/>
-                          <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                      </filter>
-                    </defs>
+                  <div class="lens-ring-wrap">
+  <svg
+    class="lens-ring"
+    viewBox="0 0 200 200"
+    width="280"
+    height="280"
+    aria-label="Five Lens Safety Ring"
+  >
+
+    <!-- Background ring -->
+    <circle
+      cx="100"
+      cy="100"
+      r="82"
+      fill="none"
+      stroke="#eef7f6"
+      stroke-width="14"
+    />
+
+    <!-- Segments -->
+    <g class="lens-segments">
+
+      <!-- Network -->
+      <circle
+        class="lens network"
+        cx="100"
+        cy="100"
+        r="82"
+        fill="none"
+        stroke-dasharray="103 515"
+        stroke-dashoffset="0"
+      />
+
+      <!-- Devices -->
+      <circle
+        class="lens devices"
+        cx="100"
+        cy="100"
+        r="82"
+        fill="none"
+        stroke-dasharray="103 515"
+        stroke-dashoffset="-103"
+      />
+
+      <!-- Privacy -->
+      <circle
+        class="lens privacy"
+        cx="100"
+        cy="100"
+        r="82"
+        fill="none"
+        stroke-dasharray="103 515"
+        stroke-dashoffset="-206"
+      />
+
+      <!-- Scams -->
+      <circle
+        class="lens scams"
+        cx="100"
+        cy="100"
+        r="82"
+        fill="none"
+        stroke-dasharray="103 515"
+        stroke-dashoffset="-309"
+      />
+
+      <!-- Wellbeing -->
+      <circle
+        class="lens wellbeing"
+        cx="100"
+        cy="100"
+        r="82"
+        fill="none"
+        stroke-dasharray="103 515"
+        stroke-dashoffset="-412"
+      />
+
+    </g>
+
+    <!-- Centre -->
+    <circle
+      cx="100"
+      cy="100"
+      r="62"
+      fill="#ffffff"
+    />
+
+    <text
+      x="100"
+      y="96"
+      text-anchor="middle"
+      class="lens-centre-title"
+    >
+      Household
+    </text>
+
+    <text
+      x="100"
+      y="118"
+      text-anchor="middle"
+      class="lens-centre-sub"
+    >
+      Signal
+    </text>
+
+  </svg>
+</div>
+  
+                </defs>
 
                     <!-- track -->
                     <circle cx="100" cy="100" r="70" class="ring-track"></circle>
