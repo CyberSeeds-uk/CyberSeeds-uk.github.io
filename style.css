@@ -1254,3 +1254,77 @@ body.modal-open{
   border:1px solid var(--line);
   box-shadow:var(--shadow-sm);
 }
+
+/* ================================
+   Five Lens Ring (Professional)
+   ================================ */
+
+.lens-ring-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:2rem auto;
+  max-width:320px;
+}
+
+.lens-ring{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* Base segment style */
+.lens{
+  stroke-width:14;
+  stroke-linecap:round;
+  transition:stroke .3s ease, opacity .3s ease;
+  cursor:pointer;
+}
+
+/* Brand colours */
+.lens.network{
+  stroke: var(--brand2);
+}
+
+.lens.devices{
+  stroke: #4aa89c;
+}
+
+.lens.privacy{
+  stroke: #7ccfc4;
+}
+
+.lens.scams{
+  stroke: #3d857a;
+}
+
+.lens.wellbeing{
+  stroke: #5fbfb3;
+}
+
+/* Hover focus */
+.lens:hover{
+  opacity:.85;
+  stroke-width:16;
+}
+
+/* Centre text */
+
+.lens-centre-title{
+  font-size:14px;
+  font-weight:600;
+  fill:var(--ink);
+  letter-spacing:.02em;
+}
+
+.lens-centre-sub{
+  font-size:11px;
+  fill:var(--muted);
+}
+
+/* Mobile */
+@media(max-width:480px){
+  .lens-ring-wrap{
+    max-width:240px;
+  }
+}
