@@ -1355,3 +1355,38 @@ body.modal-open{
     max-width:240px;
   }
 }
+/* =========================
+   SNAPSHOT VISUAL HIERARCHY
+   ========================= */
+
+.snapshot-section {
+  margin: 22px 0;
+}
+
+.snapshot-section-head {
+  margin-bottom: 10px;
+}
+
+.snapshot-section--anchor {
+  background: linear-gradient(180deg, #ffffff, #f2fbf9);
+  border: 1px solid var(--line);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow-md);
+  padding: 18px;
+}
+
+.snapshot-section--soft {
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.snapshot-section--reference {
+  background: #fcfefe;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  opacity: 0.95;
+}
+
