@@ -1390,3 +1390,12 @@ body.modal-open{
   opacity: 0.95;
 }
 
+.hero-card {
+  align-self: center;
+}
+
+.hero-card .card {
+  background: var(--mint2);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
