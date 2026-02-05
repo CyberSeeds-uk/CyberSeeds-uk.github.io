@@ -1399,3 +1399,8 @@ body.modal-open{
   border: 1px solid var(--line);
   box-shadow: none;
 }
+
+.hero-meta {
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
