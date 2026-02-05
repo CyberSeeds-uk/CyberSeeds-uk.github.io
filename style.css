@@ -1052,6 +1052,33 @@ body.modal-open{
 }
 
 /* =========================
+   PRIVACY AT A GLANCE
+   ========================= */
+
+.privacy-glance{
+  background: var(--mint2);
+  border: 1px solid var(--line);
+  margin: 12px 0 18px;
+}
+
+.privacy-glance h4{
+  margin: 0 0 6px;
+  color: var(--brand);
+}
+
+.privacy-glance ul{
+  margin: 8px 0;
+  padding-left: 18px;
+}
+
+.privacy-glance li{
+  margin: 2px 0;
+  color: var(--muted);
+}
+
+
+
+/* =========================
    RESPONSIVE
    ========================= */
 
