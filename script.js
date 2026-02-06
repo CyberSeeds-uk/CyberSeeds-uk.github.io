@@ -731,7 +731,7 @@
     form.innerHTML="";
     result.hidden=true;
     result.classList.remove("reveal");
-    nextBtn.textContent="Start";
+    nextBtn.textContent="Begin";
     backBtn.disabled=true;
     nextBtn.style.display="";
     backBtn.style.display="";
