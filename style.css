@@ -1415,3 +1415,35 @@ body.modal-open{
     display: none;
   }
 }
+
+.section .container{
+  max-width:1100px;
+  padding:clamp(20px, 3vw, 32px);
+}
+.section{
+  padding:clamp(40px, 6vw, 64px) 0;
+}
+
+.section + .section{
+  margin-top:clamp(8px, 2vw, 16px);
+}
+
+p, li{
+  max-width:65ch;
+}
+
+.cs-systems__grid{
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+}
+
+.modal-panel{
+  max-height: min(86vh, 720px);
+}
+
+button,
+a.btn,
+.lens-chip,
+.lens-cta{
+  min-height:44px;
+}
+
