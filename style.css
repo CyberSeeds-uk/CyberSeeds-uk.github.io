@@ -1404,3 +1404,14 @@ body.modal-open{
   opacity: 0.85;
   font-size: 0.9rem;
 }
+
+.mini-graphic {
+  opacity: 0.35;
+  filter: saturate(0.6);
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .mini-graphic {
+    display: none;
+  }
+}
