@@ -1453,3 +1453,17 @@ a.btn,
   }
 }
 
+.system-intro{
+  font-size:0.95rem;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+@media (min-width: 1024px){
+  .household-system{
+    display:grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items:center;
+  }
+}
