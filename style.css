@@ -703,6 +703,13 @@ body.modal-open{
   opacity:1;
   transform:none;
 }
+.system-summary{
+  font-size:1rem;
+  color:var(--ink);
+  margin:12px 0 20px;
+  max-width:60ch;
+}
+
 
 .signal-panel{
   margin:16px 0 18px;
