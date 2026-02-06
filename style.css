@@ -1467,3 +1467,14 @@ a.btn,
     align-items:center;
   }
 }
+
+@media (min-width: 1024px){
+  .system-map::after{
+    content:"Click a system to explore";
+    display:block;
+    margin-top:8px;
+    font-size:0.8rem;
+    color:var(--muted);
+    text-align:center;
+  }
+}
