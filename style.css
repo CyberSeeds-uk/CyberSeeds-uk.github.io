@@ -1447,3 +1447,9 @@ a.btn,
   min-height:44px;
 }
 
+@media (min-width: 1024px){
+  .section{
+    padding-block: clamp(32px, 4vw, 56px);
+  }
+}
+
