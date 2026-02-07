@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Dev checklist: add focus badge + progress tracker container + tidy duplicate seed panels. -->
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -92,7 +93,10 @@
             <!-- Focus -->
             <div class="card">
               <div class="card-pad">
-                <p class="eyebrow">Your prioritised focus</p>
+                <div class="card-header-row">
+                  <p class="eyebrow">Your prioritised focus</p>
+                  <span class="focus-badge" aria-hidden="true">Focus</span>
+                </div>
                 <h2 id="focusTitle">Loading…</h2>
                 <p class="section-lead" id="focusDesc"></p>
 
@@ -319,39 +323,16 @@
           
           <section data-cs-lens-cards></section>
 
-            <!-- Small actions (stronger + structured + personalised) -->
+            <!-- Progress tracker -->
             <div class="card">
               <div class="card-pad">
-                <p class="eyebrow">Small actions</p>
-                <h2>Small actions you can do</h2>
+                <p class="eyebrow">Progress tracker</p>
+                <h2>Progress tracker</h2>
                 <p class="section-lead" id="actionsIntro">
-                  Calm steps, not a checklist. Pick one and you’ll feel the difference fast.
+                  Gentle progress lives here. Tick off steps when they feel doable.
                 </p>
 
-                <div class="actions-3up">
-                  <section class="action-block" aria-label="Today actions">
-                    <h3>Today</h3>
-                    <ul id="actionsToday" class="action-list"></ul>
-                  </section>
-
-                  <section class="action-block" aria-label="This week actions">
-                    <h3>This week</h3>
-                    <ul id="actionsWeek" class="action-list"></ul>
-                  </section>
-
-                  <section class="action-block" aria-label="This month actions">
-                    <h3>This month</h3>
-                    <ul id="actionsMonth" class="action-list"></ul>
-                  </section>
-                </div>
-
-                <div class="seedline">
-                  <div class="seed-badge" aria-hidden="true">🌱</div>
-                  <div>
-                    <p class="seed-title">Digital Seed</p>
-                    <p id="seedText"></p>
-                  </div>
-                </div>
+                <div id="seedProgress" aria-live="polite"></div>
 
                 <div class="help-strip">
                   <div>

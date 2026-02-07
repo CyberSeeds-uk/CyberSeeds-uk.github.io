@@ -1,3 +1,8 @@
+/* Dev checklist: snapshot fallback + empty-section handling + seed progress tracking + baseline clarity copy. */
+/* Manual QA steps:
+   - Snapshot run -> retake -> results show.
+   - Resources load: no snapshot state, then snapshot state, then progress persists on reload.
+   - Baseline set/clear and compare hint reads clearly. */
 /* =========================================================
    Cyber Seeds — Resources Hub Integration
    - Loads latest snapshot and personalises the hub
@@ -26,6 +31,7 @@
   const HISTORY_KEY = "cyberseeds_snapshots_v1";
   const BASELINE_KEY = "cyberseeds_snapshot_baseline_v2";
   const SNAPSHOT_LAST_KEY = "cyberseeds_snapshot_last";
+  const SEED_PROGRESS_KEY = "cyberseeds_seed_progress_v1";
 
   const LEGACY_KEYS = [
     "cyberseeds_snapshot_v2",
@@ -73,6 +79,15 @@
   function sanitizeLensPercents(input){
     const data = input && typeof input === "object" ? input : {};
     return Object.fromEntries(LENS_ORDER.map(l => [l, Math.round(Number(data[l] ?? 0))]));
+  }
+
+  function hideIfEmpty(section){
+    if (!section) return;
+    const text = section.textContent.replace(/\s+/g, " ").trim();
+    if (text) return;
+    const meaningfulItems = section.querySelectorAll("li, p, span, strong, em, input, button, select, textarea");
+    if (meaningfulItems.length) return;
+    section.hidden = true;
   }
 
   function buildTrajectory(currentScore, previousScore){
@@ -144,6 +159,16 @@
       return currentRaw;
     }
 
+    const historyEntry = history[0];
+    if (historyEntry){
+      const migrated = coerceSnapshot(historyEntry, history);
+      if (migrated){
+        safeSetStorageItem(SNAPSHOT_KEY, JSON.stringify(migrated));
+        safeSetStorageItem(SNAPSHOT_LAST_KEY, migrated.id);
+        return migrated;
+      }
+    }
+
     const legacy = [currentRaw, ...LEGACY_KEYS.map(key => safeParse(safeGetStorageItem(key), null))]
       .find(item => item && typeof item === "object");
     if (!legacy) return null;
@@ -161,6 +186,97 @@
     if (score >= 75) return { icon: "🟢", label: "Steady" };
     if (score >= 50) return { icon: "🟠", label: "Forming" };
     return { icon: "🔴", label: "Fragile" };
+  }
+
+  function getSeedProgress(snapshot){
+    const store = safeParse(safeGetStorageItem(SEED_PROGRESS_KEY), {}) || {};
+    const key = snapshot?.id || snapshot?.timestamp || "latest";
+    const existing = store[key] || {};
+    return {
+      key,
+      store,
+      progress: {
+        today: Boolean(existing.today),
+        week: Boolean(existing.week),
+        month: Boolean(existing.month)
+      }
+    };
+  }
+
+  function saveSeedProgress(progressState){
+    if (!progressState) return;
+    progressState.store[progressState.key] = progressState.progress;
+    safeSetStorageItem(SEED_PROGRESS_KEY, JSON.stringify(progressState.store));
+  }
+
+  // Local-only progress UI, keyed per snapshot so new snapshots start fresh.
+  function renderSeedProgress(snapshot, seed){
+    const container = $("#seedProgress");
+    if (!container) return;
+    const today = seed?.today?.trim();
+    const week = seed?.this_week?.trim();
+    const month = seed?.this_month?.trim();
+    if (!today && !week && !month){
+      container.innerHTML = "";
+      const card = container.closest(".card");
+      if (card) card.hidden = true;
+      return;
+    }
+    const card = container.closest(".card");
+    if (card) card.hidden = false;
+
+    const state = getSeedProgress(snapshot);
+    const items = [
+      { key: "today", label: today, fallback: "Today task" },
+      { key: "week", label: week, fallback: "This week task" },
+      { key: "month", label: month, fallback: "This month task" }
+    ];
+    const completed = items.filter(item => state.progress[item.key]).length;
+    const percent = Math.round((completed / items.length) * 100);
+
+    container.innerHTML = `
+      <div class="progress-card">
+        <p class="progress-title">Progress</p>
+        <div class="progress-list">
+          ${items.map(item => `
+            <label class="progress-item">
+              <input type="checkbox" data-progress-key="${item.key}" ${state.progress[item.key] ? "checked" : ""} />
+              <span>${item.label || item.fallback}</span>
+            </label>
+          `).join("")}
+        </div>
+        <div class="progress-meta">
+          <span>${percent}% complete</span>
+          <span class="muted">Small steps count. No pressure if today feels full.</span>
+        </div>
+        <div class="progress-actions">
+          <button type="button" class="btn ghost" data-progress-action="all">Mark all complete</button>
+          <button type="button" class="btn" data-progress-action="reset">Reset progress</button>
+        </div>
+      </div>
+    `;
+
+    const update = (next) => {
+      state.progress = { ...state.progress, ...next };
+      saveSeedProgress(state);
+      renderSeedProgress(snapshot, seed);
+    };
+
+    container.querySelectorAll("[data-progress-key]").forEach(input => {
+      input.addEventListener("change", () => {
+        update({ [input.getAttribute("data-progress-key")]: input.checked });
+      });
+    });
+    container.querySelectorAll("[data-progress-action]").forEach(button => {
+      button.addEventListener("click", () => {
+        const action = button.getAttribute("data-progress-action");
+        if (action === "all"){
+          update({ today: true, week: true, month: true });
+        } else if (action === "reset"){
+          update({ today: false, week: false, month: false });
+        }
+      });
+    });
   }
 
   function setRingSegments(lensPercents){
@@ -299,6 +415,35 @@
       focusChips.innerHTML = chips.map(chip => `<span class="hub-chip">${chip}</span>`).join("");
     }
 
+    const hasText = (...els) => els.some(el => el && el.textContent.trim().length);
+    const signalTitle = document.querySelector("[data-cs-signal-title]");
+    const signalMessage = document.querySelector("[data-cs-signal-message]");
+    if (signalTitle) signalTitle.textContent = `${signal.overall} signal (${signal.score}/100)`;
+    if (signalMessage) signalMessage.textContent = signal.summary;
+    const signalCard = signalTitle?.closest(".card");
+    if (signalCard && !hasText(signalTitle, signalMessage)) signalCard.hidden = true;
+
+    const focusCardTitle = document.querySelector("[data-cs-focus-title]");
+    const focusWhy = document.querySelector("[data-cs-focus-why]");
+    const focusNow = document.querySelector("[data-cs-focus-now]");
+    if (focusCardTitle) focusCardTitle.textContent = `${LENS_LABELS[focusLens] || "Focus"} focus lens`;
+    if (focusWhy) focusWhy.textContent = snapshot.signal?.summary || "A clear focus keeps the next step calm and doable.";
+    if (focusNow) focusNow.textContent = `Trajectory: ${trajectory.label}. Risk pressure: ${signal.riskPressure}.`;
+    const focusCard = focusCardTitle?.closest(".card");
+    if (focusCard && !hasText(focusCardTitle, focusWhy, focusNow)) focusCard.hidden = true;
+
+    const ringContainer = document.querySelector("[data-cs-ring]");
+    const ringLegend = document.querySelector("[data-cs-ring-legend]");
+    if (ringContainer) ringContainer.textContent = "Lens scores (overall signal by lens):";
+    if (ringLegend){
+      ringLegend.innerHTML = LENS_ORDER.map(lens => {
+        const status = lensStatus(lenses[lens]);
+        return `<div class="legend-row"><span>${LENS_LABELS[lens]}</span><strong>${status.label} • ${Math.round(lenses[lens] ?? 0)}%</strong></div>`;
+      }).join("");
+    }
+    const ringCard = ringContainer?.closest(".card");
+    if (ringCard && !hasText(ringContainer, ringLegend)) ringCard.hidden = true;
+
     setRingSegments(lenses);
     const ringStage = $("#ringStage");
     const ringScore = $("#ringScore");
@@ -337,31 +482,55 @@
       });
     });
 
-    const actionsToday = $("#actionsToday");
-    const actionsWeek = $("#actionsWeek");
-    const actionsMonth = $("#actionsMonth");
-    const seedText = $("#seedText");
-    const phasePlan = Array.isArray(snapshot.phasePlan) ? snapshot.phasePlan : [];
-    const fillList = (node, items) => {
-      if (!node) return;
-      node.innerHTML = items.length ? items.map(item => `<li>${item}</li>`).join("") : "<li>Pick one small step that feels manageable.</li>";
-    };
-    fillList(actionsToday, phasePlan[0]?.actions || []);
-    fillList(actionsWeek, phasePlan[1]?.actions || []);
-    fillList(actionsMonth, phasePlan[2]?.actions || []);
-    if (seedText) seedText.textContent = snapshot.seed?.today || "Choose one calm action that makes today feel easier.";
-
     const emptyCard = $("#emptyStateCard");
     if (emptyCard) emptyCard.style.display = "none";
+
+    const seedTitle = document.querySelector("[data-cs-seed-title]");
+    const seedToday = document.querySelector("[data-cs-seed-today]");
+    const seedWeek = document.querySelector("[data-cs-seed-week]");
+    const seedMonth = document.querySelector("[data-cs-seed-month]");
+    if (seedTitle) seedTitle.textContent = snapshot.seed?.title || "Your next Digital Seed";
+    if (seedToday) seedToday.textContent = snapshot.seed?.today || "";
+    if (seedWeek) seedWeek.textContent = snapshot.seed?.this_week || "";
+    if (seedMonth) seedMonth.textContent = snapshot.seed?.this_month || "";
+    const seedCard = seedTitle?.closest(".card");
+    if (seedCard && !hasText(seedTitle, seedToday, seedWeek, seedMonth)) seedCard.hidden = true;
+
+    renderSeedProgress(snapshot, snapshot.seed);
+
+    document.querySelectorAll(".card").forEach(card => hideIfEmpty(card));
+    document.querySelectorAll("section[data-cs-lens-cards]").forEach(section => hideIfEmpty(section));
   }
 
   function showEmptyState(){
     const emptyCard = $("#emptyStateCard");
     if (emptyCard) emptyCard.style.display = "block";
+    const personalisedBanner = $("#personalisedBanner");
+    if (personalisedBanner) personalisedBanner.hidden = true;
     const stageTitle = $("#stageTitle");
     const stageDesc = $("#stageDesc");
     if (stageTitle) stageTitle.textContent = "No snapshot yet";
     if (stageDesc) stageDesc.textContent = "Take a snapshot to see a calm signal here.";
+    const selectors = [
+      "#focusTitle",
+      "#lensInsightCard",
+      "[data-cs-signal-title]",
+      "[data-cs-focus-title]",
+      "[data-cs-ring]",
+      "[data-cs-seed-title]",
+      "#progressGrid",
+      "#seedProgress"
+    ];
+    const cards = new Set();
+    selectors.forEach(selector => {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      const card = el.closest(".card");
+      if (card) cards.add(card);
+    });
+    cards.forEach(card => {
+      card.hidden = true;
+    });
   }
 
   function applyBaseline(snapshot){
@@ -369,17 +538,28 @@
     if (!grid) return;
     const baseline = safeParse(safeGetStorageItem(BASELINE_KEY), null);
     if (!baseline){
-      grid.innerHTML = "<p class=\"muted\">Save a baseline to track progress over time.</p>";
+      grid.innerHTML = "<p class=\"muted\">Set a baseline to lock today as your reference point.</p>";
       return;
     }
     const current = sanitizeLensPercents(snapshot.lenses || {});
     const baselineLens = sanitizeLensPercents(baseline.lenses || {});
+    const baselineTotal = Math.round(baseline.total ?? baseline.hdss ?? 0);
+    const currentTotal = Math.round(snapshot.total ?? snapshot.hdss ?? 0);
+    const totalDiff = currentTotal - baselineTotal;
+    const totalDiffLabel = totalDiff === 0 ? "no change" : totalDiff > 0 ? `+${totalDiff}` : `${totalDiff}`;
+    const baselineDate = baseline.saved_at ? formatDate(baseline.saved_at) : "Unknown date";
     const rows = LENS_ORDER.map(lens => {
       const delta = Math.round((current[lens] ?? 0) - (baselineLens[lens] ?? 0));
       const deltaLabel = delta === 0 ? "no change" : delta > 0 ? `+${delta}` : `${delta}`;
       return `<div class=\"progress-row\"><strong>${LENS_LABELS[lens]}</strong><span>${deltaLabel} points</span></div>`;
     }).join("");
-    grid.innerHTML = rows;
+    grid.innerHTML = `
+      <div class="progress-baseline">
+        <p><strong>Baseline set on ${baselineDate} at ${baselineTotal}%</strong></p>
+        <p class="muted">Change since baseline: ${totalDiffLabel}</p>
+      </div>
+      ${rows}
+    `;
   }
 
   function bindBaselineActions(snapshot){
