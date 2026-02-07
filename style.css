@@ -1,3 +1,4 @@
+/* Dev checklist: focus badge + progress card + result-card polish + tap target spacing. */
 /* =========================================================
    Cyber Seeds — Canon UI System
    Calm • Deterministic • Public-Sector-Safe
@@ -251,6 +252,27 @@ h1{
   border-radius:var(--radius);
   padding:18px;
   box-shadow:var(--shadow-sm);
+}
+
+.card-header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.focus-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 10px;
+  border-radius:999px;
+  background:var(--mint);
+  color:var(--brand);
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.02em;
+  text-transform:uppercase;
 }
 
 .card-strong{
@@ -922,7 +944,7 @@ body.modal-open{
 .snapshot-compare-controls{
   margin-top:12px;
   display:grid;
-  gap:8px;
+  gap:12px;
 }
 
 .compare-select{
@@ -943,6 +965,77 @@ body.modal-open{
   border-radius:12px;
   border:1px solid var(--line);
   background:linear-gradient(180deg,#ffffff,#f6fbfa);
+}
+
+.result-grid{
+  display:grid;
+  gap:12px;
+}
+
+.result-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+  box-shadow:var(--shadow-sm);
+}
+
+.hub-actions,
+.result-actions,
+.snapshot-compare-controls{
+  gap:12px;
+}
+
+.hub-actions,
+.result-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.progress-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+  display:grid;
+  gap:12px;
+}
+
+.progress-title{
+  margin:0;
+  font-weight:700;
+  color:var(--brand);
+}
+
+.progress-list{
+  display:grid;
+  gap:10px;
+}
+
+.progress-item{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.progress-item input{
+  margin-top:3px;
+}
+
+.progress-meta{
+  display:grid;
+  gap:4px;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+.progress-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
 .compare-list{
