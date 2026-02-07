@@ -444,11 +444,109 @@
     const ringCard = ringContainer?.closest(".card");
     if (ringCard && !hasText(ringContainer, ringLegend)) ringCard.hidden = true;
 
-    setRingSegments(lenses);
-    const ringStage = $("#ringStage");
-    const ringScore = $("#ringScore");
-    if (ringStage) ringStage.textContent = signal.overall;
-    if (ringScore) ringScore.textContent = `${signal.score}%`;
+
+      /* =========================================================
+     DONUT RING ENGINE (Resources Hub)
+     - Five equal segments
+     - Visual fill based on lens %
+     - Focus highlight
+     - Legend + segment click updates insight
+     ========================================================= */
+
+  const DONUT_IDS = {
+    network:   "donut-network",
+    devices:   "donut-devices",
+    privacy:   "donut-privacy",
+    scams:     "donut-scams",
+    wellbeing: "donut-wellbeing"
+  };
+
+  function clamp(n, min=0, max=100){
+    n = Number(n);
+    if (!Number.isFinite(n)) return min;
+    return Math.min(max, Math.max(min, n));
+  }
+
+  function setDonutText(signal){
+    const scoreEl = $("#donutScore");
+    const stageEl = $("#donutStage");
+    if (scoreEl) scoreEl.textContent = `${Math.round(signal.score ?? 0)}%`;
+    if (stageEl) stageEl.textContent = String(signal.overall ?? "—");
+  }
+
+  function setDonutSegments(lensPercents, focusLens){
+    // Geometry: equal 5 segments with a small gap
+    const r = 90;
+    const C = 2 * Math.PI * r;        // circumference
+    const N = LENS_ORDER.length;      // 5
+    const segLen = C / N;             // per segment length
+    const gap = 8;                    // visual gap (stroke length)
+    const visibleLen = Math.max(0, segLen - gap);
+
+    LENS_ORDER.forEach((lens, i) => {
+      const el = document.getElementById(DONUT_IDS[lens]);
+      if (!el) return;
+
+      const pct = clamp(lensPercents[lens] ?? 0);      // 0..100
+      const fillLen = (visibleLen * pct) / 100;        // partial fill
+      const emptyLen = C - fillLen;
+
+      // Base segment position around ring:
+      // We place the segment "window" by offsetting so each lens occupies a slice.
+      // Then we "fill" within that slice by limiting dasharray.
+      const baseOffset = -(i * segLen);
+
+      el.style.strokeDasharray = `${fillLen} ${emptyLen}`;
+      el.style.strokeDashoffset = String(baseOffset);
+      el.classList.toggle("is-focus", lens === focusLens);
+
+      // A11y: let screen readers know the value
+      el.setAttribute("role", "img");
+      el.setAttribute("aria-label", `${LENS_LABELS[lens]} ${Math.round(pct)} percent`);
+    });
+  }
+
+  function bindDonutInteractivity(lenses){
+    // Click on legend buttons (your donut legend)
+    $$(".cs-donut-legend button[data-lens]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const lens = btn.getAttribute("data-lens");
+        if (!lens) return;
+        updateLensInsight(lens, lenses);
+
+        // also set focus glow class on donut
+        setDonutSegments(lenses, lens);
+      });
+    });
+
+    // Click on donut segments directly
+    LENS_ORDER.forEach(lens => {
+      const el = document.getElementById(DONUT_IDS[lens]);
+      if (!el) return;
+
+      el.style.cursor = "pointer";
+      el.setAttribute("tabindex", "0");
+
+      const activate = () => {
+        updateLensInsight(lens, lenses);
+        setDonutSegments(lenses, lens);
+      };
+
+      el.addEventListener("click", activate);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+  }
+
+     
+        // Donut ring (new)
+    setDonutText(signal);
+    setDonutSegments(lenses, focusLens);
+
 
     LENS_ORDER.forEach(lens => {
       const valEl = $("#val" + lens.charAt(0).toUpperCase() + lens.slice(1));
@@ -457,30 +555,8 @@
 
     updateLensInsight(focusLens, lenses);
 
-    $$('[data-lens]').forEach(button => {
-      button.addEventListener("click", () => {
-        const lens = button.getAttribute("data-lens");
-        if (lens) updateLensInsight(lens, lenses);
-      });
-    });
-
-    [
-      { id: "segNetwork", lens: "network" },
-      { id: "segDevices", lens: "devices" },
-      { id: "segPrivacy", lens: "privacy" },
-      { id: "segScams", lens: "scams" },
-      { id: "segWellbeing", lens: "wellbeing" }
-    ].forEach(seg => {
-      const node = document.getElementById(seg.id);
-      if (!node) return;
-      node.addEventListener("click", () => updateLensInsight(seg.lens, lenses));
-      node.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " "){
-          event.preventDefault();
-          updateLensInsight(seg.lens, lenses);
-        }
-      });
-    });
+        // Donut legend + segment clicks
+    bindDonutInteractivity(lenses);
 
     const emptyCard = $("#emptyStateCard");
     if (emptyCard) emptyCard.style.display = "none";
