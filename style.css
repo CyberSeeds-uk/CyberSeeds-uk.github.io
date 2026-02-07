@@ -1578,3 +1578,80 @@ a.btn,
     text-align:center;
   }
 }
+
+/* Donut Ring */
+
+.cs-donut{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.5rem;
+}
+
+.cs-donut-svg{
+  width:260px;
+  max-width:100%;
+}
+
+.cs-donut-track{
+  fill:none;
+  stroke:#eef7f6;
+  stroke-width:14;
+}
+
+.cs-donut-seg{
+  fill:none;
+  stroke-width:14;
+  stroke-linecap:round;
+  opacity:.55;
+  transition:all .3s ease;
+}
+
+.cs-donut-seg.is-focus{
+  opacity:1;
+  filter:drop-shadow(0 0 6px rgba(15,47,42,.4));
+}
+
+/* Colours */
+
+.network{stroke:#4fa79a;}
+.devices{stroke:#78c4b6;}
+.privacy{stroke:#2f7a6f;}
+.scams{stroke:#6fcfbd;}
+.wellbeing{stroke:#1f5f56;}
+
+.cs-donut-centre{
+  fill:#fff;
+}
+
+.cs-donut-title{
+  font-size:14px;
+  fill:#51615f;
+}
+
+.cs-donut-score{
+  font-size:26px;
+  font-weight:700;
+  fill:#0f2f2a;
+}
+
+.cs-donut-stage{
+  font-size:12px;
+  fill:#51615f;
+}
+
+.cs-donut-legend{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.5rem;
+  width:100%;
+}
+
+.cs-donut-legend button{
+  background:#f8fbfb;
+  border:1px solid #dfecea;
+  border-radius:8px;
+  padding:.4rem .6rem;
+  font-size:.9rem;
+  cursor:pointer;
+}
