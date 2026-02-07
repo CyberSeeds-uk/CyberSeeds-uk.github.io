@@ -832,24 +832,168 @@
     });
   }
 
-  function finish(){
-    const lastQuestion = QUESTIONS[QUESTIONS.length - 1];
-    if (!lastQuestion || !Number.isInteger(answers[lastQuestion.id])) return;
-    const scored = seedForge.scoreAnswers(answers);
-    const focusLabel = LENS_LABELS[scored.focus];
-    const strongestLabel = LENS_LABELS[scored.strongest];
-    const weakestLabel = LENS_LABELS[scored.weakest];
-    const rationale = seedForge.buildRationale(scored.focus,answers);
-    const seed = seedForge.seedsForLens(scored.focus)[0]||null;
-    const lensPercents = scored.lensPercents || {};
-    const history = loadHistory();
-    const previous = history[0];
-    const trajectory = buildTrajectory(scored.hdss, previous?.totalScore ?? previous?.hdss);
-    const signal = buildSignal(scored.hdss, trajectory.label, lensPercents);
-     const snapshotForSummary = {
-       overall: signal.score,
-       lenses: lensPercents
-     };
+    function finish(){
+
+     if (!QUESTIONS.length) return;
+   
+     const lastIndex = QUESTIONS.length - 1;
+     const current = QUESTIONS[Math.min(step, lastIndex)];
+   
+     if (!current || !Number.isInteger(answers[current.id])){
+       nextBtn.disabled = true;
+       return;
+     }
+   
+     const scored = seedForge.scoreAnswers(answers);
+   
+     const focusLabel = LENS_LABELS[scored.focus];
+     const strongestLabel = LENS_LABELS[scored.strongest];
+     const weakestLabel = LENS_LABELS[scored.weakest];
+   
+     const rationale = seedForge.buildRationale(scored.focus,answers);
+     const seed = seedForge.seedsForLens(scored.focus)[0]||null;
+   
+     const lensPercents = scored.lensPercents || {};
+     const history = loadHistory();
+   
+     const previous = history[0];
+   
+     const trajectory = buildTrajectory(
+       scored.hdss,
+       previous?.totalScore ?? previous?.hdss
+     );
+   
+     const signal = buildSignal(
+       scored.hdss,
+       trajectory.label,
+       lensPercents
+     );
+   
+     const patterns = detectPatterns(lensPercents);
+     const strengths = buildStrengths(lensPercents);
+     const phasePlan = buildPhasePlan(lensPercents);
+   
+     renderSnapshotResults({
+       scored,
+       focusLabel,
+       strongestLabel,
+       weakestLabel,
+       rationale,
+       seed,
+       lensPercents,
+       signal,
+       trajectory,
+       patterns,
+       strengths,
+       phasePlan,
+       history
+     });
+   }
+
+   function renderSnapshotResults(data){
+
+  const {
+    scored,
+    focusLabel,
+    strongestLabel,
+    weakestLabel,
+    rationale,
+    seed,
+    lensPercents,
+    signal,
+    trajectory,
+    patterns,
+    strengths,
+    phasePlan,
+    history
+  } = data;
+
+  $("#resultHeadline").textContent =
+    `Best place to start: ${focusLabel}.`;
+
+  $("#resultStage").textContent =
+    `Overall signal: ${scored.stage.label} — ${scored.stage.message}`;
+
+  $("#strongestLens").textContent = strongestLabel;
+  $("#weakestLens").textContent = weakestLabel;
+
+  $("#resultRationale").textContent =
+    rationale || `Focus on ${focusLabel}.`;
+
+  renderLensMap(lensPercents);
+  renderLensDetails(lensPercents);
+  renderStrengths(strengths);
+  renderPatterns(patterns);
+  renderPhasePlan(phasePlan);
+
+  $("#signalOverall").textContent = signal.overall;
+  $("#signalSummary").textContent = signal.summary;
+  $("#signalScore").textContent = `${signal.score}/100`;
+  $("#signalTrajectory").textContent = signal.trajectory;
+  $("#signalRisk").textContent = signal.riskPressure;
+  $("#signalResilience").textContent = signal.resilienceIndex;
+  $("#signalChange").textContent = trajectory.change;
+
+  $("#resultSeedTitle").textContent =
+    seed?.title || "Your next Digital Seed";
+
+  $("#resultSeedToday").textContent =
+    seed?.today || " ";
+
+  $("#resultSeedWeek").textContent = seed?.this_week || " ";
+  $("#resultSeedMonth").textContent = seed?.this_month || " ";
+
+
+  const timestamp = Date.now();
+
+  const entry = {
+    id: `${scored.snapshotId}-${timestamp}`,
+    ts: timestamp,
+    date: new Date(timestamp).toISOString(),
+
+    snapshotId: scored.snapshotId,
+
+    ...scored,
+
+    seed,
+    totalScore: scored.hdss,
+    perLens: lensPercents,
+
+    patterns,
+    strengths,
+    phasePlan,
+    signal,
+    trajectory
+  };
+
+
+  const canonical = coerceSnapshot(entry, history);
+
+  if (canonical){
+    safeSet(SNAP_KEY, JSON.stringify(canonical));
+    safeSet(SNAPSHOT_LAST_KEY, canonical.id);
+  }
+
+  history.unshift(entry);
+
+  saveHistory(history.slice(0,24));
+
+  safeSet(
+    PASSPORT_KEY,
+    JSON.stringify(buildPassport(history.slice(0,24)))
+  );
+
+  renderComparison(entry);
+  renderHistorySection(history, entry);
+
+
+  result.hidden = false;
+  result.classList.add("reveal");
+
+  nextBtn.style.display = "none";
+  backBtn.style.display = "none";
+}
+
 
     const patterns = detectPatterns(lensPercents);
     const strengths = buildStrengths(lensPercents);
@@ -956,17 +1100,31 @@
   migrateLegacySnapshot();
 
   nextBtn.addEventListener("click",async()=>{
-    if(step<0){await ensureReady();step=0;renderQuestion();return;}
-    if(step===QUESTIONS.length-1){
-      if (!Number.isInteger(answers[QUESTIONS[step]?.id])){
-        nextBtn.disabled = true;
-        return;
-      }
-      finish();
-      return;
-    }
-    step++;renderQuestion();
-  });
+
+     if(step < 0){
+       await ensureReady();
+       step = 0;
+       renderQuestion();
+       return;
+     }
+   
+     const lastIndex = QUESTIONS.length - 1;
+     const current = QUESTIONS[Math.min(step, lastIndex)];
+   
+     if (!current || !Number.isInteger(answers[current.id])){
+       nextBtn.disabled = true;
+       return;
+     }
+   
+     if(step >= lastIndex){
+       finish();
+       return;
+     }
+   
+     step++;
+     renderQuestion();
+   });
+
 
   backBtn.addEventListener("click",()=>{
     if(step<=0){step=-1;renderIntro();backBtn.disabled=true;return;}
