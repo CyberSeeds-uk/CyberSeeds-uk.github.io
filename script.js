@@ -837,6 +837,11 @@
     const previous = history[0];
     const trajectory = buildTrajectory(scored.hdss, previous?.totalScore ?? previous?.hdss);
     const signal = buildSignal(scored.hdss, trajectory.label, lensPercents);
+     const snapshotForSummary = {
+       overall: signal.score,
+       lenses: lensPercents
+     };
+
     const patterns = detectPatterns(lensPercents);
     const strengths = buildStrengths(lensPercents);
     const phasePlan = buildPhasePlan(lensPercents);
@@ -882,6 +887,11 @@
 
     if (signalOverallEl) signalOverallEl.textContent = signal.overall;
     if (signalSummaryEl) signalSummaryEl.textContent = signal.summary;
+     const systemSummaryEl = document.getElementById("systemSummary");
+     if (systemSummaryEl){
+       systemSummaryEl.textContent = generateSystemSummary(snapshotForSummary);
+     }
+   
     if (signalScoreEl) signalScoreEl.textContent = `${signal.score}/100`;
     if (signalTrajectoryEl) signalTrajectoryEl.textContent = signal.trajectory;
     if (signalRiskEl) signalRiskEl.textContent = signal.riskPressure;
