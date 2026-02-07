@@ -115,114 +115,91 @@
                   Tap any lens to get guidance.
                 </p>
 
-                <div class="lens-ring" role="group" aria-label="Five lens ring">
-                  <div class="lens-ring-wrap">
-  <svg
-    class="lens-ring"
-    viewBox="0 0 200 200"
-    width="280"
-    height="280"
-    aria-label="Five Lens Safety Ring"
-  >
+                <!-- Five Lens Donut -->
+<div class="cs-donut" aria-label="Five lens safety ring">
 
-    <!-- Background ring -->
+  <svg viewBox="0 0 220 220" class="cs-donut-svg">
+
+    <!-- Track -->
     <circle
-      cx="100"
-      cy="100"
-      r="82"
-      fill="none"
-      stroke="#eef7f6"
-      stroke-width="14"
+      cx="110" cy="110" r="90"
+      class="cs-donut-track"
     />
 
     <!-- Segments -->
-    <g class="lens-segments">
+    <g transform="rotate(-90 110 110)">
 
-      <!-- Network -->
-      <circle
-        class="lens network"
-        cx="100"
-        cy="100"
-        r="82"
-        fill="none"
-        stroke-dasharray="103 515"
-        stroke-dashoffset="0"
+      <circle id="donut-network"
+        class="cs-donut-seg network"
+        cx="110" cy="110" r="90"
       />
 
-      <!-- Devices -->
-      <circle
-        class="lens devices"
-        cx="100"
-        cy="100"
-        r="82"
-        fill="none"
-        stroke-dasharray="103 515"
-        stroke-dashoffset="-103"
+      <circle id="donut-devices"
+        class="cs-donut-seg devices"
+        cx="110" cy="110" r="90"
       />
 
-      <!-- Privacy -->
-      <circle
-        class="lens privacy"
-        cx="100"
-        cy="100"
-        r="82"
-        fill="none"
-        stroke-dasharray="103 515"
-        stroke-dashoffset="-206"
+      <circle id="donut-privacy"
+        class="cs-donut-seg privacy"
+        cx="110" cy="110" r="90"
       />
 
-      <!-- Scams -->
-      <circle
-        class="lens scams"
-        cx="100"
-        cy="100"
-        r="82"
-        fill="none"
-        stroke-dasharray="103 515"
-        stroke-dashoffset="-309"
+      <circle id="donut-scams"
+        class="cs-donut-seg scams"
+        cx="110" cy="110" r="90"
       />
 
-      <!-- Wellbeing -->
-      <circle
-        class="lens wellbeing"
-        cx="100"
-        cy="100"
-        r="82"
-        fill="none"
-        stroke-dasharray="103 515"
-        stroke-dashoffset="-412"
+      <circle id="donut-wellbeing"
+        class="cs-donut-seg wellbeing"
+        cx="110" cy="110" r="90"
       />
 
     </g>
 
     <!-- Centre -->
-    <circle
-      cx="100"
-      cy="100"
-      r="62"
-      fill="#ffffff"
-    />
+    <circle cx="110" cy="110" r="64" class="cs-donut-centre"/>
 
-    <text
-      x="100"
-      y="96"
-      text-anchor="middle"
-      class="lens-centre-title"
-    >
+    <text x="110" y="96" class="cs-donut-title" text-anchor="middle">
       Household
     </text>
 
-    <text
-      x="100"
-      y="118"
-      text-anchor="middle"
-      class="lens-centre-sub"
-    >
-      Signal
+    <text x="110" y="122" class="cs-donut-score" id="donutScore" text-anchor="middle">
+      —
+    </text>
+
+    <text x="110" y="146" class="cs-donut-stage" id="donutStage" text-anchor="middle">
+      —
     </text>
 
   </svg>
+
+  <!-- Legend -->
+  <div class="cs-donut-legend">
+
+    <button data-lens="network">
+      Network <b id="valNetwork">—</b>
+    </button>
+
+    <button data-lens="devices">
+      Devices <b id="valDevices">—</b>
+    </button>
+
+    <button data-lens="privacy">
+      Privacy <b id="valPrivacy">—</b>
+    </button>
+
+    <button data-lens="scams">
+      Scams <b id="valScams">—</b>
+    </button>
+
+    <button data-lens="wellbeing">
+      Wellbeing <b id="valWellbeing">—</b>
+    </button>
+
+  </div>
+
 </div>
+
   
                 </defs>
 
