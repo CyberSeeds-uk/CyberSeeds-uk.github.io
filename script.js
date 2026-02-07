@@ -1,3 +1,4 @@
+/* Dev checklist: snapshot modal binding guard + deterministic question render + retake reset flow. */
 /* =========================================================
    Cyber Seeds — Household Snapshot Engine
    Calm • Deterministic • Canon
@@ -154,6 +155,10 @@
 
 (() => {
   "use strict";
+
+  // Guard to prevent duplicate event bindings when the modal script is reloaded.
+  if (window.__CS_SNAPSHOT_BOUND__) return;
+  window.__CS_SNAPSHOT_BOUND__ = true;
 
   const $  = (s,r=document)=>r.querySelector(s);
   const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -733,6 +738,7 @@
     result.classList.remove("reveal");
     nextBtn.textContent="Begin";
     backBtn.disabled=true;
+    nextBtn.disabled=false;
     nextBtn.style.display="";
     backBtn.style.display="";
   }
@@ -745,7 +751,7 @@
     if (!options.length){
       compareSelect.innerHTML = `<option value="">No earlier snapshot yet</option>`;
       compareSelect.disabled = true;
-      compareOutput.innerHTML = `<p class="muted">Take another snapshot later to compare changes.</p>`;
+      compareOutput.innerHTML = `<p class="muted">Compare with a previous snapshot once you have more than one saved.</p>`;
       return;
     }
 
@@ -754,12 +760,12 @@
       <option value="">Choose an earlier snapshot</option>
       ${options.map(entry => `<option value="${entry.id}">${formatDate(entry.ts)}</option>`).join("")}
     `;
-    compareOutput.innerHTML = `<p class="muted">Choose a snapshot to see what has shifted over time.</p>`;
+    compareOutput.innerHTML = `<p class="muted">Compare with a previous snapshot to see what has shifted over time.</p>`;
 
     compareSelect.onchange = () => {
       const selected = options.find(entry => entry.id === compareSelect.value);
       if (!selected){
-        compareOutput.innerHTML = `<p class="muted">Choose a snapshot to see what has shifted over time.</p>`;
+        compareOutput.innerHTML = `<p class="muted">Compare with a previous snapshot to see what has shifted over time.</p>`;
         return;
       }
 
@@ -814,18 +820,25 @@
       ${q.reassurance?`<p class="muted">${q.reassurance}</p>`:""}
     `;
     nextBtn.textContent=step===QUESTIONS.length-1?"Finish":"Next";
-    nextBtn.disabled=true;
+    nextBtn.disabled=!Number.isInteger(answers[q.id]);
     backBtn.disabled=step===0;
 
     $$("input",form).forEach(r=>{
+      if (Number(r.value) === answers[q.id]) r.checked = true;
       r.addEventListener("change",()=>{
         answers[q.id]=Number(r.value);
-        nextBtn.disabled=false;
+        nextBtn.disabled=!Number.isInteger(answers[q.id]);
       });
     });
   }
 
+  // Ensure finish always resolves on the last question without drift.
   function finish(){
+    if (!QUESTIONS.length) return;
+    const currentQuestion = QUESTIONS[Math.min(step, QUESTIONS.length - 1)];
+    const lastQuestion = QUESTIONS[QUESTIONS.length - 1];
+    const targetQuestion = currentQuestion || lastQuestion;
+    if (!targetQuestion || !Number.isInteger(answers[targetQuestion.id])) return;
     const scored = seedForge.scoreAnswers(answers);
     const focusLabel = LENS_LABELS[scored.focus];
     const strongestLabel = LENS_LABELS[scored.strongest];
@@ -948,7 +961,15 @@
 
   nextBtn.addEventListener("click",async()=>{
     if(step<0){await ensureReady();step=0;renderQuestion();return;}
-    if(step>=QUESTIONS.length-1){finish();return;}
+    if(step>=QUESTIONS.length-1){
+      const currentQuestion = QUESTIONS[Math.min(step, QUESTIONS.length - 1)];
+      if (!currentQuestion || !Number.isInteger(answers[currentQuestion.id])){
+        nextBtn.disabled = true;
+        return;
+      }
+      finish();
+      return;
+    }
     step++;renderQuestion();
   });
 
@@ -972,6 +993,16 @@
     safeRemove(SNAPSHOT_LAST_KEY);
     resetFlow();
     renderIntro();
+  });
+  $("#retakeSnapshot")?.addEventListener("click", () => {
+    resetFlow();
+    renderIntro();
+    const scroll = $("#snapshotScroll");
+    if (scroll){
+      scroll.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    } else if (panel){
+      panel.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+    }
   });
   downloadPassportBtn?.addEventListener("click", () => {
     const history = loadHistory();
