@@ -519,39 +519,31 @@
       });
     });
 
-    // Click on donut segments directly
-    LENS_ORDER.forEach(lens => {
-      const el = document.getElementById(DONUT_IDS[lens]);
-      if (!el) return;
-
-      el.style.cursor = "pointer";
-      el.setAttribute("tabindex", "0");
-
-      const activate = () => {
-        updateLensInsight(lens, lenses);
-        setDonutSegments(lenses, lens);
-      };
-
-      el.addEventListener("click", activate);
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          activate();
-        }
-      });
-    });
-  }
-
-     
-        // Donut ring (new)
-    setDonutText(signal);
-    setDonutSegments(lenses, focusLens);
-
-
-    LENS_ORDER.forEach(lens => {
-      const valEl = $("#val" + lens.charAt(0).toUpperCase() + lens.slice(1));
-      if (valEl) valEl.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
-    });
+    
+        // Donut legend values (resources page only)
+       const mapId = {
+         network: "donutValNetwork",
+         devices: "donutValDevices",
+         privacy: "donutValPrivacy",
+         scams: "donutValScams",
+         wellbeing: "donutValWellbeing"
+       };
+   
+       LENS_ORDER.forEach(lens => {
+         const el = document.getElementById(mapId[lens]);
+         if (el) el.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
+       });
+   
+        
+           // Donut ring (new)
+       setDonutText(signal);
+       setDonutSegments(lenses, focusLens);
+   
+   
+       LENS_ORDER.forEach(lens => {
+         const valEl = $("#val" + lens.charAt(0).toUpperCase() + lens.slice(1));
+         if (valEl) valEl.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
+       });
 
     updateLensInsight(focusLens, lenses);
 
