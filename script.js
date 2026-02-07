@@ -162,6 +162,16 @@
 
   const $  = (s,r=document)=>r.querySelector(s);
   const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+  function stableHash(input){
+     const str = typeof input === "string" ? input : JSON.stringify(input);
+     let h = 0;
+     for (let i=0;i<str.length;i++){
+       h = ((h<<5)-h) + str.charCodeAt(i);
+       h |= 0;
+     }
+     return Math.abs(h);
+   }
+ 
 
   const modal   = $("#snapshotModal");
   const panel   = modal?.querySelector(".modal-panel");
@@ -993,109 +1003,6 @@
   nextBtn.style.display = "none";
   backBtn.style.display = "none";
 }
-
-
-    const patterns = detectPatterns(lensPercents);
-    const strengths = buildStrengths(lensPercents);
-    const phasePlan = buildPhasePlan(lensPercents);
-
-    const headlineEl = $("#resultHeadline");
-    const stageEl = $("#resultStage");
-    const strongestEl = $("#strongestLens");
-    const weakestEl = $("#weakestLens");
-    const rationaleEl = $("#resultRationale");
-    const seedTitleEl = $("#resultSeedTitle");
-    const seedTodayEl = $("#resultSeedToday");
-    const seedWeekEl = $("#resultSeedWeek");
-    const seedMonthEl = $("#resultSeedMonth");
-    const signalOverallEl = $("#signalOverall");
-    const signalSummaryEl = $("#signalSummary");
-    const signalScoreEl = $("#signalScore");
-    const signalTrajectoryEl = $("#signalTrajectory");
-    const signalRiskEl = $("#signalRisk");
-    const signalResilienceEl = $("#signalResilience");
-    const signalChangeEl = $("#signalChange");
-
-    if (headlineEl) headlineEl.textContent = `Best place to start: ${focusLabel}.`;
-    if (stageEl) stageEl.textContent = `Overall signal: ${scored.stage.label} — ${scored.stage.message}`;
-    if (strongestEl) strongestEl.textContent = strongestLabel;
-    if (weakestEl) weakestEl.textContent = weakestLabel;
-    if (rationaleEl) rationaleEl.textContent = rationale || `Focus on ${focusLabel} for the fastest, calmest improvement.`;
-
-    const lensMap = {
-      network: { bar: "#barNetwork", val: "#valNetwork" },
-      devices: { bar: "#barDevices", val: "#valDevices" },
-      privacy: { bar: "#barPrivacy", val: "#valPrivacy" },
-      scams: { bar: "#barScams", val: "#valScams" },
-      wellbeing: { bar: "#barWellbeing", val: "#valWellbeing" }
-    };
-
-    Object.entries(lensMap).forEach(([lens, ids]) => {
-      const bar = $(ids.bar);
-      const val = $(ids.val);
-      const pct = Math.round(lensPercents[lens] ?? 0);
-      if (bar) bar.style.width = `${pct}%`;
-      if (val) val.textContent = `${pct}%`;
-    });
-
-    if (signalOverallEl) signalOverallEl.textContent = signal.overall;
-    if (signalSummaryEl) signalSummaryEl.textContent = signal.summary;
-     const systemSummaryEl = document.getElementById("systemSummary");
-     if (systemSummaryEl){
-       systemSummaryEl.textContent = generateSystemSummary(snapshotForSummary);
-     }
-   
-    if (signalScoreEl) signalScoreEl.textContent = `${signal.score}/100`;
-    if (signalTrajectoryEl) signalTrajectoryEl.textContent = signal.trajectory;
-    if (signalRiskEl) signalRiskEl.textContent = signal.riskPressure;
-    if (signalResilienceEl) signalResilienceEl.textContent = signal.resilienceIndex;
-    if (signalChangeEl) signalChangeEl.textContent = trajectory.change;
-
-    renderLensMap(lensPercents);
-    renderLensDetails(lensPercents);
-    renderStrengths(strengths);
-    renderPatterns(patterns);
-    renderPhasePlan(phasePlan);
-
-    if (seedTitleEl) seedTitleEl.textContent = seed?.title || "Your next Digital Seed";
-    if (seedTodayEl) seedTodayEl.textContent = seed?.today || "Complete your snapshot to receive a clear next step.";
-    if (seedWeekEl) seedWeekEl.textContent = seed?.this_week || " ";
-    if (seedMonthEl) seedMonthEl.textContent = seed?.this_month || " ";
-
-    const timestamp = Date.now();
-    const entry = {
-      id: `${scored.snapshotId}-${timestamp}`,
-      ts: timestamp,
-      date: new Date(timestamp).toISOString(),
-      snapshotId: scored.snapshotId,
-      answers: { ...answers },
-      ...scored,
-      seed,
-      totalScore: scored.hdss,
-      perLens: lensPercents,
-      patterns,
-      strengths,
-      phasePlan,
-      signal,
-      trajectory
-    };
-
-    const canonicalSnapshot = coerceSnapshot(entry, history);
-    if (canonicalSnapshot){
-      safeSet(SNAP_KEY, JSON.stringify(canonicalSnapshot));
-      safeSet(SNAPSHOT_LAST_KEY, canonicalSnapshot.id);
-    }
-    history.unshift(entry);
-    saveHistory(history.slice(0, 24));
-    safeSet(PASSPORT_KEY, JSON.stringify(buildPassport(history.slice(0, 24))));
-    renderComparison(entry);
-    renderHistorySection(history, entry);
-
-    result.hidden=false;
-    result.classList.add("reveal");
-    nextBtn.style.display="none";
-    backBtn.style.display="none";
-  }
 
   migrateLegacySnapshot();
 
