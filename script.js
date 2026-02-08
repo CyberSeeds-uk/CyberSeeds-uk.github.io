@@ -741,17 +741,26 @@
   }
 
   function resetFlow(){
-    step=-1;
-    Object.keys(answers).forEach(k=>delete answers[k]);
-    form.innerHTML="";
-    result.hidden=true;
-    result.classList.remove("reveal");
-    nextBtn.textContent="Begin";
-    backBtn.disabled=true;
-    nextBtn.disabled=false;
-    nextBtn.style.display="";
-    backBtn.style.display="";
+  step = -1;
+
+  Object.keys(answers).forEach(k => delete answers[k]);
+
+  if (form){
+    form.hidden = false;      // ← ADD THIS
+    form.innerHTML = "";
   }
+
+  if (result){
+    result.hidden = true;
+    result.classList.remove("reveal");
+  }
+
+  nextBtn.textContent = "Begin";
+  backBtn.disabled = true;
+  nextBtn.disabled = false;
+  nextBtn.style.display = "";
+  backBtn.style.display = "";
+}
 
   function renderComparison(currentEntry){
     if (!compareSelect || !compareOutput) return;
@@ -1047,11 +1056,21 @@
     step--;renderQuestion();
   });
 
-  document.addEventListener("click",e=>{
-    if(!e.target.closest("[data-open-snapshot]"))return;
-    e.preventDefault();
-    resetFlow();openModal();renderIntro();
-  });
+   document.addEventListener("click", e => {
+     if (!e.target.closest("[data-open-snapshot]")) return;
+     e.preventDefault();
+   
+     // HARD reset UI state before opening (home + resources)
+     if (form) form.hidden = false;
+     if (result) result.hidden = true;
+   
+     resetFlow();
+     openModal();
+     renderIntro();
+   
+     const scroll = $("#snapshotScroll");
+     if (scroll) scroll.scrollTop = 0;
+   });
 
   closeBtn?.addEventListener("click",closeModal);
   backdrop?.addEventListener("click",closeModal);
