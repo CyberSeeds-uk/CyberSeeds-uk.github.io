@@ -916,9 +916,17 @@
 
    function renderSnapshotResults(data){
 
-  // Hard enforce report mode (safety net)
-  if (form) form.hidden = true;
-  if (result) result.hidden = false;
+  // Force report visible (fix hidden state bugs)
+  if (form) {
+    form.hidden = true;
+    form.style.display = "none";
+  }
+
+  if (result) {
+    result.hidden = false;
+    result.style.display = "block";
+    result.classList.add("reveal");
+  }
 
   const {
     scored,
