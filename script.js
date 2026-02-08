@@ -916,14 +916,24 @@
 
    function renderSnapshotResults(data){
 
-  // Force report visible (fix hidden state bugs)
-  if (form) {
+  // Force visibility
+  if (form){
     form.hidden = true;
     form.style.display = "none";
   }
 
-  if (result) {
+  if (result){
     result.hidden = false;
+
+    // Reset animation state
+    result.classList.remove("reveal");
+    result.style.opacity = "0";
+    result.style.transform = "translateY(8px)";
+
+    // Reflow to force browser repaint
+    result.offsetHeight;
+
+    // Apply reveal
     result.style.display = "block";
     result.classList.add("reveal");
   }
