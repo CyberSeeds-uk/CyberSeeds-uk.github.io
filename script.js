@@ -844,6 +844,15 @@
 
     function finish(){
 
+         // Switch from quiz to report view
+      if (form) form.hidden = true;
+      
+      const scroll = $("#snapshotScroll");
+      if (scroll) scroll.scrollTop = 0; 
+    
+       
+
+
      if (!QUESTIONS.length) return;
    
      const lastIndex = QUESTIONS.length - 1;
@@ -1055,15 +1064,22 @@
     renderIntro();
   });
   $("#retakeSnapshot")?.addEventListener("click", () => {
-    resetFlow();
-    renderIntro();
-    const scroll = $("#snapshotScroll");
-    if (scroll){
-      scroll.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    } else if (panel){
-      panel.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
-    }
-  });
+
+     // Restore quiz view
+     if (form) form.hidden = false;
+     if (result) result.hidden = true;
+   
+     resetFlow();
+     renderIntro();
+   
+     const scroll = $("#snapshotScroll");
+     if (scroll){
+       scroll.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+     } else if (panel){
+       panel.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+     }
+   });
+
   downloadPassportBtn?.addEventListener("click", () => {
     const history = loadHistory();
     const passport = buildPassport(history);
