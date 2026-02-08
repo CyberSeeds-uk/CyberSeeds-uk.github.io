@@ -1655,3 +1655,9 @@ a.btn,
   font-size:.9rem;
   cursor:pointer;
 }
+
+#snapshotResult[hidden]{
+  display:none !important;
+  opacity:0 !important;
+}
+
