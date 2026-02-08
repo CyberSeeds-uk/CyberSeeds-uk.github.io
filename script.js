@@ -146,7 +146,7 @@
     return api;
   }
 
-  window.CSSeedForge = { load, __cache:null };
+  window.CSSeedForge = { load, __cache:null, stableHash };
 })();
 
 /* =========================================================
@@ -162,15 +162,7 @@
 
   const $  = (s,r=document)=>r.querySelector(s);
   const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
-  function stableHash(input){
-     const str = typeof input === "string" ? input : JSON.stringify(input);
-     let h = 0;
-     for (let i=0;i<str.length;i++){
-       h = ((h<<5)-h) + str.charCodeAt(i);
-       h |= 0;
-     }
-     return Math.abs(h);
-   }
+  const stableHash = window.CSSeedForge?.stableHash;
  
 
   const modal   = $("#snapshotModal");
@@ -285,14 +277,14 @@
     };
   }
 
-  function isCanonicalSnapshot(snapshot){
-    return snapshot
-      && typeof snapshot === "object"
-      && snapshot.id
-      && snapshot.timestamp
-      && typeof snapshot.total === "number"
-      && snapshot.lenses;
-  }
+  function isCanonicalSnapshot(s){
+  return s
+    && typeof s === "object"
+    && s.id
+    && s.timestamp
+    && (typeof s.total === "number" || typeof s.hdss === "number")
+    && (s.lenses || s.lensPercents);
+}
 
   function buildSignal(totalScore, trajectoryLabel, lensPercents){
     const total = Math.round(totalScore ?? 0);
@@ -813,11 +805,15 @@
   }
 
   async function ensureReady(){
-    seedForge = await window.CSSeedForge.load();
-    QUESTIONS = seedForge.questions.questions
-      .slice()
-      .sort((a,b)=>(a.order??9999)-(b.order??9999));
-  }
+  seedForge = await window.CSSeedForge.load();
+
+  const qRaw = seedForge.questions;
+  const list = Array.isArray(qRaw?.questions) ? qRaw.questions : qRaw;
+
+  QUESTIONS = list
+    .slice()
+    .sort((a,b)=>(a.order??9999)-(b.order??9999));
+}
 
   function renderIntro(){
     form.innerHTML=`
@@ -920,6 +916,10 @@
 
    function renderSnapshotResults(data){
 
+  // Hard enforce report mode (safety net)
+  if (form) form.hidden = true;
+  if (result) result.hidden = false;
+
   const {
     scored,
     focusLabel,
@@ -1002,7 +1002,7 @@
     safeSet(SNAPSHOT_LAST_KEY, canonical.id);
   }
 
-  history.unshift(entry);
+  if (canonical) history.unshift(canonical);
 
   saveHistory(history.slice(0,24));
 
