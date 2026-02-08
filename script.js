@@ -170,6 +170,22 @@
   const backdrop= modal?.querySelector(".modal-backdrop");
   const form    = $("#snapshotForm");
   const result  = $("#snapshotResult");
+   function hideResult(){
+     if (!result) return;
+     result.classList.add("is-hidden");
+     result.classList.remove("reveal");
+   }
+   
+   function showResult(){
+     if (!result) return;
+   
+     result.classList.remove("is-hidden");
+   
+     // restart animation
+     result.classList.remove("reveal");
+     result.offsetHeight;
+     result.classList.add("reveal");
+   }
 
   const nextBtn = $("#snapshotNext");
   const backBtn = $("#snapshotBack");
@@ -281,7 +297,7 @@
   return s
     && typeof s === "object"
     && s.id
-    && s.timestamp
+    && (s.timestamp || s.ts)
     && (typeof s.total === "number" || typeof s.hdss === "number")
     && (s.lenses || s.lensPercents);
 }
@@ -738,14 +754,12 @@
   Object.keys(answers).forEach(k => delete answers[k]);
 
   if (form){
-    form.hidden = false;      // ← ADD THIS
-    form.innerHTML = "";
-  }
+  form.hidden = false;
+  form.style.display = "";
+  form.innerHTML = "";
+}
 
-  if (result){
-    result.hidden = true;
-    result.classList.remove("reveal");
-  }
+  hideResult();
 
   nextBtn.textContent = "Begin";
   backBtn.disabled = true;
@@ -919,24 +933,9 @@
   // Force visibility
   if (form){
     form.hidden = true;
-    form.style.display = "none";
   }
 
-  if (result){
-    result.hidden = false;
-
-    // Reset animation state
-    result.classList.remove("reveal");
-    result.style.opacity = "0";
-    result.style.transform = "translateY(8px)";
-
-    // Reflow to force browser repaint
-    result.offsetHeight;
-
-    // Apply reveal
-    result.style.display = "block";
-    result.classList.add("reveal");
-  }
+  showResult();
 
   const {
     scored,
@@ -1033,9 +1032,6 @@
   renderHistorySection(history, entry);
 
 
-  result.hidden = false;
-  result.classList.add("reveal");
-
   nextBtn.style.display = "none";
   backBtn.style.display = "none";
 }
@@ -1078,9 +1074,8 @@
      if (!e.target.closest("[data-open-snapshot]")) return;
      e.preventDefault();
    
-     // HARD reset UI state before opening (home + resources)
      if (form) form.hidden = false;
-     if (result) result.hidden = true;
+     hideResult();
    
      resetFlow();
      openModal();
@@ -1102,9 +1097,8 @@
   });
   $("#retakeSnapshot")?.addEventListener("click", () => {
 
-     // Restore quiz view
      if (form) form.hidden = false;
-     if (result) result.hidden = true;
+     hideResult();
    
      resetFlow();
      renderIntro();
