@@ -1656,8 +1656,20 @@ a.btn,
   cursor:pointer;
 }
 
-#snapshotResult[hidden]{
-  display:none !important;
-  opacity:0 !important;
+.result.is-hidden {
+  display: none;
 }
+
+.result {
+  display: block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.result.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 
