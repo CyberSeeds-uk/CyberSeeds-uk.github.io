@@ -147,6 +147,10 @@
   }
 
   window.CSSeedForge = { load, __cache:null, stableHash };
+
+  // Signal that snapshot engine is ready
+  window.__CS_SNAPSHOT_READY__ = true;
+  window.dispatchEvent(new Event("cs:snapshot-ready"));
 })();
 
 /* =========================================================
