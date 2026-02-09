@@ -1204,7 +1204,7 @@
       leverage: "High leverage",
       next: "Set one rule: no payments or logins without a quick double-check."
     },
-    children: {
+    wellbeing: {
       kicker: "Wellbeing lens",
       title: "Wellbeing keeps the system calm",
       body: "Small routines around screens, sleep, and focus protect development and reduce friction at home.",
@@ -1214,6 +1214,30 @@
     }
   };
 
+   const impactMap = {
+     network: [
+       "Affects device updates",
+       "Controls account security",
+       "Limits scam exposure"
+     ],
+     devices: [
+       "Influences privacy breaches",
+       "Impacts wellbeing routines"
+     ],
+     privacy: [
+       "Protects finances",
+       "Prevents identity loss",
+       "Reduces scam damage"
+     ],
+     scams: [
+       "Triggers account loss",
+       "Creates emotional stress"
+     ],
+     wellbeing: [
+       "Shapes sleep patterns",
+       "Affects learning focus"
+     ]
+   };
   function resetInsight(){
     nodes.forEach(node => node.classList.remove("is-active"));
     if (kicker) kicker.textContent = defaults.kicker;
@@ -1235,20 +1259,39 @@
     if (nextText) nextText.textContent = entry.next;
     if (meta) meta.hidden = false;
     if (next) next.hidden = false;
-  }
+     const impactList = document.getElementById("impactList");
+     if (impactList && impactMap[key]){
+       impactList.innerHTML = impactMap[key]
+         .map(i => `<li>${i}</li>`)
+          .join("");
+      }
+  
 
   nodes.forEach(node => {
-    node.addEventListener("click", () => setInsight(node.dataset.node));
-    node.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        setInsight(node.dataset.node);
-      }
-    });
-  });
+     node.addEventListener("click", () => {
+       markVisited(node.dataset.node);
+       setInsight(node.dataset.node);
+     });
+   });
+
 
   resetBtn?.addEventListener("click", resetInsight);
-})();
+   })();
+   
+   let visitedSystems = new Set();
+   
+   function markVisited(node){
+     visitedSystems.add(node);
+     localStorage.setItem(
+       "csVisited",
+       JSON.stringify([...visitedSystems])
+     );
+   }
+
+   const saved = JSON.parse(localStorage.getItem("csVisited") || "[]");
+   saved.forEach(s => visitedSystems.add(s));
+   markVisited(node);
+
 
 /* =========================================================
    Cyber Seeds — Lens Guidance Toggles
