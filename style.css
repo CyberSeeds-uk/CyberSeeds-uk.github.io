@@ -383,6 +383,13 @@ h1{
   margin-inline: auto;
 }
 
+/* SYSTEMS SECTION — SINGLE CONTAINER OVERRIDE */
+.cs-systems > .container{
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
 /* Nodes */
 .cs-node{
   cursor:pointer;
