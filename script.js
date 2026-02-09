@@ -158,7 +158,6 @@
    Snapshot Modal Controller (Deduplicated)
    ========================================================= */
 
-(() => {
   "use strict";
 
   // Guard to prevent duplicate event bindings when the modal script is reloaded.
