@@ -208,6 +208,109 @@ h1{
 
 .btn.ghost:hover{ background:var(--mint2); }
 
+.btn:focus-visible,
+.nav-toggle:focus-visible,
+.nav a:focus-visible,
+.cs-donut-legend button:focus-visible,
+.icon-btn:focus-visible{
+  outline:3px solid var(--brand2);
+  outline-offset:2px;
+}
+
+.is-hidden{
+  display:none !important;
+}
+
+/* =========================
+   RESOURCES DONUT RING
+   ========================= */
+/* B-6: ensure empty-state ring remains clear and readable. */
+.cs-donut{
+  display:grid;
+  gap:14px;
+  justify-items:center;
+}
+
+.cs-donut-svg{
+  width:min(240px, 80vw);
+  height:auto;
+}
+
+.cs-donut-track{
+  fill:none;
+  stroke:#dfecea;
+  stroke-width:18;
+}
+
+.cs-donut-seg{
+  fill:none;
+  stroke-width:18;
+  stroke-linecap:round;
+  transition:stroke-dasharray .6s ease, stroke-dashoffset .6s ease, opacity .3s ease;
+}
+
+.cs-donut-seg.network{ stroke:#1a6a5d; }
+.cs-donut-seg.devices{ stroke:#2c7d72; }
+.cs-donut-seg.privacy{ stroke:#3b8f82; }
+.cs-donut-seg.scams{ stroke:#4da193; }
+.cs-donut-seg.wellbeing{ stroke:#5fb3a5; }
+
+.cs-donut-seg.is-focus{
+  stroke-width:22;
+}
+
+.cs-donut-centre{
+  fill:#ffffff;
+  stroke:#e4efec;
+  stroke-width:1;
+}
+
+.cs-donut-title{
+  font-weight:700;
+  fill:var(--muted);
+}
+
+.cs-donut-score{
+  font-weight:900;
+  font-size:1.2rem;
+  fill:var(--brand);
+}
+
+.cs-donut-stage{
+  font-weight:700;
+  fill:var(--muted);
+  font-size:.9rem;
+}
+
+.cs-donut-legend{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:10px;
+  width:100%;
+}
+
+.cs-donut-legend button{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:8px 10px;
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  cursor:pointer;
+}
+
+.cs-donut-legend button[disabled]{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
+.cs-donut.is-empty .cs-donut-seg{
+  stroke:#dfecea;
+  opacity:.7;
+}
+
 /* =========================
    SYSTEMS (THE SYSTEM)
    ========================= */
