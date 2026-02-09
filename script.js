@@ -142,9 +142,10 @@
       seedsForLens:(lens)=>seedsForLens(lens,seeds)
     };
 
+    Object.freeze(api);
     window.CSSeedForge.__cache = api;
     return api;
-  }
+
 
   window.CSSeedForge = { load, __cache:null, stableHash };
 
