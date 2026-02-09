@@ -596,7 +596,8 @@
 
           <form id="snapshotForm" class="quiz" aria-live="polite"></form>
 
-          <section id="snapshotResult" class="result" hidden>
+          <!-- B-4: results panel uses class toggles for reliable reveal after snapshot. -->
+          <section id="snapshotResult" class="result is-hidden" aria-hidden="true">
             <h3>Your Household Signal</h3>
 			  <section class="privacy-glance card">
 				  <h4>Your data stays with you</h4>
@@ -880,6 +881,7 @@
                 <button class="btn ghost" type="button" id="downloadPassport">Download Digital Passport (JSON)</button>
                 <button class="btn ghost" type="button" id="downloadSummary">Download Plain-English Summary</button>
               </div>
+              <p class="micro muted" id="exportHint" aria-live="polite"></p>
               <p class="micro muted">This file is for backup and sharing. You do not need to read it.</p>
               <p class="micro muted">Your passport lives only in local storage and the files you download.</p>
             </div>
@@ -915,7 +917,7 @@
   </div>
 
 
-<script src="/script.js?v=5" defer></script>
+<script src="/script.js?v=6" defer></script>
 
 
 

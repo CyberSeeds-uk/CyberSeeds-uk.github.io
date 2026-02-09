@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/style.css?v=20260201" />
 
   <!-- Resources logic -->
+  <script src="/script.js?v=6" defer></script>
   <script src="/resources/resources.js?v=20260201" defer></script>
 </head>
 
@@ -26,7 +27,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Cyber Seeds home">
-        <img class="logo" src="/cyber_seeds_logo.png" alt="" />
+        <img class="logo" src="/cyber_seeds_logo.png" alt="Cyber Seeds logo" />
         <span class="brand-name">Cyber Seeds</span>
       </a>
 
@@ -116,7 +117,7 @@
                 </p>
 
                 <!-- Five Lens Donut -->
-<div class="cs-donut" aria-label="Five lens safety ring">
+<div class="cs-donut" aria-label="Five lens safety ring" data-cs-ring>
 
   <svg viewBox="0 0 220 220" class="cs-donut-svg">
 
@@ -193,10 +194,11 @@
     </button>
 
     <button data-lens="wellbeing">
-      Wellbeing <b id="donutvalWellbeing">—</b>
+      Wellbeing <b id="donutValWellbeing">—</b>
     </button>
 
   </div>
+  <p class="micro muted" id="ringEmptyNote" aria-live="polite"></p>
 
                 <!-- Lens insight (expands) -->
                 <div class="card lens-insight" id="lensInsightCard">
@@ -349,7 +351,7 @@
 
           <form id="snapshotForm" class="quiz" aria-live="polite"></form>
 
-          <section id="snapshotResult" class="result is-hidden">
+          <section id="snapshotResult" class="result is-hidden" aria-hidden="true">
             <h3>Your Household Signal</h3>
             <p id="resultHeadline" class="result-headline"></p>
 
@@ -653,7 +655,5 @@
     </div>
   </footer>
 
-  <!-- Global site script (modal etc) -->
-  <script src="/script.js?v=20260201"></script>
 </body>
 </html>

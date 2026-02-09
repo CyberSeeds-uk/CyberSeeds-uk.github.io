@@ -145,8 +145,9 @@
     Object.freeze(api);
     window.CSSeedForge.__cache = api;
     return api;
+  }
 
-
+  // B-1: ensure the snapshot engine registers without breaking script execution.
   window.CSSeedForge = { load, __cache:null, stableHash };
 
   // Signal that snapshot engine is ready
@@ -157,7 +158,7 @@
 /* =========================================================
    Snapshot Modal Controller (Deduplicated)
    ========================================================= */
-
+(() => {
   "use strict";
 
   // Guard to prevent duplicate event bindings when the modal script is reloaded.
@@ -174,22 +175,24 @@
   const backdrop= modal?.querySelector(".modal-backdrop");
   const form    = $("#snapshotForm");
   const result  = $("#snapshotResult");
-   function hideResult(){
-     if (!result) return;
-     result.classList.add("is-hidden");
-     result.classList.remove("reveal");
-   }
-   
-   function showResult(){
-     if (!result) return;
-   
-     result.classList.remove("is-hidden");
-   
-     // restart animation
-     result.classList.remove("reveal");
-     result.offsetHeight;
-     result.classList.add("reveal");
-   }
+  function hideResult(){
+    if (!result) return;
+    result.classList.add("is-hidden");
+    result.setAttribute("aria-hidden", "true");
+    result.classList.remove("reveal");
+  }
+  
+  function showResult(){
+    if (!result) return;
+  
+    result.classList.remove("is-hidden");
+    result.setAttribute("aria-hidden", "false");
+  
+    // restart animation
+    result.classList.remove("reveal");
+    result.offsetHeight;
+    result.classList.add("reveal");
+  }
 
   const nextBtn = $("#snapshotNext");
   const backBtn = $("#snapshotBack");
@@ -201,6 +204,7 @@
   const downloadSummaryBtn = $("#downloadSummary");
   const printSnapshotBtn = $("#printSnapshot");
   const downloadSnapshotHtmlBtn = $("#downloadSnapshotHtml");
+  const exportHint = $("#exportHint");
 
   if (!modal||!panel||!form||!nextBtn||!backBtn) return;
 
@@ -753,24 +757,39 @@
   }
 
   function resetFlow(){
-  step = -1;
+    step = -1;
 
-  Object.keys(answers).forEach(k => delete answers[k]);
+    Object.keys(answers).forEach(k => delete answers[k]);
 
-  if (form){
-  form.hidden = false;
-  form.style.display = "";
-  form.innerHTML = "";
-}
+    if (form){
+      form.hidden = false;
+      form.style.display = "";
+      form.innerHTML = "";
+    }
 
-  hideResult();
+    hideResult();
 
-  nextBtn.textContent = "Begin";
-  backBtn.disabled = true;
-  nextBtn.disabled = false;
-  nextBtn.style.display = "";
-  backBtn.style.display = "";
-}
+    nextBtn.textContent = "Begin";
+    backBtn.disabled = true;
+    nextBtn.disabled = false;
+    nextBtn.style.display = "";
+    backBtn.style.display = "";
+  }
+
+  // B-5: keep export controls calm and explicit until a snapshot exists.
+  function setExportState(hasSnapshot){
+    const buttons = [downloadPassportBtn, downloadSummaryBtn, downloadSnapshotHtmlBtn, printSnapshotBtn];
+    buttons.forEach(btn => {
+      if (!btn) return;
+      btn.disabled = !hasSnapshot;
+      btn.setAttribute("aria-disabled", String(!hasSnapshot));
+    });
+    if (exportHint){
+      exportHint.textContent = hasSnapshot
+        ? ""
+        : "Complete a snapshot to enable local exports.";
+    }
+  }
 
   function renderComparison(currentEntry){
     if (!compareSelect || !compareOutput) return;
@@ -940,6 +959,7 @@
   }
 
   showResult();
+  setExportState(true);
 
   const {
     scored,
@@ -1118,21 +1138,34 @@
   downloadPassportBtn?.addEventListener("click", () => {
     const history = loadHistory();
     const passport = buildPassport(history);
+    if (!passport?.snapshots?.length){
+      setExportState(false);
+      return;
+    }
     downloadJSON("cyber-seeds-digital-passport.json", passport);
   });
   downloadSummaryBtn?.addEventListener("click", () => {
     const bundle = getExportBundle();
-    if (!bundle) return;
+    if (!bundle){
+      setExportState(false);
+      return;
+    }
     downloadText("cyber-seeds-snapshot-summary.txt", bundle.plainSummary);
   });
   downloadSnapshotHtmlBtn?.addEventListener("click", () => {
     const bundle = getExportBundle();
-    if (!bundle) return;
+    if (!bundle){
+      setExportState(false);
+      return;
+    }
     downloadHtml("cyber-seeds-snapshot-report.html", bundle.reportHtml);
   });
   printSnapshotBtn?.addEventListener("click", () => {
     const bundle = getExportBundle();
-    if (!bundle) return;
+    if (!bundle){
+      setExportState(false);
+      return;
+    }
     const printWindow = window.open("", "_blank");
     if (!printWindow) return;
     printWindow.document.write(bundle.reportHtml);
@@ -1143,6 +1176,7 @@
   document.addEventListener("keydown",e=>{
     if(e.key==="Escape"&&modal.classList.contains("is-open"))closeModal();
   });
+  setExportState(Boolean(getExportBundle()));
 })();
 
 /* =========================================================
