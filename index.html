@@ -194,12 +194,28 @@
 
       <!-- RIGHT: Insight panel -->
       <aside class="cs-systems__panel" aria-live="polite">
+		  <div class="cs-system-status">
+		  <h4>Household System Status</h4>
+		
+		  <div class="status-grid">
+		    <div class="status-item" id="statusNetworkMini"></div>
+		    <div class="status-item" id="statusDevicesMini"></div>
+		    <div class="status-item" id="statusPrivacyMini"></div>
+		    <div class="status-item" id="statusScamsMini"></div>
+		    <div class="status-item" id="statusWellbeingMini"></div>
+		  </div>
+		</div>
         <div class="cs-insight">
           <div class="cs-insight__kicker" id="csInsightKicker">Household view</div>
           <h3 class="cs-insight__title" id="csInsightTitle">The invisible becomes visible</h3>
           <p class="cs-insight__body" id="csInsightBody">
             Tap any system in the map to see what it means in real life — calmly and proportionately.
           </p>
+
+			<div class="cs-insight__impact" id="csImpact">
+			  <h4>System Impact</h4>
+			  <ul id="impactList"></ul>
+			</div>
 
           <div class="cs-insight__meta" id="csInsightMeta" hidden>
             <div class="cs-pill" id="csInsightState">Stable</div>
