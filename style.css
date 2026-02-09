@@ -383,11 +383,11 @@ h1{
   margin-inline: auto;
 }
 
-/* SYSTEMS SECTION — SINGLE CONTAINER OVERRIDE */
-.cs-systems > .container{
-  background: none;
-  border: none;
-  box-shadow: none;
+/* SYSTEMS SECTION — SINGLE WRAP AUTHORITY */
+.cs-systems > .cs-systems__wrap{
+  max-width: var(--page-max);
+  width: min(var(--page-max), 100% - 3rem);
+  margin-inline: auto;
   padding: 0;
 }
 /* Nodes */
