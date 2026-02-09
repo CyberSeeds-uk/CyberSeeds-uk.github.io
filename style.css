@@ -58,8 +58,7 @@ p, li{
    LAYOUT AUTHORITY (SINGLE)
    ========================= */
 .container,
-.section .container,
-.cs-systems__wrap{
+.section .container{
   max-width: var(--page-max);
   width: min(var(--page-max), 100% - 3rem);
   margin-inline:auto;
@@ -369,6 +368,19 @@ h1{
   width:100%;
   height:100%;
   display:block;
+}
+.system-explainer{
+  max-width: 520px;
+}
+.cs-systems .container{
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding-inline: 0;
+}
+.cs-systems__grid{
+  max-width: 1200px;
+  margin-inline: auto;
 }
 
 /* Nodes */
