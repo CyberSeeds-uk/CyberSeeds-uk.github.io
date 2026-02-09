@@ -1032,8 +1032,8 @@
     JSON.stringify(buildPassport(history.slice(0,24)))
   );
 
-  renderComparison(entry);
-  renderHistorySection(history, entry);
+  renderComparison(canonical);
+  renderHistorySection(history, canonical);
 
 
   nextBtn.style.display = "none";
