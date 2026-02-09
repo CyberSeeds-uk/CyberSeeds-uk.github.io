@@ -1672,4 +1672,101 @@ a.btn,
   transform: none;
 }
 
+/* =========================
+   Layout Density Override
+   ========================= */
+
+:root{
+  --page-max: 1320px;
+}
+
+/* Global container widening */
+.container,
+.section .container,
+.cs-systems__wrap{
+  max-width: var(--page-max) !important;
+  width: min(var(--page-max), 100% - 2.5rem);
+}
+
+/* Reduce double padding */
+.section .container{
+  padding: clamp(20px, 2vw, 26px) !important;
+}
+
+/* Vertical rhythm tightening */
+
+.section{
+  padding-block: clamp(28px, 4vw, 44px);
+}
+
+.section + .section{
+  margin-top: clamp(6px, 1.5vw, 12px);
+}
+
+.card,
+.snapshot-section,
+.cs-insight,
+.callout{
+  margin-block: 12px;
+}
+
+/* =========================
+   System Map Emphasis
+   ========================= */
+
+.cs-systems__map{
+  border:2px solid #cfe6e2;
+  background:
+    linear-gradient(180deg,#f7fdfb,#ffffff);
+  padding:22px;
+}
+
+.cs-systems__map::before{
+  content:"SYSTEM MAP";
+  position:absolute;
+  top:12px;
+  left:14px;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  color:#4c7f76;
+  opacity:.7;
+}
+
+/* System intro clarity */
+
+.cs-systems__head{
+  background:#f7fcfb;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px 20px;
+}
+
+.cs-systems__sub{
+  font-size:1rem;
+  line-height:1.45;
+}
+/* Node emphasis */
+
+.cs-node__card{
+  stroke-width:2.5;
+}
+
+.cs-node:hover{
+  transform: scale(1.05);
+}
+
+.cs-node.is-active{
+  filter: drop-shadow(0 12px 24px rgba(15,47,42,.18));
+}
+
+/* Desktop balance */
+
+@media (min-width: 1100px){
+  .cs-systems__grid{
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 3vw, 40px);
+  }
+}
+
 
