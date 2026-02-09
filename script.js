@@ -1150,148 +1150,86 @@
    Systems Map Insight Panel
    ========================================================= */
 
-(() => {
-  "use strict";
-
-  const nodes = Array.from(document.querySelectorAll(".cs-node"));
-  if (!nodes.length) return;
-
-  const kicker = document.getElementById("csInsightKicker");
-  const title = document.getElementById("csInsightTitle");
-  const body = document.getElementById("csInsightBody");
-  const meta = document.getElementById("csInsightMeta");
-  const state = document.getElementById("csInsightState");
-  const leverage = document.getElementById("csInsightLeverage");
-  const next = document.getElementById("csInsightNext");
-  const nextText = document.getElementById("csInsightNextText");
-  const resetBtn = document.getElementById("csResetSystems");
-
-  const defaults = {
-    kicker: "Household view",
-    title: "The invisible becomes visible",
-    body: "Tap any system in the map to see what it means in real life — calmly and proportionately."
-  };
-
-  const insights = {
-    network: {
-      kicker: "Network lens",
-      title: "Your Wi-Fi is the home’s circulation system",
-      body: "Stable router settings make everything else steadier — devices update cleanly, accounts stay protected, and stress reduces.",
-      state: "Forming",
-      leverage: "High leverage",
-      next: "Check who can access the router settings and ensure guest access is separate."
-    },
-    devices: {
-      kicker: "Devices lens",
-      title: "Devices are the organs of the household system",
-      body: "Simple upkeep — updates, locks, backups — keeps daily life running without sudden breakage or loss.",
-      state: "Steady",
-      leverage: "High leverage",
-      next: "Pick one device to update and turn on auto-updates for the rest."
-    },
-    privacy: {
-      kicker: "Privacy lens",
-      title: "Accounts are the immune system",
-      body: "Boundaries reduce surprises. Strong recovery routes keep the household in control when pressure hits.",
-      state: "Forming",
-      leverage: "Critical",
-      next: "Secure the main email account with two-step verification."
-    },
-    scams: {
-      kicker: "Scams lens",
-      title: "Scams test the household perimeter",
-      body: "A calm pause protects everyone. Simple verification routines stop urgency from turning into loss.",
-      state: "Emerging",
-      leverage: "High leverage",
-      next: "Set one rule: no payments or logins without a quick double-check."
-    },
-    wellbeing: {
-      kicker: "Wellbeing lens",
-      title: "Wellbeing keeps the system calm",
-      body: "Small routines around screens, sleep, and focus protect development and reduce friction at home.",
-      state: "Steady",
-      leverage: "Foundational",
-      next: "Pick one shared calm time each day that is device-light or device-free."
-    }
-  };
-
-   const impactMap = {
-     network: [
-       "Affects device updates",
-       "Controls account security",
-       "Limits scam exposure"
-     ],
-     devices: [
-       "Influences privacy breaches",
-       "Impacts wellbeing routines"
-     ],
-     privacy: [
-       "Protects finances",
-       "Prevents identity loss",
-       "Reduces scam damage"
-     ],
-     scams: [
-       "Triggers account loss",
-       "Creates emotional stress"
-     ],
-     wellbeing: [
-       "Shapes sleep patterns",
-       "Affects learning focus"
-     ]
-   };
-  function resetInsight(){
-    nodes.forEach(node => node.classList.remove("is-active"));
-    if (kicker) kicker.textContent = defaults.kicker;
-    if (title) title.textContent = defaults.title;
-    if (body) body.textContent = defaults.body;
-    if (meta) meta.hidden = true;
-    if (next) next.hidden = true;
-  }
-
-  function setInsight(key){
-    const entry = insights[key];
-    if (!entry) return;
-    nodes.forEach(node => node.classList.toggle("is-active", node.dataset.node === key));
-    if (kicker) kicker.textContent = entry.kicker;
-    if (title) title.textContent = entry.title;
-    if (body) body.textContent = entry.body;
-    if (state) state.textContent = entry.state;
-    if (leverage) leverage.textContent = entry.leverage;
-    if (nextText) nextText.textContent = entry.next;
-    if (meta) meta.hidden = false;
-    if (next) next.hidden = false;
-     const impactList = document.getElementById("impactList");
-     if (impactList && impactMap[key]){
-       impactList.innerHTML = impactMap[key]
-         .map(i => `<li>${i}</li>`)
-          .join("");
-      }
-  
-
-  nodes.forEach(node => {
-     node.addEventListener("click", () => {
-       markVisited(node.dataset.node);
-       setInsight(node.dataset.node);
+   (() => {
+     "use strict";
+   
+     const nodes = Array.from(document.querySelectorAll(".cs-node"));
+     if (!nodes.length) return;
+   
+     const kicker = document.getElementById("csInsightKicker");
+     const title  = document.getElementById("csInsightTitle");
+     const body   = document.getElementById("csInsightBody");
+     const meta   = document.getElementById("csInsightMeta");
+     const reset  = document.getElementById("csResetSystems");
+   
+     const defaults = {
+       kicker: "Household view",
+       title: "The invisible becomes visible",
+       body: "Tap any system in the map to see what it means in daily life — calmly and proportionately."
+     };
+   
+     const insights = {
+       network: {
+         kicker: "Network lens",
+         title: "Your Wi-Fi is the home’s circulation system",
+         body: "Stable router settings quietly support everything else."
+       },
+       devices: {
+         kicker: "Devices lens",
+         title: "Devices are the working organs",
+         body: "Simple upkeep keeps daily life running smoothly."
+       },
+       privacy: {
+         kicker: "Privacy lens",
+         title: "Accounts form the immune system",
+         body: "Strong boundaries prevent sudden loss or stress."
+       },
+       scams: {
+         kicker: "Scams lens",
+         title: "Scams test the perimeter",
+         body: "Calm verification routines prevent urgency from becoming damage."
+       },
+       wellbeing: {
+         kicker: "Wellbeing lens",
+         title: "Wellbeing keeps the system calm",
+         body: "Small routines around screens and rest reduce friction at home."
+       }
+     };
+   
+     function resetView(){
+       nodes.forEach(n => n.classList.remove("is-active"));
+       if (kicker) kicker.textContent = defaults.kicker;
+       if (title)  title.textContent  = defaults.title;
+       if (body)   body.textContent   = defaults.body;
+       if (meta)   meta.hidden = true;
+     }
+   
+     function setInsight(key){
+       const data = insights[key];
+       if (!data) return;
+   
+       nodes.forEach(n =>
+         n.classList.toggle("is-active", n.dataset.node === key)
+       );
+   
+       if (kicker) kicker.textContent = data.kicker;
+       if (title)  title.textContent  = data.title;
+       if (body)   body.textContent   = data.body;
+       if (meta)   meta.hidden = false;
+     }
+   
+     nodes.forEach(node => {
+       node.addEventListener("click", () => {
+         setInsight(node.dataset.node);
+       });
      });
-   });
-
-
-  resetBtn?.addEventListener("click", resetInsight);
+   
+     reset?.addEventListener("click", resetView);
+   
+     resetView();
    })();
-   
-   let visitedSystems = new Set();
-   
-   function markVisited(node){
-     visitedSystems.add(node);
-     localStorage.setItem(
-       "csVisited",
-       JSON.stringify([...visitedSystems])
-     );
-   }
 
-   const saved = JSON.parse(localStorage.getItem("csVisited") || "[]");
-   saved.forEach(s => visitedSystems.add(s));
-   markVisited(node);
+
 
 
 /* =========================================================
