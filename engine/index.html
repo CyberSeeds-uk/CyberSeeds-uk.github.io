@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2f2a" />
+  <title>Cyber Seeds Assessment Engine</title>
+  <meta name="description" content="Discover the Cyber Seeds assessment engine – a portable, auditable component that delivers calm household insights and can be embedded anywhere." />
+  <!-- Re‑use the main site stylesheet for consistent styling -->
+  <link rel="stylesheet" href="/style.css?v=20260125" />
+  <!-- Snapshot modal styles for component demo -->
+  <link rel="stylesheet" href="/snapshot-modal.css" />
+  <!-- Include the Web Component script -->
+  <script type="module" src="/cyberseeds-engine.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Cyber Seeds home">
+        <img src="/cyber_seeds_logo.png" class="logo" alt="Cyber Seeds logo" />
+        <span class="brand-name">Cyber Seeds</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="navMenu">
+        <a href="/" data-scroll>Home</a>
+        <a href="/#why" data-scroll>Why Clarity</a>
+        <a href="/#lenses" data-scroll>Five Lenses</a>
+        <a href="/#snapshot" data-scroll>Snapshot</a>
+        <a href="/engine/" aria-current="page">Engine</a>
+        <a href="/resources/">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">From project to infrastructure</p>
+          <h1>
+            A portable, auditable<br />assessment engine
+          </h1>
+          <p class="lead">
+            Cyber Seeds has grown into a replicable assessment engine. Designed for local execution and national adoption, it delivers calm, evidence‑based insights across five household digital systems. You can embed it into your own services, safeguarding frameworks or community programmes.
+          </p>
+          <div class="hero-meta">
+            <span class="meta-chip">Runs locally</span>
+            <span class="meta-chip">No accounts</span>
+            <span class="meta-chip">No tracking</span>
+            <span class="meta-chip">Portable &amp; auditable</span>
+          </div>
+          <!-- Demo of the Web Component -->
+          <cyber-seeds-engine></cyber-seeds-engine>
+          <p class="micro muted">
+            The engine above is fully operational. Feel free to complete the assessment and explore the audit output.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMBED INSTRUCTIONS -->
+    <section class="section">
+      <div class="container">
+        <h2>How to embed</h2>
+        <p class="section-lead">
+          To incorporate the Cyber Seeds assessment engine into your own website or intranet, include our module and custom element. The engine self‑loads the question bank, scoring rules and seed library from the <code>generated</code> directory and stores nothing on our servers.
+        </p>
+        <pre class="code-block"><code>&lt;script type="module" src="https://cyberseeds.co.uk/cyberseeds-engine.js"&gt;&lt;/script&gt;
+&lt;cyber-seeds-engine&gt;&lt;/cyber-seeds-engine&gt;</code></pre>
+        <p class="micro muted">
+          The component is self‑contained: it automatically fetches the latest snapshot questions, scoring logic and digital seeds. Because it runs entirely in the browser, no data is ever transmitted.
+        </p>
+      </div>
+    </section>
+
+    <!-- AUDIT GUIDANCE -->
+    <section class="section">
+      <div class="container">
+        <h2>Audit ready by design</h2>
+        <p class="section-lead">
+          Transparency is essential for trust. After completing an assessment, the engine provides a JSON structure containing your answers and all computed metrics. This allows practitioners, researchers and commissioning bodies to verify outcomes against the published scoring model.
+        </p>
+        <details>
+          <summary>Sample audit output</summary>
+          <pre class="code-block"><code>{
+  "answers": {
+    "q1_router_access": 2,
+    "q2_updates": 1,
+    "q3_main_email": 0,
+    "q4_scam_pause": 2,
+    "q5_wellbeing_boundaries": 1
+  },
+  "lensScores": {
+    "network": 6,
+    "devices": 12,
+    "privacy": 18,
+    "scams": 6,
+    "wellbeing": 12
+  },
+  "lensMax": {
+    "network": 18,
+    "devices": 18,
+    "privacy": 18,
+    "scams": 18,
+    "wellbeing": 18
+  },
+  "lensPercents": {
+    "network": 33.3,
+    "devices": 66.7,
+    "privacy": 100.0,
+    "scams": 33.3,
+    "wellbeing": 66.7
+  },
+  "hdss": 58,
+  "strongest": "privacy",
+  "weakest": "network",
+  "focus": "network",
+  "stage": {
+    "label": "Stabilising",
+    "message": "Foundations are forming. Focused improvements bring calmer rhythm."
+  }
+}</code></pre>
+        </details>
+        <p class="micro muted">
+          This example shows the entire state after a session: the raw selections, per‑lens scores, percentage scores and household digital safety score (HDSS). Auditable transparency makes Cyber Seeds suitable for procurement and research evaluations.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Cyber Seeds. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle mobile navigation on this page
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !expanded);
+        navMenu.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>
