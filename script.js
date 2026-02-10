@@ -214,6 +214,7 @@
   const HISTORY_KEY="cyberseeds_snapshots_v1";
   const PASSPORT_KEY="cyberseeds_digital_passport_v1";
   const SNAPSHOT_LAST_KEY="cyberseeds_snapshot_last";
+  const SNAPSHOT_SCHEMA="cs.snapshot.v3";
 
   const LENS_ORDER = ["network", "devices", "privacy", "scams", "wellbeing"];
   const LENS_LABELS={
@@ -255,25 +256,41 @@
     safeSet(HISTORY_KEY, JSON.stringify(history));
   }
 
+  // B-6: include answers + lens scores in passport exports for audit-safe continuity.
   function buildPassport(history){
+    const exportedAt = new Date().toISOString();
     return {
       schema: "cs.digital.passport.v1",
-      updated_at: new Date().toISOString(),
-      snapshots: history.map(entry => ({
-        id: entry.id,
-        snapshot_id: entry.snapshotId,
-        saved_at: new Date(entry.ts).toISOString(),
-        totalScore: Math.round(entry.totalScore ?? entry.hdss ?? 0),
-        focus: entry.focus,
-        strongest: entry.strongest,
-        weakest: entry.weakest,
-        lensPercents: entry.perLens || entry.lensPercents || {},
-        patterns: entry.patterns || [],
-        strengths: entry.strengths || [],
-        phasePlan: entry.phasePlan || [],
-        signal: entry.signal || null,
-        trajectory: entry.trajectory || null
-      }))
+      version: "1.1.0",
+      updated_at: exportedAt,
+      snapshots: history.map(entry => {
+        const lensPercents = sanitizeLensPercents(entry.lenses || entry.lensPercents || entry.perLens);
+        return {
+          id: entry.id,
+          snapshot_id: entry.snapshotId || entry.snapshot_id,
+          timestamp: new Date(entry.ts ?? entry.timestamp ?? Date.now()).toISOString(),
+          saved_at: new Date(entry.ts ?? entry.timestamp ?? Date.now()).toISOString(),
+          totalScore: Math.round(entry.totalScore ?? entry.hdss ?? 0),
+          lensScores: entry.lensScores || {},
+          lensMax: entry.lensMax || {},
+          lensPercents,
+          answers: entry.answers || {},
+          signal: entry.signal || null,
+          seeds: entry.seed ? [entry.seed] : [],
+          patterns: entry.patterns || [],
+          strengths: entry.strengths || [],
+          phasePlan: entry.phasePlan || [],
+          metadata: {
+            schema: SNAPSHOT_SCHEMA,
+            focus: entry.focus,
+            strongest: entry.strongest,
+            weakest: entry.weakest,
+            stage: entry.stage?.label || entry.stage,
+            exported_at: exportedAt,
+            lens_order: LENS_ORDER
+          }
+        };
+      })
     };
   }
 
@@ -294,7 +311,11 @@
       totalScore,
       perLens,
       lensPercents: entry.lensPercents || perLens,
+      lenses: entry.lenses || perLens,
       hdss: entry.hdss ?? totalScore,
+      answers: entry.answers || {},
+      lensScores: entry.lensScores || {},
+      lensMax: entry.lensMax || {},
       patterns: Array.isArray(entry.patterns) ? entry.patterns : [],
       strengths: Array.isArray(entry.strengths) ? entry.strengths : [],
       phasePlan: Array.isArray(entry.phasePlan) ? entry.phasePlan : []
@@ -302,13 +323,13 @@
   }
 
   function isCanonicalSnapshot(s){
-  return s
-    && typeof s === "object"
-    && s.id
-    && (s.timestamp || s.ts)
-    && (typeof s.total === "number" || typeof s.hdss === "number")
-    && (s.lenses || s.lensPercents);
-}
+    return s
+      && typeof s === "object"
+      && s.id
+      && (s.timestamp || s.ts)
+      && (typeof s.total === "number" || typeof s.hdss === "number")
+      && (s.lenses || s.lensPercents);
+  }
 
   function buildSignal(totalScore, trajectoryLabel, lensPercents){
     const total = Math.round(totalScore ?? 0);
@@ -444,23 +465,80 @@
     ];
   }
 
-  function buildPlainSummary(snapshot, strengths, patterns, phasePlan, trajectory){
-    const lensLines = LENS_ORDER.map(l => `${LENS_LABELS[l]}: ${Math.round(snapshot.lenses[l] ?? 0)}%`).join(", ");
-    const strengthText = strengths.length
-      ? strengths.map(s => s.label).join(" and ")
-      : "steady foundations";
-    const patternText = patterns.length
-      ? patterns.map(p => p.title).join(", ")
-      : "no strong patterns detected";
-    const phaseText = phasePlan.map(p => `${p.phase}: ${p.actions.join(" ")}`).join(" ");
-    return [
-      `Household Signal: ${snapshot.signal.overall} (${snapshot.signal.score}/100).`,
-      `Trajectory: ${trajectory.label}.`,
-      `Lens summary: ${lensLines}.`,
-      `Strengths: ${strengthText}.`,
-      `Patterns: ${patternText}.`,
-      `Priority pathways: ${phaseText}`
-    ].join(" ");
+  function nextReviewDate(ts, days = 90){
+    const date = new Date(ts);
+    if (Number.isNaN(date.getTime())) return "In around 3 months";
+    date.setDate(date.getDate() + days);
+    return date.toLocaleDateString();
+  }
+
+  function resolveStrongestWeakest(snapshot){
+    if (snapshot.strongest && snapshot.weakest){
+      return { strongest: snapshot.strongest, weakest: snapshot.weakest };
+    }
+    return strongestWeakest(snapshot.lenses || snapshot.lensPercents || {});
+  }
+
+  function buildSummaryHtml(snapshot, strengths, patterns, phasePlan, trajectory){
+    const lensLines = LENS_ORDER.map(l => `
+      <li><strong>${LENS_LABELS[l]}:</strong> ${Math.round(snapshot.lenses[l] ?? 0)}%</li>
+    `).join("");
+    const { strongest, weakest } = resolveStrongestWeakest(snapshot);
+    const strongestLabel = LENS_LABELS[strongest] || strongest;
+    const weakestLabel = LENS_LABELS[weakest] || weakest;
+    const nextReview = nextReviewDate(snapshot.timestamp);
+    const keyRisks = patterns.length
+      ? patterns.map(p => `<li>${p.title}</li>`).join("")
+      : `<li>${weakestLabel} routines feel the most stretched right now.</li>`;
+    const seedActions = snapshot.seed
+      ? `
+        <p><strong>${snapshot.seed.title}</strong></p>
+        <ul>
+          <li>Today: ${snapshot.seed.today || "Choose one small action."}</li>
+          <li>This week: ${snapshot.seed.this_week || "Pick one easy routine to repeat."}</li>
+          <li>This month: ${snapshot.seed.this_month || "Add one household habit that sticks."}</li>
+        </ul>
+      `
+      : `
+        <ul>
+          <li>Today: ${phasePlan[0]?.actions?.[0] || "Choose one small action."}</li>
+          <li>This week: ${phasePlan[1]?.actions?.[0] || "Pick one easy routine to repeat."}</li>
+          <li>This month: ${phasePlan[2]?.actions?.[0] || "Add one household habit that sticks."}</li>
+        </ul>
+      `;
+
+    return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cyber Seeds Plain-English Summary</title>
+  <style>
+    body{font-family:Arial, sans-serif; color:#0f2f2a; margin:24px; line-height:1.6;}
+    h1,h2{color:#1a6a5d;}
+    ul{padding-left:18px;}
+    .note{color:#4c6a63; font-size:0.95rem;}
+  </style>
+</head>
+<body>
+  <h1>Plain-English Summary</h1>
+  <p class="note">Generated locally on your device. Nothing is uploaded.</p>
+  <h2>Household digital signal</h2>
+  <p><strong>${snapshot.signal.overall}</strong> (${snapshot.signal.score}/100) — ${snapshot.signal.summary}</p>
+  <p>Trajectory: ${trajectory.label}. Risk pressure: ${snapshot.signal.riskPressure}. Resilience index: ${snapshot.signal.resilienceIndex}.</p>
+  <h2>Strongest and weakest lenses</h2>
+  <p><strong>Strongest:</strong> ${strongestLabel}. <strong>Weakest:</strong> ${weakestLabel}.</p>
+  <h2>Lens scores</h2>
+  <ul>${lensLines}</ul>
+  <h2>Key risks to watch (no blame)</h2>
+  <ul>${keyRisks}</ul>
+  <h2>Priority digital seeds</h2>
+  ${seedActions}
+  <h2>Next review date</h2>
+  <p>${nextReview}</p>
+  <p class="note">You can repeat a snapshot any time you want a calmer check-in.</p>
+</body>
+</html>`;
   }
 
   const LEGACY_SNAPSHOT_KEYS = [
@@ -492,17 +570,21 @@
     const signal = raw.signal || buildSignal(total, trajectory.label, lenses);
 
     return {
+      schema: raw.schema || SNAPSHOT_SCHEMA,
       id: raw.id || `${raw.snapshotId || stableHash(raw)}-${timestamp}`,
       timestamp,
       total,
       lenses,
+      lensPercents: raw.lensPercents || lenses,
+      lensScores: raw.lensScores || {},
+      lensMax: raw.lensMax || {},
+      answers: raw.answers || {},
       patterns,
       strengths,
       phasePlan,
       signal,
       trajectory,
       snapshotId: raw.snapshotId,
-      lensPercents: raw.lensPercents || lenses,
       hdss: raw.hdss ?? total,
       focus: raw.focus,
       strongest: raw.strongest,
@@ -685,8 +767,8 @@
 </html>`;
   }
 
-  function downloadText(filename, content){
-    const blob = new Blob([content], { type: "text/plain" });
+  function downloadHtml(filename, content){
+    const blob = new Blob([content], { type: "text/html" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -697,8 +779,8 @@
     URL.revokeObjectURL(url);
   }
 
-  function downloadHtml(filename, content){
-    const blob = new Blob([content], { type: "text/html" });
+  function downloadDoc(filename, content){
+    const blob = new Blob([content], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -721,15 +803,16 @@
     const patterns = snapshot.patterns?.length ? snapshot.patterns : detectPatterns(snapshot.lenses);
     const phasePlan = snapshot.phasePlan?.length ? snapshot.phasePlan : buildPhasePlan(snapshot.lenses);
     const trajectory = snapshot.trajectory || buildTrajectory(snapshot.total, history[1]?.totalScore ?? history[1]?.hdss);
+    const signal = snapshot.signal || buildSignal(snapshot.total, trajectory.label, snapshot.lenses);
 
     return {
-      snapshot,
+      snapshot: { ...snapshot, signal },
       strengths,
       patterns,
       phasePlan,
       trajectory,
-      plainSummary: buildPlainSummary(snapshot, strengths, patterns, phasePlan, trajectory),
-      reportHtml: buildReportHtml(snapshot, strengths, patterns, phasePlan, trajectory)
+      summaryHtml: buildSummaryHtml({ ...snapshot, signal }, strengths, patterns, phasePlan, trajectory),
+      reportHtml: buildReportHtml({ ...snapshot, signal }, strengths, patterns, phasePlan, trajectory)
     };
   }
 
@@ -823,8 +906,8 @@
       const diffText = diff === 0 ? "no change" : diff > 0 ? `+${diff}` : `${diff}`;
 
       const deltas = LENS_ORDER.map(lens => {
-        const now = Math.round(currentEntry.perLens?.[lens] ?? currentEntry.lensPercents?.[lens] ?? 0);
-        const then = Math.round(selected.perLens?.[lens] ?? selected.lensPercents?.[lens] ?? 0);
+        const now = Math.round(currentEntry.lenses?.[lens] ?? currentEntry.perLens?.[lens] ?? currentEntry.lensPercents?.[lens] ?? 0);
+        const then = Math.round(selected.lenses?.[lens] ?? selected.perLens?.[lens] ?? selected.lensPercents?.[lens] ?? 0);
         const delta = now - then;
         const label = LENS_LABELS[lens] || lens;
         const deltaText = delta === 0 ? "no change" : delta > 0 ? `+${delta}` : `${delta}`;
@@ -1024,9 +1107,14 @@
 
     ...scored,
 
+    // B-6: persist answer map for deterministic exports and insights.
+    answers: { ...answers },
     seed,
     totalScore: scored.hdss,
-    perLens: lensPercents,
+    lenses: lensPercents,
+    lensPercents,
+    lensScores: scored.lensScores || {},
+    lensMax: scored.lensMax || {},
 
     patterns,
     strengths,
@@ -1150,7 +1238,7 @@
       setExportState(false);
       return;
     }
-    downloadText("cyber-seeds-snapshot-summary.txt", bundle.plainSummary);
+    downloadDoc("cyber-seeds-snapshot-summary.doc", bundle.summaryHtml);
   });
   downloadSnapshotHtmlBtn?.addEventListener("click", () => {
     const bundle = getExportBundle();
