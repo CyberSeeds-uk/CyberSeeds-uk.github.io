@@ -1,0 +1,221 @@
+/* =========================================
+   Cyber Seeds — Unified Modal + Hub Language
+   Snapshot + Resources Visual System
+   ========================================= */
+
+:root{
+  --cs-ink:#0f2f2a;
+  --cs-ink-2:#184a43;
+  --cs-muted:rgba(15,47,42,.72);
+  --cs-soft:rgba(15,47,42,.06);
+  --cs-border:rgba(15,47,42,.14);
+  --cs-card:#ffffff;
+  --cs-shadow:0 18px 60px rgba(15,47,42,.18);
+  --cs-radius:22px;
+}
+
+/* ===== Modal shell ===== */
+
+.cs-modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(10,20,18,.42);
+  backdrop-filter: blur(6px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:9999;
+}
+
+.cs-modal-backdrop.open{
+  display:flex;
+}
+
+.cs-modal{
+  width:min(760px, 96vw);
+  max-height:92vh;
+  overflow:auto;
+  background:var(--cs-card);
+  border-radius:28px;
+  box-shadow:var(--cs-shadow);
+  border:1px solid var(--cs-border);
+}
+
+/* ===== Header ===== */
+
+.cs-modal-head{
+  padding:18px 20px 14px;
+  border-bottom:1px solid var(--cs-border);
+  background:linear-gradient(180deg,#f6fbfa,#ffffff);
+  position:sticky;
+  top:0;
+  z-index:2;
+}
+
+.cs-eyebrow{
+  font-size:.82rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:rgba(15,47,42,.65);
+  margin-bottom:6px;
+}
+
+.cs-title{
+  font-size:1.45rem;
+  font-weight:950;
+  letter-spacing:-.02em;
+  margin:0;
+  color:var(--cs-ink);
+}
+
+.cs-sub{
+  margin:6px 0 0;
+  color:var(--cs-muted);
+  font-size:.98rem;
+  line-height:1.4;
+}
+
+.cs-head-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.cs-icon-btn{
+  border:1px solid var(--cs-border);
+  background:#fff;
+  border-radius:14px;
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  cursor:pointer;
+}
+
+/* ===== Body ===== */
+
+.cs-modal-body{
+  padding:18px;
+  display:grid;
+  gap:16px;
+}
+
+/* ===== Signal card (shared with hub) ===== */
+
+.cs-signal-card{
+  border:1px solid var(--cs-border);
+  border-radius:20px;
+  padding:16px;
+  background:linear-gradient(180deg,#f3faf8,#ffffff);
+}
+
+.cs-chip-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:10px 0;
+}
+
+.cs-chip{
+  padding:7px 12px;
+  border-radius:999px;
+  border:1px solid var(--cs-border);
+  background:var(--cs-soft);
+  font-weight:800;
+  font-size:.9rem;
+  color:var(--cs-ink);
+}
+
+/* ===== Lens table ===== */
+
+.cs-lens-grid{
+  display:grid;
+  gap:8px;
+}
+
+.cs-lens-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--cs-border);
+  background:#fff;
+  font-weight:800;
+}
+
+/* ===== Seed block (deep messaging) ===== */
+
+.cs-seed{
+  border:1px solid var(--cs-border);
+  border-radius:20px;
+  padding:16px;
+  background:#ffffff;
+}
+
+.cs-seed-title{
+  font-weight:950;
+  font-size:1.05rem;
+  margin:0 0 6px;
+}
+
+.cs-seed-why{
+  font-size:.95rem;
+  color:var(--cs-muted);
+  margin-bottom:10px;
+}
+
+.cs-seed-steps{
+  display:grid;
+  gap:6px;
+  font-size:.95rem;
+  color:var(--cs-ink);
+}
+
+.cs-seed-steps strong{
+  font-weight:900;
+}
+
+/* ===== Progress compare ===== */
+
+.cs-compare{
+  border:1px solid var(--cs-border);
+  border-radius:18px;
+  padding:14px;
+  background:#fff;
+}
+
+.cs-compare-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  font-weight:800;
+}
+
+/* ===== Footer actions ===== */
+
+.cs-modal-foot{
+  padding:14px 18px 18px;
+  border-top:1px solid var(--cs-border);
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.cs-btn{
+  border-radius:999px;
+  padding:12px 16px;
+  font-weight:900;
+  border:2px solid var(--cs-ink);
+  background:#fff;
+  cursor:pointer;
+}
+
+.cs-btn.primary{
+  background:var(--cs-ink);
+  color:#fff;
+}
