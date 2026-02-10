@@ -141,10 +141,15 @@
     const signal = raw.signal || buildSignal(total, trajectory.label, lenses);
 
     return {
+      schema: raw.schema || "cs.snapshot.v3",
       id: raw.id || `${raw.snapshotId || raw.snapshot_id || timestamp}-${timestamp}`,
       timestamp,
       total,
       lenses,
+      lensPercents: raw.lensPercents || lenses,
+      lensScores: raw.lensScores || {},
+      lensMax: raw.lensMax || {},
+      answers: raw.answers || {},
       patterns: Array.isArray(raw.patterns) ? raw.patterns : [],
       strengths: Array.isArray(raw.strengths) ? raw.strengths : [],
       phasePlan: Array.isArray(raw.phasePlan) ? raw.phasePlan : [],
