@@ -1182,32 +1182,116 @@
     step--;renderQuestion();
   });
 
-   document.addEventListener("click", e => {
-     if (!e.target.closest("[data-open-snapshot]")) return;
-     e.preventDefault();
    
-     if (form) form.hidden = false;
-     hideResult();
-   
-     resetFlow();
-     openModal();
-     renderIntro();
-   
-     const scroll = $("#snapshotScroll");
-     if (scroll) scroll.scrollTop = 0;
-   });
+  /* =========================================================
+     Public API (for Web Component integration)
+     ---------------------------------------------------------
+     The Web Component controls questionnaire UI. This API
+     reuses the existing scoring + rendering + export logic.
+     ========================================================= */
+  window.CSSnapshotUI = {
+    // Accepts an answers map { [questionId]: optionIndex }
+    async finishFromAnswers(answerMap){
+      await ensureReady();
 
-  closeBtn?.addEventListener("click",closeModal);
-  backdrop?.addEventListener("click",closeModal);
+      // Use the same internal pipeline as the legacy Finish button:
+      // score -> interpret -> render -> persist/export
+      const scored = seedForge.scoreAnswers(answerMap);
+
+      const focusLabel = LENS_LABELS[scored.focus];
+      const strongestLabel = LENS_LABELS[scored.strongest];
+      const weakestLabel = LENS_LABELS[scored.weakest];
+
+      const rationale = seedForge.buildRationale(scored.focus, answerMap);
+      const seed = seedForge.seedsForLens(scored.focus)[0] || null;
+
+      const lensPercents = scored.lensPercents || {};
+      const history = loadHistory();
+      const previous = history[0];
+
+      const trajectory = buildTrajectory(
+        scored.hdss,
+        previous?.totalScore ?? previous?.hdss
+      );
+
+      const signal = buildSignal(
+        scored.hdss,
+        trajectory.label,
+        lensPercents
+      );
+
+      const patterns = detectPatterns(lensPercents);
+      const strengths = buildStrengths(lensPercents);
+      const phasePlan = buildPhasePlan(lensPercents);
+
+      renderSnapshotResults({
+        scored,
+        focusLabel,
+        strongestLabel,
+        weakestLabel,
+        rationale,
+        seed,
+        lensPercents,
+        signal,
+        trajectory,
+        patterns,
+        strengths,
+        phasePlan,
+        history
+      });
+
+      // Ensure other pages/components update immediately
+      window.CSSnapshotInsights?.mount?.(document).catch(()=>{});
+      window.dispatchEvent(new Event("cs:snapshot-updated"));
+    }
+  };
+
+  if (!document.querySelector("cyber-seeds-snapshot")) {
+    document.addEventListener("click", e => {
+         if (!e.target.closest("[data-open-snapshot]")) return;
+         e.preventDefault();
+       
+         if (form) form.hidden = false;
+         hideResult();
+       
+         resetFlow();
+         openModal();
+         renderIntro();
+       
+         const scroll = $("#snapshotScroll");
+         if (scroll) scroll.scrollTop = 0;
+       });
+  }
+
+
+  if (!document.querySelector("cyber-seeds-snapshot")){
+    closeBtn?.addEventListener("click",closeModal);
+    backdrop?.addEventListener("click",closeModal);
+  }
   resetBtn?.addEventListener("click",()=>{
     safeRemove(SNAP_KEY);
     safeRemove(HISTORY_KEY);
     safeRemove(PASSPORT_KEY);
     safeRemove(SNAPSHOT_LAST_KEY);
+
+    // If using the Web Component snapshot, avoid touching legacy modal internals.
+    if (document.querySelector("cyber-seeds-snapshot")){
+      hideResult();
+      setExportState(false);
+      window.CSSnapshotInsights?.mount?.(document).catch(()=>{});
+      window.dispatchEvent(new Event("cs:snapshot-reset"));
+      return;
+    }
+
     resetFlow();
     renderIntro();
   });
   $("#retakeSnapshot")?.addEventListener("click", () => {
+    if (document.querySelector("cyber-seeds-snapshot")){
+      document.querySelector("cyber-seeds-snapshot")?.open?.();
+      return;
+    }
+
 
      if (form) form.hidden = false;
      hideResult();
