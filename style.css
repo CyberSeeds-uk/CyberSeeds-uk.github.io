@@ -369,6 +369,38 @@ h1{
   height:100%;
   display:block;
 }
+
+.cs-systems__svg text{
+  fill:var(--ink);
+  font-family:inherit;
+}
+
+.cs-home{
+  fill:#f7fbfa;
+  stroke:#cfe6e2;
+  stroke-width:2;
+}
+
+.cs-home__title{
+  fill:var(--muted);
+  font-weight:600;
+}
+
+.cs-flow{
+  fill:none;
+  stroke:#d7e6e2;
+  stroke-width:2.5;
+}
+
+.cs-flow-strong{
+  stroke:#b9d7d2;
+  stroke-width:3;
+}
+
+.cs-flow__label{
+  fill:var(--muted);
+  font-size:0.9rem;
+}
 .system-explainer{
   max-width: 520px;
 }
@@ -376,7 +408,6 @@ h1{
   background: none;
   border: none;
   box-shadow: none;
-  padding-inline: 0;
 }
 .cs-systems__grid{
   max-width: 1200px;
@@ -403,6 +434,17 @@ h1{
   filter:drop-shadow(0 10px 20px rgba(15,47,42,.08));
 }
 
+.cs-node__title{
+  font-size:1.1rem;
+  font-weight:600;
+  fill:var(--ink);
+}
+
+.cs-node__tag{
+  font-size:0.9rem;
+  fill:var(--muted);
+}
+
 .cs-node:hover{
   transform: scale(1.05);
 }
@@ -415,6 +457,52 @@ h1{
 .cs-systems__panel{
   position:sticky;
   top:90px;
+}
+
+.cs-system-status{
+  background:#f7fbfa;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:18px;
+}
+
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+
+.status-item{
+  background:#fff;
+  border:1px solid #dfecea;
+  border-radius:14px;
+  padding:8px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.status-item .status-label{
+  font-size:0.78rem;
+  color:var(--muted);
+}
+
+.status-item .status-value{
+  font-size:0.92rem;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.cs-insight__impact{
+  margin-top:16px;
+}
+
+#impactList{
+  margin-top:8px;
+  padding-left:18px;
+  color:var(--muted);
 }
 
 /* =========================
