@@ -33,3 +33,36 @@
     component.open();
   });
 })();
+
+window.addEventListener("cs:snapshot-updated", (event) => {
+
+  const data = event.detail;
+  if (!data) return;
+
+  const section = document.getElementById("snapshotResults");
+  if (!section) return;
+
+  section.hidden = false;
+
+  const scoreEl = document.getElementById("signalScore");
+  const summaryEl = document.getElementById("signalSummary");
+  const strongestEl = document.getElementById("strongestLens");
+  const focusEl = document.getElementById("focusLens");
+  const seedEl = document.getElementById("focusSeed");
+
+  const lensLabels = {
+    network: "Network",
+    devices: "Devices",
+    privacy: "Accounts & Privacy",
+    scams: "Scams & Messages",
+    wellbeing: "Children & Wellbeing"
+  };
+
+  if (scoreEl) scoreEl.textContent = `${Math.round(data.hdss)} / 100`;
+  if (summaryEl) summaryEl.textContent = data.stage?.message || "A steady household signal.";
+  if (strongestEl) strongestEl.textContent = lensLabels[data.strongest] || "";
+  if (focusEl) focusEl.textContent = lensLabels[data.focus] || "";
+  if (seedEl) seedEl.textContent = data.seed?.today || "Small consistent routines build resilience.";
+
+});
+
