@@ -555,7 +555,7 @@ class CyberSeedsSnapshot extends HTMLElement {
    
     // Dispatch the canonical event for homepage + resources
     window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
-      detail: { snapshot: canonical, scored }
+    detail: { snapshot: canonical, scored }
     }));
   }
 }
