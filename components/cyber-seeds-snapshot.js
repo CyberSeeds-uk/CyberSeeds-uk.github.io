@@ -63,26 +63,15 @@ class CyberSeedsSnapshot extends HTMLElement {
       }
       .backdrop{
         position:fixed; inset:0;
-        background:rgba(20,32,30,.45);
-        opacity:0; pointer-events:none;
-        transition:opacity .16s ease;
-        z-index:9998;
+        background:rgba(10,18,17,.75);
+        backdrop-filter: blur(4px);
       }
       .modal{
-        position:fixed; left:50%; top:50%;
-        transform:translate(-50%,-48%) scale(.98);
-        width:min(860px, calc(100vw - 28px));
-        max-height:min(82vh, 720px);
-        background:var(--card);
-        border:1px solid var(--line);
-        border-radius:var(--radius2);
-        box-shadow:var(--shadow-md);
-        opacity:0; pointer-events:none;
-        transition:opacity .16s ease, transform .16s ease;
-        z-index:9999;
-        display:flex;
-        flex-direction:column;
-        overflow:hidden;
+        background:#ffffff;
+        border:1px solid rgba(0,0,0,.06);
+        box-shadow:
+          0 40px 80px rgba(0,0,0,.25),
+          0 10px 30px rgba(0,0,0,.15);
       }
       .is-open .backdrop{ opacity:1; pointer-events:auto; }
       .is-open .modal{ opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1); }
