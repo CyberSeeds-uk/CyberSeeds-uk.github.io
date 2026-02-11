@@ -530,3 +530,63 @@ h1{
   }
   .nav.is-open{ display:flex; }
 }
+
+/* ========================================
+   Snapshot Choice Cards (Professional)
+   ======================================== */
+
+.choices{
+  display:grid;
+  gap:12px;
+  margin-top:16px;
+}
+
+.choice-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  cursor:pointer;
+  transition:all .18s ease;
+  min-height:48px;
+}
+
+.choice-card input{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  cursor:pointer;
+}
+
+.choice-card:hover{
+  border-color:var(--brand2);
+  background:var(--mint2);
+}
+
+.choice-card:has(input:checked){
+  border:2px solid var(--brand);
+  background:var(--mint);
+  box-shadow:0 4px 14px rgba(15,47,42,.12);
+}
+
+.choice-label{
+  font-weight:600;
+  color:var(--ink);
+}
+
+.choice-indicator{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid var(--line);
+  transition:all .18s ease;
+}
+
+.choice-card:has(input:checked) .choice-indicator{
+  background:var(--brand);
+  border-color:var(--brand);
+}
