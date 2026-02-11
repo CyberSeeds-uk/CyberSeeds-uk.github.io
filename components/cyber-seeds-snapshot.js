@@ -225,6 +225,9 @@ class CyberSeedsSnapshot extends HTMLElement {
         <div class="backdrop" part="backdrop"></div>
         <section class="modal" role="dialog" aria-modal="true" aria-label="Cyber Seeds snapshot" part="modal">
           <header class="top">
+           <div class="progress-wrap">
+             <div class="progress-bar" id="csProgress"></div>
+           </div>
             <div>
               <p class="kicker" id="csKicker">Household snapshot</p>
               <h2 class="title" id="csTitle">A calm check-in</h2>
