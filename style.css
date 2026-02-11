@@ -591,3 +591,6 @@ h1{
   border-color:var(--brand);
 }
 
+body.modal-open{
+  overflow:hidden;
+}
