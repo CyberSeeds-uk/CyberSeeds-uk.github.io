@@ -532,28 +532,27 @@ class CyberSeedsSnapshot extends HTMLElement {
     return { canonical, history: nextHistory };
   }
 
-  finish(){
+   finish() {
 
-     // 1. Score answers via engine
      const result = this.api.scoreAnswers(this.answers);
    
-     // 2. Store canonical snapshot
      localStorage.setItem(
        "cyberseeds_snapshot_v3",
        JSON.stringify(result)
      );
    
-     // 3. Dispatch update event for homepage
      window.dispatchEvent(
        new CustomEvent("cs:snapshot-updated", {
          detail: result
        })
      );
    
-     // 4. Close modal
      this.close();
    }
 
+   
+
+   
     // Dispatch the canonical event for homepage + resources
     window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
       detail: { snapshot: canonical, scored }
