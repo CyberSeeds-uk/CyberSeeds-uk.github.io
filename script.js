@@ -945,11 +945,12 @@
     const q=QUESTIONS[step];
     form.innerHTML=`
       <p><strong>${q.prompt}</strong></p>
-      <div class="choices">
+      <div class="choices" role="radiogroup" aria-label="${q.prompt}">
         ${q.options.map((o,i)=>`
-          <label class="choice">
-            <input type="radio" name="q" value="${i}">
-            <span>${o.label}</span>
+          <label class="choice-card">
+            <input type="radio" name="q-${q.id}" value="${i}" />
+            <span class="choice-label">${o.label}</span>
+            <span class="choice-indicator" aria-hidden="true"></span>
           </label>`).join("")}
       </div>
       ${q.reassurance?`<p class="muted">${q.reassurance}</p>`:""}
