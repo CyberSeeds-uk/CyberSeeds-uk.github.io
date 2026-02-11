@@ -534,28 +534,20 @@ class CyberSeedsSnapshot extends HTMLElement {
 
    finish() {
 
-     const result = this.api.scoreAnswers(this.answers);
-   
-     localStorage.setItem(
-       "cyberseeds_snapshot_v3",
-       JSON.stringify(result)
-     );
-   
-     window.dispatchEvent(
-       new CustomEvent("cs:snapshot-updated", {
-         detail: result
-       })
-     );
-   
-     this.close();
-   }
+    const result = this.api.scoreAnswers(this.answers);
 
-   
-
-   
-    window.dispatchEvent(
-      new CustomEvent("cs:snapshot-updated", {
-        detail: result
-      })
+    localStorage.setItem(
+      "cyberseeds_snapshot_v3",
+      JSON.stringify(result)
     );
+
+  window.dispatchEvent(
+    new CustomEvent("cs:snapshot-updated", {
+      detail: result
+    })
+  );
+
+  this.close();
+}
+   
 customElements.define("cyber-seeds-snapshot", CyberSeedsSnapshot);
