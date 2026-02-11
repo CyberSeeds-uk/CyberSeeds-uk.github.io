@@ -241,7 +241,25 @@ class CyberSeedsSnapshot extends HTMLElement {
         border-radius:var(--radius);
         padding:12px 12px;
       }
+
+      .modal{
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      }
+      
+      .title{
+        letter-spacing:-.01em;
+      }
+      
+      .body{
+        line-height:1.6;
+      }
+      
+      .hint{
+        background:linear-gradient(180deg,#f2faf9,#fff);
+      }
+
     `;
+
 
     this.shadowRoot.innerHTML = `
       <style>${.progress-wrap{
@@ -313,8 +331,36 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.backdrop.addEventListener("click", () => this.close());
 
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && this._isOpen) this.close();
+      if (e.key === "Escape" && this._isOpen) this.renderComplete(canonical);
     });
+
+     renderComplete(snapshot){
+        this._refs.kicker.textContent = "Snapshot complete";
+        this._refs.title.textContent = "Thank you for checking in";
+      
+        this._refs.panel.innerHTML = `
+          <div class="resultCard">
+            <h3 class="h3">Your household signal</h3>
+            <p class="p">${snapshot.signal.summary}</p>
+      
+            <div class="resultRow">
+              <span class="chip">${snapshot.total}/100</span>
+              <span class="chip">Focus: ${this.lensLabels()[snapshot.focus]}</span>
+              <span class="chip">Risk: ${snapshot.signal.riskPressure}</span>
+            </div>
+      
+            <p class="p" style="margin-top:12px;">
+              Your results are saved only on this device.
+            </p>
+          </div>
+        `;
+      
+        this._refs.back.disabled = true;
+        this._refs.next.textContent = "Close";
+        this._refs.next.onclick = () => this.close();
+      
+        localStorage.removeItem("cs_snapshot_draft");
+      }
 
     this._refs.back.addEventListener("click", () => this.onBack());
     this._refs.next.addEventListener("click", () => this.onNext());
@@ -331,12 +377,10 @@ class CyberSeedsSnapshot extends HTMLElement {
   }
 
   close(){
-    if (!this._refs.wrap) return;
-    this._isOpen = false;
-    this._refs.wrap.classList.remove("is-open");
-    this._refs.wrap.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
-  }
+   if(this.step >= 0){
+     const ok = confirm("Leave the snapshot? Your answers so far won’t be saved.");
+     if(!ok) return;
+   }
 
   showError(msg){
     this._refs.panel.innerHTML = `<div class="error"><strong>Unable to continue.</strong><div style="margin-top:6px;">${msg}</div></div>`;
@@ -369,7 +413,8 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.next.textContent = (this.step >= lastIndex) ? "Finish" : "Next";
     this._refs.next.disabled = !answered;
 
-    this._refs.meta.textContent = `Question ${this.step + 1} of ${this.questions.length}`;
+    this._refs.meta.textContent =
+  `Step ${this.step + 1} of ${this.questions.length} — you’re doing well`;
   }
 
    const bar = this.shadowRoot.getElementById("csProgress");
