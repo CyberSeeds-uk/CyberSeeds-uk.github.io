@@ -544,6 +544,9 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     const { canonical } = this.canonicalize(scored, seed, rationale);
 
+     window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
+        detail: canonicalSnapshotObject
+      }));
     // Render results inside modal (Canon)
     const percent = Math.round(canonical.total);
     const strongest = this.lensLabels()[canonical.strongest] || canonical.strongest;
