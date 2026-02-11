@@ -9,8 +9,8 @@
     if (customElements.get("cyber-seeds-snapshot")) return;
 
     // Engine first (safe to import multiple times)
-    await import("/seedforge.js");
-    await import("/snapshot/cyber-seeds-snapshot.js");
+    await import("/engine/seedforge.js");
+    await import("/components/cyber-seeds-snapshot.js");
   }
 
   function ensureInstance(){
