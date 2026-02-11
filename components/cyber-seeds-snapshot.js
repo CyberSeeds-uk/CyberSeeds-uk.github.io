@@ -262,21 +262,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
 
     this.shadowRoot.innerHTML = `
-      <style>${.progress-wrap{
-        width:100%;
-        height:4px;
-        background:#eef3f2;
-        border-radius:999px;
-        overflow:hidden;
-        margin-bottom:10px;
-      }
-      
-      .progress-bar{
-        height:100%;
-        width:0%;
-        background:linear-gradient(90deg,var(--brand),var(--brand2));
-        transition:width .4s ease;
-      }}</style>
+      <style>$css</style>
       <div class="wrap" aria-hidden="true">
         <div class="backdrop" part="backdrop"></div>
         <section class="modal" role="dialog" aria-modal="true" aria-label="Cyber Seeds snapshot" part="modal">
