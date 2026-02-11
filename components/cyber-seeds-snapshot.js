@@ -147,12 +147,29 @@ class CyberSeedsSnapshot extends HTMLElement {
       .choices{ display:grid; gap:10px; }
       .choice{
         border:1px solid var(--line);
-        border-radius:14px;
-        padding:12px 12px;
-        background:#fff;
+        border-radius:16px;
+        padding:14px 14px;
+        background:linear-gradient(180deg,#fff,#fafdfc);
         display:flex;
-        gap:10px;
+        gap:12px;
         cursor:pointer;
+        transition:.18s ease;
+      }
+      
+      .choice:hover{
+        border-color:var(--brand2);
+        background:var(--mint2);
+      }
+      
+      .choice input{
+        accent-color:var(--brand2);
+        transform:scale(1.1);
+      }
+      
+      .choice:has(input:checked){
+        border-color:var(--brand);
+        background:linear-gradient(180deg,#eef7f6,#fff);
+        box-shadow:0 6px 18px rgba(15,47,42,.12);
       }
       .choice:hover{ border-color:rgba(26,106,93,.45); }
       .choice input{ margin-top:3px; }
@@ -209,6 +226,13 @@ class CyberSeedsSnapshot extends HTMLElement {
         align-items:center;
         justify-content:center;
       }
+      .reassure{
+        color:#5c6f6c;
+        font-size:.92rem;
+        margin-top:14px;
+        border-left:3px solid var(--mint);
+        padding-left:10px;
+      }
 
       .error{
         border:1px solid rgba(200,80,80,.35);
@@ -220,7 +244,21 @@ class CyberSeedsSnapshot extends HTMLElement {
     `;
 
     this.shadowRoot.innerHTML = `
-      <style>${css}</style>
+      <style>${.progress-wrap{
+        width:100%;
+        height:4px;
+        background:#eef3f2;
+        border-radius:999px;
+        overflow:hidden;
+        margin-bottom:10px;
+      }
+      
+      .progress-bar{
+        height:100%;
+        width:0%;
+        background:linear-gradient(90deg,var(--brand),var(--brand2));
+        transition:width .4s ease;
+      }}</style>
       <div class="wrap" aria-hidden="true">
         <div class="backdrop" part="backdrop"></div>
         <section class="modal" role="dialog" aria-modal="true" aria-label="Cyber Seeds snapshot" part="modal">
@@ -334,6 +372,15 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.meta.textContent = `Question ${this.step + 1} of ${this.questions.length}`;
   }
 
+   const bar = this.shadowRoot.getElementById("csProgress");
+
+   if(bar){
+     const pct = this.step < 0
+       ? 0
+       : ((this.step + 1) / this.questions.length) * 100;
+   
+     bar.style.width = `${pct}%`;
+   }
   renderIntro(){
     this._refs.kicker.textContent = "Household snapshot";
     this._refs.title.textContent = "A calm check-in";
@@ -376,7 +423,9 @@ class CyberSeedsSnapshot extends HTMLElement {
       <div class="choices" role="radiogroup" aria-label="${q.prompt || "Question"}">
         ${options}
       </div>
-      ${q.reassurance ? `<p class="reassure">${q.reassurance}</p>` : ""}
+      <p class="reassure">
+  ${q.reassurance || "There are no right or wrong answers here."}
+</p>
     `;
 
     this._refs.panel.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
