@@ -533,65 +533,26 @@ class CyberSeedsSnapshot extends HTMLElement {
   }
 
   finish(){
-    if (!this.api || !this.questions.length) return;
 
-    // Score
-    const scored = this.api.scoreAnswers(this.answers);
-
-    const focusLabel = this.lensLabels()[scored.focus] || "Focus";
-    const rationale = this.api.buildRationale(scored.focus, this.answers);
-    const seed = (this.api.seedsForLens(scored.focus)[0]) || null;
-
-    const { canonical } = this.canonicalize(scored, seed, rationale);
-
-     window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
-        detail: canonicalSnapshotObject
-      }));
-    // Render results inside modal (Canon)
-    const percent = Math.round(canonical.total);
-    const strongest = this.lensLabels()[canonical.strongest] || canonical.strongest;
-    const weakest = this.lensLabels()[canonical.weakest] || canonical.weakest;
-
-    this._refs.kicker.textContent = "Your household signal";
-    this._refs.title.textContent = `${canonical.signal.overall} signal • ${percent}/100`;
-
-    this._refs.panel.innerHTML = `
-      <div class="resultCard">
-        <p class="p"><strong>${canonical.signal.summary}</strong></p>
-
-        <div class="resultRow">
-          <span class="chip">Focus: ${focusLabel}</span>
-          <span class="chip">Strongest: ${strongest}</span>
-          <span class="chip">Most under pressure: ${weakest}</span>
-          <span class="chip">Risk pressure: ${canonical.signal.riskPressure}</span>
-        </div>
-
-        <p class="p" style="margin-top:12px;">
-          ${canonical.rationale || `Start with ${focusLabel}.`}
-        </p>
-
-        <div class="resultRow" style="margin-top:12px;">
-          <span class="chip">Today: ${seed?.today || "One small calm step."}</span>
-          <span class="chip">This week: ${seed?.this_week || "Build one routine."}</span>
-          <span class="chip">This month: ${seed?.this_month || "Make it stick."}</span>
-        </div>
-
-        <div class="ctaRow">
-          <a class="btn primary linkBtn" href="/resources/">Open personalised guidance</a>
-          <button class="btn" type="button" id="csCloseAfter">Close</button>
-        </div>
-
-        <p class="p" style="margin-top:10px;">
-          <span style="color:var(--muted);">Saved locally on this device. Nothing is uploaded.</span>
-        </p>
-      </div>
-    `;
-
-    this._refs.back.disabled = true;
-    this._refs.next.disabled = true;
-    this._refs.meta.textContent = "Snapshot complete.";
-
-    this._refs.panel.querySelector("#csCloseAfter")?.addEventListener("click", () => this.close());
+     // 1. Score answers via engine
+     const result = this.api.scoreAnswers(this.answers);
+   
+     // 2. Store canonical snapshot
+     localStorage.setItem(
+       "cyberseeds_snapshot_v3",
+       JSON.stringify(result)
+     );
+   
+     // 3. Dispatch update event for homepage
+     window.dispatchEvent(
+       new CustomEvent("cs:snapshot-updated", {
+         detail: result
+       })
+     );
+   
+     // 4. Close modal
+     this.close();
+   }
 
     // Dispatch the canonical event for homepage + resources
     window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
