@@ -29,7 +29,7 @@ class CyberSeedsSnapshot extends HTMLElement {
   async initialise(){
     // Ensure SeedForge is available
     if (!window.CSSeedForge){
-      await import("/seedforge.js");
+      await import("/engine/seedforge.js");
     }
     this.api = await window.CSSeedForge.load();
 
@@ -532,23 +532,30 @@ class CyberSeedsSnapshot extends HTMLElement {
     return { canonical, history: nextHistory };
   }
 
-   finish() {
-
-    const result = this.api.scoreAnswers(this.answers);
-
-    localStorage.setItem(
-      "cyberseeds_snapshot_v3",
-      JSON.stringify(result)
-    );
-
-    window.dispatchEvent(
-      new CustomEvent("cs:snapshot-updated", {
-        detail: result
-      })
-    );
-
-    this.close();
-  }
+   finish(){
+     try{
+       // 1) Score answers (engine output)
+       const scored = this.api.scoreAnswers(this.answers);
+   
+       // 2) Canonicalize (writes current snapshot + history + passport)
+       // SeedForge typically returns seed + rationale; we pass them through safely.
+       const seed = scored.seed || null;
+       const rationale = scored.rationale || "";
+   
+       const { canonical } = this.canonicalize(scored, seed, rationale);
+   
+       // 3) Dispatch the canonical event (homepage + resources can consume this)
+       window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
+         detail: canonical
+       }));
+   
+       // 4) Close modal
+       this.close();
+   
+     } catch (e){
+       this.showError("We couldn’t finalise the snapshot. Please refresh and try again.");
+     }
+   }
 
 }   
 customElements.define("cyber-seeds-snapshot", CyberSeedsSnapshot);
