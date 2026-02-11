@@ -541,13 +541,14 @@ class CyberSeedsSnapshot extends HTMLElement {
       JSON.stringify(result)
     );
 
-  window.dispatchEvent(
-    new CustomEvent("cs:snapshot-updated", {
-      detail: result
-    })
-  );
+    window.dispatchEvent(
+      new CustomEvent("cs:snapshot-updated", {
+        detail: result
+      })
+    );
 
-  this.close();
-}
-   
+    this.close();
+  }
+
+}   
 customElements.define("cyber-seeds-snapshot", CyberSeedsSnapshot);
