@@ -16,13 +16,22 @@ class CyberSeedsSnapshot extends HTMLElement {
     this.renderShell();
   }
 
-  open(){
-    this.shadowRoot.querySelector(".cs-modal").classList.add("is-open");
-    document.body.classList.add("modal-open");
-    this.step = 0;
-    this.answers = {};
-    this.renderQuestion();
+  async open(){
+  // Wait until component is fully ready
+  if (!this.shadowRoot.querySelector(".cs-modal")){
+    await new Promise(resolve => setTimeout(resolve, 50));
   }
+
+  const modal = this.shadowRoot.querySelector(".cs-modal");
+  if (!modal) return; // hard safety
+
+  modal.classList.add("is-open");
+  document.body.classList.add("modal-open");
+
+  this.step = 0;
+  this.answers = {};
+  this.renderQuestion();
+}
 
   close(){
     this.shadowRoot.querySelector(".cs-modal").classList.remove("is-open");
