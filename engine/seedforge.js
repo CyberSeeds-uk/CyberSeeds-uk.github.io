@@ -1,94 +1,91 @@
-import { loadQuestions } from "/engine/questions.js";
-import { stableHash, scoreSnapshot, bandFromOverall } from "/engine/scoring.js";
+// /engine/seedforge.js
+(() => {
+  "use strict";
 
-async function loadJson(url) {
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
-  return await res.json();
-}
+  if (window.CSSeedForge) return;
 
-export async function loadSeedForge() {
-  const [questions, scoring, bands, seeds] = await Promise.all([
-    loadQuestions("/generated/questions.json"),
-    loadJson("/generated/scoring.json"),
-    loadJson("/generated/bands.json"),
-    loadJson("/generated/seeds.json")
-  ]);
+  const LENS_ORDER = ["network","devices","privacy","scams","wellbeing"];
+  const sum = arr => arr.reduce((a,b)=>a+b,0);
+  const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
 
-  return Object.freeze({
-    version: "seedforge-1",
-    questions,
-    scoring,
-    bands,
-    seeds
-  });
-}
-
-export function computeCanonicalSnapshot({ engine, answers }) {
-  const createdAt = new Date().toISOString();
-
-  const { overall, lenses } = scoreSnapshot({
-    questions: engine.questions,
-    scoring: engine.scoring,
-    answers
-  });
-
-  const band = bandFromOverall(overall, engine.bands);
-
-  const selectedSeeds = selectSeeds({ engine, overall, lenses });
-
-  const snapshotId = stableHash({
-    createdAt: createdAt.slice(0, 19), // stable-ish
-    answers
-  });
-
-  // Canonical contract: deterministic structure
-  return Object.freeze({
-    schema: "cyberseeds.snapshot.v3",
-    createdAt,
-    snapshotId,
-    overall,
-    band: {
-      label: band.label || band.name || "—",
-      slug: band.slug || "—"
-    },
-    lenses,
-    seeds: selectedSeeds,
-    answers: { ...answers } // keep for explainability / audit
-  });
-}
-
-function selectSeeds({ engine, overall, lenses }) {
-  // seeds.json format can evolve; keep selection logic here only.
-  // Expect either {seeds:[...]} or [...]
-  const list = Array.isArray(engine.seeds) ? engine.seeds : (engine.seeds.seeds || []);
-  const out = [];
-
-  for (const s of list) {
-    const minOverall = typeof s.minOverall === "number" ? s.minOverall : 0;
-    const maxOverall = typeof s.maxOverall === "number" ? s.maxOverall : 100;
-
-    if (overall < minOverall || overall > maxOverall) continue;
-
-    // Optional lens trigger: {lens:"privacy", max:49}
-    if (s.lens && typeof s.max === "number") {
-      const v = lenses[s.lens];
-      if (typeof v === "number" && v > s.max) continue;
+  function stableHash(obj){
+    const str = JSON.stringify(obj);
+    let h = 0;
+    for (let i=0;i<str.length;i++){
+      h = ((h<<5)-h)+str.charCodeAt(i);
+      h |= 0;
     }
-    if (s.lens && typeof s.min === "number") {
-      const v = lenses[s.lens];
-      if (typeof v === "number" && v < s.min) continue;
-    }
-
-    out.push({
-      id: s.id || s.slug || "seed",
-      title: s.title || "Digital Seed",
-      lens: s.lens || null,
-      summary: s.summary || s.body || "",
-      actions: Array.isArray(s.actions) ? s.actions.slice(0, 6) : []
-    });
+    return Math.abs(h);
   }
 
-  // Keep it tidy
-  return out.slice(0, 8);
-}
+  async function load(){
+    if (window.CSSeedForge.__cache) return window.CSSeedForge.__cache;
+
+    const [questions, scoring, seeds, bands] = await Promise.all([
+      fetch("/generated/questions.json").then(r=>r.json()),
+      fetch("/generated/scoring.json").then(r=>r.json()),
+      fetch("/generated/seeds.json").then(r=>r.json()),
+      fetch("/generated/bands.json").then(r=>r.json())
+    ]);
+
+    const qList = Array.isArray(questions.questions)
+      ? questions.questions
+      : questions;
+
+    function scoreAnswers(answers){
+
+      const scores = {};
+      const maxes  = {};
+      LENS_ORDER.forEach(l => { scores[l]=0; maxes[l]=0; });
+
+      qList.forEach(q=>{
+        const lens = q.lens;
+        if (!lens) return;
+
+        const idx = answers[q.id];
+        const importance = q.scoring_v2?.importance ?? 1;
+        const max = q.scoring_v2?.max_points ??
+          Math.max(...q.options.map(o=>o.points ?? 0));
+
+        maxes[lens] += max * importance;
+
+        if (Number.isInteger(idx)){
+          const points = q.options[idx]?.points ?? 0;
+          scores[lens] += points * importance;
+        }
+      });
+
+      const percents = {};
+      LENS_ORDER.forEach(l=>{
+        percents[l] = maxes[l]
+          ? (scores[l]/maxes[l])*100
+          : 0;
+      });
+
+      const weights = scoring.scoring_v2?.hdss?.lens_weights || {};
+      const totalWeight = sum(LENS_ORDER.map(l=>weights[l]??1));
+
+      const hdss = clamp(Math.round(
+        sum(LENS_ORDER.map(l=>(percents[l]??0)*(weights[l]??1)))
+        /(totalWeight||1)
+      ),0,100);
+
+      return {
+        lensScores:scores,
+        lensMax:maxes,
+        lensPercents:percents,
+        hdss,
+        snapshotId: stableHash(answers)
+      };
+    }
+
+    const api = { questions:qList, scoring, seeds, bands, scoreAnswers };
+    Object.freeze(api);
+    window.CSSeedForge = { load, __cache:api };
+
+    return api;
+  }
+
+  window.CSSeedForge = { load, __cache:null };
+
+})();
