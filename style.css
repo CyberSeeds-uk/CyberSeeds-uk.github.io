@@ -590,3 +590,8 @@ h1{
   background:var(--brand);
   border-color:var(--brand);
 }
+
+body.modal-open{
+  overflow:hidden;
+}
+
