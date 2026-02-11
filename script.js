@@ -16,7 +16,41 @@ window.addEventListener("cs:snapshot-updated", () => {
   console.log("Snapshot updated — refresh resources if needed.");
 });
 
+window.addEventListener("cs:snapshot-updated", (e) => {
 
+  const snapshot = e.detail;
+  if (!snapshot) return;
+
+  const results = document.getElementById("snapshotResults");
+  if (!results) return;
+
+  const percent = Math.round(snapshot.hdss);
+
+  document.getElementById("signalScore").textContent =
+    `${percent}% overall signal`;
+
+  document.getElementById("signalSummary").textContent =
+    percent >= 75
+      ? "Your household systems are steady. Maintain calm routines."
+      : percent >= 50
+      ? "Your household is forming strong digital foundations."
+      : "This is a good time to gently strengthen a few systems.";
+
+  document.getElementById("strongestLens").textContent =
+    snapshot.strongest;
+
+  document.getElementById("focusLens").textContent =
+    snapshot.focus;
+
+  const seeds = window.CSSeedForge.__cache.seeds.seeds;
+  const focusSeed = seeds.find(s=>s.lens===snapshot.focus);
+
+  document.getElementById("focusSeed").textContent =
+    focusSeed?.today ?? "Start with one small protective step today.";
+
+  results.hidden = false;
+  results.scrollIntoView({ behavior:"smooth" });
+});
 /* =========================================================
    Systems Map Insight Panel
    ========================================================= */
