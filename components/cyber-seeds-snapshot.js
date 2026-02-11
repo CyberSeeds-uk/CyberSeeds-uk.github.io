@@ -64,7 +64,6 @@ class CyberSeedsSnapshot extends HTMLElement {
       .backdrop{
         position:fixed; inset:0;
         background:rgba(10,18,17,.75);
-        backdrop-filter: blur(4px);
       }
       .modal{
         background:#ffffff;
