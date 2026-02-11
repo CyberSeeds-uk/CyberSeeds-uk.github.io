@@ -1,20 +1,16 @@
 /* =========================================================
-   Cyber Seeds — Snapshot Shell (Production)
-   Bootstraps component + wires homepage results
+   Cyber Seeds — Snapshot Shell
+   Loads Web Component + binds homepage CTA + renders results
    ========================================================= */
-
 (async function(){
   "use strict";
 
-  const SNAP_KEY = "cyberseeds_snapshot_v3";
-
-  /* -------------------------------------------------------
-     1. Ensure Web Component is registered
-  ------------------------------------------------------- */
+  const SNAPSHOT_KEY = "cyberseeds_snapshot_v3";
 
   async function ensureComponent(){
     if (customElements.get("cyber-seeds-snapshot")) return;
 
+    // Engine first (safe to import multiple times)
     await import("/engine/seedforge.js");
     await import("/components/cyber-seeds-snapshot.js");
   }
@@ -28,74 +24,73 @@
     return el;
   }
 
-  /* -------------------------------------------------------
-     2. Render Homepage Results
-  ------------------------------------------------------- */
+  function safeParse(value, fallback=null){
+    try { return JSON.parse(value); } catch { return fallback; }
+  }
 
-  function renderHomepageResults(data){
-
-    const section = document.getElementById("snapshotResults");
-    if (!section || !data) return;
-
-    section.hidden = false;
-
-    const scoreEl = document.getElementById("signalScore");
-    const summaryEl = document.getElementById("signalSummary");
-    const strongestEl = document.getElementById("strongestLens");
-    const focusEl = document.getElementById("focusLens");
-    const seedEl = document.getElementById("focusSeed");
-
-    const lensLabels = {
+  function labelLens(key){
+    return ({
       network: "Network",
       devices: "Devices",
       privacy: "Accounts & Privacy",
       scams: "Scams & Messages",
       wellbeing: "Children & Wellbeing"
-    };
+    }[key] || "—");
+  }
 
-    if (scoreEl) scoreEl.textContent = `${Math.round(data.hdss ?? data.total)} / 100`;
-    if (summaryEl) summaryEl.textContent = data.signal?.summary || data.stage?.message || "";
-    if (strongestEl) strongestEl.textContent = lensLabels[data.strongest] || "";
-    if (focusEl) focusEl.textContent = lensLabels[data.focus] || "";
-    if (seedEl) seedEl.textContent = data.seed?.today || "";
+  function renderHomepageResults(snapshot){
+    if (!snapshot || typeof snapshot !== "object") return;
 
+    const section = document.getElementById("snapshotResults");
+    if (!section) return;
+
+    const summaryEl   = document.getElementById("signalSummary");
+    const scoreEl     = document.getElementById("signalScore");
+    const strongEl    = document.getElementById("strongestLens");
+    const focusEl     = document.getElementById("focusLens");
+    const seedEl      = document.getElementById("focusSeed");
+
+    const signalSummary = snapshot.signal?.summary || "Snapshot complete.";
+    const score = (typeof snapshot.total === "number") ? `${snapshot.total}/100` : "—";
+    const strongest = snapshot.strongest ? labelLens(snapshot.strongest) : "—";
+    const focus = snapshot.focus ? labelLens(snapshot.focus) : "—";
+
+    const seedText =
+      snapshot.seed?.today ||
+      snapshot.seed?.this_week ||
+      snapshot.seed?.this_month ||
+      "Open the resources hub for your next step.";
+
+    if (summaryEl) summaryEl.textContent = signalSummary;
+    if (scoreEl) scoreEl.textContent = score;
+    if (strongEl) strongEl.textContent = strongest;
+    if (focusEl) focusEl.textContent = focus;
+    if (seedEl) seedEl.textContent = seedText;
+
+    // Show + scroll
+    section.hidden = false;
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  /* -------------------------------------------------------
-     3. Listen for Snapshot Completion Event
-  ------------------------------------------------------- */
-
-  window.addEventListener("cs:snapshot-updated", (event) => {
-    if (!event.detail) return;
-    renderHomepageResults(event.detail);
-  });
-
-  /* -------------------------------------------------------
-     4. Also Render If Snapshot Already Exists
-     (Deterministic on refresh)
-  ------------------------------------------------------- */
-
-  try {
-    const stored = localStorage.getItem(SNAP_KEY);
-    if (stored){
-      const parsed = JSON.parse(stored);
-      renderHomepageResults(parsed);
-    }
-  } catch(e){}
-
-  /* -------------------------------------------------------
-     5. Bind CTA Button
-  ------------------------------------------------------- */
-
+  // Boot
   await ensureComponent();
   const component = ensureInstance();
 
+  // Bind any [data-open-snapshot] on the page
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-open-snapshot]");
     if (!btn) return;
     e.preventDefault();
     component.open();
   });
+
+  // Listen for completion event (from the component)
+  window.addEventListener("cs:snapshot-updated", (e) => {
+    renderHomepageResults(e.detail);
+  });
+
+  // If a snapshot already exists, render it on page load
+  const existing = safeParse(localStorage.getItem(SNAPSHOT_KEY), null);
+  if (existing) renderHomepageResults(existing);
 
 })();
