@@ -320,7 +320,7 @@ class CyberSeedsSnapshot extends HTMLElement {
       if (e.key === "Escape" && this._isOpen) this.renderComplete(canonical);
     });
 
-     renderComplete(snapshot){
+   renderComplete(snapshot){
         this._refs.kicker.textContent = "Snapshot complete";
         this._refs.title.textContent = "Thank you for checking in";
       
@@ -646,7 +646,7 @@ class CyberSeedsSnapshot extends HTMLElement {
    
        // 3) Dispatch the canonical event (homepage + resources can consume this)
        window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
-         detail: canonical
+         detail: snapshot
        }));
    
        // 4) Close modal
