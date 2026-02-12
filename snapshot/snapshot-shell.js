@@ -485,30 +485,6 @@
         });
     }
 
-    function renderDonut(lenses, signal, focusLens){
-        
-      if (!lenses || !signal) return;
-      
-      setDonutText(signal);
-      setDonutSegments(lenses, focusLens);
-      
-      // Legend numbers
-      const mapId = {
-        network: "donutValNetwork",
-        devices: "donutValDevices",
-        privacy: "donutValPrivacy",
-        scams: "donutValScams",
-        wellbeing: "donutValWellbeing"
-       };
-      
-      LENS_ORDER.forEach(lens => {
-        const el = document.getElementById(mapId[lens]);
-        if (el) el.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
-     });
-      
-      updateLensInsight(focusLens, lenses);
-      bindDonutInteractivity(lenses);
-    }
     /* ---------------- Navigation ---------------- */
 
     onBack(){
