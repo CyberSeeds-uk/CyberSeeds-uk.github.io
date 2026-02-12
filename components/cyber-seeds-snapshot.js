@@ -512,6 +512,7 @@ class CyberSeedsSnapshot extends HTMLElement {
           this.setNavState();
         });
       });
+  }
 
 
 
