@@ -41,6 +41,7 @@
 
       this._refs = {};
       this._isOpen = false;
+      this._completed = false; 
 
       this._onKeydown = (e) => {
         if (e.key === "Escape" && this._isOpen) this.close();
@@ -340,6 +341,7 @@
       if (!this._refs.wrap) return;
 
       this._isOpen = true;
+      this._completed = false; 
       this._refs.wrap.classList.add("is-open");
       this._refs.wrap.setAttribute("aria-hidden","false");
       document.body.classList.add("modal-open");
@@ -349,20 +351,27 @@
     }
 
     close(){
-      const midRun = (this.step >= 0 && this.step < (this.questions.length || 0));
+
+     // Only warn if unfinished
+      const midRun =
+        !this._completed &&
+        this.step >= 0 &&
+        this.step < (this.questions.length || 0);
+   
       if (midRun){
         const ok = confirm("Leave the snapshot? Your answers won’t be saved.");
         if (!ok) return;
       }
-
+   
       if (!this._refs.wrap) return;
-
+   
       this._isOpen = false;
+   
       this._refs.wrap.classList.remove("is-open");
       this._refs.wrap.setAttribute("aria-hidden","true");
+   
       document.body.classList.remove("modal-open");
     }
-
     /* ---------------- UI ---------------- */
 
     showError(msg){
@@ -739,6 +748,9 @@
     }
 
     renderComplete(snapshot){
+       
+      this._completed = true;
+     
       this._refs.kicker.textContent = "Snapshot complete";
       this._refs.title.textContent  = "Thank you for checking in";
 
