@@ -429,7 +429,12 @@
     const focusTitle = $("#focusTitle");
     const focusDesc = $("#focusDesc");
     const focusChips = $("#focusChips");
-    const focusLens = snapshot.focus || snapshot.weakest || "network";
+    const focusLens =
+      LENS_ORDER.includes(snapshot.focus)
+        ? snapshot.focus
+        : LENS_ORDER.includes(snapshot.weakest)
+        ? snapshot.weakest
+        : "network";
     if (focusTitle) focusTitle.textContent = `${LENS_LABELS[focusLens] || "Focus"} is your fastest path to calm gains.`;
     if (focusDesc) focusDesc.textContent = "Start small, build confidence, and let the strongest habits lift the rest.";
     if (focusChips){
@@ -468,237 +473,6 @@
       if (ringCard && !hasText(ringLegend)) ringCard.hidden = true;
     }
 
-
-      /* =========================================================
-     DONUT RING ENGINE (Resources Hub)
-     - Five equal segments
-     - Visual fill based on lens %
-     - Focus highlight
-     - Legend + segment click updates insight
-     ========================================================= */
-
-  const DONUT_IDS = {
-    network:   "donut-network",
-    devices:   "donut-devices",
-    privacy:   "donut-privacy",
-    scams:     "donut-scams",
-    wellbeing: "donut-wellbeing"
-  };
-
-  function clamp(n, min=0, max=100){
-    n = Number(n);
-    if (!Number.isFinite(n)) return min;
-    return Math.min(max, Math.max(min, n));
-  }
-
-  function setDonutText(signal){
-    const scoreEl = $("#donutScore");
-    const stageEl = $("#donutStage");
-    if (scoreEl) scoreEl.textContent = `${Math.round(signal.score ?? 0)}%`;
-    if (stageEl) stageEl.textContent = String(signal.overall ?? "—");
-  }
-
-  function setDonutSegments(lensPercents, focusLens){
-    // Geometry: equal 5 segments with a small gap
-    const r = 90;
-    const C = 2 * Math.PI * r;        // circumference
-    const N = LENS_ORDER.length;      // 5
-    const segLen = C / N;             // per segment length
-    const gap = 8;                    // visual gap (stroke length)
-    const visibleLen = Math.max(0, segLen - gap);
-
-    LENS_ORDER.forEach((lens, i) => {
-      const el = document.getElementById(DONUT_IDS[lens]);
-      if (!el) return;
-
-      const pct = clamp(lensPercents[lens] ?? 0);      // 0..100
-      const fillLen = (visibleLen * pct) / 100;        // partial fill
-      const emptyLen = C - fillLen;
-
-      // Base segment position around ring:
-      // We place the segment "window" by offsetting so each lens occupies a slice.
-      // Then we "fill" within that slice by limiting dasharray.
-      const baseOffset = -(i * segLen);
-
-      el.style.strokeDasharray = `${fillLen} ${emptyLen}`;
-      el.style.strokeDashoffset = String(baseOffset);
-      el.classList.toggle("is-focus", lens === focusLens);
-
-      // A11y: let screen readers know the value
-      el.setAttribute("role", "img");
-      el.setAttribute("aria-label", `${LENS_LABELS[lens]} ${Math.round(pct)} percent`);
-    });
-  }
-
-  function bindDonutInteractivity(lenses){
-    // Click on legend buttons (your donut legend)
-    $$(".cs-donut-legend button[data-lens]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const lens = btn.getAttribute("data-lens");
-        if (!lens) return;
-        updateLensInsight(lens, lenses);
-
-        // also set focus glow class on donut
-        setDonutSegments(lenses, lens);
-      });
-    });
-  }
-
-  // Donut legend values (resources page only)
-  const mapId = {
-    network: "donutValNetwork",
-    devices: "donutValDevices",
-    privacy: "donutValPrivacy",
-    scams: "donutValScams",
-    wellbeing: "donutValWellbeing"
-  };
-
-  LENS_ORDER.forEach(lens => {
-    const el = document.getElementById(mapId[lens]);
-    if (el) el.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
-  });
-
-  // Donut ring (new)
-  setDonutText(signal);
-  setDonutSegments(lenses, focusLens);
-
-  LENS_ORDER.forEach(lens => {
-    const valEl = $("#val" + lens.charAt(0).toUpperCase() + lens.slice(1));
-    if (valEl) valEl.textContent = `${Math.round(lenses[lens] ?? 0)}%`;
-  });
-
-  updateLensInsight(focusLens, lenses);
-
-  // Donut legend + segment clicks
-  bindDonutInteractivity(lenses);
-
-  const emptyCard = $("#emptyStateCard");
-  if (emptyCard) emptyCard.style.display = "none";
-
-  const seedTitle = document.querySelector("[data-cs-seed-title]");
-  const seedToday = document.querySelector("[data-cs-seed-today]");
-  const seedWeek = document.querySelector("[data-cs-seed-week]");
-  const seedMonth = document.querySelector("[data-cs-seed-month]");
-  if (seedTitle) seedTitle.textContent = snapshot.seed?.title || "Your next Digital Seed";
-  if (seedToday) seedToday.textContent = snapshot.seed?.today || "";
-  if (seedWeek) seedWeek.textContent = snapshot.seed?.this_week || "";
-  if (seedMonth) seedMonth.textContent = snapshot.seed?.this_month || "";
-  const seedCard = seedTitle?.closest(".card");
-  if (seedCard && !hasText(seedTitle, seedToday, seedWeek, seedMonth)) seedCard.hidden = true;
-
-  renderSeedProgress(snapshot, snapshot.seed);
-
-  document.querySelectorAll(".card").forEach(card => hideIfEmpty(card));
-  document.querySelectorAll("section[data-cs-lens-cards]").forEach(section => hideIfEmpty(section));
-  }
-
-  function showEmptyState(){
-    const emptyCard = $("#emptyStateCard");
-    if (emptyCard) emptyCard.style.display = "block";
-    const personalisedBanner = $("#personalisedBanner");
-    if (personalisedBanner) personalisedBanner.hidden = true;
-    const stageTitle = $("#stageTitle");
-    const stageDesc = $("#stageDesc");
-    if (stageTitle) stageTitle.textContent = "No snapshot yet";
-    if (stageDesc) stageDesc.textContent = "Take a snapshot to see a calm signal here.";
-
-    const focusTitle = $("#focusTitle");
-    const focusDesc = $("#focusDesc");
-    const focusChips = $("#focusChips");
-    if (focusTitle) focusTitle.textContent = "Take a snapshot to reveal your focus lens.";
-    if (focusDesc) focusDesc.textContent = "Your personalised guidance appears here once you complete the 2-minute snapshot.";
-    if (focusChips) focusChips.innerHTML = "<span class=\"hub-chip\">Local-only results</span>";
-
-    const lensKicker = $("#lensKicker");
-    const lensTitle = $("#lensInsightTitle");
-    const lensBody = $("#lensInsightBody");
-    const lensWhy = $("#lensWhy");
-    const lensGood = $("#lensGood");
-    const lensTraps = $("#lensTraps");
-    if (lensKicker) lensKicker.textContent = "Focus lens";
-    if (lensTitle) lensTitle.textContent = "Awaiting snapshot";
-    if (lensBody) lensBody.textContent = "Complete a snapshot to see tailored lens guidance.";
-    if (lensWhy) lensWhy.textContent = "";
-    if (lensGood) lensGood.textContent = "";
-    if (lensTraps) lensTraps.textContent = "";
-
-    const ringContainer = document.querySelector("[data-cs-ring]");
-    if (ringContainer) ringContainer.classList.add("is-empty");
-    const ringNote = $("#ringEmptyNote");
-    if (ringNote) ringNote.textContent = "Your five-lens ring appears after a snapshot.";
-    const scoreEl = $("#donutScore");
-    const stageEl = $("#donutStage");
-    if (scoreEl) scoreEl.textContent = "—";
-    if (stageEl) stageEl.textContent = "Awaiting snapshot";
-
-    const r = 90;
-    const C = 2 * Math.PI * r;
-    LENS_ORDER.forEach(lens => {
-      const el = document.getElementById(`donut-${lens}`);
-      if (!el) return;
-      el.style.strokeDasharray = `0 ${C}`;
-      el.style.strokeDashoffset = "0";
-      el.setAttribute("aria-label", `${LENS_LABELS[lens]} awaiting snapshot`);
-    });
-    const legendMap = {
-      network: "donutValNetwork",
-      devices: "donutValDevices",
-      privacy: "donutValPrivacy",
-      scams: "donutValScams",
-      wellbeing: "donutValWellbeing"
-    };
-    LENS_ORDER.forEach(lens => {
-      const el = document.getElementById(legendMap[lens]);
-      if (el) el.textContent = "—";
-    });
-    $$(".cs-donut-legend button[data-lens]").forEach(btn => {
-      btn.disabled = true;
-      btn.setAttribute("aria-disabled", "true");
-    });
-
-    const progressGrid = $("#progressGrid");
-    if (progressGrid){
-      progressGrid.innerHTML = "<p class=\"muted\">Complete a snapshot to enable baseline comparisons.</p>";
-    }
-    setBaselineControlsEnabled(false);
-
-    const seedCard = document.querySelector("[data-cs-seed-title]")?.closest(".card");
-    if (seedCard) seedCard.hidden = true;
-    const seedProgress = $("#seedProgress");
-    if (seedProgress) seedProgress.innerHTML = "";
-
-    // B-2: swap loading placeholders for a calm, instructive empty state.
-  }
-
-  function applyBaseline(snapshot){
-    const grid = $("#progressGrid");
-    if (!grid) return;
-    const baseline = safeParse(safeGetStorageItem(BASELINE_KEY), null);
-    if (!baseline){
-      grid.innerHTML = "<p class=\"muted\">Set a baseline to lock today as your reference point.</p>";
-      return;
-    }
-    const current = sanitizeLensPercents(snapshot.lenses || {});
-    const baselineLens = sanitizeLensPercents(baseline.lenses || {});
-    const baselineTotal = Math.round(baseline.total ?? baseline.hdss ?? 0);
-    const currentTotal = Math.round(snapshot.total ?? snapshot.hdss ?? 0);
-    const totalDiff = currentTotal - baselineTotal;
-    const totalDiffLabel = totalDiff === 0 ? "no change" : totalDiff > 0 ? `+${totalDiff}` : `${totalDiff}`;
-    const baselineDate = baseline.saved_at ? formatDate(baseline.saved_at) : "Unknown date";
-    const rows = LENS_ORDER.map(lens => {
-      const delta = Math.round((current[lens] ?? 0) - (baselineLens[lens] ?? 0));
-      const deltaLabel = delta === 0 ? "no change" : delta > 0 ? `+${delta}` : `${delta}`;
-      return `<div class=\"progress-row\"><strong>${LENS_LABELS[lens]}</strong><span>${deltaLabel} points</span></div>`;
-    }).join("");
-    grid.innerHTML = `
-      <div class="progress-baseline">
-        <p><strong>Baseline set on ${baselineDate} at ${baselineTotal}%</strong></p>
-        <p class="muted">Change since baseline: ${totalDiffLabel}</p>
-      </div>
-      ${rows}
-    `;
-  }
-
   function bindBaselineActions(snapshot){
     const saveBtn = $("#saveBaselineBtn");
     const clearBtn = $("#clearBaselineBtn");
@@ -722,6 +496,23 @@
     }
   }
 
+
+   window.addEventListener("cs:snapshot-updated", (e) => {
+
+     const snap = e.detail?.snapshot;
+   
+     if (!snap) return;
+   
+     safeSetStorageItem(
+       SNAPSHOT_KEY,
+       JSON.stringify(snap)
+     );
+   
+     applySnapshot(snap);
+     applyBaseline(snap);
+     bindBaselineActions(snap);
+   });
+     
   const currentSnapshot = loadSnapshot();
   if (!currentSnapshot){
     showEmptyState();
@@ -731,4 +522,10 @@
   applySnapshot(currentSnapshot);
   applyBaseline(currentSnapshot);
   bindBaselineActions(currentSnapshot);
-})();
+
+     renderDonut(lenses, signal, focusLens);
+
+     renderSeedProgress(snapshot, snapshot.seed);
+     
+     document.querySelectorAll(".card").forEach(card => hideIfEmpty(card));
+  })();
