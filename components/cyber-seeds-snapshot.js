@@ -319,6 +319,7 @@ class CyberSeedsSnapshot extends HTMLElement {
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && this._isOpen) this.renderComplete(canonical);
     });
+  }
 
    renderComplete(snapshot){
         this._refs.kicker.textContent = "Snapshot complete";
@@ -340,6 +341,7 @@ class CyberSeedsSnapshot extends HTMLElement {
             </p>
           </div>
         `;
+   }
       
         this._refs.back.disabled = true;
         this._refs.next.textContent = "Close";
@@ -367,6 +369,7 @@ class CyberSeedsSnapshot extends HTMLElement {
      const ok = confirm("Leave the snapshot? Your answers so far won’t be saved.");
      if(!ok) return;
    }
+  }
 
   showError(msg){
     this._refs.panel.innerHTML = `<div class="error"><strong>Unable to continue.</strong><div style="margin-top:6px;">${msg}</div></div>`;
@@ -401,17 +404,17 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this._refs.meta.textContent =
   `Step ${this.step + 1} of ${this.questions.length} — you’re doing well`;
+        const bar = this.shadowRoot.getElementById("csProgress");
+
+         if(bar){
+           const pct = this.step < 0
+             ? 0
+             : ((this.step + 1) / this.questions.length) * 100;
+         
+           bar.style.width = `${pct}%`;
+         }
   }
 
-   const bar = this.shadowRoot.getElementById("csProgress");
-
-   if(bar){
-     const pct = this.step < 0
-       ? 0
-       : ((this.step + 1) / this.questions.length) * 100;
-   
-     bar.style.width = `${pct}%`;
-   }
   renderIntro(){
     this._refs.kicker.textContent = "Household snapshot";
     this._refs.title.textContent = "A calm check-in";
@@ -646,16 +649,21 @@ class CyberSeedsSnapshot extends HTMLElement {
    
        // 3) Dispatch the canonical event (homepage + resources can consume this)
        window.dispatchEvent(new CustomEvent("cs:snapshot-updated", {
-         detail: snapshot
+         detail: canonical
        }));
-   
-       // 4) Close modal
-       this.close();
-   
-     } catch (e){
-       this.showError("We couldn’t finalise the snapshot. Please refresh and try again.");
-     }
-   }
 
-}   
+         close(){
+           if(this.step >= 0){
+             const ok = confirm("Leave the snapshot? Your answers so far won’t be saved.");
+             if(!ok) return;
+           }
+         
+           if (!this._refs.wrap) return;
+         
+           this._isOpen = false;
+           this._refs.wrap.classList.remove("is-open");
+           this._refs.wrap.setAttribute("aria-hidden", "true");
+           document.body.classList.remove("modal-open");
+         }
+   }   
 customElements.define("cyber-seeds-snapshot", CyberSeedsSnapshot);
