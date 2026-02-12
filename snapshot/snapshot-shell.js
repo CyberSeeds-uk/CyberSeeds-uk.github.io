@@ -44,10 +44,13 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     // Ensure SeedForge is available
     if (!window.CSSeedForge){
-      await import("/engine/seedforge.js");
+      await import("/snapshot/cyber-seeds-snapshot.js");
     }
 
     this.api = await window.CSSeedForge.load();
+
+
+     let snap = document.querySelector("cyber-seeds-snapshot");
 
     // Normalise question structure
     const qRaw = this.api.questions;
