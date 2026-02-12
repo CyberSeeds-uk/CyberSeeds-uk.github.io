@@ -258,7 +258,7 @@ class CyberSeedsSnapshot extends HTMLElement {
           <div class="body">
 
             <div class="hint" id="csHint">
-              This is a calm check-in — not a test.
+              This is a supportive household check-in — not a test or inspection.
             </div>
 
             <div id="csPanel"></div>
@@ -394,7 +394,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     if (this.step < 0){
       this._refs.next.textContent = "Begin";
-      this._refs.meta.textContent = "Ready when you are.";
+      this._refs.meta.textContent = "Takes about 2 minutes • You can stop anytime";
       return;
     }
 
