@@ -232,7 +232,7 @@
 
             <footer class="footer">
 
-              <div id="csMeta">Ready when you are.</div>
+              <div id="csMeta">Takes about 2 minutes • You can stop anytime"</div>
 
               <div>
                 <button id="csBack" class="btn">Back</button>
