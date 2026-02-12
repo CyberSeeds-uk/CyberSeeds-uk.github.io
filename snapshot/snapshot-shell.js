@@ -485,8 +485,8 @@
         });
     }
 
-       function renderDonut(lenses, signal, focusLens){
-
+     function renderDonut(lenses, signal, focusLens){
+        
         if (!lenses || !signal) return;
       
         setDonutText(signal);
