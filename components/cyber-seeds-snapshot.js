@@ -452,68 +452,74 @@ class CyberSeedsSnapshot extends HTMLElement {
     `;
   }
 
-  renderQuestion(){
+  renderQuestion() {
 
-	  const q = this.questions[this.step];
-	  if (!q) return;
-	
-	  // Header
-	  this._refs.kicker.textContent = "Household check-in";
-	  this._refs.title.textContent =
-	    q.prompt || "A short household question";
-	
-	  const name = `q-${q.id}`;
-	  const current = this.answers[q.id];
-	
-	  const options = (q.options || []).map((o,i) => {
-	
-	    const checked = Number.isInteger(current) && current === i;
-	    const label = o.label || `Option ${i + 1}`;
-	
-	    return `
-	      <label class="choice">
-	        <input
-	          type="radio"
-	          name="${name}"
-	          value="${i}"
-	          ${checked ? "checked" : ""}
-	        />
-	        <div>${label}</div>
-	      </label>
-	    `;
-	  }).join("");
-	
-	  const reassurance = q.reassurance ||
-	    "There is no right or wrong answer here. Choose what fits your home today.";
-	
-	  this._refs.panel.innerHTML = `
-	    <div
-	      class="choices"
-	      role="radiogroup"
-	      aria-label="${q.prompt || "Household question"}"
-	    >
-	      ${options}
-	    </div>
-	
-	    <p class="reassure">
-	      ${reassurance}
-	    </p>
-	  `;
-	
-	  // Bind answers
-	  this._refs.panel
-	    .querySelectorAll(`input[name="${name}"]`)
-	    .forEach(radio => {
-	
-	      radio.addEventListener("change", () => {
-	
-	        this.answers[q.id] = Number(radio.value);
-	
-	        this.setNavState();
-	      });
-	    });
-	}
-   
+  const q = this.questions[this.step];
+  if (!q) return;
+
+  // Header
+  this._refs.kicker.textContent = "Household check-in";
+  this._refs.title.textContent =
+    q.prompt || "A short household question";
+
+  const name = `q-${q.id}`;
+  const current = this.answers[q.id];
+
+  const options = (q.options || []).map((o, i) => {
+
+    const checked =
+      Number.isInteger(current) && current === i;
+
+    const label = o.label || `Option ${i + 1}`;
+
+    return `
+      <label class="choice">
+        <input
+          type="radio"
+          name="${name}"
+          value="${i}"
+          ${checked ? "checked" : ""}
+        />
+        <div>${label}</div>
+      </label>
+    `;
+  }).join("");
+
+  const reassurance =
+    q.reassurance ||
+    "There is no right or wrong answer here. Choose what fits your home today.";
+
+  this._refs.panel.innerHTML = `
+    <div
+      class="choices"
+      role="radiogroup"
+      aria-label="${q.prompt || "Household question"}"
+    >
+      ${options}
+    </div>
+
+    <p class="reassure">
+      ${reassurance}
+    </p>
+  `;
+
+  // Bind answers
+  this._refs.panel
+    .querySelectorAll(`input[name="${name}"]`)
+    .forEach(radio => {
+
+      radio.addEventListener("change", () => {
+
+        this.answers[q.id] = Number(radio.value);
+
+        this.setNavState();
+
+      });
+
+    });
+
+}	
+
   /* ---------------- Navigation ---------------- */
 
   onBack(){
