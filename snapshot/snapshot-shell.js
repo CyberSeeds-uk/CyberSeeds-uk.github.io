@@ -211,10 +211,10 @@
                   <div class="progress-bar" id="csProgress"></div>
                 </div>
 
-                <p id="csKicker">Household snapshot</p>
-                <h2 id="csTitle">A calm check-in</h2>
+                <p id="csKicker">Digital Household Snapshot</p>
+                <h2 id="csTitle">See your home as a digital system</h2>
 
-              </div>
+              </div>1
 
               <button id="csClose" class="btn">Close</button>
 
@@ -371,14 +371,32 @@
 
     renderIntro(){
 
-      this._refs.kicker.textContent = "Household snapshot";
-      this._refs.title.textContent = "A calm check-in";
-
+      this._refs.kicker.textContent = "Cyber Seeds household snapshot";
+      this._refs.title.textContent = "See your home as a digital system";
+      
       this._refs.panel.innerHTML = `
-        <p>You’ll answer a few short questions.</p>
-        <p>Nothing is uploaded. Results stay on this device.</p>
+        <p>
+          This short check-in looks at how your household’s
+          network, devices, accounts, messages, and wellbeing
+          quietly interact.
+        </p>
+      
+        <p>
+          It creates a calm, practical signal you can use
+          to reduce stress and build digital resilience over time.
+        </p>
+      
+        <div class="resultRow" style="margin:12px 0;">
+          <span class="chip">Five connected systems</span>
+          <span class="chip">Local-only results</span>
+          <span class="chip">Clear next steps</span>
+        </div>
+      
+        <p style="margin-top:12px; color:var(--muted);">
+          Nothing is uploaded. Everything stays on this device.
+          There are no scores, rankings, or judgments.
+        </p>
       `;
-    }
 
     renderQuestion(){
 
