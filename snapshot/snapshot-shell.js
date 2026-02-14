@@ -555,33 +555,59 @@
 
     /* ---------------- Finish ---------------- */
 
-    finish(){
+    /* ---------------- Finish ---------------- */
 
-      try{
+finish(){
 
-        const scored = this.api.scoreAnswers(this.answers);
-        const canonical = scored;
+  // Guard: prevent double-submit / double-click
+  if (this._completed) return;
 
-        localStorage.setItem(
-          "cyberseeds_snapshot_v3",
-          JSON.stringify(canonical)
-        );
+  try{
 
-        window.dispatchEvent(
-          new CustomEvent("cs:snapshot-updated", {
-            detail: { snapshot: canonical }
-          })
-        );
+    const scored = this.api.scoreAnswers(this.answers);
 
-        this.renderComplete(canonical);
+    // Keep your current “canonical = scored” approach.
+    // (If you later re-enable full canonicalize(), you’ll swap it here.)
+    const canonical = scored;
 
-      } catch(e){
+    // 1) Save snapshot (local-first)
+    localStorage.setItem(
+      "cyberseeds_snapshot_v3",
+      JSON.stringify(canonical)
+    );
 
-        console.error(e);
+    // Optional but useful: keep a simple history timeline
+    // (safe even if you already have a richer history elsewhere)
+    try{
+      const historyKey = "cyberseeds_snapshots_v1";
+      const prev = JSON.parse(localStorage.getItem(historyKey) || "[]");
+      const next = [canonical, ...prev].slice(0, 24);
+      localStorage.setItem(historyKey, JSON.stringify(next));
+    }catch{}
 
-        this.showError("Could not finalise snapshot.");
-      }
-    }
+    // 2) Notify system (reader/platform/hub can react if still on same page)
+    window.dispatchEvent(
+      new CustomEvent("cs:snapshot-updated", {
+        detail: { snapshot: canonical }
+      })
+    );
+
+    // 3) Mark complete locally (stops the “leave snapshot?” confirm)
+    this._completed = true;
+
+    // 4) Redirect to resources (this is the key fix for the white page)
+    // Close modal state first so body class doesn’t linger
+    document.body.classList.remove("modal-open");
+
+    window.location.assign("/resources/");
+
+  } catch(e){
+
+    console.error("[Snapshot] finish failed:", e);
+
+    this.showError("Could not finalise snapshot. Please refresh and try again.");
+  }
+}
 
     renderComplete(snapshot){
 
