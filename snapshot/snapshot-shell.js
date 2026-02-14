@@ -90,6 +90,7 @@
 
       this.step = -1;
       this.answers = {};
+      this._completed = false;
 
       this.renderIntro();
       this.setNavState();
@@ -157,6 +158,9 @@
           border-top:1px solid #dfecea;
           display:flex;
           justify-content:space-between;
+          gap:12px;
+          align-items:center;
+          flex-wrap:wrap;
         }
 
         .btn{
@@ -172,6 +176,11 @@
           color:#fff;
         }
 
+        .btn[disabled]{
+          opacity:.55;
+          cursor:not-allowed;
+        }
+
         .error{
           border:1px solid #c85050;
           background:#fceaea;
@@ -184,6 +193,7 @@
           background:#eef3f2;
           border-radius:999px;
           overflow:hidden;
+          margin-bottom:10px;
         }
 
         .progress-bar{
@@ -191,17 +201,65 @@
           width:0%;
           background:linear-gradient(90deg,#0f2f2a,#1a6a5d);
         }
+
+        #csKicker{
+          margin:0;
+          font-size:13px;
+          opacity:.85;
+        }
+
+        #csTitle{
+          margin:4px 0 0;
+          font-size:20px;
+          line-height:1.2;
+        }
+
+        #csHint{
+          margin:0 0 12px;
+          padding:10px 12px;
+          border:1px solid #dfecea;
+          border-radius:12px;
+          background:#f7fbfa;
+        }
+
+        #csPanel label{
+          display:block;
+          padding:10px 12px;
+          border:1px solid #dfecea;
+          border-radius:12px;
+          margin:10px 0;
+          cursor:pointer;
+          user-select:none;
+        }
+
+        #csPanel input[type="radio"]{
+          margin-right:10px;
+        }
+
+        .resultRow{ display:flex; gap:8px; flex-wrap:wrap; }
+        .chip{
+          display:inline-block;
+          padding:6px 10px;
+          border:1px solid #dfecea;
+          border-radius:999px;
+          font-size:12px;
+          background:#ffffff;
+        }
+
+        #csMeta{
+          font-size:12px;
+          opacity:.8;
+        }
       `;
 
       this.shadowRoot.innerHTML = `
-
         <style>${css}</style>
 
         <div class="wrap" aria-hidden="true">
 
           <div class="backdrop"></div>
 
-          <section class="modal" role="dialog" aria-modal="true">
+          <section class="modal" role="dialog" aria-modal="true" aria-label="Cyber Seeds household snapshot">
 
             <header class="top">
 
@@ -214,9 +272,9 @@
                 <p id="csKicker">Digital Household Snapshot</p>
                 <h2 id="csTitle">See your home as a digital system</h2>
 
-              </div>1
+              </div>
 
-              <button id="csClose" class="btn">Close</button>
+              <button id="csClose" class="btn" type="button">Close</button>
 
             </header>
 
@@ -232,11 +290,11 @@
 
             <footer class="footer">
 
-              <div id="csMeta">Takes about 2 minutes • You can stop anytime"</div>
+              <div id="csMeta">Takes about 2 minutes • You can stop anytime</div>
 
               <div>
-                <button id="csBack" class="btn">Back</button>
-                <button id="csNext" class="btn primary">Begin</button>
+                <button id="csBack" class="btn" type="button">Back</button>
+                <button id="csNext" class="btn primary" type="button">Begin</button>
               </div>
 
             </footer>
@@ -283,9 +341,9 @@
       if (!this._refs.wrap) return;
 
       this._isOpen = true;
-      this._completed = false;
 
       this._refs.wrap.classList.add("is-open");
+      this._refs.wrap.setAttribute("aria-hidden", "false");
 
       document.body.classList.add("modal-open");
 
@@ -300,15 +358,14 @@
         this.step < this.questions.length;
 
       if (midRun){
-
         const ok = confirm("Leave the snapshot? Your answers won’t be saved.");
-
         if (!ok) return;
       }
 
       this._isOpen = false;
 
       this._refs.wrap.classList.remove("is-open");
+      this._refs.wrap.setAttribute("aria-hidden", "true");
 
       document.body.classList.remove("modal-open");
     }
@@ -339,8 +396,15 @@
         return;
       }
 
+      if (this._completed){
+        this._refs.next.textContent = "Close";
+        this._refs.next.disabled = false;
+        return;
+      }
+
       if (this.step < 0){
         this._refs.next.textContent = "Begin";
+        this._refs.next.disabled = false;
         this._setProgress(0);
         return;
       }
@@ -373,36 +437,38 @@
 
       this._refs.kicker.textContent = "Cyber Seeds household snapshot";
       this._refs.title.textContent = "See your home as a digital system";
-      
+
       this._refs.panel.innerHTML = `
         <p>
           This short check-in looks at how your household’s
           network, devices, accounts, messages, and wellbeing
           quietly interact.
         </p>
-      
+
         <p>
           It creates a calm, practical signal you can use
           to reduce stress and build digital resilience over time.
         </p>
-      
+
         <div class="resultRow" style="margin:12px 0;">
           <span class="chip">Five connected systems</span>
           <span class="chip">Local-only results</span>
           <span class="chip">Clear next steps</span>
         </div>
-      
+
         <p style="margin-top:12px; color:var(--muted);">
           Nothing is uploaded. Everything stays on this device.
           There are no scores, rankings, or judgments.
         </p>
       `;
+    }
 
     renderQuestion(){
 
       const q = this.questions[this.step];
       if (!q) return;
 
+      this._refs.kicker.textContent = q.lens ? `Lens: ${q.lens}` : "Question";
       this._refs.title.textContent = q.prompt || "Question";
 
       const name = `q-${q.id}`;
@@ -442,6 +508,11 @@
 
     onBack(){
 
+      if (this._completed){
+        // Once complete, Back is disabled, but guard anyway.
+        return;
+      }
+
       if (this.step <= 0){
         this.step = -1;
         this.renderIntro();
@@ -456,6 +527,11 @@
     }
 
     onNext(){
+
+      if (this._completed){
+        this.close();
+        return;
+      }
 
       if (this.step < 0){
         this.step = 0;
@@ -484,7 +560,6 @@
       try{
 
         const scored = this.api.scoreAnswers(this.answers);
-
         const canonical = scored;
 
         localStorage.setItem(
@@ -520,10 +595,10 @@
       `;
 
       this._refs.back.disabled = true;
-
       this._refs.next.textContent = "Close";
+      this._refs.next.disabled = false;
 
-      this._refs.next.onclick = () => this.close();
+      this.setNavState();
     }
   }
 
