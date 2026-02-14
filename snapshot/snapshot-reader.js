@@ -1,215 +1,249 @@
 /* =========================================================
-   Cyber Seeds — Snapshot Reader Layer v3
-   Canon-aligned • Backward-compatible • Deterministic
+   Cyber Seeds — Snapshot Reader Layer v4
+   Canon-grade • Deterministic • Public-sector safe
    ========================================================= */
 
 (function(){
 
-  "use strict";
+"use strict";
 
-  const SNAP_KEY = "cyberseeds_snapshot_v3";
+const SNAP_KEY = "cyberseeds_snapshot_v3";
+const HISTORY_KEY = "cyberseeds_snapshots_v1";
 
-  /* ---------------- Utilities ---------------- */
+/* ---------------- Utilities ---------------- */
 
-  function safeParse(v,f=null){
-    try{ return JSON.parse(v); }
-    catch{ return f; }
+function safeParse(v,f=null){
+  try{ return JSON.parse(v); }
+  catch{ return f; }
+}
+
+function getRawSnapshot(){
+  return safeParse(localStorage.getItem(SNAP_KEY), null);
+}
+
+function getHistory(){
+  return safeParse(localStorage.getItem(HISTORY_KEY), []);
+}
+
+function lensLabels(){
+  return {
+    network:"Network",
+    devices:"Devices",
+    privacy:"Accounts & Privacy",
+    scams:"Scams & Messages",
+    wellbeing:"Children & Wellbeing"
+  };
+}
+
+/* ---------------- Normalisation ---------------- */
+
+function normaliseSnapshot(raw){
+
+  if (!raw) return null;
+
+  if (raw.schema === "cs.snapshot.v3"){
+    return raw;
   }
 
-  function getRawSnapshot(){
-    return safeParse(localStorage.getItem(SNAP_KEY), null);
-  }
-
-  function lensLabels(){
-    return {
-      network:"Network",
-      devices:"Devices",
-      privacy:"Accounts & Privacy",
-      scams:"Scams & Messages",
-      wellbeing:"Children & Wellbeing"
-    };
-  }
-
-  /* ---------------- Normalisation ---------------- */
-
-  function normaliseSnapshot(raw){
-
-    if (!raw) return null;
-
-    // If already canonical (future format)
-    if (raw.schema === "cs.snapshot.v3"){
-      return raw;
+  return {
+    schema:"cs.snapshot.v3",
+    timestamp:Date.now(),
+    total:Math.round(raw.hdss ?? 0),
+    lenses:raw.lensPercents || {},
+    focus:raw.focus || null,
+    strongest:raw.strongest || null,
+    weakest:raw.weakest || null,
+    stage:raw.stage || null,
+    signal:{
+      summary:
+        raw.stage?.message ||
+        "A household signal has been generated."
     }
+  };
+}
 
-    // Minimal SeedForge score format (your current object)
-    const total =
-      typeof raw.hdss === "number"
-        ? Math.round(raw.hdss)
-        : null;
+/* ---------------- Comparison Logic ---------------- */
 
-    const lenses =
-      raw.lensPercents || {};
+function compareWithPrevious(current){
 
-    const stage = raw.stage || null;
+  const history = getHistory();
+  if (!history || history.length < 2) return null;
 
-    return {
-      schema:"cs.snapshot.v3",
-      timestamp:Date.now(),
-      total,
-      lenses,
-      focus:raw.focus || null,
-      strongest:raw.strongest || null,
-      weakest:raw.weakest || null,
-      stage,
-      signal:{
-        summary:
-          stage?.message ||
-          "A household signal has been generated."
-      }
-    };
-  }
+  const previous = history[1];
 
-  /* ---------------- Rendering ---------------- */
+  if (!previous || typeof previous.total !== "number") return null;
 
-  function renderLatestSignal(){
+  return {
+    previousTotal: previous.total,
+    delta: current.total - previous.total
+  };
+}
 
-    const container =
-      document.querySelector("[data-latest-signal]");
+/* ---------------- Rendering ---------------- */
 
-    if (!container) return;
+function renderLatestSignal(){
 
-    const raw = getRawSnapshot();
-    const snapshot = normaliseSnapshot(raw);
+  const container =
+    document.querySelector("[data-latest-signal]");
 
-    if (!snapshot){
-      container.innerHTML = `
-        <p class="muted">
-          No snapshot yet. Take the 2-minute check-in to see your signal.
-        </p>
-      `;
-      return;
-    }
+  if (!container) return;
 
-    const lensMap = lensLabels();
+  const snapshot = normaliseSnapshot(getRawSnapshot());
 
-    const focusLabel =
-      lensMap[snapshot.focus] || "—";
-
-    const strongest =
-      lensMap[snapshot.strongest] || null;
-
-    const weakest =
-      lensMap[snapshot.weakest] || null;
-
-    const lensChips =
-      Object.entries(snapshot.lenses || {})
-        .map(([k,v]) => `
-          <span class="chip">
-            ${lensMap[k]}: ${Math.round(v)}%
-          </span>
-        `)
-        .join("");
-
+  if (!snapshot){
     container.innerHTML = `
-      <div class="resultCard">
-
-        <h3>Your household signal</h3>
-
-        <p style="margin-bottom:10px">
-          ${snapshot.signal?.summary || ""}
-        </p>
-
-        <div class="resultRow">
-
-          <span class="chip">
-            ${snapshot.total ?? "—"}/100
-          </span>
-
-          <span class="chip">
-            Stage: ${snapshot.stage?.label || "—"}
-          </span>
-
-          <span class="chip">
-            Focus: ${focusLabel}
-          </span>
-
-        </div>
-
-        ${
-          strongest
-            ? `<p style="margin-top:12px">
-                Strongest lens: <strong>${strongest}</strong>
-              </p>`
-            : ""
-        }
-
-        ${
-          weakest
-            ? `<p>
-                Priority lens: <strong>${weakest}</strong>
-              </p>`
-            : ""
-        }
-
-        <div class="resultRow" style="margin-top:14px">
-          ${lensChips}
-        </div>
-
-      </div>
+      <p class="muted">
+        No snapshot yet. Take the 2-minute check-in to see your signal.
+      </p>
     `;
+    return;
   }
 
-  /* ---------------- Resource Personalisation ---------------- */
+  const lensMap = lensLabels();
+  const comparison = compareWithPrevious(snapshot);
 
-  function personaliseResources(){
+  const lensChips =
+    Object.entries(snapshot.lenses || {})
+      .map(([k,v]) => `
+        <span class="chip">
+          ${lensMap[k]}: ${Math.round(v)}%
+        </span>
+      `).join("");
 
-    const raw = getRawSnapshot();
-    const snapshot = normaliseSnapshot(raw);
+  const deltaBlock = comparison
+    ? `
+      <p style="margin-top:10px">
+        Compared to last snapshot:
+        <strong>
+          ${comparison.delta > 0 ? "+" : ""}
+          ${comparison.delta}
+        </strong>
+      </p>
+    `
+    : "";
 
-    if (!snapshot) return;
+  container.innerHTML = `
+    <div class="resultCard">
 
-    const lensMap = lensLabels();
+      <h3>Your household signal</h3>
 
-    const focusTargets =
-      document.querySelectorAll("[data-focus-lens]");
+      <p>${snapshot.signal?.summary || ""}</p>
 
-    focusTargets.forEach(el => {
+      <div class="resultRow">
+        <span class="chip">${snapshot.total}/100</span>
+        <span class="chip">Stage: ${snapshot.stage?.label || "—"}</span>
+        <span class="chip">
+          Focus: ${lensMap[snapshot.focus] || "—"}
+        </span>
+      </div>
+
+      ${deltaBlock}
+
+      <div class="resultRow" style="margin-top:12px">
+        ${lensChips}
+      </div>
+
+    </div>
+  `;
+}
+
+/* ---------------- Adaptive Routing ---------------- */
+
+function personaliseResources(){
+
+  const snapshot = normaliseSnapshot(getRawSnapshot());
+  if (!snapshot) return;
+
+  const lensMap = lensLabels();
+
+  document
+    .querySelectorAll("[data-focus-lens]")
+    .forEach(el=>{
       el.textContent =
         lensMap[snapshot.focus] || "";
     });
 
-    // Optional: Add class to body for CSS filtering
-    if (snapshot.focus){
-      document.body.dataset.focusLens =
-        snapshot.focus;
+  document
+    .querySelectorAll("[data-stage-label]")
+    .forEach(el=>{
+      el.textContent =
+        snapshot.stage?.label
+          ? `— ${snapshot.stage.label}`
+          : "";
+    });
+
+  // Body class for CSS filtering
+  if (snapshot.focus){
+    document.body.dataset.focusLens =
+      snapshot.focus;
+  }
+
+  // Hide non-focus resource sections
+  document
+    .querySelectorAll("[data-resource-lens]")
+    .forEach(section=>{
+      if (!snapshot.focus) return;
+
+      section.hidden =
+        section.dataset.resourceLens !== snapshot.focus;
+    });
+}
+
+/* ---------------- Export JSON ---------------- */
+
+function bindExport(){
+
+  document
+    .querySelectorAll("[data-export-json]")
+    .forEach(btn=>{
+      btn.addEventListener("click", () => {
+
+        const snapshot = getRawSnapshot();
+        if (!snapshot) return;
+
+        const blob =
+          new Blob(
+            [JSON.stringify(snapshot,null,2)],
+            { type:"application/json" }
+          );
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cyber-seeds-snapshot.json";
+        a.click();
+
+        URL.revokeObjectURL(url);
+      });
+    });
+}
+
+/* ---------------- Live Updates ---------------- */
+
+function bindLiveUpdates(){
+
+  window.addEventListener(
+    "cs:snapshot-updated",
+    () => {
+      renderLatestSignal();
+      personaliseResources();
     }
-  }
+  );
+}
 
-  /* ---------------- Live Updates ---------------- */
+/* ---------------- Init ---------------- */
 
-  function bindLiveUpdates(){
+function init(){
+  renderLatestSignal();
+  personaliseResources();
+  bindExport();
+  bindLiveUpdates();
+}
 
-    window.addEventListener(
-      "cs:snapshot-updated",
-      () => {
-        renderLatestSignal();
-        personaliseResources();
-      }
-    );
-  }
-
-  /* ---------------- Init ---------------- */
-
-  function init(){
-    renderLatestSignal();
-    personaliseResources();
-    bindLiveUpdates();
-  }
-
-  if (document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+if (document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
 
 })();
