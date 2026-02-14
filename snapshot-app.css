@@ -147,3 +147,99 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   color: var(--muted);
   margin-bottom: 0.75rem;
 }
+
+.signal-shell {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.signal-mark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.signal-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brand2);
+  box-shadow: 0 0 0 6px rgba(26,106,93,0.1);
+}
+
+.signal-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.signal-body {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.signal-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.signal-btn {
+  display: inline-block;
+  min-width: 220px;
+}
+
+.signal-header {
+  margin-bottom: 2rem;
+}
+
+.signal-pattern {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.signal-description {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.signal-score-block {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.score-number {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.lens-breakdown {
+  margin-bottom: 2rem;
+}
+
+.lens-row {
+  margin-bottom: 1rem;
+}
+
+.lens-bar {
+  height: 8px;
+  background: var(--mint2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.lens-fill {
+  height: 100%;
+  background: var(--brand2);
+}
+
+.digital-seeds ul {
+  padding-left: 1rem;
+}
