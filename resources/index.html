@@ -19,13 +19,10 @@
   <script src="/snapshot/snapshot-reader.js"></script>
   <script src="/snapshot/snapshot-platform.js?v=1"></script>
   <script src="/resources/resources-hub.js"></script>
-
 </head>
 
 <body>
 
-  <!-- Optional: if your home page has a sticky header, keep this.
-       If you already inject a header elsewhere, you can remove it safely. -->
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Cyber Seeds home">
@@ -65,6 +62,7 @@
               This page adapts to your household snapshot. It offers calm,
               practical guidance built specifically for your digital ecology.
             </p>
+
             <div class="personalised-banner" id="personalisedBanner" hidden>
               Personalised for you (from your latest snapshot)
             </div>
@@ -74,7 +72,6 @@
               <a class="btn ghost" href="/">Back to home</a>
             </div>
 
-            <!-- NOTE: pills removed as requested -->
             <p class="hub-subnote">
               Your results are created on this device. Nothing is uploaded.
             </p>
@@ -83,11 +80,13 @@
       </div>
     </section>
 
+    <!-- Platform layer mounts -->
+    <div class="container">
+      <div data-cs-signal></div>
+      <div style="height:12px"></div>
+      <div data-cs-seeds></div>
+    </div>
 
-    <div data-cs-signal></div>
-    <div style="height:12px"></div>
-    <div data-cs-seeds></div>
-    
     <!-- ===============================
          MAIN CONTENT
          =============================== -->
@@ -105,9 +104,9 @@
                   <p class="eyebrow">Your prioritised focus</p>
                   <span class="focus-badge" aria-hidden="true">Focus</span>
                 </div>
+
                 <h2 id="focusTitle">Loading…</h2>
                 <p class="section-lead" id="focusDesc"></p>
-
                 <div class="hub-chips" id="focusChips" aria-label="Focus tags"></div>
               </div>
             </div>
@@ -123,93 +122,82 @@
                   Tap any lens to get guidance.
                 </p>
 
+                <!-- If you later mount a ring SVG/diagram, mount it here -->
+                <div id="lensRingMount"></div>
+              </div>
+            </div>
 
+            <!-- Optional legacy bindings (safe to keep if used elsewhere) -->
+            <div class="card">
+              <div class="card-pad">
+                <h3>Snapshot signal</h3>
+                <div data-cs-signal-title></div>
+                <p data-cs-signal-message></p>
+              </div>
+            </div>
 
-          <div class="card">
-            <h3>Snapshot signal</h3>
-            <div data-cs-signal-title></div>
-            <p data-cs-signal-message></p>
-          </div>
-          
-          <div class="card">
-            <h3 data-cs-focus-title></h3>
-            <p data-cs-focus-why></p>
-            <p data-cs-focus-now></p>
-          </div>
-          
-          
-          <div class="card">
-            <h3>Your next step</h3>
-            <h4 data-cs-seed-title></h4>
-            <p data-cs-seed-today></p>
-            <p data-cs-seed-week></p>
-            <p data-cs-seed-month></p>
-          </div>
-          
+            <div class="card">
+              <div class="card-pad">
+                <h3 data-cs-focus-title></h3>
+                <p data-cs-focus-why></p>
+                <p data-cs-focus-now></p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-pad">
+                <h3>Your next step</h3>
+                <h4 data-cs-seed-title></h4>
+                <p data-cs-seed-today></p>
+                <p data-cs-seed-week></p>
+                <p data-cs-seed-month></p>
+              </div>
+            </div>
 
           </section>
-        <div class="hub-col" data-cs-resources-hub>
 
-        <div data-cs-routing-banner></div>
-      
-        <h2>Resources</h2>
-        <p class="muted">
-          Recommended focus:
-          <strong data-focus-lens></strong>
-          <span data-stage-label></span>
-        </p>
-      
-        <section data-resource-lens="privacy">
-          <!-- privacy resources -->
-        </section>
-      
-        <section data-resource-lens="network">
-          <!-- network resources -->
-        </section>
-      
-        <section data-resource-lens="devices">
-          <!-- devices resources -->
-        </section>
-      
-        <section data-resource-lens="scams">
-          <!-- scams resources -->
-        </section>
-      
-        <section data-resource-lens="wellbeing">
-          <!-- wellbeing resources -->
-        </section>
-      
+          <!-- RIGHT COLUMN (ROUTED RESOURCES) -->
+          <aside class="hub-col" data-cs-resources-hub>
+
+            <div data-cs-routing-banner></div>
+
+            <h2>Resources</h2>
+
+            <p class="muted">
+              Recommended focus:
+              <strong data-focus-lens></strong>
+              <span data-stage-label></span>
+            </p>
+
+            <!-- Lens sections (router shows focus lens by default) -->
+            <section data-resource-lens="privacy">
+              <!-- privacy resources -->
+            </section>
+
+            <section data-resource-lens="network">
+              <!-- network resources -->
+            </section>
+
+            <section data-resource-lens="devices">
+              <!-- devices resources -->
+            </section>
+
+            <section data-resource-lens="scams">
+              <!-- scams resources -->
+            </section>
+
+            <section data-resource-lens="wellbeing">
+              <!-- wellbeing resources -->
+            </section>
+
+          </aside>
+
+        </div>
       </div>
-        <h1>Resources</h1>
-        <p class="muted">
-          Recommended focus: <strong data-focus-lens></strong>
-          <span data-stage-label></span>
-        </p>
-      
-        <!-- Example lens sections -->
-        <section data-resource-lens="privacy">
-          <!-- privacy resources -->
-        </section>
-      
-        <section data-resource-lens="network">
-          <!-- network resources -->
-        </section>
-      
-        <section data-resource-lens="devices">
-          <!-- devices resources -->
-        </section>
-      
-        <section data-resource-lens="scams">
-          <!-- scams resources -->
-        </section>
-      
-        <section data-resource-lens="wellbeing">
-          <!-- wellbeing resources -->
-        </section>
-</main>
+    </section>
 
+  </main>
 
-  
   <footer class="footer">
     <div class="container footer-inner">
       <div>© <span id="year"></span> Cyber Seeds</div>
