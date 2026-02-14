@@ -2,10 +2,10 @@ import { createSnapshot, computeScore } from '/scoring.js';
 import { saveSnapshot } from '/storage.js';
 
 const OPTIONS = [
-  { value: 'yes', label: 'Yes, this is in place' },
-  { value: 'partly', label: 'Partly / sometimes' },
-  { value: 'unsure', label: 'Not sure yet' },
-  { value: 'no', label: 'Not in place yet' }
+  { value: 'yes', label: 'This is part of our routine' },
+  { value: 'partly', label: 'We are building this, but it is not consistent yet' },
+  { value: 'unsure', label: 'I am not sure what our current pattern is' },
+  { value: 'no', label: 'We have not started this yet' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
