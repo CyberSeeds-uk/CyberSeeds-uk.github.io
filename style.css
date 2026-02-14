@@ -603,3 +603,70 @@ body.modal-open{
   to{opacity:1; transform:none;}
 }
 
+/* =========================================================
+   Cyber Seeds Platform Layer Styles
+   ========================================================= */
+
+.cs-signal-card,
+.cs-seed-card{
+  border:1px solid #dfecea;
+  border-radius:16px;
+  padding:18px;
+  background:#f8fbfb;
+  margin-bottom:18px;
+}
+
+.cs-hdss-wrap{
+  height:8px;
+  background:#eef3f2;
+  border-radius:999px;
+  overflow:hidden;
+  margin:12px 0;
+}
+
+.cs-hdss-bar{
+  height:100%;
+  width:0%;
+  transition:width .8s ease;
+}
+
+.cs-actions{
+  margin-top:14px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.cs-actions button{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #dfecea;
+  background:#fff;
+  cursor:pointer;
+}
+
+.cs-version{
+  font-size:.75rem;
+  color:#999;
+}
+
+/* PRINT CLEAN PDF */
+
+@media print{
+
+  header, footer, nav, .btn, .cs-actions{
+    display:none !important;
+  }
+
+  body{
+    background:#fff;
+    color:#000;
+  }
+
+  .cs-signal-card,
+  .cs-seed-card{
+    border:none;
+    box-shadow:none;
+  }
+
+}
