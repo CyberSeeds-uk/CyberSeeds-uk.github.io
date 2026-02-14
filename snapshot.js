@@ -45,18 +45,58 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTransition();
   };
 
+  const LENS_META = {
+    network: {
+      label: 'Network lens',
+      insight: 'Your Wi-Fi is the foundation of everything connected at home.'
+    },
+    devices: {
+      label: 'Devices lens',
+      insight: 'Devices carry conversations, memories and work.'
+    },
+    privacy: {
+      label: 'Privacy lens',
+      insight: 'Accounts are part of your household identity.'
+    },
+    scams: {
+      label: 'Scams lens',
+      insight: 'Scams rely on urgency and emotion.'
+    },
+    wellbeing: {
+      label: 'Wellbeing lens',
+      insight: 'Digital safety also includes emotional balance.'
+    }
+  };
+
   const renderQuestion = () => {
     const question = questions[pointer];
     const progressText = `${pointer + 1} of ${questions.length}`;
+    const lensMeta = LENS_META[question.lens];
+
+    const introBlock = pointer === 0 ? `
+      <p class="snapshot-intro">
+        This short check-in looks at five parts of your digital home.
+        There are no right or wrong answers — only patterns.
+      </p>
+    ` : '';
 
     modal.innerHTML = `
       <div class="modal-shell">
         <div class="modal-head">
-          <p class="kicker">Snapshot</p>
+          <p class="kicker">Household snapshot</p>
           <button type="button" class="link-btn" id="closeSnapshot">Close</button>
         </div>
+
+        ${introBlock}
+
+        <div class="lens-meta">
+          <p class="lens-label">${lensMeta.label}</p>
+          <p class="lens-insight">${lensMeta.insight}</p>
+        </div>
+
         <p class="progress">${progressText}</p>
         <h2 id="snapshotQuestion">${question.text}</h2>
+
         <fieldset class="choice-set" aria-describedby="snapshotQuestion">
           <legend class="sr-only">Select one answer</legend>
           ${OPTIONS.map((option) => `
@@ -66,9 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </label>
           `).join('')}
         </fieldset>
+
         <div class="modal-actions">
           <button type="button" class="btn-secondary" id="prevQuestion" ${pointer === 0 ? 'disabled' : ''}>Back</button>
-          <button type="button" class="btn-primary" id="nextQuestion" disabled>${pointer === questions.length - 1 ? 'Finish snapshot' : 'Continue'}</button>
+          <button type="button" class="btn-primary" id="nextQuestion" disabled>
+            ${pointer === questions.length - 1 ? 'Finish snapshot' : 'Continue'}
+          </button>
         </div>
       </div>
     `;
