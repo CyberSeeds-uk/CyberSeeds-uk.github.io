@@ -254,66 +254,124 @@
     return wrap;
   }
 
-  function renderHomepageSnapshot(snapshot){
-    const section = document.getElementById("snapshotResults");
-    if (!section) return;
+  function generateSeedFromFocus(focus){
+   const seeds = {
+     privacy: {
+       title: "Strengthen account boundaries",
+       today: "Turn on two-step verification for your primary email.",
+       week: "Audit saved passwords and remove reuse.",
+       month: "Set a recovery contact for all key accounts."
+     },
+     network: {
+       title: "Stabilise your home network",
+       today: "Check your router admin password.",
+       week: "Enable automatic firmware updates.",
+       month: "Create a guest Wi-Fi network for visitors."
+     },
+     devices: {
+       title: "Keep devices healthy",
+       today: "Enable automatic updates on one device.",
+       week: "Review installed apps and remove unused ones.",
+       month: "Set up encrypted backup for critical devices."
+     },
+     scams: {
+       title: "Reduce message pressure",
+       today: "Create a family pause rule for urgent messages.",
+       week: "Review scam examples together.",
+       month: "Agree a verification script for unknown requests."
+     },
+     wellbeing: {
+       title: "Calm the digital rhythm",
+       today: "Introduce a device-free wind-down time.",
+       week: "Move one charger out of the bedroom.",
+       month: "Create a shared screen rhythm agreement."
+     }
+   };
 
-    const wrap = ensureResultsMarkup(section);
-    if (!wrap) return;
+  return seeds[focus] || seeds.privacy;
+}
 
-    section.hidden = false;
 
-    const score = Math.round(snapshot?.total ?? snapshot?.hdss ?? 0);
-    const overall = snapshot?.signal?.overall || "STABLE";
-    const summary = snapshot?.signal?.summary || "Your snapshot has been saved locally.";
-    const focus = snapshot?.focus || "privacy";
-    const strongest = snapshot?.strongest || "privacy";
-    const risk = snapshot?.signal?.riskPressure || "—";
-    const seed = snapshot?.seed || {};
+   function renderHomepageSnapshot(snapshot){
 
-    const signalSummary = wrap.querySelector("#csHomeSignalSummary");
-    const signalLine = wrap.querySelector("#csHomeSignalLine");
-    const focusEl = wrap.querySelector("#csHomeFocus");
-    const strongEl = wrap.querySelector("#csHomeStrongest");
-    const riskEl = wrap.querySelector("#csHomeRisk");
+     const section = document.getElementById("snapshotResults");
+     if (!section) return;
+   
+     const wrap = ensureResultsMarkup(section);
+     if (!wrap) return;
+   
+     section.hidden = false;
+   
+     const score = Math.round(snapshot?.hdss ?? 0);
+     const stage = snapshot?.stage || {};
+     const overall = stage.label || "—";
+     const riskMessage = stage.message || "";
+     const focus = snapshot?.focus || "privacy";
+     const strongest = snapshot?.strongest || "privacy";
+   
+     const seed = generateSeedFromFocus(focus);
+   
+     const signalSummary = wrap.querySelector("#csHomeSignalSummary");
+     const signalLine = wrap.querySelector("#csHomeSignalLine");
+     const focusEl = wrap.querySelector("#csHomeFocus");
+     const strongEl = wrap.querySelector("#csHomeStrongest");
+     const riskEl = wrap.querySelector("#csHomeRisk");
+   
+     const seedTitle = wrap.querySelector("#csHomeSeedTitle");
+     const seedToday = wrap.querySelector("#csHomeSeedToday");
+     const seedWeek = wrap.querySelector("#csHomeSeedWeek");
+     const seedMonth = wrap.querySelector("#csHomeSeedMonth");
+   
+     if (signalSummary) signalSummary.textContent = riskMessage;
+     if (signalLine) signalLine.textContent = `${overall} stage (${score}/100). Saved locally on this device.`;
+     if (focusEl) focusEl.textContent = `Focus: ${LENS_LABELS[focus] || focus}`;
+     if (strongEl) strongEl.textContent = `Strongest: ${LENS_LABELS[strongest] || strongest}`;
+     if (riskEl) riskEl.textContent = `Signal band: ${overall}`;
+   
+     if (seedTitle) seedTitle.textContent = seed.title;
+     if (seedToday) seedToday.textContent = `Today: ${seed.today}`;
+     if (seedWeek) seedWeek.textContent = `This week: ${seed.week}`;
+     if (seedMonth) seedMonth.textContent = `This month: ${seed.month}`;
+   
+     renderMiniHDSSBar(wrap, score, overall);
+   
+     wrap.querySelector("#csHomeRetake")?.addEventListener("click", () => {
+       document.querySelector("cyber-seeds-snapshot")?.open?.();
+     });
+   }
 
-    const seedTitle = wrap.querySelector("#csHomeSeedTitle");
-    const seedToday = wrap.querySelector("#csHomeSeedToday");
-    const seedWeek = wrap.querySelector("#csHomeSeedWeek");
-    const seedMonth = wrap.querySelector("#csHomeSeedMonth");
+   function renderMiniHDSSBar(wrap, score, overall){
 
-    if (signalSummary) signalSummary.textContent = summary;
-    if (signalLine) signalLine.textContent = `${overall} signal (${score}/100). Saved locally on this device.`;
-    if (focusEl) focusEl.textContent = `Focus: ${LENS_LABELS[focus] || focus}`;
-    if (strongEl) strongEl.textContent = `Strongest: ${LENS_LABELS[strongest] || strongest}`;
-    if (riskEl) riskEl.textContent = `Risk pressure: ${risk}`;
-
-    if (seedTitle) seedTitle.textContent = seed.title || "Your next Digital Seed";
-    if (seedToday) seedToday.textContent = `Today: ${seed.today || "Choose one small calm step in your focus lens."}`;
-    if (seedWeek) seedWeek.textContent = `This week: ${seed.this_week || "Build one routine you can repeat."}`;
-    if (seedMonth) seedMonth.textContent = `This month: ${seed.this_month || "Make it stick with a simple household agreement."}`;
-
-    // Retake button should trigger the component if present
-    wrap.querySelector("#csHomeRetake")?.addEventListener("click", () => {
-      document.querySelector("cyber-seeds-snapshot")?.open?.();
-    });
-  }
-
-  window.addEventListener("cs:snapshot-updated", (e) => {
-    console.log("Snapshot updated — refresh resources if needed.");
-    const snapshot = e?.detail?.snapshot || null;
-    if (!snapshot) return;
-    renderHomepageSnapshot(snapshot);
-  });
-
-  // If a snapshot already exists, render it immediately on load.
+     let color = "#1a6a5d";
+   
+     if (overall === "Vulnerable") color = "#c85050";
+     if (overall === "Holding") color = "#c39a2e";
+   
+     let bar = wrap.querySelector("#csMiniBar");
+   
+     if (!bar){
+       const barWrap = document.createElement("div");
+       barWrap.style.marginTop = "10px";
+       barWrap.innerHTML = `
+         <div style="height:6px; background:#eef3f2; border-radius:999px; overflow:hidden;">
+           <div id="csMiniBar" style="height:100%; width:0%; transition:.3s;"></div>
+         </div>
+       `;
+       wrap.querySelector(".card").appendChild(barWrap);
+       bar = wrap.querySelector("#csMiniBar");
+     }
+   
+     bar.style.width = score + "%";
+     bar.style.background = color;
+   }
+   
   (function renderExistingIfPresent(){
-    try {
-      const raw = localStorage.getItem("cyberseeds_snapshot_v3");
-      if (!raw) return;
-      const parsed = JSON.parse(raw);
-      if (!parsed?.id) return;
-      renderHomepageSnapshot(parsed);
-    } catch {}
-  })();
+     try {
+       const raw = localStorage.getItem("cyberseeds_snapshot_v3");
+       if (!raw) return;
+       const parsed = JSON.parse(raw);
+       if (!parsed) return;
+       renderHomepageSnapshot(parsed);
+     } catch {}
+   })();
 })();
