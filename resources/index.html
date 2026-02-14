@@ -17,6 +17,8 @@
   <!-- Resources logic -->
   <script type="module" src="/snapshot/snapshot-shell.js"></script>
   <script src="/snapshot/snapshot-reader.js"></script>
+  <script src="/snapshot/snapshot-platform.js"></script>
+
 </head>
 
 <body>
@@ -146,55 +148,37 @@
 
           </section>
 
-          <!-- RIGHT COLUMN -->
-          <aside class="hub-col">
+        <main class="wrap" data-cs-resources-hub>
+        <div data-cs-routing-banner></div>
+      
+        <h1>Resources</h1>
+        <p class="muted">
+          Recommended focus: <strong data-focus-lens></strong>
+          <span data-stage-label></span>
+        </p>
+      
+        <!-- Example lens sections -->
+        <section data-resource-lens="privacy">
+          <!-- privacy resources -->
+        </section>
+      
+        <section data-resource-lens="network">
+          <!-- network resources -->
+        </section>
+      
+        <section data-resource-lens="devices">
+          <!-- devices resources -->
+        </section>
+      
+        <section data-resource-lens="scams">
+          <!-- scams resources -->
+        </section>
+      
+        <section data-resource-lens="wellbeing">
+          <!-- wellbeing resources -->
+        </section>
+</main>
 
-            <div class="card">
-              <div class="card-pad">
-                <p class="eyebrow">Snapshot overview</p>
-                <h2 id="stageTitle">Loading…</h2>
-                <p class="section-lead" id="stageDesc"></p>
-
-                <div class="status">
-                  <p class="mini" id="fingerprintLine"></p>
-                  <p class="muted-note" id="lastTakenLine"></p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-pad">
-                <p class="eyebrow">Progress tracking</p>
-                <h2>Retest and compare</h2>
-                <p class="section-lead">
-                  Save a baseline, then retest in 2–6 weeks. Progress should be visible — and encouraging.
-                </p>
-
-                <div id="progressGrid"></div>
-
-                <div class="hub-actions">
-                  <button class="btn primary" id="saveBaselineBtn" type="button">Save baseline</button>
-                  <button class="btn" id="clearBaselineBtn" type="button">Clear baseline</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card" id="emptyStateCard" style="display:none">
-              <div class="card-pad">
-                <p class="eyebrow">No data yet</p>
-                <h2>No snapshot on this device</h2>
-                <p class="section-lead">
-                  That’s completely okay. Take a snapshot and this page will personalise automatically.
-                </p>
-                <a class="btn primary" href="/#snapshot">Take snapshot</a>
-              </div>
-            </div>
-
-          </aside>
-
-        </div>
-      </div>
-    </section>
 
   
   <footer class="footer">
