@@ -1,19 +1,40 @@
 /* =========================================================
-   /resources/resources-hub.js
-   Cyber Seeds — Resources Hub Controller
-   Adaptive routing • Focus-first • Calm guidance
+   Cyber Seeds — Snapshot Platform Layer v4
+   Infrastructure-grade • Deterministic • Print-ready
    ========================================================= */
 
 (function(){
   "use strict";
 
   const SNAP_KEY = "cyberseeds_snapshot_v3";
+  const HISTORY_KEY = "cyberseeds_snapshots_v1";
+  const BASELINE_KEY = "cyberseeds_snapshot_baseline_v1";
 
-  const $ = (sel, root=document) => root.querySelector(sel);
-  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const VERSION = "v4.0";
+
+  const $ = (s,r=document)=>r.querySelector(s);
+  const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+
+  /* ---------------- Utilities ---------------- */
 
   function safeParse(v,f=null){
     try{ return JSON.parse(v); }catch{ return f; }
+  }
+
+  function getSnapshot(){
+    return safeParse(localStorage.getItem(SNAP_KEY), null);
+  }
+
+  function getHistory(){
+    return safeParse(localStorage.getItem(HISTORY_KEY), []);
+  }
+
+  function getBaseline(){
+    return safeParse(localStorage.getItem(BASELINE_KEY), null);
+  }
+
+  function setBaseline(snapshot){
+    localStorage.setItem(BASELINE_KEY, JSON.stringify(snapshot));
   }
 
   function lensLabels(){
@@ -26,87 +47,181 @@
     };
   }
 
-  function normalise(raw){
-    if (!raw) return null;
-    if (raw.schema === "cs.snapshot.v3") return raw;
+  function stageColor(stage){
+    if(!stage) return "#9aa";
+    if(stage.label==="Vulnerable") return "#c85050";
+    if(stage.label==="Holding") return "#c39a2e";
+    return "#1a6a5d";
+  }
 
-    return {
-      schema:"cs.snapshot.v3",
-      total: typeof raw.hdss === "number" ? Math.round(raw.hdss) : null,
-      focus: raw.focus || null,
-      stage: raw.stage || null,
-      lenses: raw.lensPercents || {}
+  /* ---------------- HDSS BAR ---------------- */
+
+  function renderHDSS(container, snapshot){
+
+    if(!container || !snapshot) return;
+
+    const total = snapshot.total ?? snapshot.hdss ?? 0;
+    const stage = snapshot.stage || {};
+
+    const barId = "cs-hdss-bar";
+
+    container.innerHTML = `
+      <div class="cs-signal-card">
+        <div class="cs-signal-head">
+          <h3>Your household signal</h3>
+          <span class="cs-version">${VERSION}</span>
+        </div>
+
+        <p class="cs-stage">${stage.message || ""}</p>
+
+        <div class="cs-hdss-wrap">
+          <div class="cs-hdss-bar" id="${barId}"></div>
+        </div>
+
+        <div class="cs-hdss-meta">
+          <strong>${total}/100</strong>
+          <span style="color:${stageColor(stage)}">
+            ${stage.label || ""}
+          </span>
+        </div>
+
+        <div class="cs-focus">
+          Focus: <strong>${lensLabels()[snapshot.focus] || ""}</strong>
+        </div>
+
+        <div class="cs-compare" data-cs-compare></div>
+
+        <div class="cs-actions">
+          <button data-cs-set-baseline>Set as baseline</button>
+          <button data-cs-export-json>Export JSON</button>
+          <button data-cs-export-pdf>Export PDF</button>
+        </div>
+      </div>
+    `;
+
+    setTimeout(()=>{
+      const bar = document.getElementById(barId);
+      if(bar){
+        bar.style.width = total+"%";
+        bar.style.background = stageColor(stage);
+      }
+    },50);
+
+    bindActions(container, snapshot);
+    renderComparison(container, snapshot);
+  }
+
+  /* ---------------- BASELINE COMPARISON ---------------- */
+
+  function renderComparison(container, snapshot){
+
+    const compareEl = $("[data-cs-compare]", container);
+    if(!compareEl) return;
+
+    const baseline = getBaseline();
+    if(!baseline){
+      compareEl.textContent = "No baseline set yet.";
+      return;
+    }
+
+    const diff = (snapshot.total ?? 0) - (baseline.total ?? 0);
+
+    let msg = "";
+    if(diff>0) msg = `Improved by ${diff} points since baseline.`;
+    else if(diff<0) msg = `Decreased by ${Math.abs(diff)} points since baseline.`;
+    else msg = "No change since baseline.";
+
+    compareEl.textContent = msg;
+  }
+
+  /* ---------------- FOCUS SEED AUTO ---------------- */
+
+  function generateSeed(snapshot){
+
+    const focus = snapshot.focus;
+    const seeds = {
+      privacy:"Enable two-step verification on your primary email and stop password reuse.",
+      network:"Review router firmware and create a guest network.",
+      devices:"Turn on automatic updates and enable device tracking.",
+      scams:"Create a household pause rule for urgent messages.",
+      wellbeing:"Set a nightly device-free wind-down time."
     };
+
+    return seeds[focus] || "";
   }
 
-  function getSnapshot(){
-    return normalise(safeParse(localStorage.getItem(SNAP_KEY), null));
+  function renderSeeds(container, snapshot){
+
+    if(!container || !snapshot) return;
+
+    const seed = generateSeed(snapshot);
+
+    container.innerHTML = `
+      <div class="cs-seed-card">
+        <h3>Your next digital seed</h3>
+        <p>${seed}</p>
+        <p class="cs-seed-note">
+          Small, repeatable changes build long-term stability.
+        </p>
+      </div>
+    `;
   }
 
-  function applyRouting(){
-    const hub = document.querySelector("[data-cs-resources-hub]");
-    if (!hub) return;
+  /* ---------------- EXPORT ---------------- */
 
-    const snap = getSnapshot();
-    if (!snap || !snap.focus) return;
+  function exportJSON(snapshot){
+    const blob = new Blob(
+      [JSON.stringify(snapshot,null,2)],
+      {type:"application/json"}
+    );
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "cyber-seeds-snapshot.json";
+    a.click();
+  }
 
-    document.body.dataset.focusLens = snap.focus;
+  function exportPDF(){
+    window.print();
+  }
 
-    // Update focus labels
-    $$("[data-focus-lens]", hub).forEach(el => {
-      el.textContent = lensLabels()[snap.focus] || "";
-    });
+  /* ---------------- BIND ACTIONS ---------------- */
 
-    // Focus sections
-    const sections = $$("[data-resource-lens]", hub);
-    if (!sections.length) return;
+  function bindActions(container, snapshot){
 
-    const showAll = localStorage.getItem("cs_resources_show_all") === "1";
+    const baselineBtn = $("[data-cs-set-baseline]", container);
+    if(baselineBtn){
+      baselineBtn.onclick = ()=>{
+        setBaseline(snapshot);
+        renderComparison(container, snapshot);
+      };
+    }
 
-    sections.forEach(sec => {
-      const lens = sec.getAttribute("data-resource-lens");
-      sec.style.display = (showAll || lens === snap.focus) ? "" : "none";
-    });
+    const jsonBtn = $("[data-cs-export-json]", container);
+    if(jsonBtn){
+      jsonBtn.onclick = ()=>exportJSON(snapshot);
+    }
 
-    // Optional: set stage label
-    const stageEl = $("[data-stage-label]", hub);
-    if (stageEl){
-      stageEl.textContent = snap.stage?.label || "";
+    const pdfBtn = $("[data-cs-export-pdf]", container);
+    if(pdfBtn){
+      pdfBtn.onclick = ()=>exportPDF();
     }
   }
 
-  function bindButtons(){
-    const hub = document.querySelector("[data-cs-resources-hub]");
-    if (!hub) return;
-
-    const showAll = $("[data-cs-show-all]", hub);
-    const showFocus = $("[data-cs-show-focus]", hub);
-
-    if (showAll){
-      showAll.addEventListener("click", () => {
-        localStorage.setItem("cs_resources_show_all", "1");
-        applyRouting();
-      });
-    }
-
-    if (showFocus){
-      showFocus.addEventListener("click", () => {
-        localStorage.setItem("cs_resources_show_all", "0");
-        applyRouting();
-      });
-    }
-  }
+  /* ---------------- INIT ---------------- */
 
   function init(){
-    applyRouting();
-    bindButtons();
 
-    window.addEventListener("cs:snapshot-updated", () => {
-      applyRouting();
-    });
+    const snapshot = getSnapshot();
+    if(!snapshot) return;
+
+    const signalContainer = $("[data-cs-signal]");
+    const seedContainer = $("[data-cs-seeds]");
+
+    renderHDSS(signalContainer, snapshot);
+    renderSeeds(seedContainer, snapshot);
   }
 
-  if (document.readyState === "loading"){
+  if(document.readyState==="loading"){
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
