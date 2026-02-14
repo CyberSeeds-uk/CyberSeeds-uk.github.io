@@ -80,6 +80,11 @@
       </div>
     </section>
 
+
+    <div data-cs-signal></div>
+    <div style="height:12px"></div>
+    <div data-cs-seeds></div>
+    
     <!-- ===============================
          MAIN CONTENT
          =============================== -->
@@ -115,116 +120,6 @@
                   Tap any lens to get guidance.
                 </p>
 
-                <!-- Five Lens Donut -->
-<div class="cs-donut" aria-label="Five lens safety ring" data-cs-ring>
-
-  <svg viewBox="0 0 220 220" class="cs-donut-svg">
-
-    <!-- Track -->
-    <circle
-      cx="110" cy="110" r="90"
-      class="cs-donut-track"
-    />
-
-    <!-- Segments -->
-    <g transform="rotate(-90 110 110)">
-
-      <circle id="donut-network"
-        class="cs-donut-seg network"
-        cx="110" cy="110" r="90"
-      />
-
-      <circle id="donut-devices"
-        class="cs-donut-seg devices"
-        cx="110" cy="110" r="90"
-      />
-
-      <circle id="donut-privacy"
-        class="cs-donut-seg privacy"
-        cx="110" cy="110" r="90"
-      />
-
-      <circle id="donut-scams"
-        class="cs-donut-seg scams"
-        cx="110" cy="110" r="90"
-      />
-
-      <circle id="donut-wellbeing"
-        class="cs-donut-seg wellbeing"
-        cx="110" cy="110" r="90"
-      />
-
-    </g>
-
-    <!-- Centre -->
-    <circle cx="110" cy="110" r="64" class="cs-donut-centre"/>
-
-    <text x="110" y="96" class="cs-donut-title" text-anchor="middle">
-      Household
-    </text>
-
-    <text x="110" y="122" class="cs-donut-score" id="donutScore" text-anchor="middle">
-      —
-    </text>
-
-    <text x="110" y="146" class="cs-donut-stage" id="donutStage" text-anchor="middle">
-      —
-    </text>
-
-  </svg>
-
-  <!-- Legend -->
-  <div class="cs-donut-legend">
-
-    <button data-lens="network">
-      Network <b id="donutValNetwork">—</b>
-    </button>
-
-    <button data-lens="devices">
-      Devices <b id="donutValDevices">—</b>
-    </button>
-
-    <button data-lens="privacy">
-      Privacy <b id="donutValPrivacy">—</b>
-    </button>
-
-    <button data-lens="scams">
-      Scams <b id="donutValScams">—</b>
-    </button>
-
-    <button data-lens="wellbeing">
-      Wellbeing <b id="donutValWellbeing">—</b>
-    </button>
-
-  </div>
-  <p class="micro muted" id="ringEmptyNote" aria-live="polite"></p>
-
-                <!-- Lens insight (expands) -->
-                <div class="card lens-insight" id="lensInsightCard">
-                  <div class="card-pad">
-                    <p class="eyebrow" id="lensKicker">Focus lens</p>
-                    <h3 id="lensInsightTitle">Loading…</h3>
-                    <p class="section-lead" id="lensInsightBody"></p>
-
-                    <details class="cs-accordion">
-                      <summary>Why this lens matters in a real household</summary>
-                      <div class="cs-accordion__content" id="lensWhy"></div>
-                    </details>
-
-                    <details class="cs-accordion">
-                      <summary>What a “good” version of this looks like</summary>
-                      <div class="cs-accordion__content" id="lensGood"></div>
-                    </details>
-
-                    <details class="cs-accordion">
-                      <summary>Common traps (and how to avoid them)</summary>
-                      <div class="cs-accordion__content" id="lensTraps"></div>
-                    </details>
-                  </div>
-                </div>
-
-              </div>
-            </div>
 
 
           <div class="card">
@@ -248,29 +143,6 @@
             <p data-cs-seed-month></p>
           </div>
           
-
-            <!-- Progress tracker -->
-            <div class="card">
-              <div class="card-pad">
-                <p class="eyebrow">Progress tracker</p>
-                <h2>Progress tracker</h2>
-                <p class="section-lead" id="actionsIntro">
-                  Gentle progress lives here. Tick off steps when they feel doable.
-                </p>
-
-                <div id="seedProgress" aria-live="polite"></div>
-
-                <div class="help-strip">
-                  <div>
-                    <p class="help-title">Want help applying this at home?</p>
-                    <p class="help-sub">If you have a question, send us a note and we’ll reply with calm guidance.</p>
-                  </div>
-                  <div class="help-actions">
-                    <a class="btn ghost" href="mailto:cyberseeds.uk@gmail.com?subject=Cyber%20Seeds%20question">Email Cyber Seeds</a>
-                  </div>
-                </div>
-              </div>
-            </div>
 
           </section>
 
