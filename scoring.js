@@ -1,16 +1,16 @@
 const LENS_ORDER = ['network', 'devices', 'privacy', 'scams', 'wellbeing'];
 
 const QUESTION_BANK = [
-  { id: 'network_updates', lens: 'network', text: 'When was your home Wi-Fi last checked or updated?' },
-  { id: 'network_guest', lens: 'network', text: 'How often do guests or smart devices use a separate Wi-Fi space?' },
-  { id: 'device_updates', lens: 'devices', text: 'How do device updates usually happen in your home?' },
-  { id: 'device_backup', lens: 'devices', text: 'How regularly do you back up important files or photos?' },
-  { id: 'privacy_recovery', lens: 'privacy', text: 'When signing in to key accounts, how often is there an extra check?' },
-  { id: 'privacy_passwords', lens: 'privacy', text: 'How often are important account passwords kept separate from each other?' },
-  { id: 'scam_pause', lens: 'scams', text: 'When a message feels urgent, how often do you pause before responding?' },
-  { id: 'scam_reporting', lens: 'scams', text: 'If something felt suspicious, how ready would your household feel to report it?' },
-  { id: 'wellbeing_boundaries', lens: 'wellbeing', text: 'How often do you keep a small device-light moment in the day?' },
-  { id: 'wellbeing_children', lens: 'wellbeing', text: 'How regularly do children get calm support with apps, chats, and gaming?' }
+  { id: 'network_updates', lens: 'network', text: 'Your Wi-Fi quietly supports everything at home. When did it last receive care or an update?' },
+  { id: 'network_guest', lens: 'network', text: 'When guests or smart devices connect, does your home offer them a separate digital space?' },
+  { id: 'device_updates', lens: 'devices', text: 'Across phones, tablets and laptops, how are updates usually handled in your home?' },
+  { id: 'device_backup', lens: 'devices', text: 'If a device was lost tomorrow, how steady would you feel about recovering photos and files?' },
+  { id: 'privacy_recovery', lens: 'privacy', text: 'For your most important accounts, how protected do sign-ins feel right now?' },
+  { id: 'privacy_passwords', lens: 'privacy', text: 'Are key account passwords separated enough to protect your household identity?' },
+  { id: 'scam_pause', lens: 'scams', text: 'When a message feels urgent or emotional, what tends to happen next in your home?' },
+  { id: 'scam_reporting', lens: 'scams', text: 'If something felt suspicious, how confident would your household feel about reporting it?' },
+  { id: 'wellbeing_boundaries', lens: 'wellbeing', text: 'Is there at least one moment each day when devices gently step back?' },
+  { id: 'wellbeing_children', lens: 'wellbeing', text: 'Are children supported with clear and calm boundaries around apps, chats and gaming?' }
 ];
 
 const OPTION_WEIGHTS = {
@@ -41,9 +41,9 @@ export function computeScore(answerMap) {
   const digitalSeeds = buildDigitalSeeds(lensScores);
 
   const summaryByTone = {
-    stable: 'Your household is showing steady digital habits. A few ongoing rituals can help you keep this calm momentum.',
-    holding: 'Your household is currently holding steady. A few small changes can strengthen long-term resilience.',
-    strained: 'Your household is carrying digital pressure right now. Gentle, practical steps can restore control over time.'
+    stable: 'Your household is showing steady digital habits. With a few small rituals, this calm pattern can continue to grow.',
+    holding: 'Your household is holding steady. A handful of gentle adjustments can strengthen long-term resilience.',
+    strained: 'Your household is carrying digital pressure at the moment. Small, practical steps can gradually restore control.'
   };
 
   const canonical = {
@@ -64,7 +64,7 @@ function buildDigitalSeeds(lensScores) {
   const seedLibrary = {
     network: 'Choose a 20-minute window this week to check router updates and confirm your main Wi-Fi password is still private.',
     devices: 'Pick one day each month as a household update and backup day so maintenance feels routine, not urgent.',
-    privacy: 'Protect your main family email account first, then extend two-step verification to other important services.',
+    privacy: 'Begin with your main family email account, then gently extend two-step protection to other services.',
     scams: 'Create a shared “pause before action” phrase for urgent messages so everyone knows to verify first.',
     wellbeing: 'Set one predictable tech-light time that works for adults and children, even if it is just 30 minutes.'
   };
