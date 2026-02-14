@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Dev checklist: add focus badge + progress tracker container + tidy duplicate seed panels. -->
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -11,12 +10,16 @@
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
 
-  <!-- Global site styles -->
   <link rel="stylesheet" href="/style.css?v=20260201" />
 
-  <!-- Resources logic -->
+  <!-- Snapshot launcher (needed because you have a Take snapshot button here) -->
+  <script type="module" src="/snapshot/snapshot-shell.js"></script>
+
+  <!-- Reader + platform render (mounts signal + seed) -->
   <script src="/snapshot/snapshot-reader.js"></script>
-  <script src="/snapshot/snapshot-platform.js"></script>
+  <script src="/snapshot/snapshot-platform.js?v=1"></script>
+
+  <!-- Resources router -->
   <script src="/resources/resources-hub.js"></script>
 </head>
 
@@ -46,25 +49,17 @@
 
   <main id="main">
 
-    <!-- ===============================
-         HERO (MATCH HOME)
-         =============================== -->
     <section class="hero hub-hero">
       <div class="container">
         <div class="hero-grid hub-hero-grid">
           <div>
             <p class="eyebrow">Your personalised resources</p>
-
             <h1>Your Personalised Resources Hub</h1>
 
             <p class="lead">
               This page adapts to your household snapshot. It offers calm,
               practical guidance built specifically for your digital ecology.
             </p>
-
-            <div class="personalised-banner" id="personalisedBanner" hidden>
-              Personalised for you (from your latest snapshot)
-            </div>
 
             <div class="hub-actions">
               <button class="btn primary" type="button" data-open-snapshot>Take snapshot</button>
@@ -79,83 +74,31 @@
       </div>
     </section>
 
-    <!-- Platform layer mounts -->
+    <!-- ✅ REQUIRED MOUNTS -->
     <div class="container">
       <div data-cs-signal></div>
       <div style="height:12px"></div>
       <div data-cs-seeds></div>
     </div>
 
-    <!-- ===============================
-         MAIN CONTENT
-         =============================== -->
     <section class="hub-main">
       <div class="container">
         <div class="hub-grid">
 
-          <!-- LEFT COLUMN -->
           <section class="hub-col">
-
-            <!-- Focus -->
             <div class="card">
               <div class="card-pad">
                 <div class="card-header-row">
                   <p class="eyebrow">Your prioritised focus</p>
                   <span class="focus-badge" aria-hidden="true">Focus</span>
                 </div>
-
-                <h2 id="focusTitle">Loading…</h2>
-                <p class="section-lead" id="focusDesc"></p>
+                <h2 id="focusTitle">Your recommended focus</h2>
+                <p class="section-lead" id="focusDesc">Based on your snapshot.</p>
                 <div class="hub-chips" id="focusChips" aria-label="Focus tags"></div>
               </div>
             </div>
-
-            <!-- Lens Ring (Premium + personalised) -->
-            <div class="card card-strong">
-              <div class="card-pad">
-                <p class="eyebrow">Lens map</p>
-                <h2>Your five-lens safety ring</h2>
-                <p class="section-lead">
-                  A single view of your household’s digital ecosystem.
-                  The highlighted lens is your fastest improvement path.
-                  Tap any lens to get guidance.
-                </p>
-
-                <!-- If you later mount a ring SVG/diagram, mount it here -->
-                <div id="lensRingMount"></div>
-              </div>
-            </div>
-
-            <!-- Optional legacy bindings (safe to keep if used elsewhere) -->
-            <div class="card">
-              <div class="card-pad">
-                <h3>Snapshot signal</h3>
-                <div data-cs-signal-title></div>
-                <p data-cs-signal-message></p>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-pad">
-                <h3 data-cs-focus-title></h3>
-                <p data-cs-focus-why></p>
-                <p data-cs-focus-now></p>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-pad">
-                <h3>Your next step</h3>
-                <h4 data-cs-seed-title></h4>
-                <p data-cs-seed-today></p>
-                <p data-cs-seed-week></p>
-                <p data-cs-seed-month></p>
-              </div>
-            </div>
-
           </section>
 
-          <!-- RIGHT COLUMN (ROUTED RESOURCES) -->
           <aside class="hub-col" data-cs-resources-hub>
 
             <div data-cs-routing-banner></div>
@@ -168,25 +111,29 @@
               <span data-stage-label></span>
             </p>
 
-            <!-- Lens sections (router shows focus lens by default) -->
             <section data-resource-lens="privacy">
-              <!-- privacy resources -->
+              <h3>Accounts & Privacy</h3>
+              <p class="muted">Guidance will appear here.</p>
             </section>
 
             <section data-resource-lens="network">
-              <!-- network resources -->
+              <h3>Network</h3>
+              <p class="muted">Guidance will appear here.</p>
             </section>
 
             <section data-resource-lens="devices">
-              <!-- devices resources -->
+              <h3>Devices</h3>
+              <p class="muted">Guidance will appear here.</p>
             </section>
 
             <section data-resource-lens="scams">
-              <!-- scams resources -->
+              <h3>Scams & Messages</h3>
+              <p class="muted">Guidance will appear here.</p>
             </section>
 
             <section data-resource-lens="wellbeing">
-              <!-- wellbeing resources -->
+              <h3>Children & Wellbeing</h3>
+              <p class="muted">Guidance will appear here.</p>
             </section>
 
           </aside>
@@ -203,6 +150,11 @@
       <a href="/">Home</a>
     </div>
   </footer>
+
+  <script>
+    const y=document.getElementById("year");
+    if(y) y.textContent=String(new Date().getFullYear());
+  </script>
 
 </body>
 </html>
