@@ -595,11 +595,10 @@ finish(){
     // 3) Mark complete locally (stops the “leave snapshot?” confirm)
     this._completed = true;
 
-    // 4) Redirect to resources (this is the key fix for the white page)
-    // Close modal state first so body class doesn’t linger
+    // 4) Complete in-place: keep the user on the current page unless a caller redirects intentionally.
     document.body.classList.remove("modal-open");
 
-    window.location.assign("/resources/");
+    this.close();
 
   } catch(e){
 
