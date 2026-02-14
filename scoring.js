@@ -1,16 +1,16 @@
 const LENS_ORDER = ['network', 'devices', 'privacy', 'scams', 'wellbeing'];
 
 const QUESTION_BANK = [
-  { id: 'network_updates', lens: 'network', text: 'Is your home router still receiving software updates?' },
-  { id: 'network_guest', lens: 'network', text: 'Do visitors and smart devices use a separate guest Wi-Fi when possible?' },
-  { id: 'device_updates', lens: 'devices', text: 'Are phones, tablets, and laptops set to update automatically?' },
-  { id: 'device_backup', lens: 'devices', text: 'Does your household have a simple backup routine for important files and photos?' },
-  { id: 'privacy_recovery', lens: 'privacy', text: 'Are your main accounts protected with strong recovery options and two-step verification?' },
-  { id: 'privacy_passwords', lens: 'privacy', text: 'Are key account passwords unique rather than reused?' },
-  { id: 'scam_pause', lens: 'scams', text: 'If a message feels urgent, does your household pause and verify before responding?' },
-  { id: 'scam_reporting', lens: 'scams', text: 'Would everyone know how to report a suspicious text, email, or call?' },
-  { id: 'wellbeing_boundaries', lens: 'wellbeing', text: 'Do you have at least one regular device-light moment in the day?' },
-  { id: 'wellbeing_children', lens: 'wellbeing', text: 'Are children supported with clear app, chat, and gaming boundaries?' }
+  { id: 'network_updates', lens: 'network', text: 'When was your home Wi-Fi last checked or updated?' },
+  { id: 'network_guest', lens: 'network', text: 'How often do guests or smart devices use a separate Wi-Fi space?' },
+  { id: 'device_updates', lens: 'devices', text: 'How do device updates usually happen in your home?' },
+  { id: 'device_backup', lens: 'devices', text: 'How regularly do you back up important files or photos?' },
+  { id: 'privacy_recovery', lens: 'privacy', text: 'When signing in to key accounts, how often is there an extra check?' },
+  { id: 'privacy_passwords', lens: 'privacy', text: 'How often are important account passwords kept separate from each other?' },
+  { id: 'scam_pause', lens: 'scams', text: 'When a message feels urgent, how often do you pause before responding?' },
+  { id: 'scam_reporting', lens: 'scams', text: 'If something felt suspicious, how ready would your household feel to report it?' },
+  { id: 'wellbeing_boundaries', lens: 'wellbeing', text: 'How often do you keep a small device-light moment in the day?' },
+  { id: 'wellbeing_children', lens: 'wellbeing', text: 'How regularly do children get calm support with apps, chats, and gaming?' }
 ];
 
 const OPTION_WEIGHTS = {
