@@ -31,10 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderTransition = () => {
     modal.innerHTML = `
-      <div class="modal-shell transition-shell">
-        <h2>Your household signal is ready.</h2>
-        <p>Your snapshot has been saved on this device.</p>
-        <a class="btn-primary" href="/resources/">View your household signal</a>
+      <div class="modal-shell signal-shell">
+        <div class="signal-mark">
+          <span class="signal-dot"></span>
+        </div>
+
+        <h2 class="signal-title">Your household signal is ready.</h2>
+
+        <p class="signal-body">
+          This snapshot reflects patterns across your digital home.
+          It is not a judgement — only a starting point.
+        </p>
+
+        <p class="signal-sub">
+          You can now view your full household signal, lens breakdown and next digital seeds.
+        </p>
+
+        <a class="btn-primary signal-btn" href="/resources/">
+          View your household signal
+        </a>
       </div>
     `;
   };

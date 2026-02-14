@@ -19,9 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   root.innerHTML = `
     <section class="resource-panel">
-      <p class="kicker">Signal + interpretation</p>
-      <div id="signalMount"></div>
-      <div id="seedsMount"></div>
+      <div id="snapshotMount"></div>
       <section class="renewal-actions" aria-label="Renewal path">
         <a class="btn-secondary" href="/">Retake Snapshot</a>
         <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
@@ -30,38 +28,64 @@ document.addEventListener('DOMContentLoaded', () => {
     </section>
   `;
 
-  renderSignal(snapshot, document.getElementById('signalMount'));
-  renderSeeds(snapshot, document.getElementById('seedsMount'));
+  renderSnapshot(snapshot, document.getElementById('snapshotMount'));
 
   document.getElementById('downloadPassport')?.addEventListener('click', () => {
     downloadPassport(snapshot);
   });
 });
 
-export function renderSignal(snapshot, mount) {
-  if (!mount) return;
-  const lensMarkup = Object.entries(snapshot.lenses)
-    .map(([lens, value]) => {
-      return `
-        <li>
-          <div class="lens-row"><span>${capitalise(lens)}</span><span>${value}</span></div>
-          <div class="bar" role="img" aria-label="${lens} score ${value} out of 100"><span style="width:${value}%"></span></div>
-        </li>
-      `;
-    }).join('');
+export function renderSnapshot(snapshot, container) {
+  if (!container) return;
 
-  mount.innerHTML = `
-    <article class="signal-card">
-      <h1>Household Signal</h1>
-      <p class="tone-pill">Tone: ${capitalise(snapshot.tone)}</p>
-      <p class="score">HDSS ${snapshot.overallScore}</p>
-      <p class="cert">Certification: ${snapshot.certificationLevel}</p>
-      <p class="summary">${snapshot.narrativeSummary}</p>
-      <section>
-        <h2>Lens breakdown</h2>
-        <ul class="lens-list">${lensMarkup}</ul>
-      </section>
-    </article>
+  const toneTitles = {
+    stable: 'A steady digital pattern',
+    holding: 'A household holding steady',
+    strained: 'A household under digital pressure'
+  };
+
+  const toneDescriptions = {
+    stable: 'Your routines are supporting calm and control. Continued small rituals will help this pattern remain steady.',
+    holding: 'Your household has strong foundations. A few small adjustments can strengthen resilience over time.',
+    strained: 'Digital demands may be feeling heavier right now. Gentle, practical steps can gradually restore balance.'
+  };
+
+  container.innerHTML = `
+    <section class="signal-header">
+      <p class="signal-kicker">Household signal</p>
+      <h1 class="signal-pattern">${toneTitles[snapshot.tone]}</h1>
+      <p class="signal-description">${toneDescriptions[snapshot.tone]}</p>
+    </section>
+
+    <section class="signal-score-block">
+      <div class="score-circle">
+        <span class="score-number">${snapshot.overallScore}</span>
+        <span class="score-label">Overall pattern score</span>
+      </div>
+      <p class="certification-level">${snapshot.certificationLevel} level</p>
+    </section>
+
+    <section class="lens-breakdown">
+      <h2>Lens overview</h2>
+      ${Object.entries(snapshot.lenses).map(([lens, value]) => `
+        <div class="lens-row">
+          <div class="lens-row-head">
+            <span class="lens-name">${formatLensName(lens)}</span>
+            <span class="lens-value">${value}</span>
+          </div>
+          <div class="lens-bar">
+            <div class="lens-fill" style="width:${value}%"></div>
+          </div>
+        </div>
+      `).join('')}
+    </section>
+
+    <section class="digital-seeds">
+      <h2>Next digital seeds</h2>
+      <ul>
+        ${snapshot.digitalSeeds.map(seed => `<li>${seed}</li>`).join('')}
+      </ul>
+    </section>
   `;
 }
 
@@ -104,6 +128,6 @@ function downloadPassport(snapshot) {
   URL.revokeObjectURL(url);
 }
 
-function capitalise(value) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
+function formatLensName(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 }
