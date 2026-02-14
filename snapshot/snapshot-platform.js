@@ -218,8 +218,16 @@
     const seedContainer = $("[data-cs-seeds]");
 
     renderHDSS(signalContainer, snapshot);
-    renderSeeds(seedContainer, snapshot);
+    renderSeeds(seedContainer, snapshot); 
   }
+
+  const signalContainer = document.querySelector("[data-cs-signal]");
+  const seedContainer = document.querySelector("[data-cs-seeds]");
+
+  if (!signalContainer || !seedContainer){
+    console.warn("[CS] Missing mount containers on this page. Are you serving the correct /resources/index.html?");
+    return;
+  } 
 
   if(document.readyState==="loading"){
     document.addEventListener("DOMContentLoaded", init);
