@@ -29,20 +29,21 @@
     };
   }
 
-  function showFallback(){
-    const hub=$("[data-cs-resources-hub]");
+  function showFallback(hub){
     if(!hub) return;
 
-    $$("[data-resource-lens]").forEach(sec=>{
+    $$("[data-resource-lens]", hub).forEach(sec=>{
       sec.style.display="";
     });
 
-    const stageEl=$("[data-stage-label]");
+    const stageEl=$("[data-stage-label]", hub);
     if(stageEl) stageEl.textContent="";
 
-    $$("[data-focus-lens]").forEach(el=>{
+    $$("[data-focus-lens]", hub).forEach(el=>{
       el.textContent="";
     });
+
+    hub.dataset.focusLens="";
   }
 
   function applyRouting(){
@@ -53,25 +54,26 @@
     const snap=getSnapshot();
 
     if(!snap || !snap.focus){
-      showFallback();
+      showFallback(hub);
       return;
     }
 
     const focus=snap.focus;
     const stageLabel=snap.stage?.label || "";
 
-    document.body.dataset.focusLens=focus;
+    // Keep state local to the hub container; never mutate body/documentElement.
+    hub.dataset.focusLens=focus;
 
-    $$("[data-focus-lens]").forEach(el=>{
+    $$("[data-focus-lens]", hub).forEach(el=>{
       el.textContent=lensLabels()[focus]||focus;
     });
 
-    $$("[data-resource-lens]").forEach(sec=>{
+    $$("[data-resource-lens]", hub).forEach(sec=>{
       sec.style.display =
         sec.dataset.resourceLens===focus ? "" : "none";
     });
 
-    const stageEl=$("[data-stage-label]");
+    const stageEl=$("[data-stage-label]", hub);
     if(stageEl){
       stageEl.textContent=stageLabel;
     }
