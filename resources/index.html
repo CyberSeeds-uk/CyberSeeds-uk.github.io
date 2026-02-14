@@ -1,122 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f2f2a" />
-
-  <title>Cyber Seeds — Personalised Resources</title>
-  <meta name="description" content="Your personalised Cyber Seeds resources, built locally from your household snapshot." />
+  <meta name="theme-color" content="#13211e" />
+  <title>Cyber Seeds | Household Signal</title>
+  <meta name="description" content="Your household signal, interpretation, and digital seeds." />
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
-
-  <link rel="stylesheet" href="/style.css?v=20260201" />
-
-  <!-- Snapshot launcher (needed because you have a Take snapshot button here) -->
-  <script type="module" src="/snapshot/snapshot-shell.js"></script>
-
-  <!-- Reader + platform render (mounts signal + seed) -->
-  <script defer src="/snapshot/snapshot-reader.js"></script>
-  <script defer src="/snapshot/snapshot-platform.js?v=1"></script>
-
-  <!-- Resources router -->
+  <link rel="stylesheet" href="/snapshot-app.css" />
+  <script type="module" src="/resources.js" defer></script>
 </head>
-  <script src="/resources/resources-hub.js"></script>
-
 <body>
-
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="/" aria-label="Cyber Seeds home">
-        <img class="logo" src="/cyber_seeds_logo.png" alt="Cyber Seeds logo" />
-        <span class="brand-name">Cyber Seeds</span>
-      </a>
-
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="nav" data-nav>
-        <a href="/#why">Why Clarity</a>
-        <a href="/#lenses">Five Lenses</a>
-        <a href="/#snapshot">Snapshot</a>
-        <a href="/#about">About</a>
-        <a href="/#faq">FAQs</a>
-        <a href="/resources/" aria-current="page">Resources</a>
-      </nav>
-    </div>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
+      <span>Cyber Seeds</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="/">Home</a>
+    </nav>
   </header>
 
-  <main id="main">
-
-    <section class="hero hub-hero">
-      <div class="container">
-        <div class="hero-grid hub-hero-grid">
-          <div>
-            <p class="eyebrow">Your personalised resources</p>
-            <h1>Your Personalised Resources Hub</h1>
-
-            <p class="lead">
-              This page adapts to your household snapshot. It offers calm,
-              practical guidance built specifically for your digital ecology.
-            </p>
-
-            <div class="hub-actions">
-              <button class="btn primary" type="button" data-open-snapshot>Take snapshot</button>
-              <a class="btn ghost" href="/">Back to home</a>
-            </div>
-
-            <p class="hub-subnote">
-              Your results are created on this device. Nothing is uploaded.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ✅ REQUIRED MOUNTS -->
-    <div class="container">
-      <div data-cs-signal></div>
-      <div style="height:12px"></div>
-      <div data-cs-seeds></div>
-    </div>
-
-    <section class="hub-main">
-      <div class="container">
-        <div class="hub-grid">
-
-          <section class="hub-col">
-            <div class="card">
-              <div class="card-pad">
-                <div class="card-header-row">
-                  <p class="eyebrow">Your prioritised focus</p>
-                  <span class="focus-badge" aria-hidden="true">Focus</span>
-                </div>
-                <h2 id="focusTitle">Your recommended focus</h2>
-                <p class="section-lead" id="focusDesc">Based on your snapshot.</p>
-                <div class="hub-chips" id="focusChips" aria-label="Focus tags"></div>
-              </div>
-            </div>
-          </section>
-
-          <aside class="hub-col" data-cs-resources-hub>
-
-          <div data-cs-routing-banner></div>
-
-        
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> Cyber Seeds</div>
-      <a href="/">Home</a>
-    </div>
-  </footer>
-
-  <script>
-    const y=document.getElementById("year");
-    if(y) y.textContent=String(new Date().getFullYear());
-  </script>
-
+  <main class="resource-main" id="resourcesRoot" aria-live="polite"></main>
 </body>
 </html>
