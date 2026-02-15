@@ -7,8 +7,10 @@
 
 "use strict";
 
-const SNAP_KEY = "cyberseeds_snapshot_v3";
-const HISTORY_KEY = "cyberseeds_snapshots_v1";
+const SNAP_KEY = "cyberseeds_snapshot_latest_v3";
+const HISTORY_KEY = "cyberseeds_snapshot_history_v3";
+const LEGACY_SNAP_KEYS = ["cyberseeds_snapshot_v3", "cs_snapshot_latest", "cyberseeds_snapshot_v1"];
+const LEGACY_HISTORY_KEYS = ["cyberseeds_snapshots_v1", "cs_snapshot_history"];
 
 /* ---------------- Utilities ---------------- */
 
@@ -17,11 +19,37 @@ function safeParse(v,f=null){
   catch{ return f; }
 }
 
+function migrateLegacyKeys(){
+  try{
+    if (!localStorage.getItem(SNAP_KEY)){
+      for (const key of LEGACY_SNAP_KEYS){
+        const raw = localStorage.getItem(key);
+        if (raw){
+          localStorage.setItem(SNAP_KEY, raw);
+          break;
+        }
+      }
+    }
+
+    if (!localStorage.getItem(HISTORY_KEY)){
+      for (const key of LEGACY_HISTORY_KEYS){
+        const raw = localStorage.getItem(key);
+        if (raw){
+          localStorage.setItem(HISTORY_KEY, raw);
+          break;
+        }
+      }
+    }
+  }catch{}
+}
+
 function getRawSnapshot(){
+  migrateLegacyKeys();
   return safeParse(localStorage.getItem(SNAP_KEY), null);
 }
 
 function getHistory(){
+  migrateLegacyKeys();
   return safeParse(localStorage.getItem(HISTORY_KEY), []);
 }
 
@@ -101,6 +129,7 @@ function renderLatestSignal(){
 
   const lensMap = lensLabels();
   const comparison = compareWithPrevious(snapshot);
+  const stageLabel = typeof snapshot.stage === "string" ? snapshot.stage : (snapshot.stage?.label || "—");
 
   const lensChips =
     Object.entries(snapshot.lenses || {})
@@ -131,7 +160,7 @@ function renderLatestSignal(){
 
       <div class="resultRow">
         <span class="chip">${snapshot.total}/100</span>
-        <span class="chip">Stage: ${snapshot.stage?.label || "—"}</span>
+        <span class="chip">Stage: ${stageLabel}</span>
         <span class="chip">
           Focus: ${lensMap[snapshot.focus] || "—"}
         </span>
@@ -155,6 +184,7 @@ function personaliseResources(){
   if (!snapshot) return;
 
   const lensMap = lensLabels();
+  const stageLabel = typeof snapshot.stage === "string" ? snapshot.stage : snapshot.stage?.label;
 
   document
     .querySelectorAll("[data-focus-lens]")
@@ -167,18 +197,16 @@ function personaliseResources(){
     .querySelectorAll("[data-stage-label]")
     .forEach(el=>{
       el.textContent =
-        snapshot.stage?.label
-          ? `— ${snapshot.stage.label}`
+        stageLabel
+          ? `— ${stageLabel}`
           : "";
     });
 
-  // Body class for CSS filtering
   if (snapshot.focus){
     document.body.dataset.focusLens =
       snapshot.focus;
   }
 
-  // Hide non-focus resource sections
   document
     .querySelectorAll("[data-resource-lens]")
     .forEach(section=>{
@@ -234,6 +262,7 @@ function bindLiveUpdates(){
 /* ---------------- Init ---------------- */
 
 function init(){
+  migrateLegacyKeys();
   renderLatestSignal();
   personaliseResources();
   bindExport();

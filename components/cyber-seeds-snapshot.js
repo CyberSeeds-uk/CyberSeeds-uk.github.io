@@ -18,6 +18,17 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this._refs = {};
     this._isOpen = false;
+    this._isComplete = false;
+    this._boundKeydown = e => {
+      if (!this._isOpen) return;
+      if (e.key === "Escape"){
+        this.close();
+        return;
+      }
+      if (e.key === "Tab"){
+        this.trapFocus(e);
+      }
+    };
   }
 
 
@@ -81,40 +92,48 @@ class CyberSeedsSnapshot extends HTMLElement {
         display:block;
       }
 
-      .backdrop{
+      .wrap{
         position:fixed;
         inset:0;
-        background:rgba(10,18,17,.75);
-        backdrop-filter:blur(4px);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding-top:calc(16px + env(safe-area-inset-top));
+        padding-bottom:calc(16px + env(safe-area-inset-bottom));
+        padding-left:14px;
+        padding-right:14px;
         opacity:0;
         pointer-events:none;
         transition:.18s;
         z-index:9998;
       }
 
+      .backdrop{
+        position:absolute;
+        inset:0;
+        background:rgba(10,18,17,.75);
+        backdrop-filter:blur(4px);
+      }
+
       .modal{
-        position:fixed;
-        left:50%;
-        top:50%;
-        transform:translate(-50%,-48%) scale(.98);
+        position:relative;
         width:min(860px, calc(100vw - 28px));
-        max-height:82vh;
+        max-height:calc(100dvh - (32px + env(safe-area-inset-top) + env(safe-area-inset-bottom)));
         background:#fff;
         border:1px solid rgba(0,0,0,.06);
         border-radius:var(--radius2);
         box-shadow:0 40px 80px rgba(0,0,0,.25);
-        opacity:0;
-        pointer-events:none;
-        transition:.18s;
-        z-index:9999;
         display:flex;
         flex-direction:column;
         overflow:hidden;
         font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+        transform:scale(.98);
+        transition:.18s;
+        opacity:0;
       }
 
-      .is-open .backdrop{opacity:1;pointer-events:auto;}
-      .is-open .modal{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+      .is-open{opacity:1;pointer-events:auto;}
+      .is-open .modal{opacity:1;transform:scale(1);}
 
       .top{
         padding:18px 20px;
@@ -159,10 +178,12 @@ class CyberSeedsSnapshot extends HTMLElement {
         cursor:pointer;
       }
 
-      .choice:has(input:checked){
+      .choice.is-selected{
         border-color:var(--brand);
         background:#eef7f6;
       }
+
+      .choice input{margin-top:2px;}
 
       .footer{
         padding:14px 20px;
@@ -227,6 +248,39 @@ class CyberSeedsSnapshot extends HTMLElement {
         background:linear-gradient(90deg,var(--brand),var(--brand2));
         transition:.4s;
       }
+
+      :where(button,input,[tabindex]):focus-visible{
+        outline:2px solid var(--brand2);
+        outline-offset:2px;
+      }
+
+      .sr-only{
+        position:absolute;
+        width:1px;
+        height:1px;
+        padding:0;
+        margin:-1px;
+        overflow:hidden;
+        clip:rect(0,0,0,0);
+        white-space:nowrap;
+        border:0;
+      }
+
+      @media (max-width:600px){
+        .wrap{
+          padding-left:4px;
+          padding-right:4px;
+        }
+
+        .modal{
+          width:calc(100vw - 8px);
+          max-height:calc(100dvh - (16px + env(safe-area-inset-top) + env(safe-area-inset-bottom)));
+          border-radius:16px;
+        }
+
+        .top,.body,.footer{padding-left:16px;padding-right:16px;}
+        .choice{padding:14px;min-height:44px;}
+      }
     `;
 
 
@@ -281,6 +335,8 @@ class CyberSeedsSnapshot extends HTMLElement {
 
         </section>
 
+        <div class="sr-only" id="csLive" aria-live="polite"></div>
+
       </div>
     `;
   }
@@ -304,6 +360,7 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.meta     = $("#csMeta");
     this._refs.back     = $("#csBack");
     this._refs.next     = $("#csNext");
+    this._refs.live     = $("#csLive");
   }
 
 
@@ -315,11 +372,7 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.close.addEventListener("click", () => this.close());
     this._refs.backdrop.addEventListener("click", () => this.close());
 
-    window.addEventListener("keydown", e => {
-      if (e.key === "Escape" && this._isOpen){
-        this.close();
-      }
-    });
+    window.addEventListener("keydown", this._boundKeydown);
 
     this._refs.back.addEventListener("click", () => this.onBack());
     this._refs.next.addEventListener("click", () => this.onNext());
@@ -335,18 +388,31 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this._isOpen = true;
 
+    this.restoreDraft();
+
+    if (this.step >= 0){
+      this.renderQuestion();
+    } else {
+      this.renderIntro();
+    }
+    this.setNavState();
+
     this._refs.wrap.classList.add("is-open");
     this._refs.wrap.setAttribute("aria-hidden","false");
 
     document.body.classList.add("modal-open");
+    document.body.style.overflow = "hidden";
+
+    requestAnimationFrame(() => this.focusFirstElement());
   }
 
 
   close(){
 
-    if(this.step >= 0){
-      const ok = confirm("Leave the snapshot? Your answers won’t be saved.");
+    if (!this._isComplete && this.step >= 0 && this.hasDraft()){
+      const ok = confirm("Leave the snapshot? Your unfinished answers on this device will be discarded.");
       if(!ok) return;
+      this.clearDraft();
     }
 
     if (!this._refs.wrap) return;
@@ -357,6 +423,37 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.wrap.setAttribute("aria-hidden","true");
 
     document.body.classList.remove("modal-open");
+    document.body.style.overflow = "";
+  }
+
+  focusables(){
+    return Array.from(this.shadowRoot.querySelectorAll(
+      ".modal button, .modal [href], .modal input, .modal select, .modal textarea, .modal [tabindex]:not([tabindex='-1'])"
+    )).filter(el => !el.disabled && el.offsetParent !== null);
+  }
+
+  focusFirstElement(){
+    const first = this.focusables()[0];
+    first?.focus();
+  }
+
+  trapFocus(e){
+    const items = this.focusables();
+    if (!items.length) return;
+
+    const first = items[0];
+    const last = items[items.length - 1];
+
+    if (e.shiftKey && document.activeElement === first){
+      e.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!e.shiftKey && document.activeElement === last){
+      e.preventDefault();
+      first.focus();
+    }
   }
 
 
@@ -385,6 +482,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this._refs.back.disabled = (this.step <= 0);
     this._refs.next.disabled = false;
+    this._refs.next.onclick = null;
 
 
     if (!hasQuestions){
@@ -454,7 +552,7 @@ class CyberSeedsSnapshot extends HTMLElement {
     `;
   }
 
-  renderQuestion() {
+   renderQuestion() {
 
      const q = this.questions[this.step];
      if (!q) return;
@@ -475,7 +573,7 @@ class CyberSeedsSnapshot extends HTMLElement {
        const label = o.label || `Option ${i + 1}`;
    
        return `
-         <label class="choice">
+         <label class="choice ${checked ? "is-selected" : ""}">
            <input
              type="radio"
              name="${name}"
@@ -513,13 +611,23 @@ class CyberSeedsSnapshot extends HTMLElement {
          radio.addEventListener("change", () => {
    
            this.answers[q.id] = Number(radio.value);
-   
+           this._refs.panel
+             .querySelectorAll(".choice")
+             .forEach(choice => choice.classList.remove("is-selected"));
+           radio.closest(".choice")?.classList.add("is-selected");
+
+           this.saveDraft();
+
            this.setNavState();
    
          });
    
        });
-   
+
+    if (this._refs.live){
+      this._refs.live.textContent = `Step ${this.step + 1} of ${this.questions.length}`;
+    }
+
    }	
 
   /* ---------------- Navigation ---------------- */
@@ -540,6 +648,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this.renderQuestion();
     this.setNavState();
+    this.saveDraft();
   }
 
 
@@ -548,9 +657,11 @@ class CyberSeedsSnapshot extends HTMLElement {
     if (this.step < 0){
 
       this.step = 0;
+      this._isComplete = false;
 
       this.renderQuestion();
       this.setNavState();
+      this.saveDraft();
 
       return;
     }
@@ -569,6 +680,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this.renderQuestion();
     this.setNavState();
+    this.saveDraft();
   }
 
 
@@ -682,6 +794,8 @@ class CyberSeedsSnapshot extends HTMLElement {
 
 
       this.renderComplete(canonical);
+      this._isComplete = true;
+      this.clearDraft();
 
     }
     catch(e){
@@ -698,6 +812,23 @@ class CyberSeedsSnapshot extends HTMLElement {
 
     this._refs.kicker.textContent = "Snapshot complete";
     this._refs.title.textContent  = "Thank you for checking in";
+
+    let seedBlock = `<p style="margin-top:12px">No digital seed available yet.</p>`;
+    const seeds = this.api?.seedsForLens
+      ? this.api.seedsForLens(snapshot.focus)
+      : [];
+
+    if (Array.isArray(seeds) && seeds.length){
+      const first = seeds[0] || {};
+      seedBlock = `
+        <div class="resultCard" style="margin-top:12px">
+          <h3>${first.title || "Digital seed"}</h3>
+          <p><strong>Today:</strong> ${first.today || ""}</p>
+          <p><strong>This week:</strong> ${first.week || first.thisWeek || ""}</p>
+          <p><strong>This month:</strong> ${first.month || first.thisMonth || ""}</p>
+        </div>
+      `;
+    }
 
 
     this._refs.panel.innerHTML = `
@@ -722,6 +853,8 @@ class CyberSeedsSnapshot extends HTMLElement {
         </p>
 
       </div>
+
+      ${seedBlock}
     `;
 
 
@@ -732,7 +865,6 @@ class CyberSeedsSnapshot extends HTMLElement {
     this._refs.next.onclick = () => this.close();
 
 
-    localStorage.removeItem("cs_snapshot_draft");
   }
 
 
@@ -741,6 +873,48 @@ class CyberSeedsSnapshot extends HTMLElement {
 
   safeParse(v,f=null){
     try{ return JSON.parse(v); }catch{ return f; }
+  }
+
+  draftKey(){
+    return "cs_snapshot_draft_v3";
+  }
+
+  hasDraft(){
+    try{
+      return !!localStorage.getItem(this.draftKey());
+    }catch{
+      return false;
+    }
+  }
+
+  saveDraft(){
+    if (this.step < 0 || this._isComplete) return;
+    try{
+      localStorage.setItem(
+        this.draftKey(),
+        JSON.stringify({ answers: this.answers, step: this.step, ts: Date.now() })
+      );
+    }catch{}
+  }
+
+  restoreDraft(){
+    if (this._isComplete) return;
+    try{
+      const parsed = this.safeParse(localStorage.getItem(this.draftKey()), null);
+      if (!parsed || typeof parsed !== "object") return;
+
+      if (parsed.answers && typeof parsed.answers === "object"){
+        this.answers = { ...parsed.answers };
+      }
+
+      if (Number.isInteger(parsed.step) && parsed.step >= 0 && parsed.step < this.questions.length){
+        this.step = parsed.step;
+      }
+    }catch{}
+  }
+
+  clearDraft(){
+    try{ localStorage.removeItem(this.draftKey()); }catch{}
   }
 
 

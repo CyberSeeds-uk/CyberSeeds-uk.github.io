@@ -6,14 +6,16 @@
 (function(){
   "use strict";
 
-  const SNAP_KEY = "cyberseeds_snapshot_v3";
-  const HISTORY_KEY = "cyberseeds_snapshots_v1";
-  const BASELINE_KEY = "cyberseeds_snapshot_baseline_v1";
+  const SNAP_KEY = "cyberseeds_snapshot_latest_v3";
+  const HISTORY_KEY = "cyberseeds_snapshot_history_v3";
+  const BASELINE_KEY = "cyberseeds_snapshot_baseline_v3";
+  const LEGACY_SNAP_KEYS = ["cyberseeds_snapshot_v3", "cs_snapshot_latest", "cyberseeds_snapshot_v1"];
+  const LEGACY_HISTORY_KEYS = ["cyberseeds_snapshots_v1", "cs_snapshot_history"];
+  const LEGACY_BASELINE_KEYS = ["cyberseeds_snapshot_baseline_v1", "cs_snapshot_baseline"];
 
   const VERSION = "v4.0";
 
   const $ = (s,r=document)=>r.querySelector(s);
-  const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
 
   /* ---------------- Utilities ---------------- */
 
@@ -21,15 +23,52 @@
     try{ return JSON.parse(v); }catch{ return f; }
   }
 
+  function migrateLegacyKeys(){
+    try{
+      if (!localStorage.getItem(SNAP_KEY)){
+        for (const key of LEGACY_SNAP_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(SNAP_KEY, raw);
+            break;
+          }
+        }
+      }
+
+      if (!localStorage.getItem(HISTORY_KEY)){
+        for (const key of LEGACY_HISTORY_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(HISTORY_KEY, raw);
+            break;
+          }
+        }
+      }
+
+      if (!localStorage.getItem(BASELINE_KEY)){
+        for (const key of LEGACY_BASELINE_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(BASELINE_KEY, raw);
+            break;
+          }
+        }
+      }
+    }catch{}
+  }
+
   function getSnapshot(){
+    migrateLegacyKeys();
     return safeParse(localStorage.getItem(SNAP_KEY), null);
   }
 
   function getHistory(){
+    migrateLegacyKeys();
     return safeParse(localStorage.getItem(HISTORY_KEY), []);
   }
 
   function getBaseline(){
+    migrateLegacyKeys();
     return safeParse(localStorage.getItem(BASELINE_KEY), null);
   }
 
@@ -210,6 +249,7 @@
   /* ---------------- INIT ---------------- */
 
   function init(){
+    migrateLegacyKeys();
     const signalContainer = $("[data-cs-signal]");
     const seedContainer = $("[data-cs-seeds]");
     if(!signalContainer || !seedContainer) return;
@@ -217,8 +257,9 @@
     const snapshot = getSnapshot();
     if(!snapshot) return;
 
+    getHistory();
     renderHDSS(signalContainer, snapshot);
-    renderSeeds(seedContainer, snapshot); 
+    renderSeeds(seedContainer, snapshot);
   }
 
   if(document.readyState==="loading"){
