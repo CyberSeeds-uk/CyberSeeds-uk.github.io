@@ -6,7 +6,7 @@
 (function(){
   "use strict";
 
-  const SNAP_KEY = "cyberseeds_snapshot_v3";
+  const SNAP_KEY = "cyberseeds_snapshot_latest_v3";
 
   const $  = (s,r=document)=>r.querySelector(s);
   const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
