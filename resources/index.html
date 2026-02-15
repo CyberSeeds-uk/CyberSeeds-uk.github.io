@@ -9,6 +9,55 @@
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
   <link rel="stylesheet" href="/snapshot-app.css" />
+  <style>
+    .cs-lensRow{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      overflow:clip;
+      margin:12px 0;
+    }
+    .cs-lensToggle{
+      width:100%;
+      text-align:left;
+      border:0;
+      background:transparent;
+      padding:14px;
+      display:grid;
+      grid-template-columns:140px 1fr;
+      gap:14px;
+      align-items:start;
+      cursor:pointer;
+    }
+    .cs-lensLeft{display:grid;gap:4px}
+    .cs-lensName{font-weight:650;color:var(--ink);line-height:1.2}
+    .cs-lensScore{color:var(--muted);font-size:.95rem;line-height:1.2}
+    .cs-lensRight{display:grid;gap:6px;min-width:0}
+    .cs-lensBand{font-weight:650;font-size:.85rem;color:var(--brand2)}
+    .cs-lensSummary{color:var(--muted);font-size:.95rem;line-height:1.45}
+    .cs-lensDetails{
+      border-top:1px solid var(--line);
+      background:var(--mint2);
+      padding:14px 14px 16px;
+    }
+    .cs-lensInterpretation,
+    .cs-lensDirection{margin:0 0 10px;line-height:1.55;color:var(--ink)}
+    .cs-lensDirection{margin-bottom:0}
+    .cs-lensToggle:focus-visible{
+      outline:3px solid rgba(26,106,93,.35);
+      outline-offset:2px;
+      border-radius:12px;
+    }
+    .cs-lensRow--focus{
+      border-color:rgba(15,47,42,.35);
+      box-shadow:0 1px 0 rgba(15,47,42,.08);
+    }
+    @media (max-width:640px){
+      .cs-lensToggle{grid-template-columns:1fr}
+      .cs-lensLeft{grid-template-columns:1fr auto;align-items:baseline}
+      .cs-lensScore{justify-self:end}
+    }
+  </style>
   <script type="module" src="/resources/resources-hub.js"></script>
 </head>
 <body>
