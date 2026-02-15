@@ -31,6 +31,53 @@
     return lensLabels()[value] || (value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
   }
 
+  function getLensBand(value){
+    if (value >= 75) return "Established";
+    if (value >= 50) return "Developing";
+    return "Emerging";
+  }
+
+  function getLensSummary(lens, value){
+    const band = getLensBand(value).toLowerCase();
+    const labels = {
+      network: `Network foundations are ${band} and can be strengthened with small routine checks.`,
+      devices: `Device habits are ${band} and benefit from calm consistency across the household.`,
+      privacy: `Account and privacy routines are ${band} with room for clearer defaults.`,
+      scams: `Scam and message awareness is ${band} and can improve through shared pause habits.`,
+      wellbeing: `Children and wellbeing support is ${band} with space to keep expectations clear and gentle.`
+    };
+    return labels[lens] || `This lens is ${band} and can move forward through steady, manageable steps.`;
+  }
+
+  function getLensDetails(lens){
+    const copy = {
+      network: {
+        interpretation: "A stable home connection supports everyday trust. Small improvements like router checks and known-device reviews help the whole household feel more settled.",
+        next: "Set one recurring moment each month to review router settings and remove unknown devices."
+      },
+      devices: {
+        interpretation: "Shared device routines reduce friction and support safer defaults. Clear charging, update, and handover habits make digital life easier for adults and children.",
+        next: "Agree one simple household device routine, such as a weekly update check before weekend use."
+      },
+      privacy: {
+        interpretation: "Privacy settings work best when they are understandable and repeatable. Keeping account controls simple helps everyone maintain confidence without extra pressure.",
+        next: "Choose one important account and review sign-in and recovery settings together."
+      },
+      scams: {
+        interpretation: "Scam resistance grows through shared pause-and-check behaviours. A calm response plan helps reduce urgency and protects decision-making.",
+        next: "Create a family pause phrase to use before clicking links or sharing codes."
+      },
+      wellbeing: {
+        interpretation: "Digital wellbeing is strengthened by predictable boundaries and open conversations. Children benefit when expectations are clear and support is non-judgemental.",
+        next: "Set one short weekly check-in about online experiences and what support is needed."
+      }
+    };
+    return copy[lens] || {
+      interpretation: "Steady routines build resilience over time. Small and repeated actions are usually more sustainable than big one-off changes.",
+      next: "Pick one manageable improvement and revisit it in a week."
+    };
+  }
+
   async function getFocusSeed(focus){
     if (!focus) return null;
     try{
@@ -92,14 +139,17 @@
     const stageMessage = snapshot.signal?.summary || snapshot.stage?.message || "This snapshot is a supportive signal to help you choose your next calm step.";
     const focusLens = formatLensName(snapshot.focus || "privacy");
 
-    const seed = await getFocusSeed(snapshot.focus);
+    const focusLensKey = snapshot.focus || "privacy";
+    const seed = await getFocusSeed(focusLensKey);
+    const weekText = seed?.this_week || seed?.thisWeek || seed?.week || "";
+    const monthText = seed?.this_month || seed?.thisMonth || seed?.month || "";
     const seedHtml = seed
       ? `
         <section class="resultCard" style="margin-top:16px">
           <h2>${seed.title || "Digital seed"}</h2>
           <p><strong>Today:</strong> ${seed.today || ""}</p>
-          <p><strong>This week:</strong> ${seed.week || seed.thisWeek || ""}</p>
-          <p><strong>This month:</strong> ${seed.month || seed.thisMonth || ""}</p>
+          ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
+          ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
         </section>
       `
       : `
@@ -130,15 +180,25 @@
         <section class="lens-breakdown">
           <h2>Lens overview</h2>
           ${Object.entries(lensValues).map(([lens, value]) => `
-            <div class="lens-row" data-resource-lens="${lens}">
-              <div class="lens-row-head">
-                <span class="lens-name">${formatLensName(lens)}</span>
-                <span class="lens-value">${Math.round(value)}</span>
+            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
+              <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
+                <div class="cs-lensLeft">
+                  <div class="cs-lensName">${formatLensName(lens)}</div>
+                  <div class="cs-lensScore">${Math.round(value)}</div>
+                </div>
+                <div class="cs-lensRight">
+                  <div class="cs-lensBand">${getLensBand(value)}</div>
+                  <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+                </div>
+              </button>
+              <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
+                <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
+                <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
               </div>
-              <div class="lens-bar">
+              <div class="lens-bar" style="padding:0 14px 14px;">
                 <div class="lens-fill" style="width:${Math.round(value)}%"></div>
               </div>
-            </div>
+            </article>
           `).join("")}
         </section>
 
@@ -152,6 +212,16 @@
 
     document.getElementById("downloadPassport")?.addEventListener("click", () => {
       downloadPassport(snapshot);
+    });
+
+    root.querySelectorAll(".cs-lensToggle").forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const details = toggle.parentElement?.querySelector(".cs-lensDetails");
+        if (!details) return;
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!expanded));
+        details.hidden = expanded;
+      });
     });
   }
 
