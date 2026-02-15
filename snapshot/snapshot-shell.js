@@ -281,7 +281,7 @@
             <div class="body">
 
               <div id="csHint">
-                This is a calm check-in — not a test.
+                This is a calm signal — not a test.
               </div>
 
               <div id="csPanel"></div>
@@ -458,7 +458,6 @@
 
         <p style="margin-top:12px; color:var(--muted);">
           Nothing is uploaded. Everything stays on this device.
-          There are no scores, rankings, or judgments.
         </p>
       `;
     }
