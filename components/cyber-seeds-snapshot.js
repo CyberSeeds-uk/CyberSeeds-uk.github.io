@@ -56,6 +56,8 @@ class CyberSeedsSnapshot extends HTMLElement {
     this.step = -1;
     this.answers = {};
 
+    this.migrateLegacySnapshots();
+
     this.renderIntro();
     this.setNavState();
   }
@@ -573,6 +575,14 @@ class CyberSeedsSnapshot extends HTMLElement {
 
   /* ---------------- Canon ---------------- */
 
+  storageKeys(){
+    return {
+      latest: "cyberseeds_snapshot_latest_v3",
+      history: "cyberseeds_snapshot_history_v3",
+      baseline: "cyberseeds_snapshot_baseline_v3"
+    };
+  }
+
   lensLabels(){
     return {
       network:"Network",
@@ -595,6 +605,11 @@ class CyberSeedsSnapshot extends HTMLElement {
 
 
     const lenses = Object.fromEntries(
+      Object.entries(scored.lensScores || {})
+        .map(([k,v]) => [k,Math.round(v)])
+    );
+
+    const lensPercents = Object.fromEntries(
       Object.entries(scored.lensPercents || {})
         .map(([k,v]) => [k,Math.round(v)])
     );
@@ -612,11 +627,13 @@ class CyberSeedsSnapshot extends HTMLElement {
 
       lenses,
 
-      lensPercents:lenses,
+      lensPercents,
 
       answers:{...this.answers},
 
       focus:scored.focus,
+
+      stage:scored.stage?.label || "",
 
       strongest:scored.strongest,
 
@@ -728,8 +745,7 @@ class CyberSeedsSnapshot extends HTMLElement {
 
 
   loadHistory(){
-
-    const key = "cyberseeds_snapshots_v1";
+    const key = this.storageKeys().history;
 
     try{
 
@@ -746,24 +762,116 @@ class CyberSeedsSnapshot extends HTMLElement {
 
 
   saveHistory(h){
-
+    const { history, baseline } = this.storageKeys();
     try{
       localStorage.setItem(
-        "cyberseeds_snapshots_v1",
+        history,
         JSON.stringify(h)
       );
+
+      if (h.length){
+        localStorage.setItem(
+          baseline,
+          JSON.stringify(h[h.length-1])
+        );
+      }
     }catch{}
   }
 
 
   saveSnapshotCanonical(s){
-
+    const { latest } = this.storageKeys();
     try{
       localStorage.setItem(
-        "cyberseeds_snapshot_v3",
+        latest,
         JSON.stringify(s)
       );
     }catch{}
+  }
+
+  toCanonicalSnapshot(raw){
+    if(!raw || typeof raw !== "object") return null;
+
+    const lensPercents = raw.lensPercents || raw.lenses || {};
+    const focus = raw.focus || raw.weakest || "privacy";
+    const total = Number.isFinite(raw.total)
+      ? raw.total
+      : Number.isFinite(raw.hdss)
+        ? raw.hdss
+        : Number.isFinite(raw.overallScore)
+          ? raw.overallScore
+          : 0;
+
+    return {
+      schema: "cs.snapshot.v3",
+      id: String(raw.id || raw.snapshotId || `migrated-${Date.now()}`),
+      timestamp: Number.isFinite(raw.timestamp)
+        ? raw.timestamp
+        : Date.parse(raw.timestamp || "") || Date.now(),
+      total: Math.round(total),
+      lenses: raw.lenses && typeof raw.lenses === "object" ? raw.lenses : {},
+      lensPercents: lensPercents && typeof lensPercents === "object" ? lensPercents : {},
+      focus,
+      stage: typeof raw.stage === "string" ? raw.stage : (raw.stage?.label || raw.certificationLevel || ""),
+      answers: raw.answers && typeof raw.answers === "object" ? raw.answers : {},
+      strongest: raw.strongest || null,
+      weakest: raw.weakest || focus,
+      seed: raw.seed || null,
+      rationale: raw.rationale || raw.narrativeSummary || "",
+      signal: raw.signal || null
+    };
+  }
+
+  migrateLegacySnapshots(){
+    const { latest, history, baseline } = this.storageKeys();
+    const legacyKeys = [
+      "cs_snapshot_latest",
+      "cs_snapshot_history",
+      "cyberseeds_snapshot_v1",
+      "cyberseeds_snapshot_v3",
+      "cyberseeds_snapshots_v1"
+    ];
+
+    const hasCanonical =
+      localStorage.getItem(latest) || localStorage.getItem(history);
+
+    if (hasCanonical){
+      legacyKeys.forEach(k => localStorage.removeItem(k));
+      return;
+    }
+
+    const migrated = [];
+    legacyKeys.forEach(k => {
+      const parsed = this.safeParse(localStorage.getItem(k), null);
+      if (!parsed) return;
+      if (Array.isArray(parsed)){
+        parsed.forEach(item => {
+          const canon = this.toCanonicalSnapshot(item);
+          if (canon) migrated.push(canon);
+        });
+      } else {
+        const canon = this.toCanonicalSnapshot(parsed);
+        if (canon) migrated.push(canon);
+      }
+    });
+
+    if (migrated.length){
+      const unique = [];
+      const seen = new Set();
+      migrated
+        .sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0))
+        .forEach(s => {
+          if (seen.has(s.id)) return;
+          seen.add(s.id);
+          unique.push(s);
+        });
+
+      localStorage.setItem(latest, JSON.stringify(unique[0]));
+      localStorage.setItem(history, JSON.stringify(unique.slice(0,24)));
+      localStorage.setItem(baseline, JSON.stringify(unique[unique.length-1]));
+    }
+
+    legacyKeys.forEach(k => localStorage.removeItem(k));
   }
 
 

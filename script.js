@@ -367,7 +367,7 @@
    
   (function renderExistingIfPresent(){
      try {
-       const raw = localStorage.getItem("cyberseeds_snapshot_v3");
+       const raw = localStorage.getItem("cyberseeds_snapshot_latest_v3");
        if (!raw) return;
        const parsed = JSON.parse(raw);
        if (!parsed) return;
