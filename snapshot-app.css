@@ -6,6 +6,8 @@
   --muted: #576461;
   --line: #d9e0de;
   --accent: #1c4e42;
+  --brand: var(--accent);
+  --brand2: var(--accent);
   --accent-soft: #e4eeeb;
 }
 
