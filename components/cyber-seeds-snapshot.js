@@ -819,16 +819,29 @@ class CyberSeedsSnapshot extends HTMLElement {
       : [];
 
     if (Array.isArray(seeds) && seeds.length){
-      const first = seeds[0] || {};
-      seedBlock = `
-        <div class="resultCard" style="margin-top:12px">
-          <h3>${first.title || "Digital seed"}</h3>
-          <p><strong>Today:</strong> ${first.today || ""}</p>
-          <p><strong>This week:</strong> ${first.week || first.thisWeek || ""}</p>
-          <p><strong>This month:</strong> ${first.month || first.thisMonth || ""}</p>
-        </div>
-      `;
-    }
+     const first = seeds[0] || {};
+   
+     const weekText =
+       first?.this_week ||
+       first?.thisWeek ||
+       first?.week ||
+       "";
+   
+     const monthText =
+       first?.this_month ||
+       first?.thisMonth ||
+       first?.month ||
+       "";
+   
+     seedBlock = `
+       <div class="resultCard" style="margin-top:12px">
+         <h3>${first.title || "Digital seed"}</h3>
+         <p><strong>Today:</strong> ${first.today || ""}</p>
+         ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
+         ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
+       </div>
+     `;
+   }
 
 
     this._refs.panel.innerHTML = `
