@@ -16,6 +16,34 @@
     return safeParse(localStorage.getItem(SNAP_KEY),null);
   }
 
+  function normalizeSnapshot(snapshot){
+    if (!snapshot || typeof snapshot !== "object") return null;
+    const now = Date.now();
+    const lensPercents = snapshot.lensPercents || snapshot.lenses || {};
+    const stageValue = snapshot.stage;
+    const stage = typeof stageValue === "string"
+      ? { label: stageValue, message: snapshot.signal?.summary || "" }
+      : {
+          label: stageValue?.label || "Current snapshot stage",
+          message: stageValue?.message || snapshot.signal?.summary || ""
+        };
+
+    return {
+      ...snapshot,
+      schema: snapshot.schema || "cs.snapshot.v3",
+      timestamp: Number.isFinite(snapshot.timestamp) ? snapshot.timestamp : now,
+      id: snapshot.id || snapshot.snapshotId || String(now),
+      hdss: Number.isFinite(snapshot.hdss) ? snapshot.hdss : 0,
+      total: Number.isFinite(snapshot.total) ? snapshot.total : Math.round(snapshot.hdss || 0),
+      lensPercents,
+      lenses: snapshot.lenses || lensPercents,
+      focus: snapshot.focus || "privacy",
+      strongest: snapshot.strongest || null,
+      weakest: snapshot.weakest || null,
+      stage
+    };
+  }
+
   function lensLabels(){
     return {
       network:"Network",
@@ -94,14 +122,14 @@
 
   function downloadPassport(snapshot){
     const readable = {
-      schema: snapshot.schema,
-      id: snapshot.id,
-      timestamp: snapshot.timestamp,
-      total: snapshot.total,
-      stage: snapshot.stage,
-      focus: snapshot.focus,
-      lenses: snapshot.lenses,
-      lensPercents: snapshot.lensPercents,
+      schema: snapshot.schema || "cs.snapshot.v3",
+      id: snapshot.id || null,
+      timestamp: Number.isFinite(snapshot.timestamp) ? snapshot.timestamp : null,
+      total: Number.isFinite(snapshot.total) ? snapshot.total : Math.round(snapshot.hdss || 0),
+      stage: snapshot.stage || { label: "Current snapshot stage", message: "" },
+      focus: snapshot.focus || null,
+      lenses: snapshot.lenses || snapshot.lensPercents || {},
+      lensPercents: snapshot.lensPercents || snapshot.lenses || {},
       answers: snapshot.answers || {}
     };
 
@@ -121,8 +149,8 @@
     const root = document.getElementById("resourcesRoot");
     if (!root) return;
 
-    const snapshot = getSnapshot();
-    if (!snapshot){
+    const rawSnapshot = getSnapshot();
+    if (!rawSnapshot){
       root.innerHTML = `
         <section class="resource-panel" data-cs-resources-hub>
           <p class="kicker">Resources</p>
@@ -134,10 +162,18 @@
       return;
     }
 
+    const snapshot = normalizeSnapshot(rawSnapshot);
+    if (!snapshot) return;
+
+    if (!rawSnapshot.schema){
+      localStorage.setItem(SNAP_KEY, JSON.stringify(snapshot));
+    }
+
     const lensValues = snapshot.lensPercents || snapshot.lenses || {};
     const stageLabel = typeof snapshot.stage === "string" ? snapshot.stage : (snapshot.stage?.label || "Current snapshot stage");
     const stageMessage = snapshot.signal?.summary || snapshot.stage?.message || "This snapshot is a supportive signal to help you choose your next calm step.";
     const focusLens = formatLensName(snapshot.focus || "privacy");
+    const signalValue = Number.isFinite(snapshot.total) ? snapshot.total : Math.round(snapshot.hdss || 0);
 
     const focusLensKey = snapshot.focus || "privacy";
     const seed = await getFocusSeed(focusLensKey);
@@ -169,7 +205,7 @@
 
         <section class="signal-score-block">
           <div class="score-circle">
-            <span class="score-number">${Math.round(snapshot.hdss || 0)}</span>
+            <span class="score-number">${signalValue}</span>
             <span class="score-label">Household signal</span>
           </div>
           <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>

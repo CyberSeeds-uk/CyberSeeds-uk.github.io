@@ -7,6 +7,8 @@
 (() => {
   "use strict";
 
+  const IS_SNAPSHOT_PAGE = location.pathname.startsWith("/snapshot");
+
   // Prevent double-loading
   if (window.__CS_SNAPSHOT_SHELL_LOADED__) return;
   window.__CS_SNAPSHOT_SHELL_LOADED__ = true;
@@ -48,7 +50,7 @@
       this._completed = false;
 
       this._onKeydown = (e) => {
-        if (e.key === "Escape" && this._isOpen){
+        if (!IS_SNAPSHOT_PAGE && e.key === "Escape" && this._isOpen){
           this.close();
         }
       };
@@ -345,12 +347,21 @@
       this._refs.wrap.classList.add("is-open");
       this._refs.wrap.setAttribute("aria-hidden", "false");
 
-      document.body.classList.add("modal-open");
+      if (!IS_SNAPSHOT_PAGE){
+        document.body.classList.add("modal-open");
+      }
 
       this._refs.close?.focus();
     }
 
     close(){
+
+      if (IS_SNAPSHOT_PAGE){
+        if (this._completed){
+          window.location.replace("/resources/");
+        }
+        return;
+      }
 
       const midRun =
         !this._completed &&
@@ -528,7 +539,11 @@
     onNext(){
 
       if (this._completed){
-        this.close();
+        if (IS_SNAPSHOT_PAGE){
+          window.location.replace("/resources/");
+        } else {
+          this.close();
+        }
         return;
       }
 
@@ -565,13 +580,26 @@ finish(){
 
     const scored = this.api.scoreAnswers(this.answers);
 
-    // Keep your current “canonical = scored” approach.
-    // (If you later re-enable full canonicalize(), you’ll swap it here.)
-    const canonical = scored;
+    const now = Date.now();
+    const total = Math.round(scored?.hdss || 0);
+    const canonical = {
+      schema: "cs.snapshot.v3",
+      timestamp: now,
+      id: scored?.snapshotId || String(now),
+      total,
+      ...scored,
+      lenses: scored?.lensPercents || {},
+      answers: this.answers || {}
+    };
 
     // 1) Save snapshot (local-first)
     localStorage.setItem(
       "cyberseeds_snapshot_latest_v3",
+      JSON.stringify(canonical)
+    );
+
+    localStorage.setItem(
+      "cyberseeds_snapshot_v3",
       JSON.stringify(canonical)
     );
 
@@ -594,8 +622,9 @@ finish(){
     // 3) Mark complete locally (stops the “leave snapshot?” confirm)
     this._completed = true;
 
-    // 4) Complete in-place: keep the user on the current page unless a caller redirects intentionally.
-    document.body.classList.remove("modal-open");
+    if (!IS_SNAPSHOT_PAGE){
+      document.body.classList.remove("modal-open");
+    }
 
     window.location.replace("/resources/");
 
