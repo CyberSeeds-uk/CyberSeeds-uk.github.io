@@ -597,7 +597,7 @@ finish(){
     // 4) Complete in-place: keep the user on the current page unless a caller redirects intentionally.
     document.body.classList.remove("modal-open");
 
-    this.close();
+    window.location.replace("/resources/");
 
   } catch(e){
 
