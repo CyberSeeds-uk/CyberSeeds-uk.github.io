@@ -169,7 +169,7 @@
 
         <section class="signal-score-block">
           <div class="score-circle">
-            <span class="score-number">${Math.round(snapshot.total || 0)}</span>
+            <span class="score-number">${Math.round(snapshot.hdss || 0)}</span>
             <span class="score-label">Household signal</span>
           </div>
           <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
