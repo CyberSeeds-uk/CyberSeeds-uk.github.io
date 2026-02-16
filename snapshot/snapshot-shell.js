@@ -571,14 +571,14 @@ finish(){
 
     // 1) Save snapshot (local-first)
     localStorage.setItem(
-      "cyberseeds_snapshot_v3",
+      "cyberseeds_snapshot_latest_v3",
       JSON.stringify(canonical)
     );
 
     // Optional but useful: keep a simple history timeline
     // (safe even if you already have a richer history elsewhere)
     try{
-      const historyKey = "cyberseeds_snapshots_v1";
+      const historyKey = "cyberseeds_snapshot_history_v3";
       const prev = JSON.parse(localStorage.getItem(historyKey) || "[]");
       const next = [canonical, ...prev].slice(0, 24);
       localStorage.setItem(historyKey, JSON.stringify(next));
