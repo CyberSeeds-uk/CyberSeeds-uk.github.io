@@ -245,3 +245,13 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 .digital-seeds ul {
   padding-left: 1rem;
 }
+
+
+.snapshot-modal {
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.btn {
+  min-height: 44px;
+}
