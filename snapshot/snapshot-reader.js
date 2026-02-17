@@ -45,7 +45,22 @@ function migrateLegacyKeys(){
 
 function getRawSnapshot(){
   migrateLegacyKeys();
-  return safeParse(localStorage.getItem(SNAP_KEY), null);
+  try {
+    const raw = localStorage.getItem("cyberseeds_snapshot_latest_v3");
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+
+    if (!parsed || parsed.schema !== "cs.snapshot.v3") {
+      console.warn("[CS] Invalid snapshot schema.");
+      return null;
+    }
+
+    return parsed;
+  } catch (e) {
+    console.warn("[CS] Corrupted snapshot detected. Clearing.");
+    localStorage.removeItem("cyberseeds_snapshot_latest_v3");
+    return null;
+  }
 }
 
 function getHistory(){

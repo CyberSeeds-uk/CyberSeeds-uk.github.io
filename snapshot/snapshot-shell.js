@@ -48,6 +48,7 @@
       this._refs = {};
       this._isOpen = false;
       this._completed = false;
+      this._didRedirect = false;
 
       this._onKeydown = (e) => {
         if (!IS_SNAPSHOT_PAGE && e.key === "Escape" && this._isOpen){
@@ -576,6 +577,12 @@ finish(){
   // Guard: prevent double-submit / double-click
   if (this._completed) return;
 
+  if (this._refs.next){
+    this._refs.next.disabled = true;
+  }
+
+  if (this._didRedirect) return;
+
   try{
 
     const scored = this.api.scoreAnswers(this.answers);
@@ -595,11 +602,6 @@ finish(){
     // 1) Save snapshot (local-first)
     localStorage.setItem(
       "cyberseeds_snapshot_latest_v3",
-      JSON.stringify(canonical)
-    );
-
-    localStorage.setItem(
-      "cyberseeds_snapshot_v3",
       JSON.stringify(canonical)
     );
 
@@ -626,13 +628,17 @@ finish(){
       document.body.classList.remove("modal-open");
     }
 
-    window.location.replace("/resources/");
+    if (!this._didRedirect){
+      this._didRedirect = true;
+      window.location.replace("/resources/");
+    }
 
   } catch(e){
 
     console.error("[Snapshot] finish failed:", e);
 
     this.showError("Could not finalise snapshot. Please refresh and try again.");
+    this._refs.next.disabled = false;
   }
 }
 

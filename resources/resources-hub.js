@@ -13,7 +13,22 @@
   }
 
   function getSnapshot(){
-    return safeParse(localStorage.getItem(SNAP_KEY),null);
+    try {
+      const raw = localStorage.getItem("cyberseeds_snapshot_latest_v3");
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+
+      if (!parsed || parsed.schema !== "cs.snapshot.v3") {
+        console.warn("[CS] Invalid snapshot schema.");
+        return null;
+      }
+
+      return parsed;
+    } catch (e) {
+      console.warn("[CS] Corrupted snapshot detected. Clearing.");
+      localStorage.removeItem("cyberseeds_snapshot_latest_v3");
+      return null;
+    }
   }
 
   function normalizeSnapshot(snapshot){
@@ -75,6 +90,17 @@
       wellbeing: `Children and wellbeing support is ${band} with space to keep expectations clear and gentle.`
     };
     return labels[lens] || `This lens is ${band} and can move forward through steady, manageable steps.`;
+  }
+
+  function renderFallbackState(root){
+    root.innerHTML = `
+      <section class="resource-panel" data-cs-resources-hub>
+        <p class="kicker">Resources</p>
+        <h1>No snapshot found</h1>
+        <p>Take a short check-in when you are ready to see your household signal.</p>
+        <a href="/" class="btn-primary">Return home</a>
+      </section>
+    `;
   }
 
   function getLensDetails(lens){
@@ -151,19 +177,15 @@
 
     const rawSnapshot = getSnapshot();
     if (!rawSnapshot){
-      root.innerHTML = `
-        <section class="resource-panel" data-cs-resources-hub>
-          <p class="kicker">Resources</p>
-          <h1>Your resources will appear here after a snapshot.</h1>
-          <p>When you are ready, take a short check-in and come back for your next calm steps.</p>
-          <a href="/" class="btn-primary">Return home</a>
-        </section>
-      `;
+      renderFallbackState(root);
       return;
     }
 
     const snapshot = normalizeSnapshot(rawSnapshot);
-    if (!snapshot) return;
+    if (!snapshot || !snapshot.lensPercents) {
+      renderFallbackState(root);
+      return;
+    }
 
     if (!rawSnapshot.schema){
       localStorage.setItem(SNAP_KEY, JSON.stringify(snapshot));

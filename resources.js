@@ -9,7 +9,22 @@ function safeParse(raw, fallback = null) {
 }
 
 function getSnapshot() {
-  return safeParse(localStorage.getItem(SNAPSHOT_KEY), null);
+  try {
+    const raw = localStorage.getItem("cyberseeds_snapshot_latest_v3");
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+
+    if (!parsed || parsed.schema !== "cs.snapshot.v3") {
+      console.warn("[CS] Invalid snapshot schema.");
+      return null;
+    }
+
+    return parsed;
+  } catch (e) {
+    console.warn("[CS] Corrupted snapshot detected. Clearing.");
+    localStorage.removeItem("cyberseeds_snapshot_latest_v3");
+    return null;
+  }
 }
 
 function formatLensName(value) {
@@ -21,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!root) return;
 
   const snapshot = getSnapshot();
-  if (!snapshot) {
+  if (!snapshot || !snapshot.lensPercents) {
     root.innerHTML = `
       <section class="resource-panel">
         <p class="kicker">Signal</p>
-        <h1>You haven’t completed your snapshot yet.</h1>
+        <h1>No snapshot found</h1>
         <p>When you are ready, start a two-minute check-in to generate your household signal.</p>
         <a href="/" class="btn-primary">Return home</a>
       </section>
