@@ -8,6 +8,8 @@
   --accent: #1c4e42;
   --brand: var(--accent);
   --brand2: var(--accent);
+  --ink: var(--text);
+  --mint2: #eef7f6;
   --accent-soft: #e4eeeb;
 }
 
@@ -18,6 +20,10 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.45;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .site-header {
@@ -62,6 +68,26 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-secondary { background: #fff; color: var(--text); border-color: var(--line); }
+
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.snapshot-launch {
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.resource-launch-strip {
+  padding: 0 1rem 1rem;
+}
+
+.resource-launch-strip .snapshot-launch {
+  width: 100%;
+}
 
 .modal {
   position: fixed;
@@ -254,4 +280,26 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 
 .btn {
   min-height: 44px;
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.snapshot-launch:focus-visible,
+button:focus-visible,
+[type="file"]:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(26, 106, 93, 0.4);
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+
+  .site-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
