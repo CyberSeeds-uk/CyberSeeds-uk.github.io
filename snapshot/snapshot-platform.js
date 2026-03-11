@@ -1,0 +1,357 @@
+/* =========================================================
+   Cyber Seeds — Snapshot Platform Layer v4
+   Infrastructure-grade • Deterministic • Print-ready
+   ========================================================= */
+
+(function(){
+  "use strict";
+
+  const SNAP_KEY = "cyberseeds_snapshot_latest_v3";
+  const HISTORY_KEY = "cyberseeds_snapshot_history_v3";
+  const BASELINE_KEY = "cyberseeds_snapshot_baseline_v1";
+  const LEGACY_SNAP_KEYS = ["cyberseeds_snapshot_v3", "cs_snapshot_latest", "cyberseeds_snapshot_v1"];
+  const LEGACY_HISTORY_KEYS = ["cyberseeds_snapshots_v1", "cs_snapshot_history"];
+  const LEGACY_BASELINE_KEYS = ["cyberseeds_snapshot_baseline_v3", "cs_snapshot_baseline"];
+
+  const VERSION = "v4.0";
+
+  const $ = (s,r=document)=>r.querySelector(s);
+
+  /* ---------------- Utilities ---------------- */
+
+  function safeParse(v,f=null){
+    try{ return JSON.parse(v); }catch{ return f; }
+  }
+
+  function migrateLegacyKeys(){
+    try{
+      if (!localStorage.getItem(SNAP_KEY)){
+        for (const key of LEGACY_SNAP_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(SNAP_KEY, raw);
+            break;
+          }
+        }
+      }
+
+      if (!localStorage.getItem(HISTORY_KEY)){
+        for (const key of LEGACY_HISTORY_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(HISTORY_KEY, raw);
+            break;
+          }
+        }
+      }
+
+      if (!localStorage.getItem(BASELINE_KEY)){
+        for (const key of LEGACY_BASELINE_KEYS){
+          const raw = localStorage.getItem(key);
+          if (raw){
+            localStorage.setItem(BASELINE_KEY, raw);
+            break;
+          }
+        }
+      }
+    }catch{}
+  }
+
+  function getSnapshot(){
+    migrateLegacyKeys();
+    try {
+      const raw = localStorage.getItem("cyberseeds_snapshot_latest_v3");
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+
+      if (!parsed || parsed.schema !== "cs.snapshot.v3") {
+        console.warn("[CS] Invalid snapshot schema.");
+        return null;
+      }
+
+      return parsed;
+    } catch (e) {
+      console.warn("[CS] Corrupted snapshot detected. Clearing.");
+      localStorage.removeItem("cyberseeds_snapshot_latest_v3");
+      return null;
+    }
+  }
+
+  function getHistory(){
+    migrateLegacyKeys();
+    return safeParse(localStorage.getItem(HISTORY_KEY), []);
+  }
+
+  function getBaseline(){
+    migrateLegacyKeys();
+    return safeParse(localStorage.getItem(BASELINE_KEY), null);
+  }
+
+  function setBaseline(snapshot){
+    localStorage.setItem(BASELINE_KEY, JSON.stringify(snapshot));
+    localStorage.setItem("cyberseeds_snapshot_baseline_v3", JSON.stringify(snapshot));
+  }
+
+  function resetBaseline(){
+    localStorage.removeItem("cyberseeds_snapshot_baseline_v1");
+    localStorage.removeItem("cyberseeds_snapshot_baseline_v3");
+    localStorage.removeItem("cs_snapshot_baseline");
+  }
+
+  function lensLabels(){
+    return {
+      network:"Network",
+      devices:"Devices",
+      privacy:"Accounts & Privacy",
+      scams:"Scams & Messages",
+      wellbeing:"Children & Wellbeing"
+    };
+  }
+
+  function stageColor(stage){
+    if(!stage) return "#9aa";
+    if(stage.label==="Vulnerable") return "#c85050";
+    if(stage.label==="Holding") return "#c39a2e";
+    return "#1a6a5d";
+  }
+
+  /* ---------------- HDSS BAR ---------------- */
+
+  function renderHDSS(container, snapshot){
+
+    if(!container || !snapshot) return;
+
+    const total = snapshot.total ?? snapshot.hdss ?? 0;
+    const stage = snapshot.stage || {};
+
+    const barId = "cs-hdss-bar";
+
+    container.innerHTML = `
+      <div class="cs-signal-card">
+        <div class="cs-signal-head">
+          <h3>Your household signal</h3>
+          <span class="cs-version">${VERSION}</span>
+        </div>
+
+        <p class="cs-stage">${stage.message || ""}</p>
+
+        <div class="cs-hdss-wrap">
+          <div class="cs-hdss-bar" id="${barId}"></div>
+        </div>
+
+        <div class="cs-hdss-meta">
+          <strong>${total}/100</strong>
+          <span style="color:${stageColor(stage)}">
+            ${stage.label || ""}
+          </span>
+        </div>
+
+        <div class="cs-focus">
+          Focus: <strong>${lensLabels()[snapshot.focus] || ""}</strong>
+        </div>
+
+        <p class="cs-baseline-explainer">
+          A baseline is a reference point so you can see how your household digital safety changes over time.
+        </p>
+
+        <div class="cs-compare" data-cs-compare></div>
+
+        <div class="cs-actions">
+          <button data-cs-set-baseline>Set Baseline</button>
+          <button data-cs-reset-baseline>Reset baseline</button>
+          <button data-cs-export-json>Export JSON</button>
+          <button data-cs-export-pdf>Export PDF</button>
+          <button data-cs-email-snapshot>Email my snapshot</button>
+        </div>
+
+        <p class="cs-baseline-note">
+          Set this snapshot as my household baseline
+        </p>
+      </div>
+    `;
+
+    setTimeout(()=>{
+      const bar = document.getElementById(barId);
+      if(bar){
+        bar.style.width = total+"%";
+        bar.style.background = stageColor(stage);
+      }
+    },50);
+
+    bindActions(container, snapshot);
+    renderComparison(container, snapshot);
+  }
+
+  /* ---------------- BASELINE COMPARISON ---------------- */
+
+  function renderComparison(container, snapshot){
+
+    const compareEl = $("[data-cs-compare]", container);
+    if(!compareEl) return;
+
+    const baseline = getBaseline();
+    const currentTotal = snapshot.total ?? 0;
+
+    const messages = [];
+
+    if(!baseline){
+      messages.push("No baseline set yet. Set a baseline to compare future snapshots.");
+    } else {
+      const diff = currentTotal - (baseline.total ?? 0);
+      if(diff > 0){
+        messages.push(`Your household signal has improved by ${diff} points since your baseline.`);
+      } else if(diff < 0){
+        messages.push(`Your household signal is currently ${Math.abs(diff)} points below your baseline.`);
+      } else {
+        messages.push("Your household signal is unchanged since your baseline.");
+      }
+    }
+
+    const history = getHistory();
+    if (Array.isArray(history) && history.length > 1){
+      const previous = history[1];
+      if (previous && typeof previous.total === "number"){
+        const previousDelta = currentTotal - previous.total;
+        const signed = `${previousDelta > 0 ? "+" : ""}${previousDelta}`;
+        messages.push(`Compared to your previous snapshot: ${signed} points`);
+      }
+    }
+
+    compareEl.innerHTML = messages.map(message => `<p>${message}</p>`).join("");
+  }
+
+  /* ---------------- FOCUS SEED AUTO ---------------- */
+
+  function generateSeed(snapshot){
+
+    const focus = snapshot.focus;
+    const seeds = {
+      privacy:"Enable two-step verification on your primary email and stop password reuse.",
+      network:"Review router firmware and create a guest network.",
+      devices:"Turn on automatic updates and enable device tracking.",
+      scams:"Create a household pause rule for urgent messages.",
+      wellbeing:"Set a nightly device-free wind-down time."
+    };
+
+    return seeds[focus] || "";
+  }
+
+  function renderSeeds(container, snapshot){
+
+    if(!container || !snapshot) return;
+
+    const seed = generateSeed(snapshot);
+
+    container.innerHTML = `
+      <div class="cs-seed-card">
+        <h3>Your next digital seed</h3>
+        <p>${seed}</p>
+        <p class="cs-seed-note">
+          Small, repeatable changes build long-term stability.
+        </p>
+      </div>
+    `;
+  }
+
+  /* ---------------- EXPORT ---------------- */
+
+  function exportJSON(snapshot){
+    const blob = new Blob(
+      [JSON.stringify(snapshot,null,2)],
+      {type:"application/json"}
+    );
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "cyber-seeds-snapshot.json";
+    a.click();
+  }
+
+  function exportPDF(){
+    window.print();
+  }
+
+  function emailSnapshot(snapshot){
+    const stageLabel = typeof snapshot.stage === "string"
+      ? snapshot.stage
+      : (snapshot.stage?.label || "Current snapshot stage");
+    const lenses = snapshot.lenses || snapshot.lensPercents || {};
+    const map = lensLabels();
+    const body = [
+      "Cyber Seeds Household Snapshot",
+      "",
+      `Total Score: ${snapshot.total ?? snapshot.hdss ?? 0} / 100`,
+      "",
+      "Lens Scores",
+      `${map.network}: ${Math.round(lenses.network ?? 0)}`,
+      `${map.devices}: ${Math.round(lenses.devices ?? 0)}`,
+      `${map.privacy}: ${Math.round(lenses.privacy ?? 0)}`,
+      `${map.scams}: ${Math.round(lenses.scams ?? 0)}`,
+      `${map.wellbeing}: ${Math.round(lenses.wellbeing ?? 0)}`,
+      "",
+      `Focus Lens: ${map[snapshot.focus] || ""}`,
+      `Stage: ${stageLabel}`
+    ].join("\n");
+
+    const href = `mailto:cyberseeds.uk@gmail.co.uk?subject=${encodeURIComponent("Cyber Seeds Household Snapshot")}&body=${encodeURIComponent(body)}`;
+    window.location.href = href;
+  }
+
+  /* ---------------- BIND ACTIONS ---------------- */
+
+  function bindActions(container, snapshot){
+
+    const baselineBtn = $("[data-cs-set-baseline]", container);
+    if(baselineBtn){
+      baselineBtn.onclick = ()=>{
+        setBaseline(snapshot);
+        renderComparison(container, snapshot);
+      };
+    }
+
+    const resetBaselineBtn = $("[data-cs-reset-baseline]", container);
+    if(resetBaselineBtn){
+      resetBaselineBtn.onclick = ()=>{
+        resetBaseline();
+        renderComparison(container, snapshot);
+      };
+    }
+
+    const jsonBtn = $("[data-cs-export-json]", container);
+    if(jsonBtn){
+      jsonBtn.onclick = ()=>exportJSON(snapshot);
+    }
+
+    const pdfBtn = $("[data-cs-export-pdf]", container);
+    if(pdfBtn){
+      pdfBtn.onclick = ()=>exportPDF();
+    }
+
+    const emailBtn = $("[data-cs-email-snapshot]", container);
+    if(emailBtn){
+      emailBtn.onclick = ()=>emailSnapshot(snapshot);
+    }
+  }
+
+  /* ---------------- INIT ---------------- */
+
+  function init(){
+    migrateLegacyKeys();
+    const signalContainer = $("[data-cs-signal]");
+    const seedContainer = $("[data-cs-seeds]");
+    if(!signalContainer || !seedContainer) return;
+
+    const snapshot = getSnapshot();
+    if(!snapshot) return;
+
+    getHistory();
+    renderHDSS(signalContainer, snapshot);
+    renderSeeds(seedContainer, snapshot);
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+})();
