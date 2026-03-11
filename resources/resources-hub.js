@@ -248,7 +248,7 @@
 
     const delta = Math.round((current?.total || 0) - (previous?.total || 0));
     const signedDelta = `${delta > 0 ? "+" : ""}${delta}`;
-    return `Compared to your previous snapshot: ${signedDelta} points`;
+    return `Your household signal has changed by ${signedDelta} points since your previous snapshot.`;
   }
 
   function getLensValue(lenses, key){
@@ -456,43 +456,51 @@
   }
 
   function restorePanelMarkup(){
-    return `
-      <section class="resultCard snapshot-controls" aria-labelledby="restoreSnapshotTitle">
-        <h2 id="restoreSnapshotTitle">Restore Snapshot Data</h2>
-        <p>Import a previously exported JSON backup to restore your latest snapshot, history, and baseline on this device.</p>
-        <label for="snapshotRestoreInput">Snapshot backup JSON file</label>
-        <input
-          id="snapshotRestoreInput"
-          type="file"
-          accept="application/json"
-          aria-label="Select a snapshot backup JSON file to restore"
-        />
-        <button class="btn-secondary" type="button" id="restoreSnapshotButton">Restore Snapshot Data</button>
-        <p class="muted" id="restoreStatus" aria-live="polite"></p>
-      </section>
-    `;
-  }
+  return `
+    <section class="resultCard snapshot-controls" aria-labelledby="dataToolsTitle">
+      <details>
+        <summary id="dataToolsTitle"><strong>Restore saved results</strong></summary>
+        <div style="margin-top:12px">
+          <p>Import a previously exported JSON backup to restore your latest snapshot, history, and baseline on this device.</p>
+          <label for="snapshotRestoreInput">Snapshot backup JSON file</label>
+          <input
+            id="snapshotRestoreInput"
+            type="file"
+            accept="application/json"
+            aria-label="Select a snapshot backup JSON file to restore"
+          />
+          <button class="btn-secondary" type="button" id="restoreSnapshotButton">Restore Snapshot Data</button>
+          <p class="muted" id="restoreStatus" aria-live="polite"></p>
+        </div>
+      </details>
+    </section>
+  `;
+}
 
   function renderFallbackState(root){
-    root.innerHTML = `
-      <section class="resource-panel" data-cs-resources-hub>
+  root.innerHTML = `
+    <section class="resource-panel" data-cs-resources-hub>
+      <section class="signal-header">
         <p class="kicker">Resources</p>
-        <h1>No snapshot found</h1>
-        <p>Take a short check-in when you are ready to see your household signal.</p>
-        <p>
-          <button
-            class="btn-primary snapshot-launch"
-            data-open-snapshot
-            type="button"
-            aria-label="Start the Cyber Seeds household snapshot"
-          >
-            Take Household Snapshot
-          </button>
-        </p>
-        ${restorePanelMarkup()}
+        <h1 class="signal-pattern">No snapshot found</h1>
+        <p class="signal-description">Take a short check-in when you are ready to see your household signal.</p>
       </section>
-    `;
-  }
+
+      <section class="resultCard" style="text-align:center">
+        <button
+          class="btn-primary snapshot-launch"
+          data-open-snapshot
+          type="button"
+          aria-label="Start the Cyber Seeds household snapshot"
+        >
+          Take Household Snapshot
+        </button>
+      </section>
+
+      ${restorePanelMarkup()}
+    </section>
+  `;
+}
 
   async function render(){
     const root = document.getElementById("resourcesRoot");
@@ -540,82 +548,92 @@
       `;
 
     root.innerHTML = `
-      <section class="resource-panel" data-cs-resources-hub>
-        <section class="signal-header">
-          <p class="signal-kicker">Household signal</p>
-          <h1 class="signal-pattern" data-stage-label>${stageLabel}</h1>
-          <p class="signal-description">${stageMessage}</p>
-        </section>
+  <section class="resource-panel" data-cs-resources-hub>
+    <section class="resultCard signal-header">
+      <p class="signal-kicker">Household signal</p>
+      <h1 class="signal-pattern" data-stage-label>${stageLabel}</h1>
+      <p class="signal-description">${stageMessage}</p>
 
-        <section class="signal-score-block">
-          <div class="score-circle">
-            <span class="score-number">${signalValue}</span>
-            <span class="score-label">Household signal</span>
-          </div>
-          <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
-        </section>
+      <div class="signal-score-block">
+        <div class="score-circle">
+          <span class="score-number">${signalValue}</span>
+          <span class="score-label">Household signal</span>
+        </div>
+        <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
+      </div>
+    </section>
 
-        <section class="resultCard comparison-block" aria-labelledby="snapshotComparisonTitle">
-          <h2 id="snapshotComparisonTitle">Snapshot comparison</h2>
-          <p id="baselineComparisonText">${baselineMessage}</p>
-          ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
-        </section>
+    <section class="resultCard comparison-block" aria-labelledby="progressTitle">
+      <h2 id="progressTitle">Your progress</h2>
+      <p id="baselineComparisonText">${baselineMessage}</p>
+      ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
+      <div class="snapshot-controls" style="margin-top:14px">
+        <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
+        <p class="muted">Set this snapshot as my household baseline.</p>
+        <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
+        <p class="muted">Resetting baseline does not delete your snapshot history.</p>
+        <p class="muted" id="baselineStatus" aria-live="polite"></p>
+      </div>
+    </section>
 
-        <section class="resultCard snapshot-controls" aria-labelledby="baselineControlsTitle">
-          <h2 id="baselineControlsTitle">Baseline controls</h2>
-          <p>A baseline is a reference point so you can see how your household digital safety changes over time.</p>
-          <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
-          <p class="muted">Set this snapshot as my household baseline</p>
-          <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
-          <p class="muted">Resetting baseline does not delete your snapshot history.</p>
-          <p class="muted" id="baselineStatus" aria-live="polite"></p>
-        </section>
+    <section class="resultCard" aria-labelledby="nextSeedTitle">
+      <h2 id="nextSeedTitle">${seed?.title || "Your next digital seed"}</h2>
+      ${
+        seed
+          ? `
+            <p><strong>Today:</strong> ${seed.today || ""}</p>
+            ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
+            ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
+          `
+          : `
+            <p>No digital seed available yet.</p>
+          `
+      }
+    </section>
 
-        ${restorePanelMarkup()}
-
-        ${seedHtml}
-
-        <section class="lens-breakdown">
-          <h2>Lens overview</h2>
-          ${orderedLensEntries.map(([lens, value]) => `
-            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
-              <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
-                <div class="cs-lensLeft">
-                  <div class="cs-lensName">${formatLensName(lens)}</div>
-                  <div class="cs-lensScore">${Math.round(value)}</div>
-                </div>
-                <div class="cs-lensRight">
-                  <div class="cs-lensBand">${getLensBand(value)}</div>
-                  <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
-                </div>
-              </button>
-              <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
-                <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
-                <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
-              </div>
-              <div class="lens-bar" style="padding:0 14px 14px;">
-                <div class="lens-fill" style="width:${Math.round(value)}%"></div>
-              </div>
-            </article>
-          `).join("")}
-        </section>
-
-        <section class="renewal-actions" aria-label="Snapshot actions">
-          <button
-            class="btn-secondary snapshot-launch"
-            data-open-snapshot
-            type="button"
-            aria-label="Start the Cyber Seeds household snapshot"
-          >
-            Retake Snapshot
+    <section class="resultCard lens-breakdown">
+      <h2>Lens overview</h2>
+      ${orderedLensEntries.map(([lens, value]) => `
+        <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
+          <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
+            <div class="cs-lensLeft">
+              <div class="cs-lensName">${formatLensName(lens)}</div>
+              <div class="cs-lensScore">${Math.round(value)}</div>
+            </div>
+            <div class="cs-lensRight">
+              <div class="cs-lensBand">${getLensBand(value)}</div>
+              <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+            </div>
           </button>
-          <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
-          <button class="btn-secondary" type="button" id="exportSnapshotBackup">Export Snapshot Data (JSON)</button>
-          <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my snapshot</button>
-          <a class="btn-primary" href="/book/">Book a Full Audit</a>
-        </section>
-      </section>
-    `;
+          <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
+            <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
+            <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
+          </div>
+          <div class="lens-bar" style="padding:0 14px 14px;">
+            <div class="lens-fill" style="width:${Math.round(value)}%"></div>
+          </div>
+        </article>
+      `).join("")}
+    </section>
+
+    <section class="resultCard renewal-actions" aria-label="Snapshot actions">
+      <button
+        class="btn-secondary snapshot-launch"
+        data-open-snapshot
+        type="button"
+        aria-label="Start the Cyber Seeds household snapshot"
+      >
+        Retake Snapshot
+      </button>
+      <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
+      <button class="btn-secondary" type="button" id="exportSnapshotBackup">Export Snapshot Data (JSON)</button>
+      <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
+      <a class="btn-primary" href="/book/">Book a Full Audit</a>
+    </section>
+
+    ${restorePanelMarkup()}
+  </section>
+`;
 
     bindCommonControls(root, snapshot);
 
