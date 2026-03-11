@@ -53,12 +53,54 @@
       border-color:rgba(15,47,42,.35);
       box-shadow:0 1px 0 rgba(15,47,42,.08);
     }
+    .comparison-block{
+      margin-top:16px;
+    }
+    .comparison-block h2{
+      margin-top:0;
+    }
+    .comparison-block p{
+      margin:0 0 8px;
+      line-height:1.5;
+    }
+    .comparison-block p:last-child{
+      margin-bottom:0;
+    }
+    .snapshot-controls{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+    }
+    .snapshot-controls h2{
+      margin:0;
+    }
+    .snapshot-controls p{
+      margin:0;
+      line-height:1.5;
+    }
+    .snapshot-controls label{
+      font-weight:600;
+    }
+    .snapshot-controls input[type="file"]{
+      width:100%;
+      max-width:100%;
+    }
+    .renewal-actions button,
+    .renewal-actions a{
+      min-height:44px;
+    }
     @media (max-width:640px){
       .cs-lensToggle{grid-template-columns:1fr}
       .cs-lensLeft{grid-template-columns:1fr auto;align-items:baseline}
       .cs-lensScore{justify-self:end}
+      .renewal-actions .btn-secondary,
+      .renewal-actions .btn-primary{
+        width:100%;
+        text-align:center;
+      }
     }
   </style>
+  <script type="module" src="/snapshot/snapshot-shell.js"></script>
   <script type="module" src="/resources/resources-hub.js"></script>
 </head>
 <body>
@@ -67,10 +109,31 @@
       <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
       <span>Cyber Seeds</span>
     </a>
-    <nav aria-label="Primary">
-      <a href="/">Home</a>
-    </nav>
+    <div class="site-header-actions">
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+      </nav>
+      <button
+        class="btn-secondary snapshot-launch"
+        data-open-snapshot
+        type="button"
+        aria-label="Start the Cyber Seeds household snapshot"
+      >
+        Take Household Snapshot
+      </button>
+    </div>
   </header>
+
+  <section class="resource-launch-strip" aria-label="Snapshot launcher">
+    <button
+      class="btn-primary snapshot-launch"
+      data-open-snapshot
+      type="button"
+      aria-label="Start the Cyber Seeds household snapshot"
+    >
+      Take Household Snapshot
+    </button>
+  </section>
 
   <main class="resource-main" id="resourcesRoot" aria-live="polite"></main>
 </body>
