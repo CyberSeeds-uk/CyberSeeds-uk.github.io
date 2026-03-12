@@ -351,3 +351,24 @@ details summary {
 details summary::-webkit-details-marker {
   display: none;
 }
+
+.resultCard {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #fff;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.resultCard h2 {
+  margin-top: 0;
+}
+
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
