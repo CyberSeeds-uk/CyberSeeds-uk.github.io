@@ -85,181 +85,32 @@
     <p>&copy; Cyber Seeds</p>
   </footer>
 
-  <script>
+  <script src="/shared/email-drafts.js"></script>
+<script>
   (function () {
     const btn = document.getElementById("book-audit-email");
     if (!btn) return;
 
     const SNAPSHOT_KEY = "cyberseeds_snapshot_latest_v3";
 
-    function escapeLine(value) {
-      return String(value ?? "").replace(/\r?\n/g, " ").trim();
+    function safeParse(value) {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return null;
+      }
     }
 
-    function formatPercent(value) {
-      if (value === null || value === undefined || Number.isNaN(Number(value))) return "Not available";
-      return `${Math.round(Number(value))}%`;
-    }
-
-    function titleCaseSignal(signal) {
-      if (!signal) return "Not available";
-      const map = {
-        strong: "Strong",
-        stable: "Stable",
-        developing: "Developing",
-        vulnerable: "Vulnerable",
-        critical: "Critical"
-      };
-      return map[String(signal).toLowerCase()] || signal;
-    }
-
-    function extractLensLines(snapshot) {
-      const possibleLensSources = [
-        snapshot?.results?.lenses,
-        snapshot?.lensScores,
-        snapshot?.scores?.lenses,
-        snapshot?.lenses
-      ];
-
-      const lenses = possibleLensSources.find(obj => obj && typeof obj === "object");
-      if (!lenses) return ["- Lens breakdown: Not available"];
-
-      const labelMap = {
-        network: "Network & Wi-Fi Safety",
-        wifi: "Network & Wi-Fi Safety",
-        device: "Device Hygiene",
-        devices: "Device Hygiene",
-        privacy: "Privacy & Identity",
-        identity: "Privacy & Identity",
-        scams: "Scam Awareness",
-        scam: "Scam Awareness",
-        wellbeing: "Children's Digital Wellbeing",
-        children: "Children's Digital Wellbeing",
-        kids: "Children's Digital Wellbeing"
-      };
-
-      const lines = [];
-
-      Object.entries(lenses).forEach(([key, value]) => {
-        const label = labelMap[key.toLowerCase()] || key;
-        let score = value;
-
-        if (typeof value === "object" && value !== null) {
-          score =
-            value.percent ??
-            value.score ??
-            value.value ??
-            value.normalized ??
-            null;
-        }
-
-        lines.push(`- ${label}: ${formatPercent(score)}`);
-      });
-
-      return lines.length ? lines : ["- Lens breakdown: Not available"];
-    }
-
-    function buildEmailBody(snapshot) {
-      const createdAt =
-        snapshot?.completedAt ||
-        snapshot?.timestamp ||
-        snapshot?.createdAt ||
-        new Date().toISOString();
-
-      const overallScore =
-        snapshot?.results?.hdss ??
-        snapshot?.hdss ??
-        snapshot?.score ??
-        snapshot?.results?.score ??
-        null;
-
-      const signal =
-        snapshot?.results?.signal ??
-        snapshot?.signal ??
-        snapshot?.band ??
-        null;
-
-      const seeds =
-        snapshot?.results?.digitalSeeds ??
-        snapshot?.digitalSeeds ??
-        snapshot?.recommendedSeeds ??
-        [];
-
-      const lensLines = extractLensLines(snapshot);
-
-      const seedLines = Array.isArray(seeds) && seeds.length
-        ? seeds.slice(0, 5).map(seed => `- ${escapeLine(seed.title || seed.name || seed)}`)
-        : ["- Recommendations available in snapshot results"];
-
-      return [
-        "Hello Cyber Seeds,",
-        "",
-        "I would like to book a Home Cyber Audit.",
-        "",
-        "My latest Household Snapshot summary is included below.",
-        "",
-        "HOUSEHOLD SNAPSHOT SUMMARY",
-        "--------------------------",
-        `Overall HDSS: ${formatPercent(overallScore)}`,
-        `Signal: ${titleCaseSignal(signal)}`,
-        `Completed: ${escapeLine(createdAt)}`,
-        "",
-        "Five-Lens Summary",
-        ...lensLines,
-        "",
-        "Suggested Digital Seeds",
-        ...seedLines,
-        "",
-        "Booking Details",
-        "---------------",
-        "Name:",
-        "Location:",
-        "Best contact email:",
-        "Preferred appointment type: Online / In-person",
-        "Anything you would like us to know:",
-        "",
-        "Kind regards,"
-      ].join("\n");
+    function readLatestSnapshot() {
+      const raw = localStorage.getItem(SNAPSHOT_KEY);
+      if (!raw) return null;
+      return safeParse(raw);
     }
 
     btn.addEventListener("click", function (event) {
       event.preventDefault();
-
-      let snapshot = null;
-
-      try {
-        const raw = localStorage.getItem(SNAPSHOT_KEY);
-        if (raw) snapshot = JSON.parse(raw);
-      } catch (err) {
-        console.error("Could not parse latest snapshot:", err);
-      }
-
-      const subject = snapshot
-        ? "Cyber Seeds Home Audit Request + Household Snapshot"
-        : "Cyber Seeds Home Audit Request";
-
-      const body = snapshot
-        ? buildEmailBody(snapshot)
-        : [
-            "Hello Cyber Seeds,",
-            "",
-            "I would like to book a Home Cyber Audit.",
-            "",
-            "Please contact me with next steps.",
-            "",
-            "Name:",
-            "Location:",
-            "Best contact email:",
-            "Anything you would like us to know:",
-            ""
-          ].join("\n");
-
-      const mailto =
-        `mailto:cyberseeds.uk@gmail.com` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailto;
+      const snapshot = readLatestSnapshot();
+      window.CSEmailDrafts.openBookingDraft(snapshot);
     });
   })();
 </script>
