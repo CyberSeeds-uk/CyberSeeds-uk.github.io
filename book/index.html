@@ -36,11 +36,14 @@
         digital environment and build a realistic plan that feels supportive, clear, and useful.
       </p>
 
-      <button class="btn-primary" type="button" id="book-audit-email">
-        Email to Book an Audit
-      </button>
+      <p>
+        <button class="btn-primary" type="button" id="book-audit-email">
+          Email to Book an Audit
+        </button>
         <a class="btn-secondary" href="/snapshot/">Take the Household Snapshot First</a>
       </p>
+
+      <p class="muted" id="book-email-status" aria-live="polite"></p>
     </section>
 
     <section class="intake-panel" aria-labelledby="what-to-expect-title">
@@ -85,44 +88,53 @@
   </footer>
 
   <script src="/shared/email-drafts.js"></script>
-<script>
-  (function () {
-    const btn = document.getElementById("book-audit-email");
-    if (!btn) return;
+  <script>
+    (function () {
+      const btn = document.getElementById("book-audit-email");
+      const status = document.getElementById("book-email-status");
+      if (!btn) return;
 
-    const SNAPSHOT_KEY = "cyberseeds_snapshot_latest_v3";
+      const SNAPSHOT_KEY = "cyberseeds_snapshot_latest_v3";
 
-    function safeParse(value) {
-      try {
-        return JSON.parse(value);
-      } catch {
-        return null;
-      }
-    }
-
-    function readLatestSnapshot() {
-      try {
-        const raw = localStorage.getItem(SNAPSHOT_KEY);
-        if (!raw) return null;
-        return safeParse(raw);
-      } catch (err) {
-        console.error("Could not read latest snapshot:", err);
-        return null;
-      }
-    }
-
-    btn.addEventListener("click", function () {
-      const snapshot = readLatestSnapshot();
-
-      if (!window.CSEmailDrafts || typeof window.CSEmailDrafts.openBookingDraft !== "function") {
-        console.error("CSEmailDrafts is not available.");
-        alert("The email tool could not be loaded. Please refresh the page and try again.");
-        return;
+      function safeParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
       }
 
-      window.CSEmailDrafts.openBookingDraft(snapshot);
-    });
-  })();
-</script>
+      function readLatestSnapshot() {
+        try {
+          const raw = localStorage.getItem(SNAPSHOT_KEY);
+          if (!raw) return null;
+          return safeParse(raw);
+        } catch (err) {
+          console.error("Could not read latest snapshot:", err);
+          return null;
+        }
+      }
+
+      btn.addEventListener("click", function () {
+        const snapshot = readLatestSnapshot();
+
+        if (!window.CSEmailDrafts || typeof window.CSEmailDrafts.openBookingDraft !== "function") {
+          console.error("CSEmailDrafts is not available.");
+          if (status) {
+            status.textContent = "The email tool could not be loaded. Please refresh the page and try again.";
+          }
+          return;
+        }
+
+        if (status) {
+          status.textContent = snapshot
+            ? "Opening your email app with your latest snapshot included."
+            : "Opening your email app.";
+        }
+
+        window.CSEmailDrafts.openBookingDraft(snapshot);
+      });
+    })();
+  </script>
 </body>
 </html>
