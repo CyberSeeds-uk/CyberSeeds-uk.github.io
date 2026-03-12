@@ -251,7 +251,9 @@
       }
 
       function openGeneralEmail() {
+
         const subject = "Cyber Seeds Enquiry";
+      
         const body = [
           "Hello Cyber Seeds,",
           "",
@@ -264,14 +266,14 @@
           "Preferred next step:",
           "",
           "Kind regards,"
-        ].join("\\n");
-
+        ].join("\n");
+      
         const url =
           "https://mail.google.com/mail/?view=cm&fs=1" +
-          "&to=" + encodeURIComponent(EMAIL_ADDRESS) +
+          "&to=" + encodeURIComponent("cyberseeds.uk@gmail.com") +
           "&su=" + encodeURIComponent(subject) +
           "&body=" + encodeURIComponent(body);
-
+      
         window.open(url, "_blank");
       }
 
