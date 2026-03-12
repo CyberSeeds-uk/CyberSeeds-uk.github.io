@@ -55,6 +55,15 @@
     } catch {}
   }
 
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function lensLabels() {
     return {
       network: "Network",
@@ -216,18 +225,18 @@
 
   function buildBaselineComparison(current, baseline) {
     if (!baseline) {
-      return "No baseline has been set yet. Set a baseline to compare future snapshots.";
+      return "No baseline has been set yet.";
     }
 
     const diff = Math.round((current?.total || 0) - (baseline?.total || 0));
 
     if (diff > 0) {
-      return `Your household signal has improved by ${diff} points since your baseline.`;
+      return `Signal improved by ${diff} points since baseline.`;
     }
     if (diff < 0) {
-      return `Your household signal is currently ${Math.abs(diff)} points below your baseline.`;
+      return `Signal is ${Math.abs(diff)} points below baseline.`;
     }
-    return "Your household signal is unchanged since your baseline.";
+    return "Signal unchanged since baseline.";
   }
 
   function findPreviousSnapshot(current, history) {
@@ -250,18 +259,13 @@
 
     const delta = Math.round((current?.total || 0) - (previous?.total || 0));
     const signedDelta = `${delta > 0 ? "+" : ""}${delta}`;
-    return `Your household signal has changed by ${signedDelta} points since your previous snapshot.`;
-  }
-
-  function getLensValue(lenses, key) {
-    const value = Number(lenses?.[key]);
-    return Number.isFinite(value) ? Math.round(value) : "N/A";
+    return `Change since previous snapshot: ${signedDelta} points.`;
   }
 
   function openSnapshotEmailDraft(snapshot) {
-  if (!snapshot || !window.CSEmailDrafts) return;
-  window.CSEmailDrafts.openResultsDraft(snapshot);
-}
+    if (!snapshot || !window.CSEmailDrafts) return;
+    window.CSEmailDrafts.openResultsDraft(snapshot);
+  }
 
   function buildBackupPayload(currentSnapshot) {
     const latest = normaliseSnapshot(currentSnapshot) || readLatestSnapshot();
@@ -451,6 +455,34 @@
     `;
   }
 
+  function renderCompactProgress(snapshot, baseline, history) {
+    const baselineMessage = buildBaselineComparison(snapshot, baseline);
+    const previousMessage = buildPreviousComparison(snapshot, history);
+
+    return `
+      <section class="resultCard compact-progress-card" aria-labelledby="progressTitle">
+        <div class="compact-progress-head">
+          <h2 id="progressTitle">Progress</h2>
+          <p class="muted compact-progress-summary">${escapeHtml(baselineMessage)}</p>
+          ${previousMessage ? `<p class="muted compact-progress-summary">${escapeHtml(previousMessage)}</p>` : ""}
+        </div>
+
+        <details class="compact-progress-details">
+          <summary><strong>Baseline options</strong></summary>
+          <div class="compact-progress-actions">
+            <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
+            <p class="muted">Save this snapshot as your household baseline.</p>
+
+            <button class="btn-secondary" type="button" id="resetBaselineButton">Reset Baseline</button>
+            <p class="muted">Resetting baseline does not delete your snapshot history.</p>
+
+            <p class="muted" id="baselineStatus" aria-live="polite"></p>
+          </div>
+        </details>
+      </section>
+    `;
+  }
+
   function renderFallbackState(root) {
     root.innerHTML = `
       <section class="resource-panel" data-cs-resources-hub>
@@ -489,8 +521,6 @@
 
     const history = readHistorySnapshots();
     const baseline = readBaselineSnapshot();
-    const baselineMessage = buildBaselineComparison(snapshot, baseline);
-    const previousMessage = buildPreviousComparison(snapshot, history);
     const lensValues = snapshot.lensPercents || snapshot.lenses || {};
     const orderedLensEntries = LENS_ORDER
       .map((lens) => [lens, Number(lensValues[lens])])
@@ -514,28 +544,26 @@
       <section class="resource-panel" data-cs-resources-hub>
         <section class="resultCard signal-header">
           <p class="signal-kicker">Household signal</p>
-          <h1 class="signal-pattern" data-stage-label>${stageLabel}</h1>
-          <p class="signal-description">${stageMessage}</p>
+          <h1 class="signal-pattern" data-stage-label>${escapeHtml(stageLabel)}</h1>
+          <p class="signal-description">${escapeHtml(stageMessage)}</p>
 
           <div class="signal-score-block">
             <div class="score-circle">
               <span class="score-number">${signalValue}</span>
               <span class="score-label">Household signal</span>
             </div>
-            <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
+            <p class="certification-level">Focus lens: <span data-focus-lens>${escapeHtml(focusLens)}</span></p>
           </div>
         </section>
 
-   
-
         <section class="resultCard" aria-labelledby="nextSeedTitle">
-          <h2 id="nextSeedTitle">${seed?.title || "Your next digital seed"}</h2>
+          <h2 id="nextSeedTitle">${escapeHtml(seed?.title || "Your next digital seed")}</h2>
           ${
             seed
               ? `
-                <p><strong>Today:</strong> ${seed.today || ""}</p>
-                ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
-                ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
+                <p><strong>Today:</strong> ${escapeHtml(seed.today || "")}</p>
+                ${weekText ? `<p><strong>This week:</strong> ${escapeHtml(weekText)}</p>` : ""}
+                ${monthText ? `<p><strong>This month:</strong> ${escapeHtml(monthText)}</p>` : ""}
               `
               : `
                 <p>No digital seed available yet.</p>
@@ -546,20 +574,20 @@
         <section class="resultCard lens-breakdown">
           <h2>Lens overview</h2>
           ${orderedLensEntries.map(([lens, value]) => `
-            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
+            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${escapeHtml(lens)}">
               <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
                 <div class="cs-lensLeft">
-                  <div class="cs-lensName">${formatLensName(lens)}</div>
+                  <div class="cs-lensName">${escapeHtml(formatLensName(lens))}</div>
                   <div class="cs-lensScore">${Math.round(value)}</div>
                 </div>
                 <div class="cs-lensRight">
-                  <div class="cs-lensBand">${getLensBand(value)}</div>
-                  <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+                  <div class="cs-lensBand">${escapeHtml(getLensBand(value))}</div>
+                  <div class="cs-lensSummary">${escapeHtml(getLensSummary(lens, value))}</div>
                 </div>
               </button>
               <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
-                <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
-                <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
+                <p class="cs-lensInterpretation">${escapeHtml(getLensDetails(lens).interpretation)}</p>
+                <p class="cs-lensDirection"><strong>Next:</strong> ${escapeHtml(getLensDetails(lens).next)}</p>
               </div>
               <div class="lens-bar" style="padding:0 14px 14px;">
                 <div class="lens-fill" style="width:${Math.round(value)}%"></div>
@@ -568,36 +596,28 @@
           `).join("")}
         </section>
 
-
-        <section class="resultCard comparison-block" aria-labelledby="progressTitle">
-          <h2 id="progressTitle">Your progress</h2>
-          <p id="baselineComparisonText">${baselineMessage}</p>
-          ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
-          <div class="snapshot-controls" style="margin-top:14px">
-            <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
-            <p class="muted">Set this snapshot as my household baseline.</p>
-            <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
-            <p class="muted">Resetting baseline does not delete your snapshot history.</p>
-            <p class="muted" id="baselineStatus" aria-live="polite"></p>
+        <section class="resultCard renewal-actions" aria-label="Snapshot actions">
+          <div class="renewal-actions-grid">
+            <button
+              class="btn-secondary snapshot-launch"
+              data-open-snapshot
+              type="button"
+              aria-label="Start the Cyber Seeds household snapshot"
+            >
+              Retake Snapshot
+            </button>
+            <button class="btn-secondary" type="button" id="downloadSnapshotReport">Download Snapshot Report (PDF)</button>
+            <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
+            <button class="btn-secondary" type="button" id="downloadSnapshotBackup">Download Backup (JSON)</button>
+            <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
+            <a class="btn-primary" href="/book/">Book a Full Audit</a>
           </div>
         </section>
 
-        
-        <section class="resultCard renewal-actions" aria-label="Snapshot actions">
-           <button
-             class="btn-secondary snapshot-launch"
-             data-open-snapshot
-             type="button"
-             aria-label="Start the Cyber Seeds household snapshot"
-           >
-             Retake Snapshot
-           </button>
-           <button class="btn-secondary" type="button" id="downloadSnapshotReport">Download Snapshot Report (PDF)</button>
-           <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
-           <button class="btn-secondary" type="button" id="downloadSnapshotBackup">Download Backup (JSON)</button>
-           <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
-           <a class="btn-primary" href="/book/">Book a Full Audit</a>
-         </section>
+        ${renderCompactProgress(snapshot, baseline, history)}
+
+        ${restorePanelMarkup()}
+      </section>
     `;
 
     bindCommonControls(root, snapshot);
@@ -633,13 +653,13 @@
   }
 
   function bindCommonControls(root, snapshot) {
-      const setBaselineButton = root.querySelector("#setBaselineButton");
-      const resetBaselineButton = root.querySelector("#resetBaselineButton");
-      const baselineStatus = root.querySelector("#baselineStatus");
-      const downloadSnapshotReportButton = root.querySelector("#downloadSnapshotReport");
-      const downloadPassportButton = root.querySelector("#downloadPassport");
-      const exportBackupButton = root.querySelector("#downloadSnapshotBackup");
-      const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
+    const setBaselineButton = root.querySelector("#setBaselineButton");
+    const resetBaselineButton = root.querySelector("#resetBaselineButton");
+    const baselineStatus = root.querySelector("#baselineStatus");
+    const downloadSnapshotReportButton = root.querySelector("#downloadSnapshotReport");
+    const downloadPassportButton = root.querySelector("#downloadPassport");
+    const exportBackupButton = root.querySelector("#downloadSnapshotBackup");
+    const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
 
     if (setBaselineButton) {
       setBaselineButton.addEventListener("click", async () => {
@@ -666,19 +686,19 @@
     bindRestoreControls(root);
 
     if (downloadSnapshotReportButton) {
-     downloadSnapshotReportButton.addEventListener("click", () => {
-       const latest = readLatestSnapshot();
-       if (!latest) return;
-   
-       if (!window.CSSnapshotReport || typeof window.CSSnapshotReport.downloadPdf !== "function") {
-         console.error("CSSnapshotReport is not available.");
-         return;
-       }
-   
-       window.CSSnapshotReport.downloadPdf(latest);
-     });
-   }
-     
+      downloadSnapshotReportButton.addEventListener("click", () => {
+        const latest = readLatestSnapshot();
+        if (!latest) return;
+
+        if (!window.CSSnapshotReport || typeof window.CSSnapshotReport.downloadPdf !== "function") {
+          console.error("CSSnapshotReport is not available.");
+          return;
+        }
+
+        window.CSSnapshotReport.downloadPdf(latest);
+      });
+    }
+
     if (downloadPassportButton) {
       downloadPassportButton.addEventListener("click", () => {
         downloadPassport(snapshot);
