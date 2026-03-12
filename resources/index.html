@@ -98,7 +98,56 @@
         text-align:center;
       }
     }
-  </style>
+    .compact-progress-card{
+      margin-top:16px;
+    }
+    
+    .compact-progress-head{
+      display:grid;
+      gap:6px;
+    }
+    
+    .compact-progress-head h2{
+      margin:0;
+    }
+    
+    .compact-progress-summary{
+      margin:0;
+    }
+    
+    .compact-progress-details{
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    
+    .compact-progress-details summary{
+      cursor:pointer;
+      list-style:none;
+    }
+    
+    .compact-progress-details summary::-webkit-details-marker{
+      display:none;
+    }
+    
+    .compact-progress-actions{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+    
+    .renewal-actions-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    
+    @media (max-width:640px){
+      .renewal-actions-grid{
+        grid-template-columns:1fr;
+      }
+    }
+      </style>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="/shared/email-drafts.js"></script>
   <script src="/shared/snapshot-report.js"></script>
