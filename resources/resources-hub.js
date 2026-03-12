@@ -616,7 +616,7 @@
             Retake Snapshot
           </button>
           <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
-          <button class="btn-secondary" type="button" id="exportSnapshotBackup">Export Snapshot Data (JSON)</button>
+          <button class="btn-secondary" type="button" id="downloadSnapshotBackup">Download Backup (JSON)</button>
           <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
           <a class="btn-primary" href="/book/">Book a Full Audit</a>
         </section>
