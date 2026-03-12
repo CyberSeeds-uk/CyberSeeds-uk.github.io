@@ -286,7 +286,7 @@
 
     const subject = "Cyber Seeds Household Snapshot";
     const body = buildSnapshotEmailBody(snapshot);
-    const link = `mailto:cyberseeds.uk@gmail.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const link = `mailto:cyberseeds.uk@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = link;
   }
 
