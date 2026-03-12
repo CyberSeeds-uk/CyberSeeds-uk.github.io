@@ -124,11 +124,13 @@
           "--------------------------",
           "No snapshot data was available."
         ].join("\n");
-
+  
     return [
       "Hello Cyber Seeds,",
       "",
       "Please find my latest Household Snapshot below.",
+      "",
+      "If helpful, I can also attach my downloaded Snapshot Report PDF.",
       "",
       snapshotBlock,
       "",
