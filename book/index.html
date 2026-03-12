@@ -36,10 +36,9 @@
         digital environment and build a realistic plan that feels supportive, clear, and useful.
       </p>
 
-      <p>
-        <a class="btn-primary" href="#" id="book-audit-email">
-         Email to Book an Audit
-        </a>
+      <button class="btn-primary" type="button" id="book-audit-email">
+        Email to Book an Audit
+      </button>
         <a class="btn-secondary" href="/snapshot/">Take the Household Snapshot First</a>
       </p>
     </section>
@@ -102,14 +101,25 @@
     }
 
     function readLatestSnapshot() {
-      const raw = localStorage.getItem(SNAPSHOT_KEY);
-      if (!raw) return null;
-      return safeParse(raw);
+      try {
+        const raw = localStorage.getItem(SNAPSHOT_KEY);
+        if (!raw) return null;
+        return safeParse(raw);
+      } catch (err) {
+        console.error("Could not read latest snapshot:", err);
+        return null;
+      }
     }
 
-    btn.addEventListener("click", function (event) {
-      event.preventDefault();
+    btn.addEventListener("click", function () {
       const snapshot = readLatestSnapshot();
+
+      if (!window.CSEmailDrafts || typeof window.CSEmailDrafts.openBookingDraft !== "function") {
+        console.error("CSEmailDrafts is not available.");
+        alert("The email tool could not be loaded. Please refresh the page and try again.");
+        return;
+      }
+
       window.CSEmailDrafts.openBookingDraft(snapshot);
     });
   })();
