@@ -662,7 +662,7 @@
     const resetBaselineButton = root.querySelector("#resetBaselineButton");
     const baselineStatus = root.querySelector("#baselineStatus");
     const downloadPassportButton = root.querySelector("#downloadPassport");
-    const exportBackupButton = root.querySelector("#exportSnapshotBackup");
+    const exportBackupButton = root.querySelector("#downloadSnapshotBackup");
     const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
 
     if (setBaselineButton) {
