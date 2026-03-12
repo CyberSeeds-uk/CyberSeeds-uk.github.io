@@ -258,37 +258,10 @@
     return Number.isFinite(value) ? Math.round(value) : "N/A";
   }
 
-  function buildSnapshotEmailBody(snapshot) {
-    const labels = lensLabels();
-    const stageLabel = snapshot?.stage?.label || "Current snapshot stage";
-    const total = Number.isFinite(snapshot?.total) ? snapshot.total : Math.round(snapshot?.hdss || 0);
-    const lenses = snapshot?.lensPercents || snapshot?.lenses || {};
-
-    return [
-      "Cyber Seeds Household Snapshot",
-      "",
-      `Total Score: ${total} / 100`,
-      "",
-      "Lens Scores",
-      `${labels.network}: ${getLensValue(lenses, "network")}`,
-      `${labels.devices}: ${getLensValue(lenses, "devices")}`,
-      `${labels.privacy}: ${getLensValue(lenses, "privacy")}`,
-      `${labels.scams}: ${getLensValue(lenses, "scams")}`,
-      `${labels.wellbeing}: ${getLensValue(lenses, "wellbeing")}`,
-      "",
-      `Focus Lens: ${formatLensName(snapshot?.focus || "") || "N/A"}`,
-      `Stage: ${stageLabel}`
-    ].join("\n");
-  }
-
   function openSnapshotEmailDraft(snapshot) {
-    if (!snapshot) return;
-
-    const subject = "Cyber Seeds Household Snapshot";
-    const body = buildSnapshotEmailBody(snapshot);
-    const link = `mailto:cyberseeds.uk@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = link;
-  }
+  if (!snapshot || !window.CSEmailDrafts) return;
+  window.CSEmailDrafts.openResultsDraft(snapshot);
+}
 
   function buildBackupPayload(currentSnapshot) {
     const latest = normaliseSnapshot(currentSnapshot) || readLatestSnapshot();
