@@ -580,22 +580,20 @@
         </section>
 
         <section class="resultCard renewal-actions" aria-label="Snapshot actions">
-          <button
-            class="btn-secondary snapshot-launch"
-            data-open-snapshot
-            type="button"
-            aria-label="Start the Cyber Seeds household snapshot"
-          >
-            Retake Snapshot
-          </button>
-          <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
-          <button class="btn-secondary" type="button" id="downloadSnapshotBackup">Download Backup (JSON)</button>
-          <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
-          <a class="btn-primary" href="/book/">Book a Full Audit</a>
-        </section>
-
-        ${restorePanelMarkup()}
-      </section>
+           <button
+             class="btn-secondary snapshot-launch"
+             data-open-snapshot
+             type="button"
+             aria-label="Start the Cyber Seeds household snapshot"
+           >
+             Retake Snapshot
+           </button>
+           <button class="btn-secondary" type="button" id="downloadSnapshotReport">Download Snapshot Report (PDF)</button>
+           <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
+           <button class="btn-secondary" type="button" id="downloadSnapshotBackup">Download Backup (JSON)</button>
+           <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
+           <a class="btn-primary" href="/book/">Book a Full Audit</a>
+         </section>
     `;
 
     bindCommonControls(root, snapshot);
@@ -631,12 +629,13 @@
   }
 
   function bindCommonControls(root, snapshot) {
-    const setBaselineButton = root.querySelector("#setBaselineButton");
-    const resetBaselineButton = root.querySelector("#resetBaselineButton");
-    const baselineStatus = root.querySelector("#baselineStatus");
-    const downloadPassportButton = root.querySelector("#downloadPassport");
-    const exportBackupButton = root.querySelector("#downloadSnapshotBackup");
-    const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
+      const setBaselineButton = root.querySelector("#setBaselineButton");
+      const resetBaselineButton = root.querySelector("#resetBaselineButton");
+      const baselineStatus = root.querySelector("#baselineStatus");
+      const downloadSnapshotReportButton = root.querySelector("#downloadSnapshotReport");
+      const downloadPassportButton = root.querySelector("#downloadPassport");
+      const exportBackupButton = root.querySelector("#downloadSnapshotBackup");
+      const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
 
     if (setBaselineButton) {
       setBaselineButton.addEventListener("click", async () => {
@@ -662,6 +661,20 @@
 
     bindRestoreControls(root);
 
+    if (downloadSnapshotReportButton) {
+     downloadSnapshotReportButton.addEventListener("click", () => {
+       const latest = readLatestSnapshot();
+       if (!latest) return;
+   
+       if (!window.CSSnapshotReport || typeof window.CSSnapshotReport.downloadPdf !== "function") {
+         console.error("CSSnapshotReport is not available.");
+         return;
+       }
+   
+       window.CSSnapshotReport.downloadPdf(latest);
+     });
+   }
+     
     if (downloadPassportButton) {
       downloadPassportButton.addEventListener("click", () => {
         downloadPassport(snapshot);
