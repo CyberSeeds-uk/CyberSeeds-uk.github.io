@@ -1,68 +1,114 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f2f2a" />
+  <meta name="theme-color" content="#13211e" />
 
-  <title>Cyber Seeds — Snapshot</title>
-  <meta name="description" content="A calm, local-first household digital snapshot. Your data stays on this device unless you export it." />
+  <title>Cyber Seeds | Household Snapshot</title>
+  <meta
+    name="description"
+    content="A calm, local-first household digital snapshot. Your responses stay on this device unless you choose to export them."
+  />
 
   <link rel="icon" href="/cyber_seeds_logo.png" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/snapshot/" />
   <link rel="stylesheet" href="/snapshot-app.css" />
+
   <script src="/snapshot/snapshot-platform.js"></script>
-
-
-  <!-- The only snapshot runtime -->
   <script type="module" src="/snapshot/snapshot-shell.js"></script>
   <script src="/snapshot/snapshot-reader.js"></script>
 </head>
-
 <body>
-
-
   <header class="site-header">
-    <div class="wrap">
-      <a class="brand" href="/">
-        <img src="/cyber_seeds_logo.png" alt="" width="36" height="36" />
-        <span>Cyber Seeds</span>
-      </a>
-      <p class="eyebrow">Household Assessment</p>
-  
-      <h1>The Cyber Seeds Snapshot</h1>
-  
-      <p class="lead">
-        A calm, structured assessment across five lenses of your
-        household’s digital life.
-      </p>
-  
-      <ul class="snapshot-benefits">
-        <li>✔ Clear household signal</li>
-        <li>✔ Identified priority lens</li>
-        <li>✔ Immediate “digital seed” actions</li>
-        <li>✔ Runs locally in your browser</li>
-      </ul>
-  
-      <button class="btn primary snapshot-launch" data-open-snapshot type="button" aria-label="Start the Cyber Seeds household snapshot">
-        Start the 2-minute snapshot
-      </button>
-  
-      <p class="muted" style="margin-top:14px">
-        No account. No tracking. Nothing uploaded.
-      </p>
-  
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
+      <span>Cyber Seeds</span>
+    </a>
+
+    <div class="site-header-actions">
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/resources/">Resources</a>
+      </nav>
     </div>
-  </section>
+  </header>
+
+  <main class="intake-main" id="main-content">
+    <section class="intake-panel" aria-labelledby="snapshot-title">
+      <p class="kicker">Household Snapshot</p>
+      <h1 id="snapshot-title">The Cyber Seeds Household Snapshot</h1>
+
+      <p class="lead">
+        A calm, structured check-in across five lenses of your household’s digital life.
+      </p>
+
+      <p>
+        The snapshot is designed to help families understand where things feel settled,
+        where small gaps may be building pressure, and where a realistic next step could help most.
+      </p>
+
+      <p>
+        It is supportive rather than judgemental. It is not a diagnosis, and it is not a compliance test.
+      </p>
+
+      <p>
+        <button
+          class="btn-primary snapshot-launch"
+          data-open-snapshot
+          type="button"
+          aria-label="Start the Cyber Seeds household snapshot"
+        >
+          Start the 2-minute snapshot
+        </button>
+        <a class="btn-secondary" href="/resources/">View Resources</a>
+      </p>
+
+      <p class="muted" style="margin-top:14px">
+        No account. No tracking. Nothing uploaded unless you choose to export or email your results.
+      </p>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="benefits-title">
+      <h2 id="benefits-title">What you receive</h2>
+      <ul class="promise-list">
+        <li><strong>Clear household signal:</strong> A simple reading of your current digital position.</li>
+        <li><strong>Priority focus lens:</strong> The area most likely to benefit from attention first.</li>
+        <li><strong>Immediate digital seeds:</strong> Calm next-step actions for today, this week, and this month.</li>
+        <li><strong>Local-first privacy:</strong> Your responses stay on this device unless you choose otherwise.</li>
+      </ul>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="five-lenses-title">
+      <h2 id="five-lenses-title">The five lenses</h2>
+      <ul class="promise-list">
+        <li><strong>Network &amp; Wi-Fi Safety:</strong> Home internet access, router habits, and connected-device awareness.</li>
+        <li><strong>Device Hygiene:</strong> Updates, everyday routines, and safer defaults across phones, tablets, and computers.</li>
+        <li><strong>Privacy &amp; Identity:</strong> Accounts, sign-in habits, recovery settings, and personal information exposure.</li>
+        <li><strong>Scam Awareness:</strong> Confidence in recognising suspicious requests, urgency tactics, and message-based threats.</li>
+        <li><strong>Children’s Digital Wellbeing:</strong> Household boundaries, conversations, and age-appropriate support online.</li>
+      </ul>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Privacy and reassurance</h2>
+      <p>
+        The Household Snapshot runs locally in your browser. That means your responses are processed on this device.
+      </p>
+      <p>
+        You remain in control of what happens next. You can review your result, save a baseline, export a report,
+        or choose to email your results when seeking support.
+      </p>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>© Cyber Seeds</p>
-      <p><a href="/privacy/">Privacy</a> · <a href="/resources/">Resources</a></p>
-    </div>
+  <footer class="site-header" aria-label="Footer">
+    <nav aria-label="Footer links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/resources/">Resources</a>
+    </nav>
+    <p>&copy; Cyber Seeds</p>
   </footer>
-
 </body>
 </html>
