@@ -86,6 +86,26 @@
     }
   </style>
 </head>
+  <script>
+  (function () {
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
+    const map = {
+      "/": "home",
+      "/snapshot": "snapshot",
+      "/resources": "resources",
+      "/contact": "contact",
+      "/book": "book"
+    };
+
+    const active = map[path];
+    if (!active) return;
+
+    const link = document.querySelector(`[data-nav="${active}"]`);
+    if (link) {
+      link.setAttribute("aria-current", "page");
+    }
+  })();
+</script>
 <body>
   <header class="site-header">
     <a class="brand" href="/" aria-label="Cyber Seeds home">
