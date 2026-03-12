@@ -15,6 +15,42 @@
   <link rel="canonical" href="https://cyberseeds.co.uk/book/" />
   <link rel="stylesheet" href="/snapshot-app.css" />
 </head>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
+      <span>Cyber Seeds</span>
+    </a>
+  
+    <div class="site-header-actions">
+      <nav aria-label="Primary">
+        <a href="/" data-nav="home">Home</a>
+        <a href="/snapshot/" data-nav="snapshot">Snapshot</a>
+        <a href="/resources/" data-nav="resources">Resources</a>
+        <a href="/contact/" data-nav="contact">Contact</a>
+        <a href="/book/" data-nav="book" class="nav-cta">Book Audit</a>
+      </nav>
+    </div>
+</header>
+  <script>
+  (function () {
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
+    const map = {
+      "/": "home",
+      "/snapshot": "snapshot",
+      "/resources": "resources",
+      "/contact": "contact",
+      "/book": "book"
+    };
+
+    const active = map[path];
+    if (!active) return;
+
+    const link = document.querySelector(`[data-nav="${active}"]`);
+    if (link) {
+      link.setAttribute("aria-current", "page");
+    }
+  })();
+</script>
 <body>
   <main class="intake-main" id="main-content">
     <section class="intake-panel" aria-labelledby="book-title">
