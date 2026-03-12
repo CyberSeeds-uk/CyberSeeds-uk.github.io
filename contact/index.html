@@ -1,305 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#13211e" />
 
-<title>Cyber Seeds — Household Orientation</title>
-<meta name="description" content="A calm, interactive 3D orientation of your household’s digital environment. No judgement. No monitoring. Just clarity." />
+  <title>Contact Cyber Seeds | Calm Household Digital Support</title>
+  <meta
+    name="description"
+    content="Contact Cyber Seeds for household digital support, snapshot help, or to discuss a full home cyber audit."
+  />
 
-<link rel="canonical" href="https://cyberseeds-uk.github.io/contact/" />
-<link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/cyber_seeds_logo.png" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/contact/" />
+  <link rel="stylesheet" href="/snapshot-app.css" />
 
-<meta property="og:title" content="Cyber Seeds — Household Orientation" />
-<meta property="og:description" content="A calm way to see how your digital home fits together." />
-<meta property="og:image" content="/cyber_seeds_logo.png" />
-<meta property="og:url" content="https://cyberseeds-uk.github.io/contact/" />
+  <style>
+    .contact-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .contact-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .contact-card-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .contact-card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+      padding:18px;
+    }
+
+    .contact-card h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--ink);
+    }
+
+    .contact-card p{
+      margin:0 0 12px;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    .contact-list{
+      margin:0;
+      padding-left:18px;
+      color:var(--ink);
+    }
+
+    .contact-list li{
+      margin:0 0 8px;
+      line-height:1.5;
+    }
+
+    .contact-note{
+      border-left:4px solid rgba(26,106,93,.28);
+      padding:12px 14px;
+      background:var(--mint2);
+      border-radius:12px;
+      color:var(--ink);
+      line-height:1.6;
+    }
+
+    .contact-status{
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    @media (max-width: 900px){
+      .contact-card-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="/" class="nav-logo">
-      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds Logo">
-      Cyber Seeds
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Cyber Seeds home">
+      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
+      <span>Cyber Seeds</span>
     </a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/">Home</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/services/">Services</a></li>
-      <li><a href="/resources/">Resources</a></li>
-      <li><a href="/schedule/">Next Steps</a></li>
-      <li><a class="active" href="/contact/">Orientation</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="cs-orient-hero">
-  <div class="cs-orient-hero-inner">
-    <h1>Your Household, Gently Mapped</h1>
-    <p>
-      Explore a calm 3D model of how a home connects digitally.
-      Nothing here monitors anyone. This is simply an orientation — so you’re not navigating blind.
-    </p>
-  </div>
-</section>
-
-<!-- 3D STAGE -->
-<section class="cs-orient-stage">
-  <div class="cs-orient-frame">
-    <div id="cs3d" class="cs-orient-canvas" aria-label="Cyber Seeds 3D orientation model"></div>
-
-    <!-- Overlay UI -->
-    <div class="cs-orient-ui">
-      <div class="cs-orient-chip">Drag to rotate · Pinch/scroll to zoom</div>
-      <button id="csReset" class="cs-orient-btn" type="button">Reset view</button>
+    <div class="site-header-actions">
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/resources/">Resources</a>
+        <a href="/book/">Book Audit</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Fallback -->
-    <div id="csFallback" class="cs-orient-fallback" hidden>
-      <h3>3D view unavailable</h3>
+  <main class="intake-main" id="main-content">
+    <section class="intake-panel" aria-labelledby="contact-title">
+      <p class="kicker">Contact Cyber Seeds</p>
+      <h1 id="contact-title">A calm way to get in touch</h1>
+
+      <p class="lead">
+        Whether you have a question, need help understanding your Household Snapshot,
+        or want to discuss a full home cyber audit, Cyber Seeds offers a clear and
+        supportive first point of contact.
+      </p>
+
       <p>
-        Your browser is blocking WebGL. Try opening this page in Safari/Chrome,
-        or disable Low Power Mode / content blockers for this site.
+        You do not need to have everything figured out before reaching out.
+        A simple message is enough to begin.
       </p>
-    </div>
-  </div>
 
-  <div class="cs-orient-caption">
-    <div class="cs-orient-card">
+      <div class="contact-actions">
+        <button class="btn-primary" type="button" id="contact-general-email">
+          Email Cyber Seeds
+        </button>
+
+        <button class="btn-secondary" type="button" id="contact-snapshot-email">
+          Email with My Snapshot
+        </button>
+
+        <a class="btn-secondary" href="/book/">
+          Go to Audit Booking
+        </a>
+      </div>
+
+      <p class="contact-status" id="contact-email-status" aria-live="polite"></p>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="contact-routes-title">
+      <h2 id="contact-routes-title">How we can help</h2>
+
+      <div class="contact-card-grid">
+        <article class="contact-card" aria-labelledby="route-general-title">
+          <h3 id="route-general-title">General enquiry</h3>
+          <p>
+            Ask a question about Cyber Seeds, the five-lens model, household digital
+            safety, or whether the service is suitable for your family.
+          </p>
+          <button class="btn-secondary" type="button" id="contact-general-email-card">
+            Start a general email
+          </button>
+        </article>
+
+        <article class="contact-card" aria-labelledby="route-snapshot-title">
+          <h3 id="route-snapshot-title">Snapshot support</h3>
+          <p>
+            If you have completed the Household Snapshot, you can send your latest
+            result directly so support begins with useful context.
+          </p>
+          <button class="btn-secondary" type="button" id="contact-snapshot-email-card">
+            Email my latest snapshot
+          </button>
+        </article>
+
+        <article class="contact-card" aria-labelledby="route-audit-title">
+          <h3 id="route-audit-title">Full audit request</h3>
+          <p>
+            For households wanting deeper guidance, structured review, and tailored next
+            steps across devices, privacy, scams, and digital wellbeing.
+          </p>
+          <a class="btn-secondary" href="/book/">
+            Request a full audit
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="before-contact-title">
+      <h2 id="before-contact-title">What to include</h2>
+      <ul class="promise-list">
+        <li><strong>Your main question:</strong> what you would most like help understanding.</li>
+        <li><strong>Your household context:</strong> for example children, shared devices, privacy concerns, or repeated scam messages.</li>
+        <li><strong>Your preferred next step:</strong> a simple answer, snapshot guidance, or an audit conversation.</li>
+      </ul>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">A note on privacy and care</h2>
+      <div class="contact-note">
+        Initial contact is made by email. Please avoid including highly sensitive personal
+        information, passwords, banking details, or private codes in your first message.
+        If more detail is needed, that can be handled more carefully once contact has been established.
+      </div>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="next-step-title">
+      <h2 id="next-step-title">Not sure where to begin?</h2>
       <p>
-        Every household already has a digital shape: devices, accounts, habits, and people —
-        interacting quietly in the background.
+        The Household Snapshot is often the easiest first step. It runs locally in your
+        browser and helps create a calm baseline before any deeper support is needed.
       </p>
       <p>
-        Cyber Seeds makes that invisible structure visible, calmly and without judgement.
+        <a class="btn-primary" href="/snapshot/">Take the Household Snapshot</a>
       </p>
-      <p class="cs-orient-quiet">
-        You don’t need to act yet. Understanding comes first.
-      </p>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
-<footer>
-  <p>© 2025 Cyber Seeds — Household Digital Clarity</p>
-</footer>
+  <footer class="site-header" aria-label="Footer">
+    <nav aria-label="Footer links">
+      <a href="/privacy/">Privacy</a>
+      <a href="/contact/" aria-current="page">Contact</a>
+      <a href="/resources/">Resources</a>
+    </nav>
+    <p>&copy; Cyber Seeds</p>
+  </footer>
 
-<script>
-document.getElementById("navToggle").addEventListener("click", () => {
-  document.getElementById("navLinks").classList.toggle("open");
-});
-</script>
+  <script src="/shared/email-drafts.js"></script>
+  <script>
+    (function () {
+      const SNAPSHOT_KEY = "cyberseeds_snapshot_latest_v3";
+      const EMAIL_ADDRESS = "cyberseeds.uk@gmail.com";
 
-<!-- ✅ PRO WORKING 3D (ES MODULES) -->
-<script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js";
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/controls/OrbitControls.js";
+      const status = document.getElementById("contact-email-status");
 
-/* --- WebGL support check --- */
-function webglAvailable() {
-  try {
-    const canvas = document.createElement("canvas");
-    return !!(window.WebGLRenderingContext &&
-      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")));
-  } catch {
-    return false;
-  }
-}
+      const generalButtons = [
+        document.getElementById("contact-general-email"),
+        document.getElementById("contact-general-email-card")
+      ].filter(Boolean);
 
-const container = document.getElementById("cs3d");
-const fallback = document.getElementById("csFallback");
-if (!webglAvailable()) {
-  fallback.hidden = false;
-  throw new Error("WebGL not available");
-}
+      const snapshotButtons = [
+        document.getElementById("contact-snapshot-email"),
+        document.getElementById("contact-snapshot-email-card")
+      ].filter(Boolean);
 
-/* --- Renderer --- */
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-container.appendChild(renderer.domElement);
+      function safeParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
 
-/* --- Scene --- */
-const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x020617, 8, 26);
+      function readLatestSnapshot() {
+        try {
+          const raw = localStorage.getItem(SNAPSHOT_KEY);
+          if (!raw) return null;
+          return safeParse(raw);
+        } catch (err) {
+          console.error("Could not read latest snapshot:", err);
+          return null;
+        }
+      }
 
-/* --- Camera --- */
-const camera = new THREE.PerspectiveCamera(
-  55,
-  container.clientWidth / container.clientHeight,
-  0.1,
-  100
-);
-camera.position.set(0, 3.2, 10);
+      function openGeneralEmail() {
+        const subject = "Cyber Seeds Enquiry";
+        const body = [
+          "Hello Cyber Seeds,",
+          "",
+          "I would like to get in touch regarding household digital support.",
+          "",
+          "My question:",
+          "",
+          "My household context:",
+          "",
+          "Preferred next step:",
+          "",
+          "Kind regards,"
+        ].join("\\n");
 
-/* --- Controls (damped, gentle) --- */
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.enableDamping = true;
-controls.dampingFactor = 0.06;
-controls.rotateSpeed = 0.55;
-controls.zoomSpeed = 0.8;
-controls.minDistance = 6.2;
-controls.maxDistance = 16;
-controls.maxPolarAngle = Math.PI * 0.55; // prevents flipping below “floor”
+        const url =
+          "https://mail.google.com/mail/?view=cm&fs=1" +
+          "&to=" + encodeURIComponent(EMAIL_ADDRESS) +
+          "&su=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(body);
 
-/* --- Lighting (soft studio) --- */
-scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+        window.open(url, "_blank");
+      }
 
-const key = new THREE.DirectionalLight(0x9bd3ff, 0.85);
-key.position.set(6, 8, 6);
-scene.add(key);
+      function openSnapshotEmail() {
+        const snapshot = readLatestSnapshot();
 
-const fill = new THREE.DirectionalLight(0xb9ffd8, 0.35);
-fill.position.set(-6, 4, -4);
-scene.add(fill);
+        if (!snapshot) {
+          if (status) {
+            status.textContent = "No local snapshot was found on this device yet. You can still send a general email or complete the Household Snapshot first.";
+          }
+          return;
+        }
 
-const rim = new THREE.PointLight(0xa78bfa, 0.35, 40);
-rim.position.set(0, 6, -10);
-scene.add(rim);
+        if (!window.CSEmailDrafts || typeof window.CSEmailDrafts.openResultsDraft !== "function") {
+          console.error("CSEmailDrafts is not available.");
+          if (status) {
+            status.textContent = "The snapshot email tool could not be loaded. Please refresh the page and try again.";
+          }
+          return;
+        }
 
-/* --- Materials (premium, calm) --- */
-function glass(color, opacity=0.92) {
-  return new THREE.MeshPhysicalMaterial({
-    color,
-    roughness: 0.28,
-    metalness: 0.05,
-    transmission: 0.35,
-    thickness: 0.8,
-    transparent: true,
-    opacity,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.35
-  });
-}
-const matInternet = new THREE.MeshStandardMaterial({
-  color: 0x1e293b,
-  transparent: true,
-  opacity: 0.12,
-  roughness: 0.9,
-  metalness: 0.0
-});
+        if (status) {
+          status.textContent = "Opening your email draft with your latest snapshot included.";
+        }
 
-/* --- Backdrop (subtle star-dust) --- */
-const dustGeo = new THREE.BufferGeometry();
-const dustCount = 900;
-const dustPos = new Float32Array(dustCount * 3);
-for (let i = 0; i < dustCount; i++) {
-  const r = 18 * Math.cbrt(Math.random());
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.acos(2 * Math.random() - 1);
-  dustPos[i*3+0] = r * Math.sin(phi) * Math.cos(theta);
-  dustPos[i*3+1] = (r * Math.cos(phi)) * 0.55;
-  dustPos[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
-}
-dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPos, 3));
-const dustMat = new THREE.PointsMaterial({ size: 0.02, opacity: 0.55, transparent: true });
-const dust = new THREE.Points(dustGeo, dustMat);
-scene.add(dust);
+        window.CSEmailDrafts.openResultsDraft(snapshot);
+      }
 
-/* --- Core structure --- */
-const group = new THREE.Group();
-scene.add(group);
+      generalButtons.forEach((button) => {
+        button.addEventListener("click", openGeneralEmail);
+      });
 
-/* Outer “Internet” shell */
-const internet = new THREE.Mesh(new THREE.SphereGeometry(6.2, 48, 48), matInternet);
-group.add(internet);
-
-/* Gateway (router, but not labelled loudly) */
-const gateway = new THREE.Mesh(new THREE.IcosahedronGeometry(0.62, 2), glass(0x38bdf8));
-gateway.position.set(0, 0.2, 0.2);
-group.add(gateway);
-
-/* Zones */
-const adult = new THREE.Mesh(new THREE.SphereGeometry(0.95, 40, 40), glass(0xa78bfa));
-adult.position.set(-2.4, 0.0, 0.4);
-
-const shared = new THREE.Mesh(new THREE.SphereGeometry(0.95, 40, 40), glass(0x34d399));
-shared.position.set(0.0, 0.0, -2.2);
-
-const child = new THREE.Mesh(new THREE.SphereGeometry(0.95, 40, 40), glass(0xfbbf24));
-child.position.set(2.4, 0.0, 0.4);
-
-group.add(adult, shared, child);
-
-/* Household Signal (breathing core) */
-const signal = new THREE.Mesh(new THREE.SphereGeometry(0.38, 40, 40), glass(0xffffff, 0.96));
-signal.position.set(0, -0.15, 0);
-group.add(signal);
-
-/* Connection threads */
-const threadMat = new THREE.LineBasicMaterial({ transparent: true, opacity: 0.22 });
-function thread(a, b) {
-  const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
-  return new THREE.Line(geo, threadMat);
-}
-group.add(thread(gateway.position, adult.position));
-group.add(thread(gateway.position, shared.position));
-group.add(thread(gateway.position, child.position));
-group.add(thread(adult.position, signal.position));
-group.add(thread(shared.position, signal.position));
-group.add(thread(child.position, signal.position));
-
-/* Ground plane (very subtle) */
-const plane = new THREE.Mesh(
-  new THREE.CircleGeometry(7.2, 64),
-  new THREE.MeshStandardMaterial({ color: 0x0b1220, transparent: true, opacity: 0.35, roughness: 1 })
-);
-plane.rotation.x = -Math.PI / 2;
-plane.position.y = -1.25;
-group.add(plane);
-
-/* --- Animation (calm, premium) --- */
-let t = 0;
-function animate() {
-  t += 0.007;
-
-  // gentle breathing
-  const breath = 1 + Math.sin(performance.now() * 0.002) * 0.06;
-  signal.scale.set(breath, breath, breath);
-
-  // slow ambient drift
-  adult.position.y = Math.sin(t * 1.2) * 0.08;
-  shared.position.y = Math.sin(t * 1.1 + 1.8) * 0.08;
-  child.position.y = Math.sin(t * 1.25 + 3.2) * 0.08;
-  gateway.rotation.y += 0.004;
-
-  // dust drift
-  dust.rotation.y += 0.0008;
-
-  controls.update();
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* --- Resize --- */
-function onResize() {
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-}
-window.addEventListener("resize", onResize);
-
-/* --- Reset view button --- */
-document.getElementById("csReset").addEventListener("click", () => {
-  camera.position.set(0, 3.2, 10);
-  controls.target.set(0, 0, 0);
-  controls.update();
-});
-</script>
-
+      snapshotButtons.forEach((button) => {
+        button.addEventListener("click", openSnapshotEmail);
+      });
+    })();
+  </script>
 </body>
 </html>
