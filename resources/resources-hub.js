@@ -526,18 +526,7 @@
           </div>
         </section>
 
-        <section class="resultCard comparison-block" aria-labelledby="progressTitle">
-          <h2 id="progressTitle">Your progress</h2>
-          <p id="baselineComparisonText">${baselineMessage}</p>
-          ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
-          <div class="snapshot-controls" style="margin-top:14px">
-            <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
-            <p class="muted">Set this snapshot as my household baseline.</p>
-            <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
-            <p class="muted">Resetting baseline does not delete your snapshot history.</p>
-            <p class="muted" id="baselineStatus" aria-live="polite"></p>
-          </div>
-        </section>
+   
 
         <section class="resultCard" aria-labelledby="nextSeedTitle">
           <h2 id="nextSeedTitle">${seed?.title || "Your next digital seed"}</h2>
@@ -579,6 +568,21 @@
           `).join("")}
         </section>
 
+
+        <section class="resultCard comparison-block" aria-labelledby="progressTitle">
+          <h2 id="progressTitle">Your progress</h2>
+          <p id="baselineComparisonText">${baselineMessage}</p>
+          ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
+          <div class="snapshot-controls" style="margin-top:14px">
+            <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
+            <p class="muted">Set this snapshot as my household baseline.</p>
+            <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
+            <p class="muted">Resetting baseline does not delete your snapshot history.</p>
+            <p class="muted" id="baselineStatus" aria-live="polite"></p>
+          </div>
+        </section>
+
+        
         <section class="resultCard renewal-actions" aria-label="Snapshot actions">
            <button
              class="btn-secondary snapshot-launch"
