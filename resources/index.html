@@ -9,6 +9,7 @@
   <link rel="icon" href="/cyber_seeds_logo.png" />
   <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
   <link rel="stylesheet" href="/snapshot-app.css" />
+
   <style>
     .cs-lensRow{
       border:1px solid var(--line);
@@ -17,6 +18,7 @@
       overflow:clip;
       margin:12px 0;
     }
+
     .cs-lensToggle{
       width:100%;
       text-align:left;
@@ -29,125 +31,272 @@
       align-items:start;
       cursor:pointer;
     }
-    .cs-lensLeft{display:grid;gap:4px}
-    .cs-lensName{font-weight:650;color:var(--ink);line-height:1.2}
-    .cs-lensScore{color:var(--muted);font-size:.95rem;line-height:1.2}
-    .cs-lensRight{display:grid;gap:6px;min-width:0}
-    .cs-lensBand{font-weight:650;font-size:.85rem;color:var(--brand2)}
-    .cs-lensSummary{color:var(--muted);font-size:.95rem;line-height:1.45}
+
+    .cs-lensLeft{
+      display:grid;
+      gap:4px;
+    }
+
+    .cs-lensName{
+      font-weight:650;
+      color:var(--ink);
+      line-height:1.2;
+    }
+
+    .cs-lensScore{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.2;
+    }
+
+    .cs-lensRight{
+      display:grid;
+      gap:6px;
+      min-width:0;
+    }
+
+    .cs-lensBand{
+      font-weight:650;
+      font-size:.85rem;
+      color:var(--brand2);
+    }
+
+    .cs-lensSummary{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.45;
+    }
+
     .cs-lensDetails{
       border-top:1px solid var(--line);
       background:var(--mint2);
       padding:14px 14px 16px;
     }
+
     .cs-lensInterpretation,
-    .cs-lensDirection{margin:0 0 10px;line-height:1.55;color:var(--ink)}
-    .cs-lensDirection{margin-bottom:0}
+    .cs-lensDirection{
+      margin:0 0 10px;
+      line-height:1.55;
+      color:var(--ink);
+    }
+
+    .cs-lensDirection{
+      margin-bottom:0;
+    }
+
     .cs-lensToggle:focus-visible{
       outline:3px solid rgba(26,106,93,.35);
       outline-offset:2px;
       border-radius:12px;
     }
+
     .cs-lensRow--focus{
       border-color:rgba(15,47,42,.35);
       box-shadow:0 1px 0 rgba(15,47,42,.08);
     }
-    .comparison-block{
-      margin-top:16px;
-    }
-    .comparison-block h2{
-      margin-top:0;
-    }
-    .comparison-block p{
-      margin:0 0 8px;
-      line-height:1.5;
-    }
-    .comparison-block p:last-child{
-      margin-bottom:0;
-    }
+
     .snapshot-controls{
-      margin-top:16px;
+      margin-top:12px;
       display:grid;
       gap:10px;
     }
+
     .snapshot-controls h2{
       margin:0;
     }
+
     .snapshot-controls p{
       margin:0;
       line-height:1.5;
     }
+
     .snapshot-controls label{
       font-weight:600;
+      color:var(--ink);
     }
+
     .snapshot-controls input[type="file"]{
       width:100%;
       max-width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      padding:10px 12px;
+      box-sizing:border-box;
     }
-    .renewal-actions button,
-    .renewal-actions a{
-      min-height:44px;
+
+    .renewal-actions{
+      padding:18px;
     }
-    @media (max-width:640px){
-      .cs-lensToggle{grid-template-columns:1fr}
-      .cs-lensLeft{grid-template-columns:1fr auto;align-items:baseline}
-      .cs-lensScore{justify-self:end}
-      .renewal-actions .btn-secondary,
-      .renewal-actions .btn-primary{
-        width:100%;
-        text-align:center;
-      }
-    }
-    .compact-progress-card{
-      margin-top:16px;
-    }
-    
-    .compact-progress-head{
-      display:grid;
-      gap:6px;
-    }
-    
-    .compact-progress-head h2{
-      margin:0;
-    }
-    
-    .compact-progress-summary{
-      margin:0;
-    }
-    
-    .compact-progress-details{
-      margin-top:14px;
-      border-top:1px solid var(--line);
-      padding-top:12px;
-    }
-    
-    .compact-progress-details summary{
-      cursor:pointer;
-      list-style:none;
-    }
-    
-    .compact-progress-details summary::-webkit-details-marker{
-      display:none;
-    }
-    
-    .compact-progress-actions{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-    
+
     .renewal-actions-grid{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:12px;
     }
-    
+
+    .renewal-actions button,
+    .renewal-actions a{
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .compact-progress-card{
+      margin-top:14px;
+      padding:18px;
+    }
+
+    .compact-progress-head{
+      display:grid;
+      gap:4px;
+    }
+
+    .compact-progress-head h2{
+      margin:0;
+      font-size:1.05rem;
+    }
+
+    .compact-progress-summary{
+      margin:0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:.97rem;
+    }
+
+    .compact-progress-details{
+      margin-top:12px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+
+    .compact-progress-details summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:var(--ink);
+      font-weight:650;
+      user-select:none;
+    }
+
+    .compact-progress-details summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .compact-progress-details summary::after{
+      content:"+";
+      font-weight:700;
+      color:var(--muted);
+      line-height:1;
+    }
+
+    .compact-progress-details[open] summary::after{
+      content:"–";
+    }
+
+    .compact-progress-actions{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+      padding-top:2px;
+    }
+
+    .compact-progress-actions .btn-secondary{
+      min-height:44px;
+    }
+
+    .compact-progress-actions p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:.95rem;
+    }
+
+    .compact-progress-actions #baselineStatus{
+      min-height:1.2em;
+    }
+
+    .resultCard.snapshot-controls{
+      margin-top:14px;
+      padding:18px;
+    }
+
+    .resultCard.snapshot-controls details{
+      display:grid;
+      gap:10px;
+    }
+
+    .resultCard.snapshot-controls summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:650;
+      color:var(--ink);
+      user-select:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .resultCard.snapshot-controls summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .resultCard.snapshot-controls summary::after{
+      content:"+";
+      font-weight:700;
+      color:var(--muted);
+      line-height:1;
+    }
+
+    .resultCard.snapshot-controls details[open] summary::after{
+      content:"–";
+    }
+
+    .resultCard.snapshot-controls button{
+      width:fit-content;
+      min-height:44px;
+      padding-inline:18px;
+    }
+
+    .resultCard.snapshot-controls .muted{
+      min-height:1.2em;
+    }
+
     @media (max-width:640px){
+      .cs-lensToggle{
+        grid-template-columns:1fr;
+      }
+
+      .cs-lensLeft{
+        grid-template-columns:1fr auto;
+        align-items:baseline;
+      }
+
+      .cs-lensScore{
+        justify-self:end;
+      }
+
       .renewal-actions-grid{
         grid-template-columns:1fr;
       }
+
+      .renewal-actions .btn-secondary,
+      .renewal-actions .btn-primary{
+        width:100%;
+      }
+
+      .resultCard.snapshot-controls button{
+        width:100%;
+      }
     }
-      </style>
+  </style>
+
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="/shared/email-drafts.js"></script>
   <script src="/shared/snapshot-report.js"></script>
@@ -165,7 +314,6 @@
       <nav aria-label="Primary">
         <a href="/">Home</a>
       </nav>
-
     </div>
   </header>
 
