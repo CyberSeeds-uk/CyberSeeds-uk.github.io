@@ -139,14 +139,14 @@
   }
 
   function openMailto(subject, body) {
-  const url =
-    "https://mail.google.com/mail/?view=cm&fs=1" +
-    "&to=" + encodeURIComponent(EMAIL_ADDRESS) +
-    "&su=" + encodeURIComponent(subject) +
-    "&body=" + encodeURIComponent(body);
+    const url =
+      "https://mail.google.com/mail/?view=cm&fs=1" +
+      "&to=" + encodeURIComponent(EMAIL_ADDRESS) +
+      "&su=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
 
-  window.open(url, "_blank");
-}
+    window.open(url, "_blank");
+  }
 
   window.CSEmailDrafts = {
     buildBookingEmailBody,
