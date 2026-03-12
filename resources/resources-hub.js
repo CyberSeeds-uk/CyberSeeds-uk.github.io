@@ -3,7 +3,7 @@
    Local-first snapshot rendering and recovery controls
    ========================================================= */
 
-(function(){
+(function () {
   "use strict";
 
   const STORAGE_KEYS = {
@@ -20,42 +20,42 @@
 
   const LENS_ORDER = ["network", "devices", "privacy", "scams", "wellbeing"];
 
-  function safeParse(value, fallback = null){
-    try{
+  function safeParse(value, fallback = null) {
+    try {
       return JSON.parse(value);
-    }catch{
+    } catch {
       return fallback;
     }
   }
 
-  function isPlainObject(value){
+  function isPlainObject(value) {
     return !!value && typeof value === "object" && !Array.isArray(value);
   }
 
-  function safeGetItem(key){
-    try{
+  function safeGetItem(key) {
+    try {
       return localStorage.getItem(key);
-    }catch{
+    } catch {
       return null;
     }
   }
 
-  function safeSetItem(key, value){
-    try{
+  function safeSetItem(key, value) {
+    try {
       localStorage.setItem(key, value);
       return true;
-    }catch{
+    } catch {
       return false;
     }
   }
 
-  function safeRemoveItem(key){
-    try{
+  function safeRemoveItem(key) {
+    try {
       localStorage.removeItem(key);
-    }catch{}
+    } catch {}
   }
 
-  function lensLabels(){
+  function lensLabels() {
     return {
       network: "Network",
       devices: "Devices",
@@ -65,18 +65,18 @@
     };
   }
 
-  function formatLensName(value){
+  function formatLensName(value) {
     if (!value) return "";
     return lensLabels()[value] || (value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
   }
 
-  function getLensBand(value){
+  function getLensBand(value) {
     if (value >= 75) return "Established";
     if (value >= 50) return "Developing";
     return "Emerging";
   }
 
-  function getLensSummary(lens, value){
+  function getLensSummary(lens, value) {
     const band = getLensBand(value).toLowerCase();
     const labels = {
       network: `Network foundations are ${band} and can be strengthened with small routine checks.`,
@@ -88,27 +88,37 @@
     return labels[lens] || "This lens can move forward through steady, manageable steps.";
   }
 
-  function getLensDetails(lens){
+  function getLensDetails(lens) {
     const copy = {
       network: {
-        interpretation: "A stable home connection supports everyday trust. Small improvements like router checks and known-device reviews help the whole household feel more settled.",
-        next: "Set one recurring moment each month to review router settings and remove unknown devices."
+        interpretation:
+          "A stable home connection supports everyday trust. Small improvements like router checks and known-device reviews help the whole household feel more settled.",
+        next:
+          "Set one recurring moment each month to review router settings and remove unknown devices."
       },
       devices: {
-        interpretation: "Shared device routines reduce friction and support safer defaults. Clear charging, update, and handover habits make digital life easier for adults and children.",
-        next: "Agree one simple household device routine, such as a weekly update check before weekend use."
+        interpretation:
+          "Shared device routines reduce friction and support safer defaults. Clear charging, update, and handover habits make digital life easier for adults and children.",
+        next:
+          "Agree one simple household device routine, such as a weekly update check before weekend use."
       },
       privacy: {
-        interpretation: "Privacy settings work best when they are understandable and repeatable. Keeping account controls simple helps everyone maintain confidence without extra pressure.",
-        next: "Choose one important account and review sign-in and recovery settings together."
+        interpretation:
+          "Privacy settings work best when they are understandable and repeatable. Keeping account controls simple helps everyone maintain confidence without extra pressure.",
+        next:
+          "Choose one important account and review sign-in and recovery settings together."
       },
       scams: {
-        interpretation: "Scam resistance grows through shared pause-and-check behaviours. A calm response plan helps reduce urgency and protects decision-making.",
-        next: "Create a family pause phrase to use before clicking links or sharing codes."
+        interpretation:
+          "Scam resistance grows through shared pause-and-check behaviours. A calm response plan helps reduce urgency and protects decision-making.",
+        next:
+          "Create a family pause phrase to use before clicking links or sharing codes."
       },
       wellbeing: {
-        interpretation: "Digital wellbeing is strengthened by predictable boundaries and open conversations. Children benefit when expectations are clear and support is non-judgemental.",
-        next: "Set one short weekly check-in about online experiences and what support is needed."
+        interpretation:
+          "Digital wellbeing is strengthened by predictable boundaries and open conversations. Children benefit when expectations are clear and support is non-judgemental.",
+        next:
+          "Set one short weekly check-in about online experiences and what support is needed."
       }
     };
 
@@ -118,7 +128,7 @@
     };
   }
 
-  function normaliseSnapshot(snapshot){
+  function normaliseSnapshot(snapshot) {
     if (!isPlainObject(snapshot)) return null;
 
     const now = Date.now();
@@ -156,32 +166,27 @@
     };
   }
 
-  function readLatestSnapshot(){
+  function readLatestSnapshot() {
     const raw = safeGetItem(STORAGE_KEYS.latest);
     if (!raw) return null;
 
     const parsed = safeParse(raw, null);
-    const normalized = normaliseSnapshot(parsed);
-    return normalized;
+    return normaliseSnapshot(parsed);
   }
 
-  function readHistorySnapshots(){
+  function readHistorySnapshots() {
     const parsed = safeParse(safeGetItem(STORAGE_KEYS.history), []);
     if (!Array.isArray(parsed)) return [];
 
-    return parsed
-      .map(normaliseSnapshot)
-      .filter(Boolean);
+    return parsed.map(normaliseSnapshot).filter(Boolean);
   }
 
-  function readBaselineSnapshot(){
+  function readBaselineSnapshot() {
     const fromPrimary = safeParse(safeGetItem(STORAGE_KEYS.baseline), null);
     const normalizedPrimary = normaliseSnapshot(fromPrimary);
-    if (normalizedPrimary){
-      return normalizedPrimary;
-    }
+    if (normalizedPrimary) return normalizedPrimary;
 
-    for (const key of LEGACY_BASELINE_KEYS){
+    for (const key of LEGACY_BASELINE_KEYS) {
       const parsed = safeParse(safeGetItem(key), null);
       const normalized = normaliseSnapshot(parsed);
       if (!normalized) continue;
@@ -193,7 +198,7 @@
     return null;
   }
 
-  function writeBaselineSnapshot(snapshot){
+  function writeBaselineSnapshot(snapshot) {
     const normalized = normaliseSnapshot(snapshot);
     if (!normalized) return false;
 
@@ -203,46 +208,43 @@
     return savedPrimary;
   }
 
-  function resetBaselineSnapshot(){
+  function resetBaselineSnapshot() {
     safeRemoveItem(STORAGE_KEYS.baseline);
     safeRemoveItem(STORAGE_KEYS.baselineCompat);
     safeRemoveItem("cs_snapshot_baseline");
   }
 
-  function buildBaselineComparison(current, baseline){
-    if (!baseline){
-      return "No baseline set yet. Set a baseline to compare future snapshots.";
+  function buildBaselineComparison(current, baseline) {
+    if (!baseline) {
+      return "No baseline has been set yet. Set a baseline to compare future snapshots.";
     }
 
     const diff = Math.round((current?.total || 0) - (baseline?.total || 0));
 
-    if (diff > 0){
+    if (diff > 0) {
       return `Your household signal has improved by ${diff} points since your baseline.`;
     }
-    if (diff < 0){
+    if (diff < 0) {
       return `Your household signal is currently ${Math.abs(diff)} points below your baseline.`;
     }
     return "Your household signal is unchanged since your baseline.";
   }
 
-  function findPreviousSnapshot(current, history){
+  function findPreviousSnapshot(current, history) {
     if (!Array.isArray(history) || history.length < 2) return null;
 
     const currentId = current?.id;
-    if (!currentId){
-      return history[1] || null;
-    }
+    if (!currentId) return history[1] || null;
 
-    const currentIndex = history.findIndex(entry => entry.id === currentId);
-    if (currentIndex >= 0 && currentIndex + 1 < history.length){
+    const currentIndex = history.findIndex((entry) => entry.id === currentId);
+    if (currentIndex >= 0 && currentIndex + 1 < history.length) {
       return history[currentIndex + 1];
     }
 
-    const nonCurrent = history.find(entry => entry.id !== currentId);
-    return nonCurrent || null;
+    return history.find((entry) => entry.id !== currentId) || null;
   }
 
-  function buildPreviousComparison(current, history){
+  function buildPreviousComparison(current, history) {
     const previous = findPreviousSnapshot(current, history);
     if (!previous) return "";
 
@@ -251,12 +253,12 @@
     return `Your household signal has changed by ${signedDelta} points since your previous snapshot.`;
   }
 
-  function getLensValue(lenses, key){
+  function getLensValue(lenses, key) {
     const value = Number(lenses?.[key]);
     return Number.isFinite(value) ? Math.round(value) : "N/A";
   }
 
-  function buildSnapshotEmailBody(snapshot){
+  function buildSnapshotEmailBody(snapshot) {
     const labels = lensLabels();
     const stageLabel = snapshot?.stage?.label || "Current snapshot stage";
     const total = Number.isFinite(snapshot?.total) ? snapshot.total : Math.round(snapshot?.hdss || 0);
@@ -279,24 +281,22 @@
     ].join("\n");
   }
 
-  function openSnapshotEmailDraft(snapshot){
+  function openSnapshotEmailDraft(snapshot) {
     if (!snapshot) return;
 
     const subject = "Cyber Seeds Household Snapshot";
     const body = buildSnapshotEmailBody(snapshot);
-    const link =
-      `mailto:cyberseeds.uk@gmail.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
+    const link = `mailto:cyberseeds.uk@gmail.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = link;
   }
 
-  function buildBackupPayload(currentSnapshot){
+  function buildBackupPayload(currentSnapshot) {
     const latest = normaliseSnapshot(currentSnapshot) || readLatestSnapshot();
     const historyRaw = readHistorySnapshots();
     const baseline = readBaselineSnapshot();
 
     const history = historyRaw.length ? historyRaw : (latest ? [latest] : []);
-    if (latest && !history.some(item => item.id === latest.id)){
+    if (latest && !history.some((item) => item.id === latest.id)) {
       history.unshift(latest);
     }
 
@@ -307,7 +307,7 @@
     };
   }
 
-  function downloadBlob(filename, content, mimeType){
+  function downloadBlob(filename, content, mimeType) {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -319,7 +319,7 @@
     URL.revokeObjectURL(url);
   }
 
-  function downloadPassport(snapshot){
+  function downloadPassport(snapshot) {
     const readable = {
       schema: snapshot.schema || "cs.snapshot.v3",
       id: snapshot.id || null,
@@ -339,7 +339,7 @@
     );
   }
 
-  function exportSnapshotBackup(currentSnapshot){
+  function exportSnapshotBackup(currentSnapshot) {
     const payload = buildBackupPayload(currentSnapshot);
     downloadBlob(
       "cyber-seeds-snapshot-backup.json",
@@ -348,44 +348,44 @@
     );
   }
 
-  function validateSnapshotShape(value){
+  function validateSnapshotShape(value) {
     return !!normaliseSnapshot(value);
   }
 
-  function validateImportPayload(payload){
-    if (!isPlainObject(payload)){
+  function validateImportPayload(payload) {
+    if (!isPlainObject(payload)) {
       return { valid: false, message: "The selected file is not a valid JSON object." };
     }
 
-    if (!Object.prototype.hasOwnProperty.call(payload, "latest")
-      || !Object.prototype.hasOwnProperty.call(payload, "history")
-      || !Object.prototype.hasOwnProperty.call(payload, "baseline")){
+    if (
+      !Object.prototype.hasOwnProperty.call(payload, "latest") ||
+      !Object.prototype.hasOwnProperty.call(payload, "history") ||
+      !Object.prototype.hasOwnProperty.call(payload, "baseline")
+    ) {
       return { valid: false, message: "Expected structure: { latest, history, baseline }." };
     }
 
-    if (!validateSnapshotShape(payload.latest)){
+    if (!validateSnapshotShape(payload.latest)) {
       return { valid: false, message: "The latest snapshot is missing required fields." };
     }
 
-    if (!Array.isArray(payload.history)){
+    if (!Array.isArray(payload.history)) {
       return { valid: false, message: "History must be an array of snapshot objects." };
     }
 
-    if (!payload.history.every(validateSnapshotShape)){
+    if (!payload.history.every(validateSnapshotShape)) {
       return { valid: false, message: "One or more history entries are invalid." };
     }
 
-    if (payload.baseline !== null && !validateSnapshotShape(payload.baseline)){
+    if (payload.baseline !== null && !validateSnapshotShape(payload.baseline)) {
       return { valid: false, message: "Baseline must be a snapshot object or null." };
     }
 
     const latest = normaliseSnapshot(payload.latest);
-    const history = payload.history
-      .map(normaliseSnapshot)
-      .filter(Boolean);
+    const history = payload.history.map(normaliseSnapshot).filter(Boolean);
     const baseline = payload.baseline ? normaliseSnapshot(payload.baseline) : null;
 
-    if (!history.some(entry => entry.id === latest.id)){
+    if (!history.some((entry) => entry.id === latest.id)) {
       history.unshift(latest);
     }
 
@@ -395,30 +395,31 @@
     };
   }
 
-  async function restoreSnapshotDataFromFile(file){
-    if (!file){
+  async function restoreSnapshotDataFromFile(file) {
+    if (!file) {
       return { ok: false, message: "Choose a JSON file first." };
     }
 
-    try{
+    try {
       const raw = await file.text();
       const parsed = JSON.parse(raw);
       const checked = validateImportPayload(parsed);
 
-      if (!checked.valid){
+      if (!checked.valid) {
         return { ok: false, message: checked.message };
       }
 
-      const hasExistingData = !!safeGetItem(STORAGE_KEYS.latest)
-        || !!safeGetItem(STORAGE_KEYS.history)
-        || !!safeGetItem(STORAGE_KEYS.baseline)
-        || !!safeGetItem(STORAGE_KEYS.baselineCompat);
+      const hasExistingData =
+        !!safeGetItem(STORAGE_KEYS.latest) ||
+        !!safeGetItem(STORAGE_KEYS.history) ||
+        !!safeGetItem(STORAGE_KEYS.baseline) ||
+        !!safeGetItem(STORAGE_KEYS.baselineCompat);
 
       const confirmMessage = hasExistingData
         ? "Restoring this backup will replace your current latest snapshot, history, and baseline on this device. Continue?"
         : "Restore snapshot data on this device?";
 
-      if (!window.confirm(confirmMessage)){
+      if (!window.confirm(confirmMessage)) {
         return { ok: false, message: "Restore cancelled. Existing data was not changed." };
       }
 
@@ -426,7 +427,7 @@
       safeSetItem(STORAGE_KEYS.latest, JSON.stringify(value.latest));
       safeSetItem(STORAGE_KEYS.history, JSON.stringify(value.history));
 
-      if (value.baseline){
+      if (value.baseline) {
         safeSetItem(STORAGE_KEYS.baseline, JSON.stringify(value.baseline));
         safeSetItem(STORAGE_KEYS.baselineCompat, JSON.stringify(value.baseline));
       } else {
@@ -434,80 +435,80 @@
       }
 
       return { ok: true, message: "Snapshot data restored successfully." };
-    }catch{
+    } catch {
       return { ok: false, message: "The file could not be read. Please check that it is valid JSON." };
     }
   }
 
-  async function getFocusSeed(focus){
+  async function getFocusSeed(focus) {
     if (!focus) return null;
 
-    try{
-      if (!window.CSSeedForge){
+    try {
+      if (!window.CSSeedForge) {
         await import("/engine/seedforge.js");
       }
 
       const api = await window.CSSeedForge.load();
       const seeds = api?.seedsForLens ? api.seedsForLens(focus) : [];
       return Array.isArray(seeds) && seeds.length ? seeds[0] : null;
-    }catch{
+    } catch {
       return null;
     }
   }
 
-  function restorePanelMarkup(){
-  return `
-    <section class="resultCard snapshot-controls" aria-labelledby="dataToolsTitle">
-      <details>
-        <summary id="dataToolsTitle"><strong>Restore saved results</strong></summary>
-        <div style="margin-top:12px">
-          <p>Import a previously exported JSON backup to restore your latest snapshot, history, and baseline on this device.</p>
-          <label for="snapshotRestoreInput">Snapshot backup JSON file</label>
-          <input
-            id="snapshotRestoreInput"
-            type="file"
-            accept="application/json"
-            aria-label="Select a snapshot backup JSON file to restore"
-          />
-          <button class="btn-secondary" type="button" id="restoreSnapshotButton">Restore Snapshot Data</button>
-          <p class="muted" id="restoreStatus" aria-live="polite"></p>
-        </div>
-      </details>
-    </section>
-  `;
-}
-
-  function renderFallbackState(root){
-  root.innerHTML = `
-    <section class="resource-panel" data-cs-resources-hub>
-      <section class="signal-header">
-        <p class="kicker">Resources</p>
-        <h1 class="signal-pattern">No snapshot found</h1>
-        <p class="signal-description">Take a short check-in when you are ready to see your household signal.</p>
+  function restorePanelMarkup() {
+    return `
+      <section class="resultCard snapshot-controls" aria-labelledby="dataToolsTitle">
+        <details>
+          <summary id="dataToolsTitle"><strong>Restore saved results</strong></summary>
+          <div style="margin-top:12px">
+            <p>Import a previously exported JSON backup to restore your latest snapshot, history, and baseline on this device.</p>
+            <label for="snapshotRestoreInput">Snapshot backup JSON file</label>
+            <input
+              id="snapshotRestoreInput"
+              type="file"
+              accept="application/json"
+              aria-label="Select a snapshot backup JSON file to restore"
+            />
+            <button class="btn-secondary" type="button" id="restoreSnapshotButton">Restore Snapshot Data</button>
+            <p class="muted" id="restoreStatus" aria-live="polite"></p>
+          </div>
+        </details>
       </section>
+    `;
+  }
 
-      <section class="resultCard" style="text-align:center">
-        <button
-          class="btn-primary snapshot-launch"
-          data-open-snapshot
-          type="button"
-          aria-label="Start the Cyber Seeds household snapshot"
-        >
-          Take Household Snapshot
-        </button>
+  function renderFallbackState(root) {
+    root.innerHTML = `
+      <section class="resource-panel" data-cs-resources-hub>
+        <section class="signal-header">
+          <p class="kicker">Resources</p>
+          <h1 class="signal-pattern">No snapshot found</h1>
+          <p class="signal-description">Take a short check-in when you are ready to see your household signal.</p>
+        </section>
+
+        <section class="resultCard" style="text-align:center">
+          <button
+            class="btn-primary snapshot-launch"
+            data-open-snapshot
+            type="button"
+            aria-label="Start the Cyber Seeds household snapshot"
+          >
+            Take Household Snapshot
+          </button>
+        </section>
+
+        ${restorePanelMarkup()}
       </section>
+    `;
+  }
 
-      ${restorePanelMarkup()}
-    </section>
-  `;
-}
-
-  async function render(){
+  async function render() {
     const root = document.getElementById("resourcesRoot");
     if (!root) return;
 
     const snapshot = readLatestSnapshot();
-    if (!snapshot){
+    if (!snapshot) {
       renderFallbackState(root);
       bindRestoreControls(root);
       return;
@@ -523,7 +524,11 @@
       .filter(([, value]) => Number.isFinite(value));
 
     const stageLabel = snapshot.stage?.label || "Current snapshot stage";
-    const stageMessage = snapshot.signal?.summary || snapshot.stage?.message || "This snapshot is a supportive signal to help you choose your next calm step.";
+    const stageMessage =
+      snapshot.signal?.summary ||
+      snapshot.stage?.message ||
+      "This snapshot is a supportive signal to help you choose your next calm step.";
+
     const focusLensKey = snapshot.focus || "privacy";
     const focusLens = formatLensName(focusLensKey);
     const signalValue = Number.isFinite(snapshot.total) ? snapshot.total : Math.round(snapshot.hdss || 0);
@@ -531,109 +536,94 @@
     const seed = await getFocusSeed(focusLensKey);
     const weekText = seed?.this_week || seed?.thisWeek || seed?.week || "";
     const monthText = seed?.this_month || seed?.thisMonth || seed?.month || "";
-    const seedHtml = seed
-      ? `
-        <section class="resultCard" style="margin-top:16px">
-          <h2>${seed.title || "Digital seed"}</h2>
-          <p><strong>Today:</strong> ${seed.today || ""}</p>
-          ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
-          ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
-        </section>
-      `
-      : `
-        <section class="resultCard" style="margin-top:16px">
-          <h2>Focus lens digital seed</h2>
-          <p>No digital seed available yet.</p>
-        </section>
-      `;
 
     root.innerHTML = `
-  <section class="resource-panel" data-cs-resources-hub>
-    <section class="resultCard signal-header">
-      <p class="signal-kicker">Household signal</p>
-      <h1 class="signal-pattern" data-stage-label>${stageLabel}</h1>
-      <p class="signal-description">${stageMessage}</p>
+      <section class="resource-panel" data-cs-resources-hub>
+        <section class="resultCard signal-header">
+          <p class="signal-kicker">Household signal</p>
+          <h1 class="signal-pattern" data-stage-label>${stageLabel}</h1>
+          <p class="signal-description">${stageMessage}</p>
 
-      <div class="signal-score-block">
-        <div class="score-circle">
-          <span class="score-number">${signalValue}</span>
-          <span class="score-label">Household signal</span>
-        </div>
-        <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
-      </div>
-    </section>
-
-    <section class="resultCard comparison-block" aria-labelledby="progressTitle">
-      <h2 id="progressTitle">Your progress</h2>
-      <p id="baselineComparisonText">${baselineMessage}</p>
-      ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
-      <div class="snapshot-controls" style="margin-top:14px">
-        <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
-        <p class="muted">Set this snapshot as my household baseline.</p>
-        <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
-        <p class="muted">Resetting baseline does not delete your snapshot history.</p>
-        <p class="muted" id="baselineStatus" aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section class="resultCard" aria-labelledby="nextSeedTitle">
-      <h2 id="nextSeedTitle">${seed?.title || "Your next digital seed"}</h2>
-      ${
-        seed
-          ? `
-            <p><strong>Today:</strong> ${seed.today || ""}</p>
-            ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
-            ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
-          `
-          : `
-            <p>No digital seed available yet.</p>
-          `
-      }
-    </section>
-
-    <section class="resultCard lens-breakdown">
-      <h2>Lens overview</h2>
-      ${orderedLensEntries.map(([lens, value]) => `
-        <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
-          <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
-            <div class="cs-lensLeft">
-              <div class="cs-lensName">${formatLensName(lens)}</div>
-              <div class="cs-lensScore">${Math.round(value)}</div>
+          <div class="signal-score-block">
+            <div class="score-circle">
+              <span class="score-number">${signalValue}</span>
+              <span class="score-label">Household signal</span>
             </div>
-            <div class="cs-lensRight">
-              <div class="cs-lensBand">${getLensBand(value)}</div>
-              <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
-            </div>
+            <p class="certification-level">Focus lens: <span data-focus-lens>${focusLens}</span></p>
+          </div>
+        </section>
+
+        <section class="resultCard comparison-block" aria-labelledby="progressTitle">
+          <h2 id="progressTitle">Your progress</h2>
+          <p id="baselineComparisonText">${baselineMessage}</p>
+          ${previousMessage ? `<p id="previousComparisonText">${previousMessage}</p>` : ""}
+          <div class="snapshot-controls" style="margin-top:14px">
+            <button class="btn-secondary" type="button" id="setBaselineButton">Set Baseline</button>
+            <p class="muted">Set this snapshot as my household baseline.</p>
+            <button class="btn-secondary" type="button" id="resetBaselineButton">Reset baseline</button>
+            <p class="muted">Resetting baseline does not delete your snapshot history.</p>
+            <p class="muted" id="baselineStatus" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="resultCard" aria-labelledby="nextSeedTitle">
+          <h2 id="nextSeedTitle">${seed?.title || "Your next digital seed"}</h2>
+          ${
+            seed
+              ? `
+                <p><strong>Today:</strong> ${seed.today || ""}</p>
+                ${weekText ? `<p><strong>This week:</strong> ${weekText}</p>` : ""}
+                ${monthText ? `<p><strong>This month:</strong> ${monthText}</p>` : ""}
+              `
+              : `
+                <p>No digital seed available yet.</p>
+              `
+          }
+        </section>
+
+        <section class="resultCard lens-breakdown">
+          <h2>Lens overview</h2>
+          ${orderedLensEntries.map(([lens, value]) => `
+            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
+              <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
+                <div class="cs-lensLeft">
+                  <div class="cs-lensName">${formatLensName(lens)}</div>
+                  <div class="cs-lensScore">${Math.round(value)}</div>
+                </div>
+                <div class="cs-lensRight">
+                  <div class="cs-lensBand">${getLensBand(value)}</div>
+                  <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+                </div>
+              </button>
+              <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
+                <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
+                <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
+              </div>
+              <div class="lens-bar" style="padding:0 14px 14px;">
+                <div class="lens-fill" style="width:${Math.round(value)}%"></div>
+              </div>
+            </article>
+          `).join("")}
+        </section>
+
+        <section class="resultCard renewal-actions" aria-label="Snapshot actions">
+          <button
+            class="btn-secondary snapshot-launch"
+            data-open-snapshot
+            type="button"
+            aria-label="Start the Cyber Seeds household snapshot"
+          >
+            Retake Snapshot
           </button>
-          <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
-            <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
-            <p class="cs-lensDirection"><strong>Next:</strong> ${getLensDetails(lens).next}</p>
-          </div>
-          <div class="lens-bar" style="padding:0 14px 14px;">
-            <div class="lens-fill" style="width:${Math.round(value)}%"></div>
-          </div>
-        </article>
-      `).join("")}
-    </section>
+          <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
+          <button class="btn-secondary" type="button" id="exportSnapshotBackup">Export Snapshot Data (JSON)</button>
+          <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
+          <a class="btn-primary" href="/book/">Book a Full Audit</a>
+        </section>
 
-    <section class="resultCard renewal-actions" aria-label="Snapshot actions">
-      <button
-        class="btn-secondary snapshot-launch"
-        data-open-snapshot
-        type="button"
-        aria-label="Start the Cyber Seeds household snapshot"
-      >
-        Retake Snapshot
-      </button>
-      <button class="btn-secondary" type="button" id="downloadPassport">Download Household Passport</button>
-      <button class="btn-secondary" type="button" id="exportSnapshotBackup">Export Snapshot Data (JSON)</button>
-      <button class="btn-secondary" type="button" id="emailSnapshotButton">Email my results</button>
-      <a class="btn-primary" href="/book/">Book a Full Audit</a>
-    </section>
-
-    ${restorePanelMarkup()}
-  </section>
-`;
+        ${restorePanelMarkup()}
+      </section>
+    `;
 
     bindCommonControls(root, snapshot);
 
@@ -648,7 +638,7 @@
     });
   }
 
-  function bindRestoreControls(root){
+  function bindRestoreControls(root) {
     const restoreButton = root.querySelector("#restoreSnapshotButton");
     const restoreInput = root.querySelector("#snapshotRestoreInput");
     const restoreStatus = root.querySelector("#restoreStatus");
@@ -660,14 +650,14 @@
       const result = await restoreSnapshotDataFromFile(file);
       restoreStatus.textContent = result.message;
 
-      if (result.ok){
+      if (result.ok) {
         restoreInput.value = "";
         await render();
       }
     });
   }
 
-  function bindCommonControls(root, snapshot){
+  function bindCommonControls(root, snapshot) {
     const setBaselineButton = root.querySelector("#setBaselineButton");
     const resetBaselineButton = root.querySelector("#resetBaselineButton");
     const baselineStatus = root.querySelector("#baselineStatus");
@@ -675,10 +665,10 @@
     const exportBackupButton = root.querySelector("#exportSnapshotBackup");
     const emailSnapshotButton = root.querySelector("#emailSnapshotButton");
 
-    if (setBaselineButton){
+    if (setBaselineButton) {
       setBaselineButton.addEventListener("click", async () => {
         const ok = writeBaselineSnapshot(snapshot);
-        if (baselineStatus){
+        if (baselineStatus) {
           baselineStatus.textContent = ok
             ? "Baseline saved for future comparisons."
             : "Baseline could not be saved on this device.";
@@ -687,10 +677,10 @@
       });
     }
 
-    if (resetBaselineButton){
+    if (resetBaselineButton) {
       resetBaselineButton.addEventListener("click", async () => {
         resetBaselineSnapshot();
-        if (baselineStatus){
+        if (baselineStatus) {
           baselineStatus.textContent = "Baseline reset. Snapshot history is unchanged.";
         }
         await render();
@@ -699,19 +689,19 @@
 
     bindRestoreControls(root);
 
-    if (downloadPassportButton){
+    if (downloadPassportButton) {
       downloadPassportButton.addEventListener("click", () => {
         downloadPassport(snapshot);
       });
     }
 
-    if (exportBackupButton){
+    if (exportBackupButton) {
       exportBackupButton.addEventListener("click", () => {
         exportSnapshotBackup(snapshot);
       });
     }
 
-    if (emailSnapshotButton){
+    if (emailSnapshotButton) {
       emailSnapshotButton.addEventListener("click", () => {
         const latest = readLatestSnapshot();
         if (!latest) return;
@@ -720,17 +710,16 @@
     }
   }
 
-  function init(){
+  function init() {
     render();
     window.addEventListener("cs:snapshot-updated", () => {
       render();
     });
   }
 
-  if (document.readyState === "loading"){
+  if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
-
 })();
