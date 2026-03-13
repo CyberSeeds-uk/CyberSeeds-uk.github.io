@@ -1,16 +1,46 @@
-<header class="site-header">
-  <a class="brand" href="/" aria-label="Cyber Seeds home">
-    <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
-    <span>Cyber Seeds</span>
-  </a>
+<header class="cs-site-header">
+  <div class="cs-header-shell">
+    <div class="cs-header-top">
+      <a href="/" class="cs-brand" aria-label="Cyber Seeds home">
+        <img src="/cyber_seeds_logo.png" alt="Cyber Seeds logo" class="cs-brand-logo" />
+        <div class="cs-brand-text">
+          <span class="cs-brand-name">Cyber Seeds</span>
+          <span class="cs-brand-tag">Digital safety for families</span>
+        </div>
+      </a>
 
-  <div class="site-header-actions">
-    <nav aria-label="Primary">
-      <a href="/" data-nav="home">Home</a>
-      <a href="/snapshot/" data-nav="snapshot">Snapshot</a>
-      <a href="/resources/" data-nav="resources">Resources</a>
-      <a href="/contact/" data-nav="contact">Contact</a>
-      <a href="/book/" data-nav="book" class="nav-cta">Book Audit</a>
-    </nav>
+      <button
+        class="cs-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="cs-mobile-panel"
+        aria-label="Open site navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="cs-header-nav-wrap">
+      <nav class="cs-primary-nav" aria-label="Primary navigation">
+        <a href="/" class="cs-nav-link" data-nav="home">Home</a>
+        <a href="/snapshot/" class="cs-nav-link" data-nav="snapshot">Snapshot</a>
+        <a href="/resources/" class="cs-nav-link" data-nav="resources">Resources</a>
+        <a href="/contact/" class="cs-nav-link" data-nav="contact">Contact</a>
+      </nav>
+
+      <a href="/book/" class="cs-audit-cta">Book Audit</a>
+    </div>
+
+    <div id="cs-mobile-panel" class="cs-mobile-panel" hidden>
+      <nav class="cs-mobile-nav" aria-label="Mobile navigation">
+        <a href="/" class="cs-mobile-link" data-nav="home">Home</a>
+        <a href="/snapshot/" class="cs-mobile-link" data-nav="snapshot">Snapshot</a>
+        <a href="/resources/" class="cs-mobile-link" data-nav="resources">Resources</a>
+        <a href="/contact/" class="cs-mobile-link" data-nav="contact">Contact</a>
+        <a href="/book/" class="cs-mobile-audit">Book Audit</a>
+      </nav>
+    </div>
   </div>
 </header>
