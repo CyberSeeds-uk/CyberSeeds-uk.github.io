@@ -1,27 +1,24 @@
 async function loadComponent(path, target) {
   try {
-    const response = await fetch(path)
-
-    if (!response.ok) {
-      throw new Error(`Failed to load ${path}`)
-    }
-
-    const html = await response.text()
+    const res = await fetch(path)
+    const html = await res.text()
     document.querySelector(target).innerHTML = html
-
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    console.error("Component failed:", path)
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  if (document.querySelector("#header")) {
-    loadComponent("/components/header.html", "#header")
-  }
+  const components = [
+    { path: "/components/header.html", target: "#header" },
+    { path: "/components/footer.html", target: "#footer" }
+  ]
 
-  if (document.querySelector("#footer")) {
-    loadComponent("/components/footer.html", "#footer")
-  }
+  components.forEach(c => {
+    if (document.querySelector(c.target)) {
+      loadComponent(c.path, c.target)
+    }
+  })
 
 })
