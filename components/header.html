@@ -1,3 +1,221 @@
+<style>
+  .cs-site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(248, 247, 244, 0.96);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(19, 33, 30, 0.08);
+  }
+
+  .cs-header-shell{
+    max-width:1180px;
+    margin:0 auto;
+    padding:12px 20px;
+  }
+
+  .cs-header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+
+  .cs-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    min-width:0;
+  }
+
+  .cs-brand-logo{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    display:block;
+    flex:0 0 auto;
+  }
+
+  .cs-brand-text{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+
+  .cs-brand-name{
+    font-size:1.05rem;
+    font-weight:700;
+    line-height:1.1;
+    color:#13211e;
+    letter-spacing:-0.01em;
+  }
+
+  .cs-brand-tag{
+    font-size:0.9rem;
+    line-height:1.2;
+    color:#51615d;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .cs-header-nav-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-top:12px;
+  }
+
+  .cs-primary-nav{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .cs-nav-link,
+  .cs-mobile-link{
+    text-decoration:none;
+    color:#20332f;
+    font-weight:500;
+    padding:10px 14px;
+    border-radius:12px;
+    transition:background-color 0.18s ease, color 0.18s ease;
+  }
+
+  .cs-nav-link:hover,
+  .cs-mobile-link:hover{
+    background:rgba(19, 33, 30, 0.06);
+  }
+
+  .cs-nav-link[aria-current="page"],
+  .cs-mobile-link[aria-current="page"]{
+    background:#13211e;
+    color:#ffffff;
+  }
+
+  .cs-audit-cta,
+  .cs-mobile-audit{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-weight:700;
+    border-radius:14px;
+    padding:12px 18px;
+    background:#1d5c4e;
+    color:#ffffff;
+    white-space:nowrap;
+    transition:transform 0.18s ease, opacity 0.18s ease;
+  }
+
+  .cs-audit-cta:hover,
+  .cs-mobile-audit:hover{
+    transform:translateY(-1px);
+    opacity:0.95;
+  }
+
+  .cs-menu-toggle{
+    display:none;
+    width:46px;
+    height:46px;
+    border:1px solid rgba(19, 33, 30, 0.14);
+    border-radius:12px;
+    background:#ffffff;
+    cursor:pointer;
+    padding:0;
+    flex:0 0 auto;
+  }
+
+  .cs-menu-toggle span{
+    display:block;
+    width:20px;
+    height:2px;
+    background:#13211e;
+    margin:5px auto;
+    border-radius:999px;
+    transition:transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .cs-menu-toggle.is-open span:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+
+  .cs-menu-toggle.is-open span:nth-child(2){
+    opacity:0;
+  }
+
+  .cs-menu-toggle.is-open span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  .cs-mobile-panel{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid rgba(19, 33, 30, 0.08);
+  }
+
+  .cs-mobile-panel.is-open{
+    display:block;
+  }
+
+  .cs-mobile-nav{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .cs-mobile-audit{
+    margin-top:6px;
+  }
+
+  @media (max-width: 860px){
+    .cs-header-nav-wrap{
+      display:none;
+    }
+
+    .cs-menu-toggle{
+      display:inline-block;
+    }
+
+    .cs-brand-logo{
+      width:44px;
+      height:44px;
+    }
+
+    .cs-brand-name{
+      font-size:1rem;
+    }
+
+    .cs-brand-tag{
+      font-size:0.82rem;
+      max-width:190px;
+    }
+  }
+
+  @media (max-width: 520px){
+    .cs-header-shell{
+      padding:10px 14px;
+    }
+
+    .cs-brand{
+      gap:10px;
+    }
+
+    .cs-brand-logo{
+      width:40px;
+      height:40px;
+    }
+
+    .cs-brand-tag{
+      max-width:150px;
+    }
+  }
+</style>
+
 <header class="cs-site-header">
   <div class="cs-header-shell">
     <div class="cs-header-top">
