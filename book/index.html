@@ -4,332 +4,745 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#13211e" />
-  <title>Cyber Seeds | Household Signal</title>
-  <meta name="description" content="Your household signal, interpretation, and digital seeds." />
+
+  <title>Cyber Seeds | Book an Audit</title>
+  <meta
+    name="description"
+    content="Book a calm, practical Cyber Seeds household audit and move from household signal to guided action."
+  />
   <link rel="icon" href="/cyber_seeds_logo.png" />
-  <link rel="canonical" href="https://cyberseeds.co.uk/resources/" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/book/" />
   <link rel="stylesheet" href="/snapshot-app.css" />
 
   <style>
-    .cs-lensRow{
+    .book-main{
+      min-height:100dvh;
+      background:
+        radial-gradient(circle at top, rgba(187, 225, 211, .24), transparent 38%),
+        linear-gradient(180deg, #f7fbf8 0%, #eef6f1 100%);
+      padding:clamp(28px, 4vw, 48px) 16px 64px;
+    }
+
+    .book-shell{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      gap:18px;
+    }
+
+    .book-hero,
+    .book-card,
+    .book-summary,
+    .book-steps,
+    .book-note{
+      background:rgba(255,255,255,.94);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:0 10px 30px rgba(19,33,30,.06);
+    }
+
+    .book-hero{
+      padding:clamp(22px, 4vw, 34px);
+      display:grid;
+      gap:14px;
+    }
+
+    .book-kicker{
+      margin:0;
+      font-size:.82rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--brand2);
+      font-weight:700;
+    }
+
+    .book-hero h1{
+      margin:0;
+      font-size:clamp(2rem, 5vw, 3.2rem);
+      line-height:1.02;
+      color:var(--ink);
+      max-width:12ch;
+    }
+
+    .book-hero p{
+      margin:0;
+      max-width:70ch;
+      line-height:1.65;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .book-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .book-card{
+      padding:22px;
+      display:grid;
+      gap:16px;
+    }
+
+    .book-card h2,
+    .book-summary h2,
+    .book-steps h2,
+    .book-note h2{
+      margin:0;
+      color:var(--ink);
+      font-size:1.18rem;
+      line-height:1.2;
+    }
+
+    .book-intro{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .book-form{
+      display:grid;
+      gap:14px;
+    }
+
+    .book-field{
+      display:grid;
+      gap:7px;
+    }
+
+    .book-field label{
+      font-weight:650;
+      color:var(--ink);
+      line-height:1.3;
+    }
+
+    .book-field input,
+    .book-field select,
+    .book-field textarea{
+      width:100%;
       border:1px solid var(--line);
       border-radius:14px;
       background:#fff;
-      overflow:clip;
-      margin:12px 0;
-    }
-
-    .cs-lensToggle{
-      width:100%;
-      text-align:left;
-      border:0;
-      background:transparent;
-      padding:14px;
-      display:grid;
-      grid-template-columns:140px 1fr;
-      gap:14px;
-      align-items:start;
-      cursor:pointer;
-    }
-
-    .cs-lensLeft{
-      display:grid;
-      gap:4px;
-    }
-
-    .cs-lensName{
-      font-weight:650;
       color:var(--ink);
-      line-height:1.2;
-    }
-
-    .cs-lensScore{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.2;
-    }
-
-    .cs-lensRight{
-      display:grid;
-      gap:6px;
-      min-width:0;
-    }
-
-    .cs-lensBand{
-      font-weight:650;
-      font-size:.85rem;
-      color:var(--brand2);
-    }
-
-    .cs-lensSummary{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.45;
-    }
-
-    .cs-lensDetails{
-      border-top:1px solid var(--line);
-      background:var(--mint2);
-      padding:14px 14px 16px;
-    }
-
-    .cs-lensInterpretation,
-    .cs-lensDirection{
-      margin:0 0 10px;
-      line-height:1.55;
-      color:var(--ink);
-    }
-
-    .cs-lensDirection{
-      margin-bottom:0;
-    }
-
-    .cs-lensToggle:focus-visible{
-      outline:3px solid rgba(26,106,93,.35);
-      outline-offset:2px;
-      border-radius:12px;
-    }
-
-    .cs-lensRow--focus{
-      border-color:rgba(15,47,42,.35);
-      box-shadow:0 1px 0 rgba(15,47,42,.08);
-    }
-
-    .snapshot-controls{
-      margin-top:12px;
-      display:grid;
-      gap:10px;
-    }
-
-    .snapshot-controls h2{
-      margin:0;
-    }
-
-    .snapshot-controls p{
-      margin:0;
-      line-height:1.5;
-    }
-
-    .snapshot-controls label{
-      font-weight:600;
-      color:var(--ink);
-    }
-
-    .snapshot-controls input[type="file"]{
-      width:100%;
-      max-width:100%;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fff;
-      padding:10px 12px;
+      padding:12px 14px;
+      font:inherit;
       box-sizing:border-box;
     }
 
-    .renewal-actions{
-      padding:18px;
+    .book-field textarea{
+      min-height:124px;
+      resize:vertical;
     }
 
-    .renewal-actions-grid{
+    .book-field input:focus,
+    .book-field select:focus,
+    .book-field textarea:focus{
+      outline:3px solid rgba(26,106,93,.18);
+      outline-offset:1px;
+      border-color:rgba(26,106,93,.42);
+    }
+
+    .book-grid-two{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:12px;
+      gap:14px;
     }
 
-    .renewal-actions button,
-    .renewal-actions a{
-      min-height:48px;
+    .book-check{
       display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--mint2);
+    }
+
+    .book-check input{
+      margin-top:3px;
+      accent-color:#1a6a5d;
+    }
+
+    .book-check label{
+      margin:0;
+      color:var(--ink);
+      line-height:1.5;
+      font-weight:500;
+    }
+
+    .book-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+    }
+
+    .book-actions .btn-primary,
+    .book-actions .btn-secondary{
+      min-height:48px;
+      padding:0 18px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .book-status{
+      min-height:1.2em;
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:.95rem;
+    }
+
+    .book-summary,
+    .book-steps,
+    .book-note{
+      padding:22px;
+      display:grid;
+      gap:14px;
+    }
+
+    .signal-pill{
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(26,106,93,.18);
+      background:rgba(187,225,211,.26);
+      color:var(--brand2);
+      font-weight:650;
+      width:fit-content;
     }
 
-    .compact-progress-card{
-      margin-top:14px;
-      padding:18px;
+    .signal-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
     }
 
-    .compact-progress-head{
+    .signal-item{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      padding:12px 14px;
       display:grid;
       gap:4px;
     }
 
-    .compact-progress-head h2{
+    .signal-label{
       margin:0;
-      font-size:1.05rem;
-    }
-
-    .compact-progress-summary{
-      margin:0;
+      font-size:.82rem;
       color:var(--muted);
-      line-height:1.45;
-      font-size:.97rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
     }
 
-    .compact-progress-details{
-      margin-top:12px;
-      border-top:1px solid var(--line);
-      padding-top:12px;
-    }
-
-    .compact-progress-details summary{
-      cursor:pointer;
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+    .signal-value{
+      margin:0;
       color:var(--ink);
       font-weight:650;
-      user-select:none;
+      line-height:1.35;
     }
 
-    .compact-progress-details summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .compact-progress-details summary::after{
-      content:"+";
-      font-weight:700;
-      color:var(--muted);
-      line-height:1;
-    }
-
-    .compact-progress-details[open] summary::after{
-      content:"–";
-    }
-
-    .compact-progress-actions{
+    .steps-list{
+      margin:0;
+      padding-left:18px;
+      color:var(--ink);
+      line-height:1.65;
       display:grid;
-      gap:10px;
-      margin-top:12px;
-      padding-top:2px;
+      gap:8px;
     }
 
-    .compact-progress-actions .btn-secondary{
-      min-height:44px;
-    }
-
-    .compact-progress-actions p{
+    .book-note p,
+    .book-summary p{
       margin:0;
       color:var(--muted);
-      line-height:1.45;
-      font-size:.95rem;
+      line-height:1.6;
     }
 
-    .compact-progress-actions #baselineStatus{
-      min-height:1.2em;
-    }
-
-    .resultCard.snapshot-controls{
-      margin-top:14px;
-      padding:18px;
-    }
-
-    .resultCard.snapshot-controls details{
-      display:grid;
-      gap:10px;
-    }
-
-    .resultCard.snapshot-controls summary{
-      cursor:pointer;
-      list-style:none;
-      font-weight:650;
-      color:var(--ink);
-      user-select:none;
+    .book-links{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
+      flex-wrap:wrap;
       gap:10px;
     }
 
-    .resultCard.snapshot-controls summary::-webkit-details-marker{
-      display:none;
+    .book-links a{
+      color:var(--brand2);
+      font-weight:650;
+      text-decoration:none;
     }
 
-    .resultCard.snapshot-controls summary::after{
-      content:"+";
-      font-weight:700;
+    .book-links a:hover,
+    .book-links a:focus-visible{
+      text-decoration:underline;
+    }
+
+    .muted-small{
+      margin:0;
       color:var(--muted);
-      line-height:1;
+      font-size:.92rem;
+      line-height:1.5;
     }
 
-    .resultCard.snapshot-controls details[open] summary::after{
-      content:"–";
-    }
-
-    .resultCard.snapshot-controls button{
-      width:fit-content;
-      min-height:44px;
-      padding-inline:18px;
-    }
-
-    .resultCard.snapshot-controls .muted{
-      min-height:1.2em;
+    @media (max-width:860px){
+      .book-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:640px){
-      .cs-lensToggle{
+      .book-grid-two,
+      .signal-grid{
         grid-template-columns:1fr;
       }
 
-      .cs-lensLeft{
-        grid-template-columns:1fr auto;
-        align-items:baseline;
-      }
-
-      .cs-lensScore{
-        justify-self:end;
-      }
-
-      .renewal-actions-grid{
+      .book-actions{
+        display:grid;
         grid-template-columns:1fr;
       }
 
-      .renewal-actions .btn-secondary,
-      .renewal-actions .btn-primary{
+      .book-actions .btn-primary,
+      .book-actions .btn-secondary{
         width:100%;
-      }
-
-      .resultCard.snapshot-controls button{
-        width:100%;
+        justify-content:center;
       }
     }
   </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="/shared/email-drafts.js"></script>
-  <script src="/shared/snapshot-report.js"></script>
-  <script type="module" src="/snapshot/snapshot-shell.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="/" aria-label="Cyber Seeds home">
-      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
-      <span>Cyber Seeds</span>
-    </a>
-  
-    <div class="site-header-actions">
-      <nav aria-label="Primary">
-        <a href="/" data-nav="home">Home</a>
-        <a href="/snapshot/" data-nav="snapshot">Snapshot</a>
-        <a href="/resources/" data-nav="resources">Resources</a>
-        <a href="/contact/" data-nav="contact">Contact</a>
-        <a href="/book/" data-nav="book" class="nav-cta">Book Audit</a>
-      </nav>
-    </div>
-</header>
+  <div id="header"></div>
 
-  <main class="resource-main" id="resourcesRoot" aria-live="polite"></main>
-</body>
-  <footer class="site-header" aria-label="Footer">
-    <nav aria-label="Footer links">
-      <a href="/privacy/">Privacy</a>
-      <a href="/contact/">Contact</a>
-      <a href="/resources/">Resources</a>
-      <a href="/book/">Book Audit</a>
-    </nav>
-    <p>&copy; Cyber Seeds</p>
-</footer>
+  <main class="book-main" id="bookRoot" aria-live="polite">
+    <div class="book-shell">
+      <section class="book-hero">
+        <p class="book-kicker">Book an Audit</p>
+        <h1>Move from household signal to guided action.</h1>
+        <p>
+          A Cyber Seeds audit offers calm, practical support for households living with connected
+          devices, shared accounts, online routines, and changing digital pressures. If you already
+          have a Household Signal, you can include it below. If not, you can still request an audit.
+        </p>
+      </section>
+
+      <section class="book-grid">
+        <article class="book-card" aria-labelledby="bookingFormTitle">
+          <h2 id="bookingFormTitle">Request your audit</h2>
+          <p class="book-intro">
+            Complete the form below and open a pre-filled email. You can send it as it is, or edit
+            anything before sending. If a recent snapshot is stored on this device, your latest
+            household signal will be included automatically.
+          </p>
+
+          <form class="book-form" id="auditBookingForm">
+            <div class="book-grid-two">
+              <div class="book-field">
+                <label for="fullName">Your name</label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              <div class="book-field">
+                <label for="emailAddress">Your email</label>
+                <input
+                  id="emailAddress"
+                  name="emailAddress"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+
+            <div class="book-grid-two">
+              <div class="book-field">
+                <label for="householdType">Household context</label>
+                <select id="householdType" name="householdType">
+                  <option value="">Select one</option>
+                  <option>Parent or carer</option>
+                  <option>Single adult household</option>
+                  <option>Couple household</option>
+                  <option>Household with children</option>
+                  <option>Multi-generational household</option>
+                  <option>Professional or practitioner enquiry</option>
+                </select>
+              </div>
+
+              <div class="book-field">
+                <label for="contactPreference">Preferred contact method</label>
+                <select id="contactPreference" name="contactPreference">
+                  <option value="">Select one</option>
+                  <option>Email</option>
+                  <option>Phone</option>
+                  <option>Either is fine</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="book-grid-two">
+              <div class="book-field">
+                <label for="timing">When would support be most helpful?</label>
+                <select id="timing" name="timing">
+                  <option value="">Select one</option>
+                  <option>As soon as possible</option>
+                  <option>Within the next week</option>
+                  <option>Within the next two weeks</option>
+                  <option>I am exploring options for now</option>
+                </select>
+              </div>
+
+              <div class="book-field">
+                <label for="snapshotStatus">Do you already have a Household Signal?</label>
+                <select id="snapshotStatus" name="snapshotStatus">
+                  <option value="auto">Use latest saved signal if available</option>
+                  <option value="yes">Yes, I have completed a snapshot</option>
+                  <option value="no">No, not yet</option>
+                  <option value="unsure">I am not sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="book-field">
+              <label for="supportFocus">What would you like help with?</label>
+              <textarea
+                id="supportFocus"
+                name="supportFocus"
+                placeholder="You might mention devices, accounts, scam concerns, children’s online wellbeing, family boundaries, home Wi-Fi, or anything else you would like support with."
+              ></textarea>
+            </div>
+
+            <div class="book-check">
+              <input id="consentCheck" name="consentCheck" type="checkbox" />
+              <label for="consentCheck">
+                I understand that pressing send will open my email app with a draft request that I
+                can review and edit before sending.
+              </label>
+            </div>
+
+            <div class="book-actions">
+              <button type="submit" class="btn-primary">Open audit request email</button>
+              <a class="btn-secondary" href="/snapshot/">Complete a Household Snapshot first</a>
+            </div>
+
+            <p class="book-status" id="bookingStatus" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+
+        <aside class="book-summary" aria-labelledby="signalSummaryTitle">
+          <h2 id="signalSummaryTitle">Latest household signal on this device</h2>
+          <span class="signal-pill" id="signalState">Checking for saved snapshot…</span>
+
+          <div class="signal-grid">
+            <div class="signal-item">
+              <p class="signal-label">Overall signal</p>
+              <p class="signal-value" id="signalOverall">Not yet available</p>
+            </div>
+
+            <div class="signal-item">
+              <p class="signal-label">Signal band</p>
+              <p class="signal-value" id="signalBand">Not yet available</p>
+            </div>
+
+            <div class="signal-item">
+              <p class="signal-label">Snapshot date</p>
+              <p class="signal-value" id="signalDate">Not yet available</p>
+            </div>
+
+            <div class="signal-item">
+              <p class="signal-label">Status</p>
+              <p class="signal-value" id="signalAvailability">Looking for local record</p>
+            </div>
+          </div>
+
+          <p id="signalSummaryText">
+            If you have completed a recent Household Snapshot on this device, the latest result can
+            travel with your booking request and give helpful starting context.
+          </p>
+
+          <div class="book-links">
+            <a href="/snapshot/">Take or retake the snapshot</a>
+            <a href="/resources/">Explore resources first</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="book-steps" aria-labelledby="howItWorksTitle">
+        <h2 id="howItWorksTitle">How this works</h2>
+        <ol class="steps-list">
+          <li>You complete a short request using the form above.</li>
+          <li>Your email app opens with a pre-filled message to Cyber Seeds.</li>
+          <li>You can send it immediately or edit the wording first.</li>
+          <li>If a saved Household Signal exists on this device, it can be included as helpful context.</li>
+          <li>Cyber Seeds then responds with the next practical step for your household.</li>
+        </ol>
+      </section>
+
+      <section class="book-note" aria-labelledby="beforeYouBookTitle">
+        <h2 id="beforeYouBookTitle">A calm starting point</h2>
+        <p>
+          This is not about blame, panic, or technical pressure. It is about understanding how your
+          household is working today, where strain may be building, and what small, steady changes
+          can improve safety, confidence, and digital wellbeing over time.
+        </p>
+        <p class="muted-small">
+          Household Snapshot responses remain local to this device unless you choose to include them
+          in your own email request.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
   <script src="/js/layout.js"></script>
+
+  <script>
+    (function () {
+      const STORAGE_KEYS = [
+        "cyberseeds_snapshot_latest_v3",
+        "cyberseeds_snapshot_v3",
+        "cyberseeds_snapshot_latest",
+        "cyberseeds_snapshot"
+      ];
+
+      const els = {
+        form: document.getElementById("auditBookingForm"),
+        status: document.getElementById("bookingStatus"),
+        consent: document.getElementById("consentCheck"),
+        signalState: document.getElementById("signalState"),
+        signalOverall: document.getElementById("signalOverall"),
+        signalBand: document.getElementById("signalBand"),
+        signalDate: document.getElementById("signalDate"),
+        signalAvailability: document.getElementById("signalAvailability"),
+        signalSummaryText: document.getElementById("signalSummaryText")
+      };
+
+      function getLatestSnapshot() {
+        for (const key of STORAGE_KEYS) {
+          try {
+            const raw = localStorage.getItem(key);
+            if (!raw) continue;
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === "object") {
+              return parsed;
+            }
+          } catch (error) {
+            console.warn("Could not parse snapshot from key:", key, error);
+          }
+        }
+        return null;
+      }
+
+      function formatDate(value) {
+        if (!value) return "Not yet available";
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "Not yet available";
+        return new Intl.DateTimeFormat("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }).format(date);
+      }
+
+      function pickOverallScore(snapshot) {
+        return (
+          snapshot?.hdss ??
+          snapshot?.overallScore ??
+          snapshot?.score ??
+          snapshot?.results?.hdss ??
+          snapshot?.results?.overallScore ??
+          null
+        );
+      }
+
+      function pickBand(snapshot) {
+        return (
+          snapshot?.band ??
+          snapshot?.overallBand ??
+          snapshot?.results?.band ??
+          snapshot?.results?.overallBand ??
+          null
+        );
+      }
+
+      function pickDate(snapshot) {
+        return (
+          snapshot?.completedAt ??
+          snapshot?.savedAt ??
+          snapshot?.timestamp ??
+          snapshot?.date ??
+          snapshot?.results?.completedAt ??
+          null
+        );
+      }
+
+      function safeValue(value, fallback = "Not provided") {
+        return String(value || "").trim() || fallback;
+      }
+
+      function buildLensLines(snapshot) {
+        const lensCandidates =
+          snapshot?.lenses ||
+          snapshot?.results?.lenses ||
+          snapshot?.lensScores ||
+          null;
+
+        if (!lensCandidates || typeof lensCandidates !== "object") {
+          return "Lens breakdown: not available";
+        }
+
+        const entries = Array.isArray(lensCandidates)
+          ? lensCandidates.map((item) => {
+              const name = item?.name || item?.label || "Lens";
+              const score = item?.score ?? item?.value ?? "n/a";
+              const band = item?.band || item?.status || "";
+              return `${name}: ${score}${band ? ` (${band})` : ""}`;
+            })
+          : Object.entries(lensCandidates).map(([key, value]) => {
+              if (value && typeof value === "object") {
+                const score = value.score ?? value.value ?? "n/a";
+                const band = value.band || value.status || "";
+                return `${key}: ${score}${band ? ` (${band})` : ""}`;
+              }
+              return `${key}: ${value}`;
+            });
+
+        return entries.length
+          ? `Lens breakdown:\n- ${entries.join("\n- ")}`
+          : "Lens breakdown: not available";
+      }
+
+      function updateSignalCard(snapshot) {
+        if (!snapshot) {
+          els.signalState.textContent = "No saved snapshot found";
+          els.signalOverall.textContent = "Not yet available";
+          els.signalBand.textContent = "Not yet available";
+          els.signalDate.textContent = "Not yet available";
+          els.signalAvailability.textContent = "No local snapshot detected";
+          els.signalSummaryText.textContent =
+            "You can still request an audit now, or complete a Household Snapshot first if you would like your booking request to include your current household signal.";
+          return;
+        }
+
+        const overall = pickOverallScore(snapshot);
+        const band = pickBand(snapshot);
+        const date = pickDate(snapshot);
+
+        els.signalState.textContent = "Saved snapshot found";
+        els.signalOverall.textContent = overall !== null ? String(overall) : "Available";
+        els.signalBand.textContent = band || "Available";
+        els.signalDate.textContent = formatDate(date);
+        els.signalAvailability.textContent = "Ready to include if you choose";
+        els.signalSummaryText.textContent =
+          "A recent local Household Snapshot was found on this device. Its overall signal can be included in your audit request to help establish a practical starting point.";
+      }
+
+      function buildEmailBody(formData, snapshot, includeSnapshot) {
+        const overall = snapshot ? pickOverallScore(snapshot) : null;
+        const band = snapshot ? pickBand(snapshot) : null;
+        const date = snapshot ? pickDate(snapshot) : null;
+
+        const lines = [
+          "Hello Cyber Seeds,",
+          "",
+          "I would like to request a household audit.",
+          "",
+          "Request details",
+          "--------------",
+          `Name: ${safeValue(formData.get("fullName"))}`,
+          `Email: ${safeValue(formData.get("emailAddress"))}`,
+          `Household context: ${safeValue(formData.get("householdType"))}`,
+          `Preferred contact method: ${safeValue(formData.get("contactPreference"))}`,
+          `Timing: ${safeValue(formData.get("timing"))}`,
+          "",
+          "What I would like help with",
+          "----------------------------",
+          safeValue(formData.get("supportFocus")),
+          ""
+        ];
+
+        if (includeSnapshot && snapshot) {
+          lines.push(
+            "Latest Household Signal from this device",
+            "---------------------------------------",
+            `Overall signal: ${overall !== null ? overall : "Available locally"}`,
+            `Signal band: ${band || "Available locally"}`,
+            `Snapshot date: ${formatDate(date)}`,
+            buildLensLines(snapshot),
+            ""
+          );
+        } else {
+          lines.push(
+            "Household Signal",
+            "----------------",
+            "No snapshot details included in this request.",
+            ""
+          );
+        }
+
+        lines.push(
+          "Thank you.",
+          ""
+        );
+
+        return lines.join("\n");
+      }
+
+      function openMailDraft(subject, body) {
+        const to = "cyberseeds.uk@gmail.co.uk";
+        const href =
+          `mailto:${encodeURIComponent(to)}` +
+          `?subject=${encodeURIComponent(subject)}` +
+          `&body=${encodeURIComponent(body)}`;
+
+        window.location.href = href;
+      }
+
+      const snapshot = getLatestSnapshot();
+      updateSignalCard(snapshot);
+
+      els.form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (!els.consent.checked) {
+          els.status.textContent =
+            "Please confirm that you are happy to open a pre-filled email draft.";
+          return;
+        }
+
+        const formData = new FormData(els.form);
+        const fullName = String(formData.get("fullName") || "").trim();
+        const emailAddress = String(formData.get("emailAddress") || "").trim();
+
+        if (!fullName || !emailAddress) {
+          els.status.textContent =
+            "Please add your name and email so the audit request is complete.";
+          return;
+        }
+
+        const snapshotStatus = formData.get("snapshotStatus");
+        const includeSnapshot =
+          snapshot &&
+          (snapshotStatus === "auto" || snapshotStatus === "yes");
+
+        const subject = includeSnapshot
+          ? "Cyber Seeds Audit Request - With Household Signal"
+          : "Cyber Seeds Audit Request";
+
+        const body = buildEmailBody(formData, snapshot, includeSnapshot);
+
+        els.status.textContent =
+          "Opening your email draft now. You can review and edit it before sending.";
+
+        openMailDraft(subject, body);
+      });
+    })();
+  </script>
+</body>
 </html>
