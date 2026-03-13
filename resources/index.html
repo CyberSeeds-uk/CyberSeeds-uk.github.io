@@ -101,18 +101,10 @@
       gap:10px;
     }
 
-    .snapshot-controls h2{
-      margin:0;
-    }
-
-    .snapshot-controls p{
+    .snapshot-controls p,
+    .snapshot-controls label{
       margin:0;
       line-height:1.5;
-    }
-
-    .snapshot-controls label{
-      font-weight:600;
-      color:var(--ink);
     }
 
     .snapshot-controls input[type="file"]{
@@ -296,41 +288,19 @@
       }
     }
   </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <main class="resource-main" id="resourcesRoot" aria-live="polite"></main>
+
+  <div id="footer"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="/shared/email-drafts.js"></script>
   <script src="/shared/snapshot-report.js"></script>
   <script type="module" src="/snapshot/snapshot-shell.js"></script>
   <script type="module" src="/resources/resources-hub.js"></script>
-</head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="/" aria-label="Cyber Seeds home">
-      <img src="/cyber_seeds_logo.png" alt="Cyber Seeds" />
-      <span>Cyber Seeds</span>
-    </a>
-  
-    <div class="site-header-actions">
-      <nav aria-label="Primary">
-        <a href="/" data-nav="home">Home</a>
-        <a href="/snapshot/" data-nav="snapshot">Snapshot</a>
-        <a href="/resources/" data-nav="resources">Resources</a>
-        <a href="/contact/" data-nav="contact">Contact</a>
-        <a href="/book/" data-nav="book" class="nav-cta">Book Audit</a>
-      </nav>
-    </div>
-</header>
-
-  <main class="resource-main" id="resourcesRoot" aria-live="polite"></main>
-</body>
-  <footer class="site-header" aria-label="Footer">
-    <nav aria-label="Footer links">
-      <a href="/privacy/">Privacy</a>
-      <a href="/contact/">Contact</a>
-      <a href="/resources/">Resources</a>
-      <a href="/book/">Book Audit</a>
-    </nav>
-    <p>&copy; Cyber Seeds</p>
-</footer>
   <script src="/js/layout.js"></script>
+</body>
 </html>
