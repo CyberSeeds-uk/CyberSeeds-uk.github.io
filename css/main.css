@@ -1,0 +1,98 @@
+/* GLOBAL RESET */
+
+{
+box-sizing: border-box;
+}
+
+body {
+font-family: system-ui, sans-serif;
+margin: 0;
+background: #fafafa;
+color: #222;
+}
+
+/* LAYOUT */
+
+.container {
+max-width: 1100px;
+margin: auto;
+padding: 20px;
+}
+
+/* HEADER */
+
+.site-header {
+background: white;
+border-bottom: 1px solid #eee;
+}
+
+.header-inner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-weight: bold;
+text-decoration: none;
+color: #222;
+}
+
+.nav a {
+margin-left: 18px;
+text-decoration: none;
+color: #444;
+}
+
+/* FOOTER */
+
+.site-footer {
+margin-top: 80px;
+border-top: 1px solid #eee;
+background: #fff;
+}
+
+.footer-inner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.footer-nav a {
+margin-left: 15px;
+text-decoration: none;
+color: #555;
+}
+
+/* BUTTON SYSTEM */
+
+.button {
+display: inline-block;
+padding: 12px 20px;
+border-radius: 6px;
+font-weight: 500;
+text-decoration: none;
+cursor: pointer;
+}
+
+/* primary */
+
+.button-primary {
+background: #1e7f52;
+color: white;
+}
+
+.button-primary:hover {
+background: #166941;
+}
+
+/* secondary */
+
+.button-secondary {
+background: #eee;
+color: #222;
+}
+
+.button-secondary:hover {
+background: #ddd;
+}
