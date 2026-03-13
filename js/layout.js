@@ -100,3 +100,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(error);
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuButton = document.querySelector(".cs-menu-toggle");
+  const mobilePanel = document.getElementById("cs-mobile-panel");
+
+  if (menuButton && mobilePanel) {
+    menuButton.addEventListener("click", function () {
+      const isOpen = mobilePanel.classList.toggle("is-open");
+      menuButton.classList.toggle("is-open", isOpen);
+      menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  }
+
+  const path = window.location.pathname.replace(/index\.html$/, "");
+  let activeKey = "home";
+
+  if (path.startsWith("/snapshot")) activeKey = "snapshot";
+  else if (path.startsWith("/resources")) activeKey = "resources";
+  else if (path.startsWith("/contact")) activeKey = "contact";
+  else if (path.startsWith("/book")) activeKey = "book";
+
+  document.querySelectorAll("[data-nav]").forEach((link) => {
+    if (link.dataset.nav === activeKey) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+
+});
