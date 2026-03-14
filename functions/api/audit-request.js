@@ -647,14 +647,17 @@ export async function onRequestPost(context) {
       };
     }
 
-    return acceptsJson
-      ? json({
-          ok: true,
-          message: "Request sent successfully.",
-          reference,
-          triage: analysis.triage,
-          parentConfirmation: parentConfirmationResult
-        })
+    if (result.ok) {
+        successBox.innerHTML = `
+          <div class="cs-successCard">
+            <h3>Request received</h3>
+            <p>Your audit request has been sent successfully.</p>
+            <p><strong>Reference:</strong> ${result.reference || "Generated"}</p>
+            <p><strong>Review level:</strong> ${result.triage || "In review"}</p>
+            <p>Cyber Seeds will review your request and respond using the details you provided.</p>
+          </div>
+        `;
+      }
       : html(
           `
           <!DOCTYPE html>
