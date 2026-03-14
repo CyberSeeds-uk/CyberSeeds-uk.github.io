@@ -166,4 +166,18 @@ width: auto;
 margin-top: 0;
 }
 
+.cs-successCard{
+  margin-top:16px;
+  padding:16px 18px;
+  border:1px solid #d9e0de;
+  border-radius:16px;
+  background:#f8fbfa;
+  color:#17201e;
+}
+.cs-successCard h3{
+  margin:0 0 8px;
+  font-size:1.1rem;
+}
+.cs-successCard p{
+  margin:6px 0;
 }
