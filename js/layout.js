@@ -1,12 +1,20 @@
 async function loadComponent(path, target) {
+  const mount = document.querySelector(target);
+  if (!mount) return;
+
   const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Failed to load component: ${path}`);
+  }
+
   const html = await response.text();
-  document.querySelector(target).innerHTML = html;
+  mount.innerHTML = html;
 }
 
 function normalisePath(pathname) {
-  if (!pathname) return "/";
-  return pathname.endsWith("/") ? pathname : `${pathname}/`;
+  const clean = (pathname || "/").replace(/index\.html$/i, "");
+  if (!clean) return "/";
+  return clean.endsWith("/") ? clean : `${clean}/`;
 }
 
 function getCurrentNavKey() {
@@ -35,13 +43,14 @@ function markActiveNav() {
 }
 
 function initHeader() {
+  const header = document.querySelector(".cs-site-header");
   const toggle = document.querySelector(".cs-menu-toggle");
   const panel = document.querySelector("#cs-mobile-panel");
 
-  if (!toggle || !panel) {
-    markActiveNav();
-    return;
-  }
+  markActiveNav();
+
+  if (!header || !toggle || !panel) return;
+  if (toggle.dataset.bound === "true") return;
 
   const closeMenu = () => {
     toggle.setAttribute("aria-expanded", "false");
@@ -70,6 +79,19 @@ function initHeader() {
     link.addEventListener("click", closeMenu);
   });
 
+  document.addEventListener("click", (event) => {
+    const clickedInsideHeader = header.contains(event.target);
+    if (!clickedInsideHeader) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
   window.addEventListener("resize", () => {
     if (window.innerWidth > 860) {
       closeMenu();
@@ -77,7 +99,7 @@ function initHeader() {
   });
 
   closeMenu();
-  markActiveNav();
+  toggle.dataset.bound = "true";
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
