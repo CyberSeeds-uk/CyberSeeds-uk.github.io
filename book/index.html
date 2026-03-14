@@ -186,12 +186,35 @@
       text-decoration:none;
     }
 
+    .book-actions .btn-primary[disabled]{
+      opacity:.65;
+      cursor:not-allowed;
+    }
+
     .book-status{
       min-height:1.2em;
       margin:0;
       color:var(--muted);
       line-height:1.5;
       font-size:.95rem;
+    }
+
+    .book-status.is-error{
+      color:#8b2f2f;
+    }
+
+    .book-status.is-success{
+      color:#1d5c4e;
+    }
+
+    .book-fallback{
+      display:none;
+      gap:10px;
+      margin-top:6px;
+    }
+
+    .book-fallback.is-visible{
+      display:grid;
     }
 
     .book-summary,
@@ -308,41 +331,6 @@
         width:100%;
         justify-content:center;
       }
-      .mobile-nav {
-        display: flex;
-        gap: 8px;
-        padding: 8px;
-        background: #f3f6f5;
-        border-radius: 16px;
-        overflow-x: auto;
-      }
-      
-      .mobile-nav a {
-        flex: 1;
-        text-align: center;
-        padding: 10px 12px;
-        border-radius: 12px;
-        text-decoration: none;
-        color: #1c2b27;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-      
-      .mobile-nav a.active {
-        background: #dfe8e6;
-        font-weight: 600;
-      }
-      .audit-button {
-        display: block;
-        width: 100%;
-        background: #1f5b4c;
-        color: white;
-        padding: 14px;
-        border-radius: 14px;
-        text-align: center;
-        font-weight: 600;
-        margin-top: 12px;
-      }
     }
   </style>
 </head>
@@ -357,7 +345,7 @@
         <p>
           A Cyber Seeds audit offers calm, practical support for households living with connected
           devices, shared accounts, online routines, and changing digital pressures. If you already
-          have a Household Signal, you can include it below. If not, you can still request an audit.
+          have a Household Snapshot, you can include it below. If not, you can still request an audit.
         </p>
       </section>
 
@@ -365,12 +353,17 @@
         <article class="book-card" aria-labelledby="bookingFormTitle">
           <h2 id="bookingFormTitle">Request your audit</h2>
           <p class="book-intro">
-            Complete the form below and open a pre-filled email. You can send it as it is, or edit
-            anything before sending. If a recent snapshot is stored on this device, your latest
-            household signal will be included automatically.
+            Complete the form below and send a secure request directly from the website. If a recent
+            snapshot is stored on this device, your latest household signal can be included automatically.
           </p>
 
-          <form class="book-form" id="auditBookingForm">
+          <form
+            class="book-form"
+            id="auditBookingForm"
+            action="/api/audit-request"
+            method="post"
+            novalidate
+          >
             <div class="book-grid-two">
               <div class="book-field">
                 <label for="fullName">Your name</label>
@@ -380,6 +373,7 @@
                   type="text"
                   autocomplete="name"
                   placeholder="Enter your name"
+                  required
                 />
               </div>
 
@@ -391,6 +385,7 @@
                   type="email"
                   autocomplete="email"
                   placeholder="Enter your email"
+                  required
                 />
               </div>
             </div>
@@ -452,20 +447,34 @@
               ></textarea>
             </div>
 
+            <input type="hidden" name="snapshotIncluded" id="snapshotIncluded" value="false" />
+            <input type="hidden" name="snapshotPayload" id="snapshotPayload" value="" />
+            <input type="hidden" name="snapshotSummary" id="snapshotSummary" value="" />
+
             <div class="book-check">
-              <input id="consentCheck" name="consentCheck" type="checkbox" />
+              <input id="consentCheck" name="consentCheck" type="checkbox" value="yes" required />
               <label for="consentCheck">
-                I understand that pressing send will open my email app with a draft request that I
-                can review and edit before sending.
+                I understand that this request will send my form details to Cyber Seeds so my enquiry can be reviewed and responded to.
               </label>
             </div>
 
             <div class="book-actions">
-              <button type="submit" class="btn-primary">Open audit request email</button>
-              <a class="btn-secondary" href="/snapshot/">Complete a Household Snapshot first</a>
+              <button type="submit" class="btn-primary" id="submitAuditRequest">
+                Send audit request
+              </button>
+              <button type="button" class="btn-secondary" id="openFallbackEmail">
+                Open email instead
+              </button>
             </div>
 
             <p class="book-status" id="bookingStatus" role="status" aria-live="polite"></p>
+
+            <div class="book-fallback" id="fallbackPanel" aria-live="polite">
+              <p class="muted-small">
+                If direct sending is unavailable on this device or browser, you can still open a pre-filled
+                email draft instead.
+              </p>
+            </div>
           </form>
         </article>
 
@@ -497,7 +506,7 @@
 
           <p id="signalSummaryText">
             If you have completed a recent Household Snapshot on this device, the latest result can
-            travel with your booking request and give helpful starting context.
+            travel with your audit request and give helpful starting context.
           </p>
 
           <div class="book-links">
@@ -510,10 +519,10 @@
       <section class="book-steps" aria-labelledby="howItWorksTitle">
         <h2 id="howItWorksTitle">How this works</h2>
         <ol class="steps-list">
-          <li>You complete a short request using the form above.</li>
-          <li>Your email app opens with a pre-filled message to Cyber Seeds.</li>
-          <li>You can send it immediately or edit the wording first.</li>
-          <li>If a saved Household Signal exists on this device, it can be included as helpful context.</li>
+          <li>You complete the form on this page.</li>
+          <li>Your request is sent directly to Cyber Seeds from the site.</li>
+          <li>If a saved Household Snapshot exists on this device, it can be included as helpful context.</li>
+          <li>If direct sending is unavailable, you can still open a pre-filled email draft as backup.</li>
           <li>Cyber Seeds then responds with the next practical step for your household.</li>
         </ol>
       </section>
@@ -527,7 +536,7 @@
         </p>
         <p class="muted-small">
           Household Snapshot responses remain local to this device unless you choose to include them
-          in your own email request.
+          in this request.
         </p>
       </section>
     </div>
@@ -550,6 +559,12 @@
         form: document.getElementById("auditBookingForm"),
         status: document.getElementById("bookingStatus"),
         consent: document.getElementById("consentCheck"),
+        submit: document.getElementById("submitAuditRequest"),
+        fallbackButton: document.getElementById("openFallbackEmail"),
+        fallbackPanel: document.getElementById("fallbackPanel"),
+        snapshotIncluded: document.getElementById("snapshotIncluded"),
+        snapshotPayload: document.getElementById("snapshotPayload"),
+        snapshotSummary: document.getElementById("snapshotSummary"),
         signalState: document.getElementById("signalState"),
         signalOverall: document.getElementById("signalOverall"),
         signalBand: document.getElementById("signalBand"),
@@ -557,6 +572,14 @@
         signalAvailability: document.getElementById("signalAvailability"),
         signalSummaryText: document.getElementById("signalSummaryText")
       };
+
+      function safeParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
 
       function getLatestSnapshot() {
         for (const key of STORAGE_KEYS) {
@@ -600,6 +623,7 @@
         return (
           snapshot?.band ??
           snapshot?.overallBand ??
+          snapshot?.stage?.label ??
           snapshot?.results?.band ??
           snapshot?.results?.overallBand ??
           null
@@ -617,6 +641,15 @@
         );
       }
 
+      function pickFocus(snapshot) {
+        return (
+          snapshot?.focus ??
+          snapshot?.priorityLens ??
+          snapshot?.results?.focus ??
+          null
+        );
+      }
+
       function safeValue(value, fallback = "Not provided") {
         return String(value || "").trim() || fallback;
       }
@@ -626,6 +659,7 @@
           snapshot?.lenses ||
           snapshot?.results?.lenses ||
           snapshot?.lensScores ||
+          snapshot?.lensPercents ||
           null;
 
         if (!lensCandidates || typeof lensCandidates !== "object") {
@@ -653,6 +687,19 @@
           : "Lens breakdown: not available";
       }
 
+      function summariseSnapshot(snapshot) {
+        if (!snapshot) return "";
+        const overall = pickOverallScore(snapshot);
+        const band = pickBand(snapshot);
+        const focus = pickFocus(snapshot);
+
+        return [
+          overall !== null ? `Overall signal: ${overall}` : null,
+          band ? `Signal band: ${band}` : null,
+          focus ? `Priority area: ${focus}` : null
+        ].filter(Boolean).join(" | ");
+      }
+
       function updateSignalCard(snapshot) {
         if (!snapshot) {
           els.signalState.textContent = "No saved snapshot found";
@@ -661,7 +708,10 @@
           els.signalDate.textContent = "Not yet available";
           els.signalAvailability.textContent = "No local snapshot detected";
           els.signalSummaryText.textContent =
-            "You can still request an audit now, or complete a Household Snapshot first if you would like your booking request to include your current household signal.";
+            "You can still request an audit now, or complete a Household Snapshot first if you would like your request to include your current household signal.";
+          els.snapshotIncluded.value = "false";
+          els.snapshotPayload.value = "";
+          els.snapshotSummary.value = "";
           return;
         }
 
@@ -676,12 +726,17 @@
         els.signalAvailability.textContent = "Ready to include if you choose";
         els.signalSummaryText.textContent =
           "A recent local Household Snapshot was found on this device. Its overall signal can be included in your audit request to help establish a practical starting point.";
+
+        els.snapshotIncluded.value = "true";
+        els.snapshotPayload.value = JSON.stringify(snapshot);
+        els.snapshotSummary.value = summariseSnapshot(snapshot);
       }
 
       function buildEmailBody(formData, snapshot, includeSnapshot) {
         const overall = snapshot ? pickOverallScore(snapshot) : null;
         const band = snapshot ? pickBand(snapshot) : null;
         const date = snapshot ? pickDate(snapshot) : null;
+        const focus = snapshot ? pickFocus(snapshot) : null;
 
         const lines = [
           "Hello Cyber Seeds,",
@@ -708,6 +763,7 @@
             "---------------------------------------",
             `Overall signal: ${overall !== null ? overall : "Available locally"}`,
             `Signal band: ${band || "Available locally"}`,
+            `Priority area: ${focus || "Available locally"}`,
             `Snapshot date: ${formatDate(date)}`,
             buildLensLines(snapshot),
             ""
@@ -721,16 +777,12 @@
           );
         }
 
-        lines.push(
-          "Thank you.",
-          ""
-        );
-
+        lines.push("Thank you.", "");
         return lines.join("\n");
       }
 
       function openMailDraft(subject, body) {
-        const to = "cyberseeds.uk@gmail.co.uk";
+        const to = "cyberseeds.uk@gmail.com";
         const href =
           `mailto:${encodeURIComponent(to)}` +
           `?subject=${encodeURIComponent(subject)}` +
@@ -739,28 +791,56 @@
         window.location.href = href;
       }
 
-      const snapshot = getLatestSnapshot();
-      updateSignalCard(snapshot);
+      function setStatus(message, tone) {
+        els.status.textContent = message;
+        els.status.classList.remove("is-error", "is-success");
+        if (tone === "error") els.status.classList.add("is-error");
+        if (tone === "success") els.status.classList.add("is-success");
+      }
 
-      els.form.addEventListener("submit", function (event) {
-        event.preventDefault();
+      function showFallback() {
+        els.fallbackPanel.classList.add("is-visible");
+      }
 
-        if (!els.consent.checked) {
-          els.status.textContent =
-            "Please confirm that you are happy to open a pre-filled email draft.";
-          return;
-        }
-
-        const formData = new FormData(els.form);
-        const fullName = String(formData.get("fullName") || "").trim();
-        const emailAddress = String(formData.get("emailAddress") || "").trim();
+      function validateForm() {
+        const fullName = els.form.fullName.value.trim();
+        const emailAddress = els.form.emailAddress.value.trim();
 
         if (!fullName || !emailAddress) {
-          els.status.textContent =
-            "Please add your name and email so the audit request is complete.";
-          return;
+          setStatus("Please add your name and email so the request can be sent properly.", "error");
+          return false;
         }
 
+        if (!els.consent.checked) {
+          setStatus("Please confirm that you are happy for this request to be sent to Cyber Seeds.", "error");
+          return false;
+        }
+
+        return true;
+      }
+
+      async function submitToEndpoint(formData) {
+        const response = await fetch(els.form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        let data = null;
+        try {
+          data = await response.json();
+        } catch {
+          data = null;
+        }
+
+        return { response, data };
+      }
+
+      function openFallbackEmailFromForm() {
+        const snapshot = getLatestSnapshot();
+        const formData = new FormData(els.form);
         const snapshotStatus = formData.get("snapshotStatus");
         const includeSnapshot =
           snapshot &&
@@ -771,11 +851,63 @@
           : "Cyber Seeds Audit Request";
 
         const body = buildEmailBody(formData, snapshot, includeSnapshot);
-
-        els.status.textContent =
-          "Opening your email draft now. You can review and edit it before sending.";
-
         openMailDraft(subject, body);
+      }
+
+      const snapshot = getLatestSnapshot();
+      updateSignalCard(snapshot);
+
+      els.fallbackButton.addEventListener("click", function () {
+        if (!validateForm()) return;
+        openFallbackEmailFromForm();
+      });
+
+      els.form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (!validateForm()) return;
+
+        const snapshot = getLatestSnapshot();
+        const snapshotStatus = els.form.snapshotStatus.value;
+        const includeSnapshot =
+          snapshot &&
+          (snapshotStatus === "auto" || snapshotStatus === "yes");
+
+        els.snapshotIncluded.value = includeSnapshot ? "true" : "false";
+        els.snapshotPayload.value = includeSnapshot && snapshot ? JSON.stringify(snapshot) : "";
+        els.snapshotSummary.value = includeSnapshot && snapshot ? summariseSnapshot(snapshot) : "";
+
+        const formData = new FormData(els.form);
+
+        try {
+          els.submit.disabled = true;
+          setStatus("Sending your audit request…", null);
+
+          const { response, data } = await submitToEndpoint(formData);
+
+          if (response.ok && data && data.ok) {
+            setStatus("Your audit request has been sent successfully. Cyber Seeds will review it and respond using the details you provided.", "success");
+            els.form.reset();
+            els.snapshotIncluded.value = includeSnapshot ? "true" : "false";
+            els.snapshotPayload.value = includeSnapshot && snapshot ? JSON.stringify(snapshot) : "";
+            els.snapshotSummary.value = includeSnapshot && snapshot ? summariseSnapshot(snapshot) : "";
+            return;
+          }
+
+          showFallback();
+
+          if (data && data.message) {
+            setStatus(`${data.message} You can use the email backup below.`, "error");
+          } else {
+            setStatus("The direct request service is not available right now. You can use the email backup below.", "error");
+          }
+        } catch (error) {
+          console.error(error);
+          showFallback();
+          setStatus("This device could not complete the direct request. You can still use the email backup below.", "error");
+        } finally {
+          els.submit.disabled = false;
+        }
       });
     })();
   </script>
