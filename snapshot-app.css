@@ -13,7 +13,16 @@
   --accent-soft: #e4eeeb;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: Inter, "Segoe UI", Roboto, sans-serif;
@@ -26,48 +35,22 @@ body.modal-open {
   overflow: hidden;
 }
 
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
 main {
   display: block;
   width: 100%;
 }
 
-.site-header,
 .resource-main,
 .intake-main {
   width: min(100%, 72rem);
   margin-inline: auto;
-}
-
-.resource-main,
-.intake-main {
   padding: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .resource-panel,
 .intake-panel {
-  width: 100%;
-  max-width: 44rem;
-  margin-inline: auto;
-}
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.brand { display: inline-flex; gap: .65rem; align-items: center; color: var(--text); text-decoration: none; font-weight: 600; }
-.brand img { width: 2rem; height: 2rem; border-radius: 0.5rem; }
-nav a { color: var(--text); text-decoration: none; font-size: .95rem; }
-
-.intake-panel,
-.resource-panel {
   width: 100%;
   max-width: 44rem;
   margin-inline: auto;
@@ -77,35 +60,84 @@ nav a { color: var(--text); text-decoration: none; font-size: .95rem; }
   padding: 1.25rem;
 }
 
-.kicker { margin: 0; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.15; }
-.lead { color: var(--muted); margin-bottom: 1rem; }
-.promise-list { margin: 0 0 1.25rem; padding-left: 1.2rem; color: var(--muted); }
+.kicker {
+  margin: 0;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
 
+h1 {
+  margin: .5rem 0 1rem;
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  line-height: 1.15;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+
+.lead {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.promise-list {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.btn,
 .btn-primary,
 .btn-secondary {
   appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   border-radius: .7rem;
   border: 1px solid transparent;
   padding: .72rem 1rem;
   font: inherit;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
 }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-secondary { background: #fff; color: var(--text); border-color: var(--line); }
 
-.site-header-actions {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  flex-wrap: wrap;
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(.98);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.btn-secondary:hover {
+  background: #fafcfc;
 }
 
 .snapshot-launch {
   white-space: nowrap;
-  min-height: 44px;
 }
 
 .resource-launch-strip {
@@ -124,7 +156,11 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   padding: 1rem;
   align-items: flex-end;
 }
-.modal.is-open { display: flex; }
+
+.modal.is-open {
+  display: flex;
+}
+
 .modal-shell {
   width: 100%;
   max-width: 40rem;
@@ -134,13 +170,55 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   padding: 1rem;
   border: 1px solid var(--line);
 }
-.modal-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-.link-btn { border: 0; background: transparent; color: var(--muted); font: inherit; cursor: pointer; }
-.progress { margin: .2rem 0 .8rem; color: var(--muted); font-size: .9rem; }
-.choice-set { border: 0; margin: 0; padding: 0; display: grid; gap: .65rem; }
-.choice-row { border: 1px solid var(--line); border-radius: .75rem; padding: .7rem .8rem; display: flex; gap: .65rem; align-items: center; }
-.modal-actions { margin-top: 1rem; display: flex; justify-content: space-between; gap: .75rem; }
-.transition-shell { text-align: left; }
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.progress {
+  margin: .2rem 0 .8rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.choice-set {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .65rem;
+}
+
+.choice-row {
+  border: 1px solid var(--line);
+  border-radius: .75rem;
+  padding: .7rem .8rem;
+  display: flex;
+  gap: .65rem;
+  align-items: center;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.transition-shell {
+  text-align: left;
+}
 
 .signal-card,
 .seed-card {
@@ -150,16 +228,62 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   background: #fff;
   margin-bottom: 1rem;
 }
-.tone-pill { display: inline-block; background: var(--accent-soft); padding: .3rem .6rem; border-radius: 99px; font-size: .9rem; }
-.score { font-size: clamp(1.7rem, 6vw, 2.4rem); margin: .5rem 0; }
-.cert, .summary { color: var(--muted); }
-.lens-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
-.lens-row { display: flex; justify-content: space-between; }
-.bar { height: .55rem; background: #eef1f0; border-radius: 99px; overflow: hidden; }
-.bar span { display: block; height: 100%; background: var(--accent); }
 
-.seed-card ol { margin: .6rem 0 0; padding-left: 1.2rem; color: var(--muted); }
-.renewal-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.tone-pill {
+  display: inline-block;
+  background: var(--accent-soft);
+  padding: .3rem .6rem;
+  border-radius: 99px;
+  font-size: .9rem;
+}
+
+.score {
+  font-size: clamp(1.7rem, 6vw, 2.4rem);
+  margin: .5rem 0;
+}
+
+.cert,
+.summary {
+  color: var(--muted);
+}
+
+.lens-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .75rem;
+}
+
+.lens-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar {
+  height: .55rem;
+  background: #eef1f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.seed-card ol {
+  margin: .6rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.renewal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
 
 .sr-only {
   position: absolute;
@@ -172,14 +296,8 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   border: 0;
 }
 
-@media (min-width: 720px) {
-  .modal { align-items: center; }
-  .intake-panel,
-  .resource-panel { padding: 2rem; }
-}
-
 .snapshot-intro {
-  font-size: 0.95rem;
+  font-size: .95rem;
   line-height: 1.5;
   color: var(--muted);
   margin-bottom: 1.25rem;
@@ -190,17 +308,17 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 }
 
 .lens-label {
-  font-size: 0.75rem;
+  font-size: .75rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: .08em;
   color: var(--brand2);
-  margin-bottom: 0.25rem;
+  margin-bottom: .25rem;
 }
 
 .lens-insight {
-  font-size: 0.9rem;
+  font-size: .9rem;
   color: var(--muted);
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
 }
 
 .signal-shell {
@@ -224,18 +342,18 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 
 .signal-title {
   font-size: 1.4rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
 }
 
 .signal-body {
-  font-size: 0.95rem;
+  font-size: .95rem;
   color: var(--muted);
   line-height: 1.6;
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
 }
 
 .signal-sub {
-  font-size: 0.9rem;
+  font-size: .9rem;
   color: var(--muted);
   margin-bottom: 1.5rem;
 }
@@ -251,7 +369,7 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 
 .signal-pattern {
   font-size: 1.6rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
 }
 
 .signal-description {
@@ -271,16 +389,12 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
 
 .score-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: .85rem;
   color: var(--muted);
 }
 
 .lens-breakdown {
   margin-bottom: 2rem;
-}
-
-.lens-row {
-  margin-bottom: 1rem;
 }
 
 .lens-bar {
@@ -299,14 +413,9 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1
   padding-left: 1rem;
 }
 
-
 .snapshot-modal {
   max-height: calc(100vh - 40px);
   overflow-y: auto;
-}
-
-.btn {
-  min-height: 44px;
 }
 
 .btn-primary:focus-visible,
@@ -319,163 +428,160 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-@media (max-width: 720px) {
-  .site-header {
-    flex-wrap: wrap;
-    gap: .75rem;
+.resultCard {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #fff;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.resultCard h2 {
+  margin-top: 0;
+}
+
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+.site-footer {
+  width: min(1120px, calc(100% - 32px));
+  margin: 20px auto 40px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.site-footer nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.site-footer nav a {
+  text-decoration: none;
+  color: var(--ink);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.site-footer nav a:hover {
+  background: var(--mint2);
+  border-color: var(--line);
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 720px) {
+  .modal {
+    align-items: center;
   }
 
-  .site-header-actions {
+  .intake-panel,
+  .resource-panel {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    width: min(1120px, calc(100% - 20px));
+    padding: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-footer nav {
     width: 100%;
-    justify-content: space-between;
-  }
-}
-
-.resultCard {
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: #fff;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.resultCard h2 {
-  margin-top: 0;
-}
-
-details summary {
-  cursor: pointer;
-  list-style: none;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-.resultCard {
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: #fff;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.resultCard h2 {
-  margin-top: 0;
-}
-
-details summary {
-  cursor: pointer;
-  list-style: none;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-}
-.site-header{
-  width:min(1120px, calc(100% - 32px));
-  margin:20px auto 0;
-  padding:14px 18px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:rgba(255,255,255,.9);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  box-sizing:border-box;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-  color:var(--ink);
-  font-weight:700;
-  letter-spacing:-0.01em;
-}
-
-.brand img{
-  width:34px;
-  height:34px;
-  object-fit:contain;
-  display:block;
-}
-
-.site-header-actions{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.site-header nav{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.site-header nav a{
-  text-decoration:none;
-  color:var(--ink);
-  padding:10px 14px;
-  border-radius:12px;
-  transition:background-color .18s ease, color .18s ease, border-color .18s ease;
-  border:1px solid transparent;
-}
-
-.site-header nav a:hover{
-  background:var(--mint2);
-  border-color:var(--line);
-}
-
-.site-header nav a[aria-current="page"]{
-  background:var(--mint2);
-  border-color:rgba(15,47,42,.14);
-  color:var(--ink);
-  font-weight:650;
-}
-
-.site-header nav a.nav-cta{
-  background:var(--brand2);
-  color:#fff;
-  border-color:transparent;
-}
-
-.site-header nav a.nav-cta:hover{
-  filter:brightness(.98);
-  background:var(--brand2);
-  color:#fff;
-}
-
-.site-header nav a.nav-cta[aria-current="page"]{
-  background:var(--brand2);
-  color:#fff;
-  border-color:transparent;
-}
-
-@media (max-width: 760px){
-  .site-header{
-    width:min(1120px, calc(100% - 20px));
-    padding:12px 14px;
-    flex-direction:column;
-    align-items:flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
-  .site-header-actions{
-    width:100%;
-  }
-
-  .site-header nav{
-    width:100%;
-    display:grid;
-    grid-template-columns:repeat(2, minmax(0, 1fr));
-    gap:8px;
-  }
-
-  .site-header nav a{
-    text-align:center;
+  .site-footer nav a {
+    text-align: center;
   }
 }
+5) Replace your home page /index.html with this
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#13211e" />
+  <title>Cyber Seeds | Domestic Cyber Ecology for Modern Families</title>
+  <meta name="description" content="Cyber Seeds is a calm, safeguarding-first domestic digital safety framework for modern families." />
+  <link rel="icon" href="/cyber_seeds_logo.png" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/" />
+  <link rel="stylesheet" href="/snapshot-app.css" />
+</head>
+<body>
+  <div id="header"></div>
+
+  <main class="intake-main" id="main-content">
+    <section class="intake-panel" aria-labelledby="hero-title">
+      <p class="kicker">Domestic Cyber Ecology</p>
+      <h1 id="hero-title">Domestic Cyber Ecology for Modern Families</h1>
+      <p class="lead">Cyber Seeds is the UK’s emerging Domestic Cyber Ecology framework — a structured five-lens model designed to support families living with connected devices, shared accounts, and everyday online routines.</p>
+      <p>
+        <a class="btn-primary" href="/snapshot/">Begin Your Household Snapshot</a>
+        <a class="btn-secondary" href="#five-lenses">Learn About the Five Lenses</a>
+      </p>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="modern-home-title">
+      <h2 id="modern-home-title">The Modern Digital Home</h2>
+      <p>Today’s home is a connected environment where family life, learning, communication, and services all meet in one place.</p>
+      <p>It is normal to feel overwhelmed by changing settings, devices, and expectations.</p>
+      <p>Every family deserves clear support that builds confidence without blame.</p>
+    </section>
+
+    <section class="intake-panel" id="five-lenses" aria-labelledby="five-lenses-title">
+      <h2 id="five-lenses-title">The Cyber Seeds Five-Lens Safety Model</h2>
+      <ul class="promise-list">
+        <li><strong>Network &amp; Wi-Fi Safety:</strong> Helps households keep home internet access dependable and protected for everyday use.</li>
+        <li><strong>Device Hygiene:</strong> Supports simple routines that keep phones, tablets, and computers up to date and working well.</li>
+        <li><strong>Privacy &amp; Identity:</strong> Encourages clear account habits that protect personal information and reduce avoidable exposure.</li>
+        <li><strong>Scam Awareness:</strong> Builds confidence in spotting suspicious messages, calls, and requests before responding.</li>
+        <li><strong>Children’s Digital Wellbeing:</strong> Promotes age-appropriate boundaries and conversations that support children online.</li>
+      </ul>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="snapshot-title">
+      <h2 id="snapshot-title">What the Snapshot Is</h2>
+      <p>The Household Snapshot runs locally in your browser, so your responses stay on this device.</p>
+      <p>It provides a supportive signal to help you decide where to focus first.</p>
+      <p>It is not a diagnosis, and it is not a compliance test.</p>
+    </section>
+
+    <section class="intake-panel" aria-labelledby="final-cta-title">
+      <h2 id="final-cta-title">Take a Calm First Step</h2>
+      <p class="lead">When you are ready, you can begin at your own pace.</p>
+      <p><a class="btn-primary" href="/snapshot/">Open the Household Snapshot</a></p>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/js/layout.js"></script>
+</body>
+</html>
