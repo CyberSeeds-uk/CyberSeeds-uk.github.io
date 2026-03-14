@@ -1,16 +1,7 @@
 async function loadComponent(path, target) {
-  const response = await fetch(path, { cache: "no-cache" });
-  if (!response.ok) {
-    throw new Error(`Failed to load component: ${path}`);
-  }
-
+  const response = await fetch(path);
   const html = await response.text();
-  const host = document.querySelector(target);
-
-  if (!host) return null;
-
-  host.innerHTML = html;
-  return host;
+  document.querySelector(target).innerHTML = html;
 }
 
 function normalisePath(pathname) {
@@ -47,7 +38,10 @@ function initHeader() {
   const toggle = document.querySelector(".cs-menu-toggle");
   const panel = document.querySelector("#cs-mobile-panel");
 
-  if (!toggle || !panel) return;
+  if (!toggle || !panel) {
+    markActiveNav();
+    return;
+  }
 
   const closeMenu = () => {
     toggle.setAttribute("aria-expanded", "false");
@@ -99,33 +93,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error(error);
   }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const menuButton = document.querySelector(".cs-menu-toggle");
-  const mobilePanel = document.getElementById("cs-mobile-panel");
-
-  if (menuButton && mobilePanel) {
-    menuButton.addEventListener("click", function () {
-      const isOpen = mobilePanel.classList.toggle("is-open");
-      menuButton.classList.toggle("is-open", isOpen);
-      menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    });
-  }
-
-  const path = window.location.pathname.replace(/index\.html$/, "");
-  let activeKey = "home";
-
-  if (path.startsWith("/snapshot")) activeKey = "snapshot";
-  else if (path.startsWith("/resources")) activeKey = "resources";
-  else if (path.startsWith("/contact")) activeKey = "contact";
-  else if (path.startsWith("/book")) activeKey = "book";
-
-  document.querySelectorAll("[data-nav]").forEach((link) => {
-    if (link.dataset.nav === activeKey) {
-      link.setAttribute("aria-current", "page");
-    }
-  });
-
 });
