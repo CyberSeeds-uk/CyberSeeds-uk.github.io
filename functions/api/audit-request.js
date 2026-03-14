@@ -172,7 +172,8 @@ export async function onRequestPost(context) {
     const resendApiKey = env.RESEND_API_KEY;
     const auditRequestTo = env.AUDIT_REQUEST_TO;
     const auditRequestFrom = env.AUDIT_REQUEST_FROM;
-    const auditReplyTo = env.AUDIT_REQUEST_REPLY_TO || emailAddress;
+    const submittedEmail = String(emailAddress || "").trim();
+    const auditReplyTo = submittedEmail || env.AUDIT_REQUEST_REPLY_TO || undefined;
 
     if (!resendApiKey || !auditRequestTo || !auditRequestFrom) {
       return json({
