@@ -87,6 +87,27 @@
       .sort((a, b) => a.timestamp - b.timestamp);
   }
 
+  function filterSnapshots(list){
+    const MIN_GAP = 60 * 60 * 1000; // 1 hour minimum spacing
+  
+    const filtered = [];
+  
+    for(const snap of list){
+      if(!filtered.length){
+        filtered.push(snap);
+        continue;
+      }
+  
+      const last = filtered[filtered.length - 1];
+  
+      if(snap.timestamp - last.timestamp >= MIN_GAP){
+        filtered.push(snap);
+      }
+    }
+
+  return filtered;
+}
+
   function getBaseline(){
     return normaliseSnapshot(readFirst(BASELINE_KEYS, null));
   }
