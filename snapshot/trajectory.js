@@ -118,15 +118,19 @@
   }
 
   function formatDate(timestamp){
-    try {
-      return new Date(timestamp).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-      });
-    } catch {
-      return "Recent check-in";
+    const d = new Date(timestamp);
+    const now = new Date();
+  
+    const sameDay =
+      d.getFullYear() === now.getFullYear() &&
+      d.getMonth() === now.getMonth() &&
+      d.getDate() === now.getDate();
+  
+    if(sameDay){
+      return d.toLocaleTimeString("en-GB", {hour:"2-digit",minute:"2-digit"});
     }
+  
+    return d.toLocaleDateString("en-GB", {day:"numeric",month:"short"});
   }
 
   function describeTrend(deltaFromBaseline, deltaFromPrevious){
@@ -148,7 +152,7 @@
   }
 
   function buildTrajectory(){
-    const points = getHistory();
+    const points = filterSnapshots(getHistory());
     if (!points.length) return null;
 
     const baseline = getBaseline() || points[0];
@@ -246,6 +250,20 @@
     `;
   }
 
+  function resetTrajectory(){
+    HISTORY_KEYS.forEach((key) => {
+      try { localStorage.removeItem(key); } catch {}
+    });
+
+    BASELINE_KEYS.forEach((key) => {
+      try { localStorage.removeItem(key); } catch {}
+    });
+
+    try { localStorage.removeItem("cyberseeds_snapshot_latest_v3"); } catch {}
+
+    location.reload();
+  }
+
   function renderTrajectory(){
     const host = document.querySelector(hostSelector);
     if (!host) return;
@@ -259,11 +277,27 @@
     host.innerHTML = `
       <div class="cs-trajectory-card">
         <div class="cs-trajectory-head">
-          <div>
+          <div class="cs-trajectory-head-text">
             <h3>Household trajectory</h3>
-            <p class="cs-trajectory-sub">A calm view of how your household signal is changing over time.</p>
+            <p class="cs-trajectory-sub">
+              A calm view of how your household signal is changing over time.
+            </p>
           </div>
-          <div class="cs-trajectory-score">${trajectory.latest.total}/100</div>
+
+          <div class="cs-trajectory-head-actions">
+            <div class="cs-trajectory-score">
+              ${trajectory.latest.total}/100
+            </div>
+
+            <button
+              type="button"
+              id="resetTrajectory"
+              class="cs-btn-reset"
+              aria-label="Reset trajectory testing data"
+            >
+              Reset trajectory
+            </button>
+          </div>
         </div>
 
         <div class="cs-trajectory-meta" aria-label="Trajectory summary">
@@ -301,8 +335,21 @@
 
   function init(){
     renderTrajectory();
+
     window.addEventListener("cs:snapshot-updated", renderTrajectory);
     window.addEventListener("storage", renderTrajectory);
+
+    document.addEventListener("click", (e) => {
+      const button = e.target.closest("#resetTrajectory");
+      if (!button) return;
+
+      const confirmed = window.confirm(
+        "Reset trajectory test data from this browser? This will clear saved household snapshot history on this device."
+      );
+
+      if (!confirmed) return;
+      resetTrajectory();
+    });
   }
 
   if (document.readyState === "loading") {
