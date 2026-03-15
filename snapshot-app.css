@@ -661,6 +661,43 @@ details summary::-webkit-details-marker {
     grid-template-columns: 1fr;
   }
 }
+
+.cs-trajectory-head-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .6rem;
+}
+
+.cs-btn-reset {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: .45rem .8rem;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.cs-btn-reset:hover {
+  background: #f6f8f7;
+  border-color: #cfd8d5;
+  color: var(--text);
+}
+
+.cs-btn-reset:focus-visible {
+  outline: 2px solid #1a6a5d;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .cs-trajectory-head-actions {
+    align-items: flex-start;
+  }
+}
 5) Replace your home page /index.html with this
 <!DOCTYPE html>
 <html lang="en-GB">
