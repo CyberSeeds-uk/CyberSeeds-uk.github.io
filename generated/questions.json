@@ -53,7 +53,7 @@
       "prompt": "For your main email account, is there an extra step to protect it when signing in?",
       "reassurance": "You don’t need to know the name of the setting — just whether it exists.",
       "scoring_v2": {
-        "importance": 1.15,
+        "importance": 1.0,
         "max_points": 20,
         "min_points": 5,
         "answer_weights": {
@@ -99,7 +99,7 @@
       "prompt": "Are there any routines in your household that help protect sleep from screens?",
       "reassurance": "Routines don’t have to be perfect to be protective.",
       "scoring_v2": {
-        "importance": 0.9,
+        "importance": 1.0,
         "max_points": 16,
         "min_points": 6,
         "answer_weights": {
