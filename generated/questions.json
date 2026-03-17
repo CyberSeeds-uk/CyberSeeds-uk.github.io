@@ -93,11 +93,11 @@
       ]
     },
     {
-      "id": "q5_sleep_focus",
+      "id": "q5_wellbeing_routines",
       "lens": "wellbeing",
       "type": "single",
-      "prompt": "Are there any routines in your household that help protect sleep from screens?",
-      "reassurance": "Routines don’t have to be perfect to be protective.",
+      "prompt": "Are there any routines in your household that help protect children’s or family wellbeing around screens, sleep, and online life?",
+      "reassurance": "Routines do not have to be perfect to be protective.",
       "scoring_v2": {
         "importance": 1.0,
         "max_points": 16,
@@ -107,11 +107,11 @@
           "mid": 0.69,
           "low": 0.38
         },
-        "rationale_tags": ["sleep_protection", "screen_routines"]
+        "rationale_tags": ["wellbeing_routines", "screen_boundaries", "sleep_protection"]
       },
       "options": [
-        { "key": "high", "label": "Yes — most nights are protected", "points": 16 },
-        { "key": "mid", "label": "Sometimes — it varies", "points": 11 },
+        { "key": "high", "label": "Yes — we have regular protective routines", "points": 16 },
+        { "key": "mid", "label": "Sometimes — it varies across the household", "points": 11 },
         { "key": "low", "label": "Not yet — routines are still forming", "points": 6 }
       ]
     }
