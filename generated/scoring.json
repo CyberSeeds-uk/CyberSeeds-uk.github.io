@@ -1,14 +1,14 @@
 {
   "scoring_v2": {
     "hdss": {
-      "method": "mean_of_lens_percentages",
+      "method": "weighted_mean_of_lens_percentages",
       "rounding": "nearest_int",
       "lens_weights": {
-        "network": 1.0,
-        "devices": 1.0,
-        "privacy": 1.0,
-        "scams": 1.0,
-        "wellbeing": 1.0
+        "network": 0.25,
+        "devices": 0.20,
+        "privacy": 0.20,
+        "scams": 0.20,
+        "wellbeing": 0.15
       }
     },
 
