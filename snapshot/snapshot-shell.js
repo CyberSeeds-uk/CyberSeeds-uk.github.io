@@ -527,11 +527,6 @@
           to reduce stress and build digital resilience over time.
         </p>
 
-        <div class="resultRow" style="margin:12px 0;">
-          <span class="chip">Five connected systems</span>
-          <span class="chip">Local-only results</span>
-          <span class="chip">Clear next steps</span>
-        </div>
 
         <p style="margin-top:12px; color:var(--muted);">
           Nothing is uploaded. Everything stays on this device.
@@ -635,7 +630,6 @@
 
     /* ---------------- Finish ---------------- */
 
-    /* ---------------- Finish ---------------- */
 
 finish(){
 
