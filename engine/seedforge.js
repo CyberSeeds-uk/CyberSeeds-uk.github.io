@@ -62,12 +62,21 @@
   }
 
   function calcHdss(percs, scoring){
-    const w = scoring?.scoring_v2?.hdss?.lens_weights || {};
-    const total = sum(LENS_ORDER.map(l => w[l] ?? 1));
-    return Math.round(
-      sum(LENS_ORDER.map(l => (percs[l] ?? 0) * (w[l] ?? 1))) / (total || 1)
-    );
-  }
+    const cfg = scoring?.scoring_v2?.hdss || {};
+    const method = cfg.method || "mean_of_lens_percentages";
+    const w = cfg.lens_weights || {};
+   
+    if (method === "weighted_mean_of_lens_percentages"){
+     return Math.round(
+       sum(LENS_ORDER.map(l => (percs[l] ?? 0) * (w[l] ?? 0)))
+     );
+    }
+   
+   const total = sum(LENS_ORDER.map(l => w[l] ?? 1));
+   return Math.round(
+    sum(LENS_ORDER.map(l => (percs[l] ?? 0) * (w[l] ?? 1))) / (total || 1)
+   );
+   }
 
   function strongestWeakest(percs){
     const sorted = [...LENS_ORDER]
