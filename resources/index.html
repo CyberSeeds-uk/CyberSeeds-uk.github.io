@@ -290,6 +290,81 @@
         width:100%;
       }
     }
+    .lens-breakdown-hint{
+      margin:6px 0 14px;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:.97rem;
+    }
+    
+    .cs-lensToggle{
+      position:relative;
+      transition:background .18s ease, border-color .18s ease, transform .12s ease;
+    }
+    
+    .cs-lensToggle:hover{
+      background:#f8fcfb;
+    }
+    
+    .cs-lensToggle[aria-expanded="true"]{
+      background:#fbfefd;
+    }
+    
+    .cs-lensTopline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    
+    .cs-lensCue{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--brand2);
+      font-size:.88rem;
+      font-weight:650;
+      white-space:nowrap;
+    }
+    
+    .cs-lensChevron{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:24px;
+      height:24px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--ink);
+      font-weight:700;
+      line-height:1;
+    }
+    
+    .cs-lensToggle[aria-expanded="true"] .cs-lensChevron{
+      background:var(--mint2);
+      border-color:rgba(15,47,42,.18);
+    }
+    
+    .cs-lensDetails{
+      animation:csLensOpen .18s ease;
+    }
+    
+    @keyframes csLensOpen{
+      from{opacity:0; transform:translateY(-4px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+    
+    @media (max-width:640px){
+      .cs-lensTopline{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+    
+      .cs-lensCue{
+        font-size:.84rem;
+      }
+    }
   </style>
 </head>
 <body>
