@@ -280,19 +280,29 @@
         ${seedHtml}
 
         <section class="lens-breakdown">
-          <h2>What each area is showing</h2>
+         <h2>What each area is showing</h2>
+         <p class="lens-breakdown-hint">
+            Tap any area to open a plain-language explanation, why it matters, and a next calm step.
+          </p>
           ${Object.entries(lensValues).map(([lens, value]) => `
             <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
               <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
-                <div class="cs-lensLeft">
-                  <div class="cs-lensName">${formatLensName(lens)}</div>
-                  <div class="cs-lensScore">${Math.round(value)}</div>
-                </div>
-                <div class="cs-lensRight">
-                  <div class="cs-lensBand">${getLensBand(value)}</div>
-                  <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
-                </div>
-              </button>
+                 <div class="cs-lensLeft">
+                   <div class="cs-lensName">${formatLensName(lens)}</div>
+                   <div class="cs-lensScore">${Math.round(value)}</div>
+                 </div>
+               
+                 <div class="cs-lensRight">
+                   <div class="cs-lensTopline">
+                     <div class="cs-lensBand">${getLensBand(value)}</div>
+                     <div class="cs-lensCue">
+                       <span class="cs-lensCueText">${lens === focusLensKey ? "Open now" : "Tap to open"}</span>
+                       <span class="cs-lensChevron" aria-hidden="true">${lens === focusLensKey ? "−" : "+"}</span>
+                     </div>
+                   </div>
+                   <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+                 </div>
+               </button>
               <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
                 <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
                 <p class="cs-lensDirection"><strong>Next calm step:</strong> ${getLensDetails(lens).next}</p>
@@ -319,11 +329,18 @@
     root.querySelectorAll(".cs-lensToggle").forEach((toggle) => {
       toggle.addEventListener("click", () => {
         const details = toggle.parentElement?.querySelector(".cs-lensDetails");
+        const cueText = toggle.querySelector(".cs-lensCueText");
+        const cueIcon = toggle.querySelector(".cs-lensChevron");
         if (!details) return;
-
+   
         const expanded = toggle.getAttribute("aria-expanded") === "true";
-        toggle.setAttribute("aria-expanded", String(!expanded));
-        details.hidden = expanded;
+        const nextExpanded = !expanded;
+   
+        toggle.setAttribute("aria-expanded", String(nextExpanded));
+        details.hidden = !nextExpanded;
+   
+        if (cueText) cueText.textContent = nextExpanded ? "Close" : "Tap to open";
+        if (cueIcon) cueIcon.textContent = nextExpanded ? "−" : "+";
       });
     });
   }
