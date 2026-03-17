@@ -88,21 +88,20 @@
   }
 
   function filterSnapshots(list){
-    const MIN_GAP = 60 * 60 * 1000; // 1 hour minimum spacing
+    if (!Array.isArray(list) || !list.length) return [];
   
     const filtered = [];
+    const seen = new Set();
   
-    for(const snap of list){
-      if(!filtered.length){
-        filtered.push(snap);
-        continue;
-      }
+    for (const snap of list){
+      const key = `${snap.id}|${snap.timestamp}|${snap.total}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      filtered.push(snap);
+    }
   
-      const last = filtered[filtered.length - 1];
-  
-      if(snap.timestamp - last.timestamp >= MIN_GAP){
-        filtered.push(snap);
-      }
+    return filtered;
+  }
     }
 
   return filtered;
