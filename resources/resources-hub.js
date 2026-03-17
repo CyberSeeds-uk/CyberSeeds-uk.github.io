@@ -1,6 +1,7 @@
 /* =========================================================
    Cyber Seeds — Resources Hub
    Calm, local-first rendering for household resources
+   More visible interaction • clearer guidance • stronger UX
    ========================================================= */
 
 (function () {
@@ -111,30 +112,40 @@
       network: {
         interpretation:
           "A calmer home connection supports everyday trust. Small checks, such as reviewing router settings and recognising which devices belong in the home, can help things feel more settled.",
+        importance:
+          "This matters because the home network often acts like the digital front door for everything else in the household.",
         next:
           "Choose one regular time each month to check your router and remove any device you do not recognise."
       },
       devices: {
         interpretation:
           "Simple device routines often reduce stress. When updates, charging, and shared use feel predictable, digital life usually becomes easier for everyone in the household.",
+        importance:
+          "This matters because everyday devices carry most of the household’s digital activity, from messages and banking to school and work.",
         next:
           "Pick one weekly moment for a quick device check, such as updates before the weekend."
       },
       privacy: {
         interpretation:
           "Privacy works best when it feels understandable and repeatable. Clear sign-in habits and recovery details can help the household feel more in control.",
+        importance:
+          "This matters because your main accounts often protect everything else behind them, including email, recovery options, payments, and identity.",
         next:
           "Choose one important account and review its password, sign-in method, and recovery options."
       },
       scams: {
         interpretation:
           "Scam resistance often grows through shared pause habits. A calm plan for what to do before clicking, replying, or paying can lower pressure and protect decision-making.",
+        importance:
+          "This matters because many digital harms begin with pressure, urgency, or a message that catches someone off guard rather than a technical attack.",
         next:
           "Agree one household pause phrase to use before opening links, sharing codes, or sending money."
       },
       wellbeing: {
         interpretation:
           "Digital wellbeing is usually strongest when expectations are clear and support feels safe. Children often benefit from calm boundaries and regular check-ins rather than one-off rules.",
+        importance:
+          "This matters because healthy online life is not only about blocking risk. It is also about support, rest, trust, and conversations that can be repeated.",
         next:
           "Set one short weekly check-in about online life, what is going well, and what support is needed."
       }
@@ -143,6 +154,8 @@
     return copy[lens] || {
       interpretation:
         "Small and repeated actions are often easier to keep than big one-off changes.",
+      importance:
+        "This area can still become stronger through calm, repeated household habits.",
       next:
         "Choose one manageable next step and return to it in a week."
     };
@@ -189,6 +202,26 @@
     document.body.removeChild(link);
 
     URL.revokeObjectURL(url);
+  }
+
+  function bindLensToggles(root) {
+    root.querySelectorAll(".cs-lensToggle").forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const details = toggle.parentElement?.querySelector(".cs-lensDetails");
+        const cueText = toggle.querySelector(".cs-lensCueText");
+        const cueIcon = toggle.querySelector(".cs-lensChevron");
+        if (!details) return;
+
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        const nextExpanded = !expanded;
+
+        toggle.setAttribute("aria-expanded", String(nextExpanded));
+        details.hidden = !nextExpanded;
+
+        if (cueText) cueText.textContent = nextExpanded ? "Close" : "Tap to open";
+        if (cueIcon) cueIcon.textContent = nextExpanded ? "−" : "+";
+      });
+    });
   }
 
   async function render() {
@@ -280,38 +313,48 @@
         ${seedHtml}
 
         <section class="lens-breakdown">
-         <h2>What each area is showing</h2>
-         <p class="lens-breakdown-hint">
+          <h2>What each area is showing</h2>
+          <p class="lens-breakdown-hint">
             Tap any area to open a plain-language explanation, why it matters, and a next calm step.
           </p>
-          ${Object.entries(lensValues).map(([lens, value]) => `
-            <article class="cs-lensRow ${lens === focusLensKey ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
-              <button class="cs-lensToggle" type="button" aria-expanded="${lens === focusLensKey ? "true" : "false"}">
-                 <div class="cs-lensLeft">
-                   <div class="cs-lensName">${formatLensName(lens)}</div>
-                   <div class="cs-lensScore">${Math.round(value)}</div>
-                 </div>
-               
-                 <div class="cs-lensRight">
-                   <div class="cs-lensTopline">
-                     <div class="cs-lensBand">${getLensBand(value)}</div>
-                     <div class="cs-lensCue">
-                       <span class="cs-lensCueText">${lens === focusLensKey ? "Open now" : "Tap to open"}</span>
-                       <span class="cs-lensChevron" aria-hidden="true">${lens === focusLensKey ? "−" : "+"}</span>
-                     </div>
-                   </div>
-                   <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
-                 </div>
-               </button>
-              <div class="cs-lensDetails" ${lens === focusLensKey ? "" : "hidden"}>
-                <p class="cs-lensInterpretation">${getLensDetails(lens).interpretation}</p>
-                <p class="cs-lensDirection"><strong>Next calm step:</strong> ${getLensDetails(lens).next}</p>
-              </div>
-              <div class="lens-bar" style="padding:0 14px 14px;">
-                <div class="lens-fill" style="width:${Math.round(value)}%"></div>
-              </div>
-            </article>
-          `).join("")}
+
+          ${Object.entries(lensValues).map(([lens, value]) => {
+            const rounded = Math.round(value);
+            const isFocus = lens === focusLensKey;
+            const details = getLensDetails(lens);
+
+            return `
+              <article class="cs-lensRow ${isFocus ? "cs-lensRow--focus" : ""}" data-lens="${lens}">
+                <button class="cs-lensToggle" type="button" aria-expanded="${isFocus ? "true" : "false"}">
+                  <div class="cs-lensLeft">
+                    <div class="cs-lensName">${formatLensName(lens)}</div>
+                    <div class="cs-lensScore">${rounded}</div>
+                  </div>
+
+                  <div class="cs-lensRight">
+                    <div class="cs-lensTopline">
+                      <div class="cs-lensBand">${getLensBand(value)}</div>
+                      <div class="cs-lensCue">
+                        <span class="cs-lensCueText">${isFocus ? "Open now" : "Tap to open"}</span>
+                        <span class="cs-lensChevron" aria-hidden="true">${isFocus ? "−" : "+"}</span>
+                      </div>
+                    </div>
+                    <div class="cs-lensSummary">${getLensSummary(lens, value)}</div>
+                  </div>
+                </button>
+
+                <div class="cs-lensDetails" ${isFocus ? "" : "hidden"}>
+                  <p class="cs-lensInterpretation">${details.interpretation}</p>
+                  <p class="cs-lensImportance"><strong>Why this matters:</strong> ${details.importance}</p>
+                  <p class="cs-lensDirection"><strong>Next calm step:</strong> ${details.next}</p>
+                </div>
+
+                <div class="lens-bar" style="padding:0 14px 14px;">
+                  <div class="lens-fill" style="width:${rounded}%"></div>
+                </div>
+              </article>
+            `;
+          }).join("")}
         </section>
 
         <section class="renewal-actions" aria-label="Next steps">
@@ -319,6 +362,8 @@
           <button class="btn-secondary" type="button" id="downloadPassport">Save household passport</button>
           <a class="btn-primary" href="/book/">Book a full audit</a>
         </section>
+
+        <div data-cs-trajectory class="trajectory-container"></div>
       </section>
     `;
 
@@ -326,28 +371,21 @@
       downloadPassport(snapshot);
     });
 
-    root.querySelectorAll(".cs-lensToggle").forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const details = toggle.parentElement?.querySelector(".cs-lensDetails");
-        const cueText = toggle.querySelector(".cs-lensCueText");
-        const cueIcon = toggle.querySelector(".cs-lensChevron");
-        if (!details) return;
-   
-        const expanded = toggle.getAttribute("aria-expanded") === "true";
-        const nextExpanded = !expanded;
-   
-        toggle.setAttribute("aria-expanded", String(nextExpanded));
-        details.hidden = !nextExpanded;
-   
-        if (cueText) cueText.textContent = nextExpanded ? "Close" : "Tap to open";
-        if (cueIcon) cueIcon.textContent = nextExpanded ? "−" : "+";
-      });
-    });
+    bindLensToggles(root);
+
+    if (typeof window.renderCyberSeedsTrajectory === "function") {
+      window.renderCyberSeedsTrajectory();
+    }
   }
 
   function init() {
     render();
+
     window.addEventListener("cs:snapshot-updated", () => {
+      render();
+    });
+
+    window.addEventListener("storage", () => {
       render();
     });
   }
