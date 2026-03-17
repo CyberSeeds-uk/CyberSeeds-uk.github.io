@@ -133,24 +133,31 @@
     return d.toLocaleDateString("en-GB", {day:"numeric",month:"short"});
   }
 
-  function describeTrend(deltaFromBaseline, deltaFromPrevious){
+  function describeTrend(deltaFromBaseline, deltaFromPrevious, pointCount){
+    if (pointCount <= 1) {
+      return "This is your first saved household signal. Future check-ins will begin to show your trajectory.";
+    }
+  
     if (deltaFromBaseline >= 10) {
       return "Your household signal is moving in a clearly stronger direction over time.";
     }
-
+  
     if (deltaFromBaseline > 0) {
       return deltaFromPrevious > 0
         ? "Your household signal is improving steadily and your most recent check-in also moved upward."
         : "Your household signal is stronger than your baseline and currently holding that ground.";
     }
-
+  
     if (deltaFromBaseline === 0) {
-      return "Your household signal is holding steady against your baseline.";
+      return deltaFromPrevious > 0
+        ? "Your household signal has improved since the last check-in and is now level with its baseline."
+        : deltaFromPrevious < 0
+          ? "Your household signal has softened slightly since the last check-in and is now back at its baseline."
+          : "Your household signal is holding steady against your baseline.";
     }
-
+  
     return "Your household signal has dipped below its baseline, which may be a cue for a calm reset rather than alarm.";
   }
-
   function buildTrajectory(){
     const points = filterSnapshots(getHistory());
     if (!points.length) return null;
@@ -182,23 +189,36 @@
 
   function renderChart(points){
     if (!Array.isArray(points) || !points.length) return "";
-
+  
     const width = 100;
     const height = 32;
-    const xStep = points.length === 1 ? 0 : width / (points.length - 1);
-
+  
+    if (points.length === 1){
+      const x = 50;
+      const y = height - ((points[0].total / 100) * height);
+  
+      return `
+        <svg viewBox="0 0 ${width} ${height}" class="cs-trajectory-chart" aria-hidden="true" focusable="false">
+          <line x1="0" y1="${y}" x2="${width}" y2="${y}" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.18"></line>
+          <circle cx="${x}" cy="${y}" r="2.4"></circle>
+        </svg>
+      `;
+    }
+  
+    const xStep = width / (points.length - 1);
+  
     const polyline = points.map((point, index) => {
       const x = index * xStep;
       const y = height - ((point.total / 100) * height);
       return `${x},${y}`;
     }).join(" ");
-
+  
     const circles = points.map((point, index) => {
       const x = index * xStep;
       const y = height - ((point.total / 100) * height);
       return `<circle cx="${x}" cy="${y}" r="1.9"></circle>`;
     }).join("");
-
+  
     return `
       <svg viewBox="0 0 ${width} ${height}" class="cs-trajectory-chart" aria-hidden="true" focusable="false">
         <polyline points="${polyline}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -306,7 +326,11 @@
           <span>Since last check-in: <strong>${signed(trajectory.deltaFromPrevious)}</strong></span>
         </div>
 
-        <p class="cs-trajectory-summary">${describeTrend(trajectory.deltaFromBaseline, trajectory.deltaFromPrevious)}</p>
+        <p class="cs-trajectory-summary">${describeTrend(
+          trajectory.deltaFromBaseline,
+          trajectory.deltaFromPrevious,
+          trajectory.points.length
+        )}</p>
 
         <div class="cs-trajectory-visual">
           ${renderChart(trajectory.points)}
