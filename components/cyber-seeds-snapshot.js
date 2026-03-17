@@ -1062,20 +1062,79 @@ class CyberSeedsSnapshot extends HTMLElement {
   }
 
 
-  buildPassport(h){
-
-    return {
-      schema:"cs.passport.v1",
-      createdAt:new Date().toISOString(),
-      snapshots:h.map(s => ({
-        id:s.id,
-        timestamp:s.timestamp,
-        total:s.total,
-        lenses:s.lenses,
-        focus:s.focus
-      }))
-    };
-  }
+   buildPassport(history){
+     const latest = history[0] || null;
+     const baseline = history[history.length - 1] || null;
+     const previous = history[1] || null;
+   
+     if (!latest) {
+       return {
+         schema: "cs.household.passport.v1",
+         createdAt: new Date().toISOString(),
+         updatedAt: new Date().toISOString(),
+         currentStatus: null,
+         trajectory: {
+           baseline: null,
+           latest: null,
+           changeSinceBaseline: 0,
+           changeSinceLast: 0,
+           checkInCount: 0
+         },
+         snapshots: []
+       };
+     }
+   
+     const existing = this.safeParse(
+       localStorage.getItem("cyberseeds_passport_v1"),
+       null
+     );
+   
+     const createdAt = existing?.createdAt || new Date(latest.timestamp).toISOString();
+     const updatedAt = new Date().toISOString();
+   
+     const latestTotal = Number(latest.total || 0);
+     const baselineTotal = Number(baseline?.total || latestTotal);
+     const previousTotal = Number(previous?.total || latestTotal);
+   
+     return {
+       schema: "cs.household.passport.v1",
+       createdAt,
+       updatedAt,
+   
+       currentStatus: {
+         snapshotId: latest.id,
+         timestamp: latest.timestamp,
+         total: latest.total,
+         stage: latest.stage || null,
+         focus: latest.focus || null,
+         strongest: latest.strongest || null,
+         weakest: latest.weakest || null,
+         seed: latest.seed || null,
+         rationale: latest.rationale || "",
+         signal: latest.signal || null,
+         lenses: latest.lenses || {},
+         lensPercents: latest.lensPercents || {}
+       },
+   
+       trajectory: {
+         baseline: baselineTotal,
+         latest: latestTotal,
+         changeSinceBaseline: latestTotal - baselineTotal,
+         changeSinceLast: latestTotal - previousTotal,
+         checkInCount: history.length
+       },
+   
+       snapshots: history.map(s => ({
+         id: s.id,
+         timestamp: s.timestamp,
+         total: s.total,
+         focus: s.focus,
+         stage: s.stage,
+         lenses: s.lenses,
+         lensPercents: s.lensPercents
+       }))
+     };
+   }
 
 
   persistPassport(h){
