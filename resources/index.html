@@ -365,6 +365,31 @@
         font-size:.84rem;
       }
     }
+    .trajectory-container{
+      margin-top:22px;
+    }
+    
+    .renewal-actions{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+    
+    .renewal-actions .btn-secondary,
+    .renewal-actions .btn-primary{
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    
+    @media (max-width:760px){
+      .renewal-actions{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
 <body>
