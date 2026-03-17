@@ -5,7 +5,7 @@
       "lens": "network",
       "type": "single",
       "prompt": "If you ever needed to change your home Wi-Fi settings, would you know where to start?",
-      "reassurance": "Most households don’t access these settings often — awareness matters more than expertise.",
+      "reassurance": "Most households do not access these settings often — awareness matters more than expertise.",
       "scoring_v2": {
         "importance": 1.0,
         "max_points": 18,
@@ -28,7 +28,7 @@
       "lens": "devices",
       "type": "single",
       "prompt": "In your household, do most devices update themselves without needing reminders?",
-      "reassurance": "It’s common for updates to be a mix of automatic and manual.",
+      "reassurance": "It is common for updates to be a mix of automatic and manual.",
       "scoring_v2": {
         "importance": 1.0,
         "max_points": 18,
@@ -51,7 +51,7 @@
       "lens": "privacy",
       "type": "single",
       "prompt": "For your main email account, is there an extra step to protect it when signing in?",
-      "reassurance": "You don’t need to know the name of the setting — just whether it exists.",
+      "reassurance": "You do not need to know the name of the setting — just whether it exists.",
       "scoring_v2": {
         "importance": 1.0,
         "max_points": 20,
