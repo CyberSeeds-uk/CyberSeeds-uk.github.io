@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#13211e" />
+
+  <title>DCS-UK v1.0 | A Proposed Domestic Cyber Standard | Cyber Seeds</title>
+  <meta
+    name="description"
+    content="DCS-UK v1.0 is a newly introduced proposed domestic cyber standard by Cyber Seeds: an emerging UK framework for household digital safety, wellbeing and resilience."
+  />
+  <link rel="icon" href="/cyber_seeds_logo.png" />
+  <link rel="canonical" href="https://cyberseeds.co.uk/standard/" />
+  <link rel="stylesheet" href="/snapshot-app.css" />
+
+  <style>
+    :root{
+      --bg:#f6fbf8;
+      --paper:#ffffff;
+      --ink:#14211d;
+      --muted:#5b6b63;
+      --line:#d7e5dd;
+      --soft:#eef6f1;
+      --soft-2:#e5f0ea;
+      --brand:#18342c;
+      --brand-2:#2b5a4b;
+      --accent:#6e8f7f;
+      --shadow:0 18px 40px rgba(19,33,30,.08);
+      --radius:22px;
+      --max:1160px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(187,225,211,.22), transparent 34%),
+        linear-gradient(180deg, #f8fcfa 0%, #eff7f2 100%);
+      line-height:1.65;
+    }
+
+    a{color:var(--brand-2); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin-inline:auto;
+    }
+
+    .hero{
+      padding:clamp(42px, 7vw, 88px) 0 30px;
+    }
+
+    .hero-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.93)),
+        linear-gradient(135deg, #f7fbf8, #edf6f0);
+      border:1px solid var(--line);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      padding:clamp(24px, 4vw, 42px);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--brand);
+      font-size:.9rem;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
+    h1,h2,h3{
+      line-height:1.12;
+      letter-spacing:-.02em;
+      margin:0 0 14px;
+      color:#10201b;
+    }
+
+    h1{
+      font-size:clamp(2rem, 5vw, 4rem);
+      max-width:12ch;
+    }
+
+    h2{
+      font-size:clamp(1.45rem, 2.6vw, 2.25rem);
+    }
+
+    h3{
+      font-size:1.08rem;
+    }
+
+    .lead{
+      font-size:clamp(1.02rem, 1.5vw, 1.18rem);
+      color:#31423b;
+      max-width:67ch;
+      margin:0 0 18px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:14px;
+      border:1px solid transparent;
+      font-weight:700;
+      text-decoration:none;
+      transition:.18s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:var(--brand);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:#10231d;
+      text-decoration:none;
+      transform:translateY(-1px);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--brand);
+      border-color:var(--line);
+    }
+
+    .btn-secondary:hover{
+      background:var(--soft);
+      text-decoration:none;
+      transform:translateY(-1px);
+    }
+
+    .hero-panel{
+      background:linear-gradient(180deg, #18342c, #0f211b);
+      color:#eff8f3;
+      border-radius:24px;
+      padding:22px;
+      align-self:stretch;
+    }
+
+    .hero-panel h3{
+      color:#f3fbf6;
+      margin-bottom:10px;
+    }
+
+    .hero-panel p{
+      margin:0 0 12px;
+      color:rgba(243,251,246,.86);
+    }
+
+    .hero-list,
+    .clean-list{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-list li,
+    .clean-list li{
+      margin:8px 0;
+    }
+
+    .section{
+      padding:18px 0 26px;
+    }
+
+    .grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(2, minmax(0,1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+
+    .card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:0 12px 28px rgba(19,33,30,.05);
+    }
+
+    .card p:last-child,
+    .card ul:last-child{
+      margin-bottom:0;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .kicker{
+      margin:0 0 8px;
+      font-size:.9rem;
+      font-weight:800;
+      color:var(--brand-2);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+
+    .quote{
+      border-left:4px solid #b7d0c3;
+      padding:8px 0 8px 16px;
+      color:#2b3b34;
+      font-size:1.02rem;
+      margin:10px 0 0;
+    }
+
+    .status-box{
+      background:#fbfdfc;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      margin-top:18px;
+    }
+
+    .status-box strong{
+      display:block;
+      margin-bottom:8px;
+      color:#13231d;
+    }
+
+    .principles{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:12px;
+    }
+
+    .principle{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fbfdfc;
+      padding:16px;
+    }
+
+    .principle strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .lens{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#fff;
+      padding:18px;
+    }
+
+    .lens-num{
+      display:inline-flex;
+      min-width:34px;
+      height:34px;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--brand);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    .mini-note{
+      background:var(--soft);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px 18px;
+      color:#24352e;
+    }
+
+    .flow{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .flow-step{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px 16px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+    }
+
+    .flow-step .n{
+      flex:0 0 34px;
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--brand);
+      font-weight:800;
+    }
+
+    .band{
+      padding:8px 0 22px;
+    }
+
+    .band-inner{
+      background:linear-gradient(180deg, #10231d, #18342c);
+      color:#eef8f3;
+      border-radius:28px;
+      padding:clamp(24px, 4vw, 36px);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+    }
+
+    .band-inner h2,
+    .band-inner h3{
+      color:#f7fcf9;
+    }
+
+    .band-inner p,
+    .band-inner li{
+      color:rgba(247,252,249,.88);
+    }
+
+    .two-col-text{
+      columns:2 280px;
+      column-gap:26px;
+    }
+
+    .faq details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+      padding:16px 18px;
+      margin-bottom:12px;
+    }
+
+    .faq summary{
+      cursor:pointer;
+      font-weight:700;
+      color:#13231d;
+      list-style:none;
+    }
+
+    .faq summary::-webkit-details-marker{display:none}
+    .faq details p{margin:12px 0 0}
+
+    .legal{
+      font-size:.95rem;
+      color:var(--muted);
+    }
+
+    .cta{
+      padding:8px 0 70px;
+    }
+
+    .cta-card{
+      background:linear-gradient(180deg, #ffffff, #f5faf7);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:clamp(24px, 4vw, 40px);
+      text-align:center;
+    }
+
+    .cta-card p{
+      max-width:62ch;
+      margin:0 auto 18px;
+      color:#33443d;
+    }
+
+    @media (max-width: 940px){
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .principles{
+        grid-template-columns:1fr;
+      }
+      .two-col-text{
+        columns:1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div>
+              <span class="eyebrow">DCS-UK v1.0 • Proposed Standard</span>
+              <h1>A new proposed standard for household digital safety</h1>
+              <p class="lead">
+                DCS-UK v1.0 is a newly introduced proposed Domestic Cyber Standard developed by
+                Cyber Seeds. It presents an emerging UK framework for household digital ecology,
+                wellbeing and resilience, designed for families, practitioners, councils, schools,
+                family hubs and community organisations seeking a clearer way to understand digital
+                safety at home.
+              </p>
+              <p class="lead">
+                This is an early public version of a new type of standard. It is intended for pilot
+                use, public understanding, institutional testing and ongoing refinement. It should
+                be read as a serious, structured and adoption-ready proposal, not as an already
+                adopted national standard. :contentReference[oaicite:2]{index=2} 
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="/snapshot/">Start the Household Snapshot</a>
+                <a class="btn btn-secondary" href="/book/">Book an Audit</a>
+              </div>
+            </div>
+
+            <aside class="hero-panel" aria-label="Framework overview">
+              <h3>What this proposal introduces</h3>
+              <ul class="hero-list">
+                <li>A five-lens household safety model</li>
+                <li>A proposed HDSS scoring and renewal pathway</li>
+                <li>A trauma-aware and non-judgemental method</li>
+                <li>A household-centred alternative to corporate cyber frameworks</li>
+                <li>An emerging practice model ready for testing and adoption</li>
+              </ul>
+              <p>
+                The proposal treats the home as a living digital environment where devices,
+                behaviour, relationships and wellbeing all matter together.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <p class="kicker">Status of this framework</p>
+          <div class="status-box">
+            <strong>DCS-UK v1.0 is a new standard proposal developed by Cyber Seeds.</strong>
+            <p class="muted">
+              It is not a statutory instrument, government-issued standard, or formally adopted
+              national framework. It is an emerging model designed for pilot use, practitioner
+              training, public understanding, institutional refinement and future adoption. :contentReference[oaicite:4]{index=4}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid-2">
+        <article class="card">
+          <p class="kicker">What this is</p>
+          <h2>The proposed Domestic Cyber Standard</h2>
+          <p>
+            DCS-UK v1.0 is a proposed UK framework covering the household digital surface:
+            networks, devices, platforms, identities, behaviours and intergenerational
+            relationships. It is intended to support both households and the practitioners and
+            organisations that serve them. :contentReference[oaicite:5]{index=5}
+          </p>
+          <p>
+            The proposal responds to a clear gap: modern family life now unfolds across connected
+            devices, accounts and platforms, while most cyber guidance still assumes a workplace,
+            an IT department, or a corporate budget. DCS-UK is offered as a household-centred
+            response to that mismatch. :contentReference[oaicite:6]{index=6}
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="kicker">How it should be read</p>
+          <h2>A serious proposal, not an inflated claim</h2>
+          <p>
+            The Soft Power Edition is framed as a voluntary practice framework rather than a legal
+            compliance instrument. Its purpose is to foster digital wellbeing, nurture behavioural
+            rituals and align safeguarding systems with the realities of household life. :contentReference[oaicite:7]{index=7}
+          </p>
+          <p>
+            Cyber Seeds presents this as a new field-building move: a structured model intended to
+            be tested, refined and adopted over time, rather than presented as if formal public
+            recognition has already been achieved. 
+          </p>
+          <p class="quote">
+            The ambition is not to sound established. The ambition is to be clear enough,
+            rigorous enough and useful enough to become adoptable.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <p class="kicker">Core concepts</p>
+          <h2>The language of the proposed model</h2>
+          <div class="grid grid-3">
+            <div>
+              <h3>Domestic Cyber Ecology</h3>
+              <p class="muted">
+                The interdependent system of technologies, behaviours, relationships,
+                vulnerabilities and rituals inside a household that determine digital safety and
+                wellbeing. :contentReference[oaicite:9]{index=9}
+              </p>
+            </div>
+            <div>
+              <h3>Household Digital Surface</h3>
+              <p class="muted">
+                All devices, apps, networks, accounts, behaviours, data trails and child-centred
+                platforms that form the home’s attackable and exploitable environment. :contentReference[oaicite:10]{index=10}
+              </p>
+            </div>
+            <div>
+              <h3>Digital Seed</h3>
+              <p class="muted">
+                A small, repeatable action that grows into a stable long-term habit of digital
+                safety. :contentReference[oaicite:11]{index=11}
+              </p>
+            </div>
+          </div>
+
+          <div class="mini-note" style="margin-top:18px;">
+            The wider Cyber Seeds canon presents this work as an emerging body of knowledge and a
+            developing discipline that balances technology, behaviour, culture, wellbeing and
+            justice. That field-building ambition sits behind this proposal. 
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <p class="kicker">Principles of the proposal</p>
+          <h2>How this proposed standard is structured</h2>
+          <div class="principles">
+            <div class="principle">
+              <strong>1. Safety without Shame</strong>
+              Guidance must be non-judgemental, trauma-aware and protective of dignity and
+              emotional safety. :contentReference[oaicite:13]{index=13}
+            </div>
+            <div class="principle">
+              <strong>2. Behaviour is Infrastructure</strong>
+              Human habits and relationships matter as much as routers and devices. :contentReference[oaicite:14]{index=14}
+            </div>
+            <div class="principle">
+              <strong>3. Children Require Special Protection</strong>
+              Child wellbeing and safeguarding are integral to domestic cyber practice. :contentReference[oaicite:15]{index=15}
+            </div>
+            <div class="principle">
+              <strong>4. Simplicity over Complexity</strong>
+              Solutions must be understandable, realistic and usable by ordinary households. :contentReference[oaicite:16]{index=16}
+            </div>
+            <div class="principle">
+              <strong>5. Public Inclusion</strong>
+              The framework must serve households across differing literacy levels and economic
+              circumstances. :contentReference[oaicite:17]{index=17}
+            </div>
+            <div class="principle">
+              <strong>6. Evidence, Renewal and Accountability</strong>
+              Recommendations should be measurable, evidence-based and revisited over time. :contentReference[oaicite:18]{index=18}
+            </div>
+            <div class="principle">
+              <strong>7. Ethical Stewardship</strong>
+              Consent, confidentiality, safeguarding and professionalism are non-negotiable. :contentReference[oaicite:19]{index=19}
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="band-inner">
+          <p class="kicker" style="color:#cfe5da;">Proposed five-lens model</p>
+          <h2>The structure of the proposed DCS-UK model</h2>
+          <p>
+            At the heart of this proposal is the Five-Lens Safety Model. Each lens represents a
+            domain of household digital ecology. The lenses overlap, which means progress in one
+            area often strengthens another. This model is offered as the organising structure for
+            audit, interpretation and intervention. :contentReference[oaicite:20]{index=20}
+          </p>
+
+          <div class="grid grid-3" style="margin-top:18px;">
+            <article class="lens">
+              <div class="lens-num">1</div>
+              <h3>Network &amp; Wi-Fi Safety</h3>
+              <p>Secure configuration, updates, segmentation, guest networks and reduced attack surface. :contentReference[oaicite:21]{index=21}</p>
+            </article>
+
+            <article class="lens">
+              <div class="lens-num">2</div>
+              <h3>Device Hygiene &amp; App Safety</h3>
+              <p>Updates, passcodes, MFA, permission control, backup and device hardening. :contentReference[oaicite:22]{index=22}</p>
+            </article>
+
+            <article class="lens">
+              <div class="lens-num">3</div>
+              <h3>Privacy &amp; Identity Exposure</h3>
+              <p>Digital footprint management, privacy controls, 2FA and reduction of identity-based risk. :contentReference[oaicite:23]{index=23}</p>
+            </article>
+
+            <article class="lens">
+              <div class="lens-num">4</div>
+              <h3>Scam-Prevention &amp; Digital Behaviour</h3>
+              <p>Behavioural resilience against phishing, fraud, manipulation and high-pressure requests. :contentReference[oaicite:24]{index=24}</p>
+            </article>
+
+            <article class="lens">
+              <div class="lens-num">5</div>
+              <h3>Children’s Digital Wellbeing</h3>
+              <p>Age-appropriate boundaries, co-viewing, support, safeguarding and emotional resilience. :contentReference[oaicite:25]{index=25}</p>
+            </article>
+
+            <article class="lens">
+              <div class="lens-num">HD</div>
+              <h3>Whole-household view</h3>
+              <p>
+                The model does not isolate technology from family life. It examines how devices,
+                routines, emotions and relationships shape safety together. 
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid-2">
+        <article class="card">
+          <p class="kicker">Implementation pathway</p>
+          <h2>How the proposed framework is intended to work</h2>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="n">1</div>
+              <div>
+                <strong>Ethnographic intake</strong>
+                <div class="muted">A compassionate, trauma-aware starting conversation that understands the household in context. :contentReference[oaicite:27]{index=27}</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="n">2</div>
+              <div>
+                <strong>Digital surface mapping</strong>
+                <div class="muted">Devices, accounts, platforms and routines are made visible in household language. :contentReference[oaicite:28]{index=28}</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="n">3</div>
+              <div>
+                <strong>Layer-by-layer audit</strong>
+                <div class="muted">Each lens is explored through practical checks and lived household behaviour. :contentReference[oaicite:29]{index=29}</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="n">4</div>
+              <div>
+                <strong>HDSS scoring</strong>
+                <div class="muted">The model synthesises observations across five lenses into a fairer household score. :contentReference[oaicite:30]{index=30}</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="n">5</div>
+              <div>
+                <strong>Family safety plan</strong>
+                <div class="muted">Recommendations become realistic digital seeds tied to routines, goals and emotional context. :contentReference[oaicite:31]{index=31}</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="n">6</div>
+              <div>
+                <strong>Follow-up and renewal</strong>
+                <div class="muted">Resilience is revisited, celebrated and strengthened over time. :contentReference[oaicite:32]{index=32}</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Design intention</p>
+          <h2>From generic advice to repeatable household practice</h2>
+          <p>
+            The wider Cyber Seeds canon makes clear that the objective is not generic advice but
+            the creation of personalised safety plans and repeatable rituals that households can
+            actually live with. That is why the framework emphasises routines such as device
+            check-ins, family agreements and clear behavioural scripts rather than abstract
+            technical slogans. 
+          </p>
+          <p>
+            This is also why the proposal pairs scoring with explanation. Households should be
+            able to see which actions improve their position, why those actions matter, and how
+            progress can be renewed over time. 
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid-2">
+        <article class="card">
+          <p class="kicker">Proposed scoring model</p>
+          <h2>HDSS and household levels</h2>
+          <p>
+            The DCS-UK model uses the <strong>Household Digital Safety Score (HDSS)</strong> to
+            synthesise observations across the five lenses and support a proposed certification
+            pathway. Scores are intended to avoid socio-economic bias and to give a practical
+            reading of current position and next-step growth. :contentReference[oaicite:35]{index=35}
+          </p>
+          <ul class="clean-list">
+            <li><strong>Seed</strong> — entry-level completion and basic configuration across the lenses</li>
+            <li><strong>Sprout</strong> — progress in several lenses and adoption of routine practices</li>
+            <li><strong>Sapling</strong> — stronger household management across core areas, including child wellbeing practice</li>
+            <li><strong>Oak</strong> — high, sustained maturity across the model with community contribution potential</li>
+          </ul>
+          <p class="muted">
+            In the proposal, certification is envisioned as valid for 12 months and renewed
+            through follow-up. :contentReference[oaicite:36]{index=36}
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="kicker">Proposed practitioner pathway</p>
+          <h2>Levels of future practice</h2>
+          <p>
+            The wider Cyber Seeds framework defines progressive practitioner pathways from family
+            facilitation through to training, research and standard-setting leadership. These are
+            presented here as part of the proposed model’s future delivery structure. :contentReference[oaicite:37]{index=37} 
+          </p>
+          <ul class="clean-list">
+            <li><strong>Level 1</strong> — Family Facilitator</li>
+            <li><strong>Level 2</strong> — Practitioner</li>
+            <li><strong>Level 3</strong> — Professional</li>
+            <li><strong>Level 4</strong> — Trainer</li>
+          </ul>
+          <p class="muted">
+            All future practitioners would be expected to uphold confidentiality, safeguarding,
+            reflective practice and ongoing renewal. :contentReference[oaicite:39]{index=39}
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <p class="kicker">Public-interest alignment</p>
+          <h2>Social, cultural and statutory grounding</h2>
+          <div class="two-col-text">
+            <p>
+              DCS-UK is proposed in response to the fact that digital risk is shaped by
+              inequality, language, access, trauma, culture and family structure. The framework
+              therefore emphasises accessible materials, inclusive delivery, psychological safety
+              and guidance that respects faith, culture and community values. :contentReference[oaicite:40]{index=40}
+            </p>
+            <p>
+              The proposal is aligned with key UK duties and frameworks, including the Online
+              Safety Act, the Data Protection Act 2018 and UK GDPR, Working Together to Safeguard
+              Children, and the Children Act 1989 and 2004. :contentReference[oaicite:41]{index=41}
+            </p>
+            <p>
+              The canon also situates household digital safety within a wider socio-technical
+              context shaped by scam exposure, child online acceleration, hybrid work and study,
+              and unequal access to secure technology. 
+            </p>
+            <p>
+              In that sense, DCS-UK is being put forward not merely as a webpage or tool, but as
+              a public-interest model for a new area of household-centred cyber practice.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section faq">
+      <div class="container">
+        <p class="kicker">Questions</p>
+        <h2>Frequently asked questions</h2>
+
+        <details open>
+          <summary>Is DCS-UK already an officially recognised national standard?</summary>
+          <p>
+            No. DCS-UK v1.0 is a newly introduced standard proposal developed by Cyber Seeds. It
+            is not yet a government-issued or formally adopted national standard. It is presented
+            as an emerging framework intended for pilot use, refinement and future adoption. :contentReference[oaicite:43]{index=43}
+          </p>
+        </details>
+
+        <details>
+          <summary>Is it legally binding?</summary>
+          <p>
+            No. It is a voluntary framework intended to inspire best practice, support delivery
+            and inform policy and culture. :contentReference[oaicite:44]{index=44}
+          </p>
+        </details>
+
+        <details>
+          <summary>Who is this proposal for?</summary>
+          <p>
+            Households, practitioners, schools, councils, family hubs, charities, housing
+            associations, mental health services and other organisations interested in household
+            digital safety and resilience. :contentReference[oaicite:45]{index=45}
+          </p>
+        </details>
+
+        <details>
+          <summary>What makes this proposal different from ordinary cyber advice?</summary>
+          <p>
+            It treats behaviour, relationships, child wellbeing and emotional safety as integral
+            parts of cyber practice, not side issues. It combines technical rigour with lived
+            household context and repeatable rituals. :contentReference[oaicite:46]{index=46} 
+          </p>
+        </details>
+
+        <details>
+          <summary>How does Cyber Seeds relate to DCS-UK?</summary>
+          <p>
+            Cyber Seeds is the originating methodology and delivery framework behind the proposal.
+            DCS-UK is the proposed standard model; Cyber Seeds is the system through which that
+            model is interpreted, tested and brought into practice. :contentReference[oaicite:48]{index=48} 
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <p class="kicker">Future direction</p>
+          <h2>An emerging standard under development</h2>
+          <p>
+            DCS-UK is intended to evolve. The current edition anticipates future household
+            questions involving post-quantum risk, immersive environments, brain-computer
+            interfaces, AI companions and climate-linked resilience. It is designed to be refined
+            through consultation with practitioners, families, technologists and policymakers as
+            the field matures. :contentReference[oaicite:50]{index=50}
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-card">
+          <p class="kicker">Move from proposal to practice</p>
+          <h2>See how the model works in household form</h2>
+          <p>
+            Cyber Seeds translates this proposed standard into practical household guidance,
+            measurable scoring, digital seeds and structured follow-up. The framework is emerging;
+            the work of testing and applying it can begin now.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a class="btn btn-primary" href="/snapshot/">Start the Household Snapshot</a>
+            <a class="btn btn-secondary" href="/book/">Book a Cyber Seeds Audit</a>
+          </div>
+          <p class="legal" style="margin-top:16px;">
+            DCS-UK v1.0 is presented here as a proposed public-interest framework introduced by
+            Cyber Seeds. Operational household audits and supporting services are delivered
+            through Cyber Seeds practice.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="/js/layout.js"></script>
+</body>
+</html>
