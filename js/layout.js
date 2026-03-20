@@ -23,6 +23,7 @@ function getCurrentNavKey() {
   if (path === "/") return "home";
   if (path.startsWith("/snapshot/")) return "snapshot";
   if (path.startsWith("/resources/")) return "resources";
+  if (path.startsWith("/snapshot/")) return "snapshot";
   if (path.startsWith("/contact/")) return "contact";
   if (path.startsWith("/book/")) return "book";
 
