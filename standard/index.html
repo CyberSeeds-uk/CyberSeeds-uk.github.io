@@ -448,6 +448,41 @@
         columns:1;
       }
     }
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    
+    .flow-step{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:16px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      min-height:100%;
+    }
+    
+    .flow-step .n{
+      flex:0 0 34px;
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--brand);
+      font-weight:800;
+    }
+    
+    @media (max-width: 940px){
+      .flow{
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -520,230 +555,72 @@
     <section class="section">
       <div class="container grid grid-2">
         <article class="card">
-          <p class="kicker">What this is</p>
-          <h2>The proposed Domestic Cyber Standard</h2>
-          <p>
-            DCS-UK v1.0 is a proposed UK framework covering the household digital surface:
-            networks, devices, platforms, identities, behaviours and intergenerational
-            relationships. It is intended to support both households and the practitioners and
-            organisations that serve them.
-          </p>
-          <p>
-            The proposal responds to a clear gap: modern family life now unfolds across connected
-            devices, accounts and platforms, while most cyber guidance still assumes a workplace,
-            an IT department, or a corporate budget. DCS-UK is offered as a household-centred
-            response to that mismatch.
-          </p>
-        </article>
-
-        <article class="card">
-          <p class="kicker">How it should be read</p>
-          <h2>A serious proposal, not an inflated claim</h2>
-          <p>
-            The Soft Power Edition is framed as a voluntary practice framework rather than a legal
-            compliance instrument. Its purpose is to foster digital wellbeing, nurture behavioural
-            rituals and align safeguarding systems with the realities of household life.
-          </p>
-          <p>
-            Cyber Seeds presents this as a new field-building move: a structured model intended to
-            be tested, refined and adopted over time, rather than presented as if formal public
-            recognition has already been achieved. 
-          </p>
-          <p class="quote">
-            The ambition is not to sound established. The ambition is to be clear enough,
-            rigorous enough and useful enough to become adoptable.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <article class="card">
-          <p class="kicker">Core concepts</p>
-          <h2>The language of the proposed model</h2>
-          <div class="grid grid-3">
-            <div>
-              <h3>Domestic Cyber Ecology</h3>
-              <p class="muted">
-                The interdependent system of technologies, behaviours, relationships,
-                vulnerabilities and rituals inside a household that determine digital safety and
-                wellbeing.
-              </p>
-            </div>
-            <div>
-              <h3>Household Digital Surface</h3>
-              <p class="muted">
-                All devices, apps, networks, accounts, behaviours, data trails and child-centred
-                platforms that form the home’s attackable and exploitable environment.
-              </p>
-            </div>
-            <div>
-              <h3>Digital Seed</h3>
-              <p class="muted">
-                A small, repeatable action that grows into a stable long-term habit of digital
-                safety.
-              </p>
-            </div>
-          </div>
-
-          <div class="mini-note" style="margin-top:18px;">
-            The wider Cyber Seeds canon presents this work as an emerging body of knowledge and a
-            developing discipline that balances technology, behaviour, culture, wellbeing and
-            justice. That field-building ambition sits behind this proposal. 
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <article class="card">
-          <p class="kicker">Principles of the proposal</p>
-          <h2>How this proposed standard is structured</h2>
-          <div class="principles">
-            <div class="principle">
-              <strong>1. Safety without Shame</strong>
-              Guidance must be non-judgemental, trauma-aware and protective of dignity and
-              emotional safety.
-            </div>
-            <div class="principle">
-              <strong>2. Behaviour is Infrastructure</strong>
-              Human habits and relationships matter as much as routers and devices.
-            </div>
-            <div class="principle">
-              <strong>3. Children Require Special Protection</strong>
-              Child wellbeing and safeguarding are integral to domestic cyber practice.
-            </div>
-            <div class="principle">
-              <strong>4. Simplicity over Complexity</strong>
-              Solutions must be understandable, realistic and usable by ordinary households.
-            </div>
-            <div class="principle">
-              <strong>5. Public Inclusion</strong>
-              The framework must serve households across differing literacy levels and economic
-              circumstances.
-            </div>
-            <div class="principle">
-              <strong>6. Evidence, Renewal and Accountability</strong>
-              Recommendations should be measurable, evidence-based and revisited over time.
-            </div>
-            <div class="principle">
-              <strong>7. Ethical Stewardship</strong>
-              Consent, confidentiality, safeguarding and professionalism are non-negotiable.
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="band">
-      <div class="container">
-        <div class="band-inner">
-          <p class="kicker" style="color:#cfe5da;">Proposed five-lens model</p>
-          <h2>The structure of the proposed DCS-UK model</h2>
-          <p>
-            At the heart of this proposal is the Five-Lens Safety Model. Each lens represents a
-            domain of household digital ecology. The lenses overlap, which means progress in one
-            area often strengthens another. This model is offered as the organising structure for
-            audit, interpretation and intervention.
-          </p>
-
-          <div class="grid grid-3" style="margin-top:18px;">
-            <article class="lens">
-              <div class="lens-num">1</div>
-              <h3>Network &amp; Wi-Fi Safety</h3>
-              <p>Secure configuration, updates, segmentation, guest networks and reduced attack surface.</p>
-            </article>
-
-            <article class="lens">
-              <div class="lens-num">2</div>
-              <h3>Device Hygiene &amp; App Safety</h3>
-              <p>Updates, passcodes, MFA, permission control, backup and device hardening.</p>
-            </article>
-
-            <article class="lens">
-              <div class="lens-num">3</div>
-              <h3>Privacy &amp; Identity Exposure</h3>
-              <p>Digital footprint management, privacy controls, 2FA and reduction of identity-based risk.</p>
-            </article>
-
-            <article class="lens">
-              <div class="lens-num">4</div>
-              <h3>Scam-Prevention &amp; Digital Behaviour</h3>
-              <p>Behavioural resilience against phishing, fraud, manipulation and high-pressure requests.</p>
-            </article>
-
-            <article class="lens">
-              <div class="lens-num">5</div>
-              <h3>Children’s Digital Wellbeing</h3>
-              <p>Age-appropriate boundaries, co-viewing, support, safeguarding and emotional resilience.</p>
-            </article>
-
-            <article class="lens">
-              <div class="lens-num">HD</div>
-              <h3>Whole-household view</h3>
-              <p>
-                The model does not isolate technology from family life. It examines how devices,
-                routines, emotions and relationships shape safety together. 
-              </p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container grid grid-2">
-        <article class="card">
           <p class="kicker">Implementation pathway</p>
           <h2>How the proposed framework is intended to work</h2>
+    
           <div class="flow">
             <div class="flow-step">
               <div class="n">1</div>
               <div>
                 <strong>Ethnographic intake</strong>
-                <div class="muted">A compassionate, trauma-aware starting conversation that understands the household in context.</div>
+                <div class="muted">
+                  A compassionate, trauma-aware starting conversation that understands the household in context.
+                </div>
               </div>
             </div>
+    
             <div class="flow-step">
               <div class="n">2</div>
               <div>
                 <strong>Digital surface mapping</strong>
-                <div class="muted">Devices, accounts, platforms and routines are made visible in household language.div>
+                <div class="muted">
+                  Devices, accounts, platforms and routines are made visible in household language.
+                </div>
               </div>
             </div>
+    
             <div class="flow-step">
               <div class="n">3</div>
               <div>
                 <strong>Layer-by-layer audit</strong>
-                <div class="muted">Each lens is explored through practical checks and lived household behaviour.</div>
+                <div class="muted">
+                  Each lens is explored through practical checks and lived household behaviour.
+                </div>
               </div>
             </div>
+    
             <div class="flow-step">
               <div class="n">4</div>
               <div>
                 <strong>HDSS scoring</strong>
-                <div class="muted">The model synthesises observations across five lenses into a fairer household score.</div>
+                <div class="muted">
+                  The model synthesises observations across five lenses into a fairer household score.
+                </div>
               </div>
             </div>
+    
             <div class="flow-step">
               <div class="n">5</div>
               <div>
                 <strong>Family safety plan</strong>
-                <div class="muted">Recommendations become realistic digital seeds tied to routines, goals and emotional context.</div>
+                <div class="muted">
+                  Recommendations become realistic digital seeds tied to routines, goals and emotional context.
+                </div>
               </div>
             </div>
+    
             <div class="flow-step">
               <div class="n">6</div>
               <div>
                 <strong>Follow-up and renewal</strong>
-                <div class="muted">Resilience is revisited, celebrated and strengthened over time.</div>
+                <div class="muted">
+                  Resilience is revisited, celebrated and strengthened over time.
+                </div>
               </div>
             </div>
           </div>
         </article>
-
+    
         <article class="card">
           <p class="kicker">Design intention</p>
           <h2>From generic advice to repeatable household practice</h2>
@@ -752,12 +629,12 @@
             the creation of personalised safety plans and repeatable rituals that households can
             actually live with. That is why the framework emphasises routines such as device
             check-ins, family agreements and clear behavioural scripts rather than abstract
-            technical slogans. 
+            technical slogans.
           </p>
           <p>
             This is also why the proposal pairs scoring with explanation. Households should be
             able to see which actions improve their position, why those actions matter, and how
-            progress can be renewed over time. 
+            progress can be renewed over time.
           </p>
         </article>
       </div>
